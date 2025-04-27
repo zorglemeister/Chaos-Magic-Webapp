@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="scripts/chaosEffect.js" type="javascript"></script>
+        <link rel="stylesheet" href="chaosStyle.css">
+    </head>
+
+    <body>
+        
+        <div class="workspace">
+
+            
+
+            <div id="settingsContainer">
+                <button type="button" id="gameSettingsButton" onclick="setSettingsVisibility()">Hide Game Settings</button>
+            <div id="gameSettings">
+Configure your Chaos!
+                <br/>
+                <div id="playerCountSelector">
+                    <!-- PlayerCount button switches state between "Duel" and "Group". The button text is passed to generateList() to filter the effect list. -->
+                    <label for="playerCount">How many players?</label>
+                    <button type="button" id="playerCountButton" onclick="switchPlayerCount()">Duel</button><span id="playerCountText">1 v 1</span>
+                </div>
+                <br/>
+                <div id="listSelector">
+                    <!-- WRITE THE ONCLICK FOR THIS!! -->
+                    <!-- List choice selector controls the base list, as well as other inputs. The selected value is passed to generateList() to filter the effect list. -->
+                    <label for="listBase">Choose a list:</label>
+                    <select type="select-one" id="listBase" size="6"><!-- TODO: infobubble that displays list details on mouseover/tap -->
+                        <option>Micro</option><!-- Selecting this hides the "Repetition" control. Other selections should show "Repetition". -->
+                        <option selected>Lite</option>
+                        <option>Exemplar</option><!-- Selecting this shows the "Theme" control. Other selections should hide "Theme". -->
+                        <option>Legacy</option>
+                        <option>Full</option>
+                        <option>Custom</option><!-- Selecting this shows the "School", "Duration", and "Rarity" controls. Other selections should hide them. -->
+                    </select>
+                </div>
+                <br/>
+                <div id="vengeanceSelector">
+                    <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
+                    <label for="vengeanceToggle">Vengeance</label>
+                    <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
+                </div>
+                <br />
+                <div id="minigameSelector">
+                    <!-- Minigame selector controls visibility of "Minigame" button, as well as "minigame delay". This will also require some sort of turn tracker?-->
+                    <label for="minigameToggle">Minigames</label>
+                    <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
+                    <span id="minigameDelaySetting" style="display:none">
+                        <label for="minigameDelay">Turns between minigames</label>
+                        <input type="range" class="slider" id="minigameDelay" min="1" max="10" value="1"><span id="delayNum"></span>
+                    </span>
+                </div>
+                <br/>
+                <div id="exemplarThemeSelector">
+                    <!-- WRITE THE ONCLICK FOR THIS!! -->
+                    <!-- Theme selector controls Theme subtable for Exemplar. -->
+                    <label for="themeSelector">Exemplar Theme Table</label>
+                    <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
+                    <input type="checkbox" id="allThemes" value="allThemes" onclick="setAllSchools()" /><!-- WRITE THIS FUNCTION on check set .type="select-multiple" and .multiple = false then for each select. if unchecked do the opposite-->
+                    <select type="select-one" id="exemplarTheme" size="8"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
+                        <option selected>Tokenizer</option>
+                        <option>Complexity</option>
+                        <option>Sound-Alike</option>
+                        <option>Prodigal</option><!-- If interacted with after ALL is checked, uncheck ALL and set .type="select-multiple" and .multiple = false -->
+                        <option>Beat</option>
+                        <option>University</option>
+                        <option>Toxin</option>
+                        <option>Bad Things</option>
+                    </select>
+                </div>
+                <br/>
+                <div id="customSchoolSelector">
+                    <!-- School selector controls school filter logic. -->
+                    <label for="schoolSelector">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
+                    <label for="allSchools">All</label> <!-- Quick "select all" checkbox -->
+                    <input type="checkbox" id="allSchools" value="allSchools" onclick="setAllSchools()" checked/><!-- WRITE THIS FUNCTION -->
+                    <select type="select-multiple" id="customSchool" size="9" multiple><!-- TODO: infobubble that displays school details on mouseover/tap -->
+                        <option selected>Abjuration</option>
+                        <option selected>Chronomancy</option>
+                        <option selected>Conjuration</option>
+                        <option selected>Divination</option><!-- SEE NOTES ON RARITY SELECTOR BEHAVIOUR -->
+                        <option selected>Enchantment</option>
+                        <option selected>Evocation</option>
+                        <option selected>Illusion</option>
+                        <option selected>Necromancy</option>
+                        <option selected>Transmutation</option>
+                    </select>
+                </div>
+                <br/>
+                <div id="customDurationSelector">
+                    <!-- Duration selector controls duration filter logic. -->
+                    <label for="durationSelector">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
+                    <label for="allDurations">All</label> <!-- Quick "select all" checkbox -->
+                    <input type="checkbox" id="allDurations" value="allDurations" onclick="setAllDurations()" checked/><!-- WRITE THIS FUNCTION -->
+                    <select type="select-multiple" id="customDuration" size="4" multiple><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
+                        <option selected>Instant</option>
+                        <option selected>Turn</option>
+                        <option selected>Round</option><!-- SEE NOTES ON RARITY SELECTOR BEHAVIOUR -->
+                        <option selected>Ongoing</option>
+                    </select>
+                </div>
+                <br/>
+                <div id="customRaritySelector">
+                    <!-- Rarity selector controls rarity filter logic. -->
+                    <label for="raritySelector">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
+                    <label for="allRarities">All</label> <!-- Quick "select all" checkbox -->
+                    <input type="checkbox" id="allRarities" value="allRarities" onclick="setAllRarities()" checked/><!-- WRITE THIS FUNCTION -->
+                    <select type="select-multiple" id="customRarity" size="4" multiple><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
+                        <option selected>Common</option><!-- SCRIPT DREAMS: Initially, all are selected. If interaction occurs and not all are selected, uncheck ALL -->
+                        <option selected>Uncommon</option><!-- If all are manually selected, check ALL -->
+                        <option selected>Rare</option><!-- If ALL is checked, for each if unselected then select -->
+                        <option selected>Mythic</option><!-- If ALL is unchecked, for each unselect -->
+                    </select>
+                </div>
+                <br/>
+                <div id="customRarityMattersSelector">
+                    <!-- Rarity Matters selector impacts randomization. -->
+                    <label for="customRarityMattersToggle">Rarity Matters?</label><!-- TODO: Infobubble for What this Means?! -->
+                    <input type="checkbox" id="customRarityMattersToggle" value="rarityMatters"/>
+                </div>
+                <br/>
+                <div id="repetitionSelector">
+                    <!-- Repetition selector impacts randomization. -->
+                    <label for="repetitionToggle">Repeat Effects?</label><!-- TODO: Infobubble for What this Means?! -->
+                    <input type="checkbox" id="repetitionToggle" value="repetition" checked/>
+                </div>
+                <br />
+                <div id="updateGame">
+                    <button type="button" id="updateSettingsButton" onclick="updateGameSettings()">Update Game Settings</button>This will reset the current game!
+                    <!-- This should pop a confirm alert, and if confirmed, update the randomizer configuration and wipe the current effect and history-->
+                </div>
+
+            </div><!-- End of "gameSettings" -->
+
+            </div><!-- End of "settingsContainer" -->
+
+            <div id="gameContainer">
+
+                <div id="generateEffect">
+                    <input type="button" value="ROLL" onclick="getEffect">
+                </div>
+                <div id="generateVengeance">
+                    <button type="button" id="vengeanceButton" onclick="getVengeance()">Vengeance</button>
+                </div>
+
+                <div id="effectDisplay">
+
+                </div>
+
+                <div id="effectHistory">
+
+                </div>
+            </div><!-- End of "gameContainer" -->
+
+        </div><!-- End of "workspace" -->
+
+<!-- Scripts come after this. TODO: Can these all be put into "chaosEffect.js"? -->
+
+        <!-- Toggles visibility of game settings, switches show/hide button text -->
+        <script>
+            function setSettingsVisibility() {
+                var settingsDiv = document.getElementById("gameSettings");
+                var btnText = document.getElementById("gameSettingsButton");
+                if (btnText.innerHTML === "Hide Game Settings") {
+                    btnText.innerHTML = "Show Game Settings"; 
+                    settingsDiv.style.display = "none";
+                } else {
+                    btnText.innerHTML = "Hide Game Settings"; 
+                    settingsDiv.style.display = "block";
+                }
+            }
+        </script>
+
+        <!-- Switches the text on playerCountButton -->
+        <script>
+            function switchPlayerCount() {
+                var helpText = document.getElementById("playerCountText");
+                var btnText = document.getElementById("playerCountButton");
+                if (btnText.innerHTML === "Duel") {
+                    btnText.innerHTML = "Group"; 
+                    helpText.innerHTML = "3+";
+                } else {
+                    btnText.innerHTML = "Duel"; 
+                    helpText.innerHTML = "1 v 1";
+                }
+            }
+        </script>
+
+        <!-- Toggles visibility of Vengeance Button -->
+        <script>
+            function setVengeanceVisibility() {
+                var vengeanceDiv = document.getElementById("generateVengeance");
+                var checkState = document.getElementById("vengeanceToggle");
+                if (checkState.checked === false) {
+                    vengeanceDiv.style.display = "none";
+                } else {
+                    vengeanceDiv.style.display = "block";
+                }
+            }
+        </script>
+
+        <!-- Toggles visibility of Minigame Delay Range -->
+        <script>
+            function setMinigameDelayVisibility() {
+                var delaySpan = document.getElementById("minigameDelaySetting");
+                var checkState = document.getElementById("minigameToggle");
+                if (checkState.checked === true) {
+                    delaySpan.style.display = "block";
+                } else {
+                    delaySpan.style.display = "none";
+                }
+            }
+        </script>
+
+        <!-- Updates Minigame Delay number -->
+        <script>
+            var delaySlider = document.getElementById("minigameDelay");
+            var outputDelay = document.getElementById("delayNum");
+            outputDelay.innerHTML = delaySlider.value;
+            delaySlider.oninput = function() {
+                outputDelay.innerHTML = this.value;
+            }
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,26 @@
+The Grand Vision:
+
+A web app that allows a user to configure their list from a selection of metadata filters, determine randomization style, and then start a game session that generates a new effect on demand and keeps a log of history for that game. Nothing is persisted outside of the browser session.
+
+JSON file contains effect list:
+Name, ShortDescription, FullDescription, CanonicalNumber, DisplayNumber, Players [Duel, Multi], Inclusion (Vengeance, Micro, Lite, Exemplar [Main, ThemeX], Legacy, Minigame), School [Abjuration, Chronomancy, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, Transmutation], Duration [Instant, Turn, Round, Ongoing], Rarity [Common, Uncommon, Rare, Mythic], Component [TokenX, CounterX]
+
+Button: Game Settings (shows/hides Game Settings)
+
+PlayerCount [singleSelect: Duel (1v1), Multi (3+)] 
+List [singleSelect: Micro, Lite, Exemplar, Legacy, Full, Custom]
+ifLegacy, hide other options
+Vengeance [singleSelect: True, False]
+Minigames [singleSelect: True, False]
+ifMinigames, RoundDelay [number]
+ifExemplar, Theme [singleSelect: Tokenizer, Complexity, Sound-Alike, Prodigal, Beat, University, Toxin, BadThings, All]
+ifCustom, School [multiSelect: Abjuration, Chronomancy, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, Transmutation]
+ifCustom, Duration [multiselect: Instant, Turn, Round, Ongoing]
+ifCustom, Rarity [multiselect: Common, Uncommon, Rare, Mythic]
+ifMicro, hide Repetition
+Repetition [singleSelect: True, False]
+
+Button: Update Game Settings (This will reset the current game)
+
+Button: Generate Effect
+ifVengeance, Button: Vengeance!
