@@ -107,7 +107,7 @@ function setVengeanceVisibility() {
         vengeanceDiv.style.display = "block";
     }
 }
-// Controls minigame visibility
+// Controls minigame delay slider visibility
 function setMinigameDelayVisibility() {
     var delaySpan = document.getElementById("minigameDelaySetting");
     var checkState = document.getElementById("minigameToggle");
@@ -117,7 +117,7 @@ function setMinigameDelayVisibility() {
         delaySpan.style.display = "none";
     }
 }
-// Updates Minigame Delay number
+// Updates minigame delay number
 var delaySlider = document.getElementById("minigameDelay");
             var outputDelay = document.getElementById("delayNum");
             outputDelay.innerHTML = delaySlider.value;
@@ -175,3 +175,42 @@ function testSelectAll(allCheck, selectName) {
         checkState.checked = false;
     }
 }
+// FANCY BITWISE ARRAY ENCODING/DECODING
+let generatedArray = [];
+let encodedValue = 0;
+let encodedValueLength = 0;
+function generateArrayToEncode(selectElement) {
+    var listSelection = document.getElementById(selectElement);
+    generatedArray = [];
+    for (let i = 0; i < listSelection.options.length; i++) {
+        generatedArray.push(listSelection.options[i].selected);
+    }
+    document.getElementById("debugGeneratedSchool").innerHTML = generatedArray;
+    document.getElementById("debugGeneratedSchoolLength").innerHTML = generatedArray.length;
+}
+function encodeArrayToBitwise() {
+    encodedValue = 0;
+    encodedValueLength = generatedArray.length;
+    for (let i = 0; i < encodedValueLength; i++) {
+        if (generatedArray[i]) {
+            encodedValue |= (1 << i);
+        }
+    }
+    document.getElementById("debugEncodedSchool").innerHTML = encodedValue;
+    document.getElementById("debugEncodedSchoolLength").innerHTML = encodedValueLength;
+}
+function decodeArrayFromBitwise() {
+    let decodedArray = [];
+    for (let i = 0; i < encodedValueLength; i++) {
+        decodedArray.push((encodedValue & (1 << i)) !== 0);
+    }
+    document.getElementById("debugDecodedSchool").innerHTML = decodedArray;
+}
+function doItAll(inputElement) {
+    generateArrayToEncode(inputElement);
+    encodeArrayToBitwise();
+    decodeArrayFromBitwise();
+}
+
+
+

@@ -2,7 +2,6 @@
 <html>
 
     <head>
-        <script src="scripts/chaosEffect.js" type="javascript"></script>
         <link rel="stylesheet" href="chaosStyle.css">
     </head>
 
@@ -25,7 +24,6 @@ Configure your Chaos!
                 </div>
                 
                 <div id="listSelector">
-                    <!-- WRITE THE ONCLICK FOR THIS!! -->
                     <!-- List choice selector controls the base list, as well as other inputs. The selected value is passed to generateList() to filter the effect list. -->
                     <label for="listBase">Choose a list:</label>
                     <select type="select-one" id="listBase" size="6" onclick="setGameControlVisibility()"><!-- TODO: infobubble that displays list details on mouseover/tap -->
@@ -39,81 +37,6 @@ Configure your Chaos!
                     <span id="debugSelectionIndex"></span>
                     <br/>
                 </div>
-                <script>
-                    function setGameControlVisibility() {
-                        var mode = document.getElementById("listBase").options.selectedIndex;
-                        var vengeanceDiv = document.getElementById("vengeanceSelector");
-                        var minigameDiv = document.getElementById("minigameSelector");
-                        var exemplarDiv = document.getElementById("exemplarThemeSelector");
-                        var customSchoolDiv = document.getElementById("customSchoolSelector");
-                        var customDurationDiv = document.getElementById("customDurationSelector");
-                        var customRarityDiv = document.getElementById("customRaritySelector");
-                        var customMattersDiv = document.getElementById("customRarityMattersSelector");
-                        var repetitionDiv = document.getElementById("repetitionSelector");
-                        document.getElementById("debugSelectionIndex").innerHTML = mode;
-                        switch (mode) {
-                            case 0: // Micro
-                                vengeanceDiv.style.display = "block";
-                                minigameDiv.style.display = "block";
-                                exemplarDiv.style.display = "none";
-                                customSchoolDiv.style.display = "none";
-                                customDurationDiv.style.display = "none";
-                                customRarityDiv.style.display = "none";
-                                customMattersDiv.style.display = "none";
-                                repetitionDiv.style.display = "none";
-                                break;
-                            case 1: // Lite
-                                vengeanceDiv.style.display = "block";
-                                minigameDiv.style.display = "block";
-                                exemplarDiv.style.display = "none";
-                                customSchoolDiv.style.display = "none";
-                                customDurationDiv.style.display = "none";
-                                customRarityDiv.style.display = "none";
-                                customMattersDiv.style.display = "none";
-                                repetitionDiv.style.display = "block";
-                                break;
-                            case 2: // Exemplar
-                                vengeanceDiv.style.display = "block";
-                                minigameDiv.style.display = "block";
-                                exemplarDiv.style.display = "block";
-                                customSchoolDiv.style.display = "none";
-                                customDurationDiv.style.display = "none";
-                                customRarityDiv.style.display = "none";
-                                customMattersDiv.style.display = "none";
-                                repetitionDiv.style.display = "block";
-                                break;
-                            case 3: // Legacy
-                                vengeanceDiv.style.display = "block";
-                                minigameDiv.style.display = "none";
-                                exemplarDiv.style.display = "none";
-                                customSchoolDiv.style.display = "none";
-                                customDurationDiv.style.display = "none";
-                                customRarityDiv.style.display = "none";
-                                customMattersDiv.style.display = "none";
-                                repetitionDiv.style.display = "block";
-                                break;
-                            case 4: // Full
-                                vengeanceDiv.style.display = "block";
-                                minigameDiv.style.display = "block";
-                                exemplarDiv.style.display = "none";
-                                customSchoolDiv.style.display = "none";
-                                customDurationDiv.style.display = "none";
-                                customRarityDiv.style.display = "none";
-                                customMattersDiv.style.display = "none";
-                                repetitionDiv.style.display = "block";
-                                break;
-                            case 5: // Custom
-                                vengeanceDiv.style.display = "block";
-                                minigameDiv.style.display = "block";
-                                exemplarDiv.style.display = "none";
-                                customSchoolDiv.style.display = "block";
-                                customDurationDiv.style.display = "block";
-                                customRarityDiv.style.display = "block";
-                                customMattersDiv.style.display = "block";
-                                repetitionDiv.style.display = "block";
-                        }
-                    }
-                </script>
                 <div id="vengeanceSelector">
                     <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
                     <label for="vengeanceToggle">Vengeance</label>
@@ -131,7 +54,6 @@ Configure your Chaos!
                     <br/>
                 </div>
                 <div id="exemplarThemeSelector" style="display:none">
-                    <!-- WRITE THE ONCLICK FOR THIS!! -->
                     <!-- Theme selector controls Theme subtable for Exemplar. -->
                     <label for="themeSelector">Exemplar Theme Table</label>
                     <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
@@ -148,61 +70,6 @@ Configure your Chaos!
                     </select>
                     <br/>
                 </div>
-                <script>
-                    function uncheckThemeAll() {
-                        document.getElementById("allThemes").checked = false;
-                        document.getElementById("exemplarTheme").type = "select-one";
-                        document.getElementById("exemplarTheme").multiple = false;
-                    }
-                </script>
-                <script>
-                    function switchThemeMulti() {
-                        var listSelector = document.getElementById("exemplarTheme");
-                        var checkState = document.getElementById("allThemes"); 
-                        if (checkState.checked === true) {
-                            listSelector.type = "select-multiple";
-                            listSelector.multiple = true;
-                        } else {
-                            listSelector.type = "select-one";
-                            listSelector.multiple = false;
-                        }
-                    }
-                </script>
-                <script>
-                    function selectAll(allCheck, selectName) {
-                        var listSelector = document.getElementById(selectName);
-                        var checkState = document.getElementById(allCheck);
-                        var listLength = listSelector.options.length;
-                        if (checkState.checked === false) {
-                            for (let i = 1; i < listLength; i++) {
-                                listSelector.options[0].selected = true; // selects the first value (to avoid filtering EVERYTHING out)
-                                listSelector.options[i].selected = false; // unselects the rest
-                            }
-                        } else {
-                            for (let i = 0; i < listLength; i++) {
-                                listSelector.options[i].selected = true; // selects all the options
-                            }
-                        }
-                    }
-                </script>
-                <script>
-                    function testSelectAll(allCheck, selectName) {
-                        var listSelector = document.getElementById(selectName);
-                        var checkState = document.getElementById(allCheck);
-                        var listLength = listSelector.options.length;
-                        var allSelected = 0;
-                            for (let i = 0; i < listLength; i++) {
-                                if (listSelector.options[i].selected === false) {
-                                    allSelected++;
-                                };
-                            }
-                        if (checkState.checked === false && allSelected === 0) {
-                            checkState.checked = true;
-                        } else if (checkState.checked === true && allSelected !== 0) {
-                            checkState.checked = false;
-                        }
-                    }
-                </script>
                 <div id="customSchoolSelector" style="display:none">
                     <!-- School selector controls school filter logic. -->
                     <label for="schoolSelector">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
@@ -221,6 +88,25 @@ Configure your Chaos!
                     </select>
                     <br/>
                 </div>
+                <button type="button" id="generateSchool" onclick="generateArrayToEncode('customSchool')">Generate Array Schools</button>
+                <button type="button" id="encodeSchool" onclick="encodeArrayToBitwise(generatedArray)">Bitwise Encode Schools</button>
+                <button type="button" id="decodeSchool" onclick="decodeArrayFromBitwise(encodedValue, encodedValueLength)">Bitwise Decode Schools</button>
+                <br />
+                <button type="button" id="genEnDeSchool" onclick="doItAll('customSchool')">Do all Three</button>
+                <br />
+                Generated School Array: <span id="debugGeneratedSchool"></span>
+                <br />
+                Generated School Array Length: <span id="debugGeneratedSchoolLength"></span>
+                <br />
+                Encoded School Value: <span id="debugEncodedSchool"></span>
+                <br />
+                Encoded School Value Length: <span id="debugEncodedSchoolLength"></span>
+                <br />
+                Decoded School Array: <span id="debugDecodedSchool"></span>
+
+
+
+
                 <div id="customDurationSelector" style="display:none">
                     <!-- Duration selector controls duration filter logic. -->
                     <label for="durationSelector">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
@@ -288,74 +174,11 @@ Configure your Chaos!
 
         </div><!-- End of "workspace" -->
 
-<!-- Scripts come after this. TODO: Can these all be put into "chaosEffect.js"? -->
+<!-- Scripts come after this. -->
 
-        <!-- Toggles visibility of game settings, switches show/hide button text -->
-        <script>
-            function setSettingsVisibility() {
-                var settingsDiv = document.getElementById("gameSettings");
-                var btnText = document.getElementById("gameSettingsButton");
-                if (btnText.innerHTML === "Hide Game Settings") {
-                    btnText.innerHTML = "Show Game Settings"; 
-                    settingsDiv.style.display = "none";
-                } else {
-                    btnText.innerHTML = "Hide Game Settings"; 
-                    settingsDiv.style.display = "block";
-                }
-            }
-        </script>
+<script src="scripts/chaosEffect.js" type="text/javascript"></script>
 
-        <!-- Switches the text on playerCountButton -->
-        <script>
-            function switchPlayerCount() {
-                var helpText = document.getElementById("playerCountText");
-                var btnText = document.getElementById("playerCountButton");
-                if (btnText.innerHTML === "Duel") {
-                    btnText.innerHTML = "Group"; 
-                    helpText.innerHTML = "3+";
-                } else {
-                    btnText.innerHTML = "Duel"; 
-                    helpText.innerHTML = "1 v 1";
-                }
-            }
-        </script>
 
-        <!-- Toggles visibility of Vengeance Button -->
-        <script>
-            function setVengeanceVisibility() {
-                var vengeanceDiv = document.getElementById("generateVengeance");
-                var checkState = document.getElementById("vengeanceToggle");
-                if (checkState.checked === false) {
-                    vengeanceDiv.style.display = "none";
-                } else {
-                    vengeanceDiv.style.display = "block";
-                }
-            }
-        </script>
-
-        <!-- Toggles visibility of Minigame Delay Range -->
-        <script>
-            function setMinigameDelayVisibility() {
-                var delaySpan = document.getElementById("minigameDelaySetting");
-                var checkState = document.getElementById("minigameToggle");
-                if (checkState.checked === true) {
-                    delaySpan.style.display = "block";
-                } else {
-                    delaySpan.style.display = "none";
-                }
-            }
-        </script>
-
-        <!-- Updates Minigame Delay number -->
-        <script>
-            var delaySlider = document.getElementById("minigameDelay");
-            var outputDelay = document.getElementById("delayNum");
-            outputDelay.innerHTML = delaySlider.value;
-            delaySlider.oninput = function() {
-                outputDelay.innerHTML = this.value;
-            }
-        </script>
-<script src="scripts/chaosEffect.js" type="javascript"></script>
     </body>
 
 </html>

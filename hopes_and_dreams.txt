@@ -22,5 +22,16 @@ Repetition [singleSelect: True, False]
 
 Button: Update Game Settings (This will reset the current game)
 
+Game Settings Payload
+count - duel:0 multi:1
+baseList - micro:0 lite:1 exemplar:2 legacy:3 full:4 custom:5
+exemplarTheme - token:0 comp:1 sound:2 prod:3 beat:4 uni:5 tox:6 bad:7 all:8
+customSchool - bitwise encoded array, length 9
+customDuration - bitwise encoded array, length 4
+customRarity - bitwise encoded array, length 4
+customMatters - boolean
+repetition - boolean
+
+
 Button: Generate Effect
 ifVengeance, Button: Vengeance!
