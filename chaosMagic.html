@@ -20,27 +20,37 @@ Configure your Chaos!
                     <!-- PlayerCount button switches state between "Duel" and "Group". The button text is passed to generateList() to filter the effect list. -->
                     <label for="playerCount">How many players?</label>
                     <button type="button" id="playerCountButton" onclick="switchPlayerCount()">Duel</button><span id="playerCountText">1 v 1</span>
+                    <span id="explainPlayerCount" class="explain">Some effects work better for games with three or more players. Selecting "Duel" will filter out those effects.</span>
                     <br/>
                 </div>
                 
                 <div id="listSelector">
                     <!-- List choice selector controls the base list, as well as other inputs. The selected value is passed to generateList() to filter the effect list. -->
                     <label for="listBase">Choose a list:</label>
-                    <select type="select-one" id="listBase" size="6" onclick="setGameControlVisibility()"><!-- TODO: infobubble that displays list details on mouseover/tap -->
-                        <option>Micro</option><!-- Selecting this hides the "Repetition" control. Other selections should show "Repetition". -->
-                        <option selected>Lite</option>
-                        <option>Exemplar</option><!-- Selecting this shows the "Theme" control. Other selections should hide "Theme". -->
-                        <option>Legacy</option>
-                        <option>Full</option>
-                        <option>Custom</option><!-- Selecting this shows the "School", "Duration", and "Rarity" controls. Other selections should hide them. -->
+                    <select type="select-one" id="listBase" size="6" onclick="setGameControlVisibility()" style="overflow: hidden"><!-- TODO: infobubble that displays list details on mouseover/tap -->
+                        <option>Micro</option><!-- Vengeance and Minigame are visible -->
+                        <option selected>Lite</option><!-- Vengeance, Minigame, and Repetition are visible -->
+                        <option>Exemplar</option><!-- Vengeance, Minigame, Theme, and Repetition are visible -->
+                        <option>Legacy</option><!-- Vengeance and Repetition are visible -->
+                        <option>Full</option><!-- Vengeance, Minigame, and Repetition are visible -->
+                        <option>Custom</option><!-- Vengeance, Minigame, School, Duration, Rarity, Rarity Matters, and Repetition are visible -->
                     </select>
                     <span id="debugSelectionIndex"></span>
+                    <span id="explainListSelector" class="explain">The List has had several "collections" over the years. Pick one or define your own.</span>
                     <br/>
                 </div>
                 <div id="vengeanceSelector">
                     <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
                     <label for="vengeanceToggle">Vengeance</label>
                     <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
+                    <span id="explainVengeance" class="explain">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
+                    <br/>
+                </div>
+                <div id="physicalSelector">
+                    <!-- Physical selector controls inclusion of effects that require physical movements outside of normal gameplay -->
+                    <label for="physicalToggle">Physical</label>
+                    <input type="checkbox" id="physicalToggle" value="physical" checked/>
+                    <span id="explainPhysical" class="explain">Some effects involve physical activity that may not be accessible for all players.</span>
                     <br/>
                 </div>
                 <div id="minigameSelector">
@@ -49,43 +59,46 @@ Configure your Chaos!
                     <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
                     <span id="minigameDelaySetting" style="display:none">
                         <label for="minigameDelay">Turns between minigames</label>
-                        <input type="range" class="slider" id="minigameDelay" min="1" max="10" value="1"><span id="delayNum"></span>
+                        <input type="range" class="slider" id="minigameDelay" min="0" max="10" value="4"><span id="delayNum"></span>
                     </span>
+                    <span id="explainMinigame" class="explain">Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between games or choose to manually trigger one when you feel like it.</span>
                     <br/>
                 </div>
                 <div id="exemplarThemeSelector" style="display:none">
                     <!-- Theme selector controls Theme subtable for Exemplar. -->
                     <label for="themeSelector">Exemplar Theme Table</label>
                     <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allThemes" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemes', 'exemplarTheme')" /><!-- WRITE THIS FUNCTION on check set .type="select-multiple" and .multiple = false then for each select. if unchecked do the opposite-->
-                    <select type="select-one" id="exemplarTheme" size="8" onclick="uncheckThemeAll()"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
+                    <input type="checkbox" id="allThemes" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemes', 'exemplarTheme')" />
+                    <select type="select-one" id="exemplarTheme" size="8" onclick="uncheckThemeAll()" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
                         <option selected>Tokenizer</option>
                         <option>Complexity</option>
                         <option>Sound-Alike</option>
-                        <option>Prodigal</option><!-- If interacted with after ALL is checked, uncheck ALL and set .type="select-multiple" and .multiple = false -->
+                        <option>Prodigal</option>
                         <option>Beat</option>
                         <option>University</option>
                         <option>Toxin</option>
                         <option>Bad Things</option>
                     </select>
+                    <span id="explainTheme" class="explain">The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table or include all of them.</span>
                     <br/>
                 </div>
                 <div id="customSchoolSelector" style="display:none">
                     <!-- School selector controls school filter logic. -->
                     <label for="schoolSelector">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
                     <label for="allSchools">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allSchools" value="allSchools" onclick="selectAll('allSchools', 'customSchool')" checked/><!-- WRITE THIS FUNCTION -->
-                    <select type="select-multiple" id="customSchool" size="9" multiple onclick="testSelectAll('allSchools', 'customSchool')"><!-- TODO: infobubble that displays school details on mouseover/tap -->
-                        <option selected>Abjuration</option>
-                        <option selected>Chronomancy</option>
-                        <option selected>Conjuration</option>
-                        <option selected>Divination</option><!-- SEE NOTES ON RARITY SELECTOR BEHAVIOUR -->
-                        <option selected>Enchantment</option>
-                        <option selected>Evocation</option>
-                        <option selected>Illusion</option>
-                        <option selected>Necromancy</option>
-                        <option selected>Transmutation</option>
+                    <input type="checkbox" id="allSchools" value="allSchools" onclick="selectAll('allSchools', 'customSchool')" checked/>
+                    <select type="select-multiple" id="customSchool" size="9" multiple onclick="testSelectAll('allSchools', 'customSchool')" style="overflow: hidden"><!-- TODO: infobubble that displays school details on mouseover/tap -->
+                        <option selected>Abjuration</option><span id="explainAbjure" class="listPop">Protective effects</span>
+                        <option selected>Chronomancy</option><span id="explainChrono" class="listPop">Time/Turn effects</span>
+                        <option selected>Conjuration</option><span id="explainConjure" class="listPop">Copies and Tokens</span>
+                        <option selected>Divination</option><span id="explainDivine" class="listPop">Hands, Libraries, and Draw</span>
+                        <option selected>Enchantment</option><span id="explainEnchant" class="listPop">Permanent Alterations</span>
+                        <option selected>Evocation</option><span id="explainEvoke" class="listPop">Damage</span>
+                        <option selected>Illusion</option><span id="explainIllusion" class="listPop">Temporary Alterations</span>
+                        <option selected>Necromancy</option><span id="explainNecro" class="listPop">Graveyard</span>
+                        <option selected>Transmutation</option><span id="explainTransmute" class="listPop">Alterations</span>
                     </select>
+                    <span id="explainSchool" class="explain">Every effect belongs to one or more schools of magic. Choose which sorts of effects to include.</span>
                     <br/>
                 </div>
                 <button type="button" id="generateSchool" onclick="generateArrayToEncode('customSchool')">Generate Array Schools</button>
@@ -111,38 +124,42 @@ Configure your Chaos!
                     <!-- Duration selector controls duration filter logic. -->
                     <label for="durationSelector">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
                     <label for="allDurations">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allDurations" value="allDurations" onclick="selectAll('allDurations', 'customDuration')" checked/><!-- WRITE THIS FUNCTION -->
-                    <select type="select-multiple" id="customDuration" size="4" multiple onclick="testSelectAll('allDurations', 'customDuration')"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
+                    <input type="checkbox" id="allDurations" value="allDurations" onclick="selectAll('allDurations', 'customDuration')" checked/>
+                    <select type="select-multiple" id="customDuration" size="4" multiple onclick="testSelectAll('allDurations', 'customDuration')" style="overflow: hidden"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
                         <option selected>Instant</option>
                         <option selected>Turn</option>
-                        <option selected>Round</option><!-- SEE NOTES ON RARITY SELECTOR BEHAVIOUR -->
+                        <option selected>Round</option>
                         <option selected>Ongoing</option>
                     </select>
+                    <span id="explainDuration" class="explain"></span>
                     <br/>
                 </div>
                 <div id="customRaritySelector" style="display:none">
                     <!-- Rarity selector controls rarity filter logic. -->
                     <label for="raritySelector">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
                     <label for="allRarities">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allRarities" value="allRarities" onclick="selectAll('allRarities', 'customRarity')" checked/><!-- WRITE THIS FUNCTION -->
-                    <select type="select-multiple" id="customRarity" size="4" multiple onclick="testSelectAll('allRarities', 'customRarity')"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
-                        <option selected>Common</option><!-- SCRIPT DREAMS: Initially, all are selected. If interaction occurs and not all are selected, uncheck ALL -->
-                        <option selected>Uncommon</option><!-- If all are manually selected, check ALL -->
-                        <option selected>Rare</option><!-- If ALL is checked, for each if unselected then select -->
-                        <option selected>Mythic</option><!-- If ALL is unchecked, for each unselect -->
+                    <input type="checkbox" id="allRarities" value="allRarities" onclick="selectAll('allRarities', 'customRarity')" checked/>
+                    <select type="select-multiple" id="customRarity" size="4" multiple onclick="testSelectAll('allRarities', 'customRarity')" style="overflow: hidden"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
+                        <option selected>Common</option>
+                        <option selected>Uncommon</option>
+                        <option selected>Rare</option>
+                        <option selected>Mythic</option>
                     </select>
+                    <span id="explainRarity" class="explain"></span>
                     <br/>
                 </div>
                 <div id="customRarityMattersSelector" style="display:none">
                     <!-- Rarity Matters selector impacts randomization. -->
                     <label for="customRarityMattersToggle">Rarity Matters?</label><!-- TODO: Infobubble for What this Means?! -->
                     <input type="checkbox" id="customRarityMattersToggle" value="rarityMatters"/>
+                    <span id="explainRarityMatters" class="explain">Controls randomizer: effects occur more or less frequently depending on their rarity.</span>
                     <br/>
                 </div>
                 <div id="repetitionSelector">
                     <!-- Repetition selector impacts randomization. -->
                     <label for="repetitionToggle">Repeat Effects?</label><!-- TODO: Infobubble for What this Means?! -->
                     <input type="checkbox" id="repetitionToggle" value="repetition" checked/>
+                    <span id="explainRepetition" class="explain">Allow effects to occur more than once in a game.</span>
                     <br/>
                 </div>
                 <div id="updateGame">

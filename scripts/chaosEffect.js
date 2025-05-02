@@ -122,7 +122,11 @@ var delaySlider = document.getElementById("minigameDelay");
             var outputDelay = document.getElementById("delayNum");
             outputDelay.innerHTML = delaySlider.value;
             delaySlider.oninput = function() {
-                outputDelay.innerHTML = this.value;
+                if (delaySlider.value == 0) {
+                    outputDelay.innerHTML = "Whenever"
+                } else {
+                    outputDelay.innerHTML = this.value;
+                }
             }
 // Change Theme Multiselect when ALL is checked or unchecked
 function switchThemeMulti() {
@@ -212,5 +216,9 @@ function doItAll(inputElement) {
     decodeArrayFromBitwise();
 }
 
-
+// Basic Randomizer
+// const sourceList = 
+// function basicGenerator() {
+//     var 
+// }
 
