@@ -31,4 +31,5 @@ right: 10px;
     margin-right: 50px;
     background-color: rgba(255, 255, 255, 1); /* semi-transparent background for debug/aesthetics */
     padding: 5pm;
+    border: 1px solid black;
 }
