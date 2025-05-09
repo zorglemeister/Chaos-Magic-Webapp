@@ -93,7 +93,7 @@ function setGameControlVisibility() {
             break;
         case 4: // Full
             vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "block";
+            minigameDiv.style.display = "none";
             exemplarDiv.style.display = "none";
             customSchoolDiv.style.display = "none";
             customDurationDiv.style.display = "none";

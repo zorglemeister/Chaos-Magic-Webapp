@@ -54,3 +54,6 @@ need to build a "random [thing]" that returns a direction, colour, land type, ca
 tempted to have a column in the data for "special function" that would allow me to write the code for effects to update dynamically with any randomized value they contain
 yeah, going to do that
 essentially, if a "special function" exists, it'll call that function and return the effect text
+
+
+if repetition is false, need a "remaining effects" counter and a "reshuffle" button that regenerates the list
