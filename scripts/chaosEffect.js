@@ -283,7 +283,7 @@ function makeGame() {
     var minigames = document.getElementById("minigameToggle").checked;
     // minigameDelay
     var minigameDelay = document.getElementById("minigameDelay").value;
-    //DEBUG OUTPUT
+    // DEBUG OUTPUT
     document.getElementById("debugPlayerCount").textContent = playerCount;
     document.getElementById("debugBaseList").textContent = baseList;
     document.getElementById("debugPhysical").textContent = physical.toString();

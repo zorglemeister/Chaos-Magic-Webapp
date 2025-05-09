@@ -3,6 +3,11 @@
     font-weight: bold;
     color:darkgreen;
 }
+.helpIcon {
+position: absolute;
+top: 10px;
+right: 10px;
+}
 .helpIconClosed::before {
     content: "\1F4D5"; /* Unicode Closed Book  - default for help icons */
     font-size: 24 px;
@@ -20,9 +25,10 @@
     border: 1px solid #000;
 }
 .helpFloat {
-    position:absolute;
+    position: absolute;
     top: 20px;
     left: 50px;
-    background-color: rgba(255, 255, 255, 0.8); /* semi-transparent background for debug/aesthetics */
+    margin-right: 50px;
+    background-color: rgba(255, 255, 255, 1); /* semi-transparent background for debug/aesthetics */
     padding: 5pm;
 }
