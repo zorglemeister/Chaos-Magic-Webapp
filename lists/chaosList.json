@@ -22,6 +22,25 @@
         ],
         "SpecFunc": ""
         }
+        {
+        "Name": "Overrun",
+        "ShortDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
+        "FullDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
+        "CanonNum": 30,
+        "DispNum": "030",
+        "Players": "Duel",
+        "Inclusion": [
+        "Exemplar"
+        ],
+        "Exemplar": "Main",
+        "School": [
+        "Transmutation"
+        ],
+        "Duration": "Turn",
+        "Rarity": "Uncommon",
+        "Component": [],
+        "SpecFunc": ""
+        }
         ]
         
 }

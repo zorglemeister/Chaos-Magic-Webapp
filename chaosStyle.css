@@ -1,0 +1,28 @@
+
+.debug {
+    font-weight: bold;
+    color:darkgreen;
+}
+.helpIconClosed::before {
+    content: "\1F4D5"; /* Unicode Closed Book  - default for help icons */
+    font-size: 24 px;
+}
+.helpIconOpen::before {
+    content: "\1F4D6"; /* Unicode Open Book  - toggled state for help icons */
+    font-size: 24 px;
+}
+.hiddenHelp {
+    display: none;
+}
+.settingContainer { /* boxes the setting (anchors the floating help text) */
+    position: relative;
+    width: 400px;
+    border: 1px solid #000;
+}
+.helpFloat {
+    position:absolute;
+    top: 20px;
+    left: 50px;
+    background-color: rgba(255, 255, 255, 0.8); /* semi-transparent background for debug/aesthetics */
+    padding: 5pm;
+}
