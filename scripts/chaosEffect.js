@@ -16,7 +16,7 @@ function makeGame() {
     // exemplarTheme
     var exemplarTheme = "";
     if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
-        exemplarTheme = "All";
+        exemplarTheme = "all";
     } else {
         exemplarTheme = document.getElementById("exemplarTheme").value; // otherwise set it to the selected single value
     }
@@ -86,6 +86,136 @@ function makeGame() {
     document.getElementById("debugMinigamesDelay").textContent = minigameDelay;
 }
 
+//  AAAAARGH It be debug time
+
+// literally a button to "set" each setting, so I can see what the hell is being passed.
+
+function debugSetPlayerCount() {
+    var playerCount = document.getElementById("playerCountButton").innerHTML;
+    document.getElementById("debugPC").textContent = playerCount;
+    return playerCount;
+}
+
+function debugSetList() {
+    var baseList = document.getElementById("listBase").value;
+    document.getElementById("debugList").textContent = baseList;
+    return baseList;
+}
+
+function debugSetVeng() {
+    var vengeance = document.getElementById("vengeanceToggle").checked;
+    document.getElementById("debugVeng").textContent = vengeance.toString();
+    return vengeance.toString();
+}
+
+function debugSetPhys() {
+    var physical = document.getElementById("physicalToggle").checked;
+    document.getElementById("debugPhys").textContent = physical.toString();
+    return physical.toString();
+}
+
+function debugSetMG() {
+    var minigames = document.getElementById("minigameToggle").checked;
+    document.getElementById("debugMG").textContent = minigames.toString();
+    return minigames.toString();
+}
+
+function debugSetMGdelay() {
+    var minigameDelay = document.getElementById("minigameDelay").value;
+    document.getElementById("debugMGDelay").textContent = minigameDelay;
+    return minigameDelay;
+}
+
+function debugSetTheme() {
+    var exemplarTheme = "";
+    if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
+        exemplarTheme = "all";
+    } else {
+        exemplarTheme = document.getElementById("exemplarTheme").value; // otherwise set it to the selected single value
+    }
+    document.getElementById("debugTheme").textContent = exemplarTheme;
+    return exemplarTheme;
+}
+
+function debugSetSchool() {
+    var schoolArray = [];
+    var schoolSelection = document.getElementById("customSchool");
+    for (let i = 0; i < schoolSelection.options.length; i++) {
+        if (schoolSelection.options[i].selected) {
+            schoolArray.push(schoolSelection.options[i].value);
+        }   
+    }
+    document.getElementById("debugSchool").textContent = schoolArray.join(", ");
+    return schoolArray.join(", ");
+}
+
+function debugSetDuration() {
+    var durationArray = [];
+    var durationSelection = document.getElementById("customDuration");
+    for (let i = 0; i < durationSelection.options.length; i++) {
+        if (durationSelection.options[i].selected) {
+        durationArray.push(durationSelection.options[i].value);
+        }
+    }
+    document.getElementById("debugDuration").textContent = durationArray.join(", ");
+    return durationArray.join(", ");
+}
+
+function debugSetRarity() {
+    var rarityArray = [];
+    var raritySelection = document.getElementById("customRarity");
+    for (let i = 0; i < raritySelection.options.length; i++) {
+        if (raritySelection.options[i].selected) {
+        rarityArray.push(raritySelection.options[i].value);
+        }
+    }
+    document.getElementById("debugRarity").textContent = rarityArray.join(", ");
+    return rarityArray.join(", ");
+}
+
+function debugSetRM() {
+    var customRarityMatters = document.getElementById("customRarityMAttersToggle").checked;
+    document.getElementById("debugRM").textContent = customRarityMatters.toString();
+    return customRarityMatters.toString();
+}
+
+function debugSetRep() {
+    var repetition = document.getElementById("repetitionToggle").checked;
+    document.getElementById("debugRep").textContent = repetition.toString();
+    return repetition.toString();
+}
+
+// OKAY, so each individual function works FINE.
+// What if I just make a function that calls each of those in order and use THAT?!
+// need to add a "return" to each one and split MG and MG Delay...
+// Alright, that's done, now let's make a thing that strings them together and pushes each to an array
+
+function debugMakeGame() {
+    var debugGameConfig = [];
+    debugGameConfig.push(debugSetPlayerCount());
+    debugGameConfig.push(debugSetList());
+    debugGameConfig.push(debugSetPhys());
+    debugGameConfig.push(debugSetTheme());
+    debugGameConfig.push(debugSetSchool());
+    debugGameConfig.push(debugSetDuration());
+    debugGameConfig.push(debugSetRarity());
+    debugGameConfig.push(debugSetRep());
+    debugGameConfig.push(debugSetRM());
+    debugGameConfig.push(debugSetVeng());
+    debugGameConfig.push(debugSetMG()); 
+    debugGameConfig.push(debugSetMGdelay());
+    document.getElementById("debugMakeGameOutput").textContent = debugGameConfig.join(", ");
+
+}
+
+// AAAAAARGH
+
+
+
+
+
+
+
 //
 //
 // LET'S MAKE A LIST!
@@ -118,7 +248,7 @@ async function loadJSON(filePath) {
 // const sourceList = 
 // function basicGenerator() {
 //     var 
-rngValue = Math.floor(Math.random() * effectList.length);
+// rngValue = Math.floor(Math.random() * effectList.length);
 
 // }
 

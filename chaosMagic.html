@@ -45,6 +45,8 @@
                     <span id="explainListSelectorIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainListSelectorText', this)" onmouseout="toggleHelp('explainListSelectorText', this)"></span>
                     <span id="explainListSelectorText" class="explain hiddenHelp helpFloat">The List has had several "collections" over the years. Pick one or define your own.</span>
                     </p>
+                    <button type="button" id="debugSetList" onclick="debugSetList()">Set List</button>
+                <span class="debug" id="debugList"></span>
                 </div>
                 <div id="vengeanceSelector" class="settingContainer">
                     <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
@@ -54,6 +56,8 @@
                     <span id="explainVengeanceIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainVengeanceText', this)" onmouseout="toggleHelp('explainVengeanceText', this)"></span>
                     <span id="explainVengeanceText" class="explain hiddenHelp helpFloat">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
                     </p>
+                    <button type="button" id="debugSetVeng" onclick="debugSetVeng()">Set Vengeance</button>
+                <span class="debug" id="debugVeng"></span>
                 </div>
                 <div id="physicalSelector" class="settingContainer">
                     <!-- Physical selector controls inclusion of effects that require physical movements outside of normal gameplay -->
@@ -63,6 +67,8 @@
                     <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)"onmouseout="toggleHelp('explainPhysicalText', this)"></span>
                     <span id="explainPhysicalText" class="explain hiddenHelp helpFloat">Some effects involve physical activity that may not be accessible for all players.</span>
                     </p>
+                    <button type="button" id="debugSetPhys" onclick="debugSetPhys()">Set Physical</button>
+                <span class="debug" id="debugPhys"></span>
                 </div>
                 <div id="minigameSelector" class="settingContainer">
                     <!-- Minigame selector controls visibility of "Minigame" button, as well as "minigame delay". This will also require some sort of turn tracker?-->
@@ -76,6 +82,9 @@
                     <span id="explainMinigameIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainMinigameText', this)" onmouseout="toggleHelp('explainMinigameText', this)"></span>
                     <span id="explainMinigameText" class="explain hiddenHelp helpFloat">Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between games or choose to manually trigger one when you feel like it.</span>
                     </p>
+                    <button type="button" id="debugSetMG" onclick="debugSetMG()">Set Minigame</button>
+                <span class="debug" id="debugMG"></span>
+                <span class="debug" id="debugMGDelay"></span>
                 </div>
                 <div id="exemplarThemeSelector" class="settingContainer">
                     <!-- Theme selector controls Theme subtable for Exemplar. -->
@@ -96,6 +105,8 @@
                     <span id="explainThemeIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainThemeText', this)" onmouseout="toggleHelp('explainThemeText', this)"></span>
                     <span id="explainThemeText" class="explain hiddenHelp helpFloat">The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table or include all of them.</span>
                     </p>
+                    <button type="button" id="debugSetTheme" onclick="debugSetTheme()">Set Theme</button>
+                <span class="debug" id="debugTheme"></span>
                 </div>
                 <div id="customSchoolSelector" class="settingContainer">
                     <!-- School selector controls school filter logic. -->
@@ -117,6 +128,8 @@
                     <span id="explainSchoolIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainSchoolText', this)" onmouseout="toggleHelp('explainSchoolText', this)"></span>
                     <span id="explainSchoolText" class="explain hiddenHelp helpFloat">Every effect belongs to one or more schools of magic. Choose which sorts of effects to include.</span>
                     </p>
+                    <button type="button" id="debugSetSchool" onclick="debugSetSchool()">Set School</button>
+                <span class="debug" id="debugSchool"></span>
                 
                 <div class="debug">
                 <button class="debug" type="button" id="generateSchool" onclick="generateArrayToEncode('customSchool')">Generate Array Schools</button>
@@ -155,6 +168,8 @@
                     <span id="explainDurationIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainDurationText', this)" onmouseout="toggleHelp('explainDurationText', this)"></span>
                     <span id="explainDurationText" class="explain hiddenHelp helpFloat">TEXT EXPLAINING DURATION</span>
                     </p>
+                    <button type="button" id="debugSetDuration" onclick="debugSetDuration()">Set Duration</button>
+                <span class="debug" id="debugDuration"></span>
                 </div>
                 <div id="customRaritySelector" class="settingContainer">
                     <!-- Rarity selector controls rarity filter logic. -->
@@ -171,6 +186,8 @@
                     <span id="explainRarityIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRarityText', this)" onmouseout="toggleHelp('explainRarityText', this)"></span>
                     <span id="explainRarityText" class="explain hiddenHelp helpFloat">TEXT EXPLAINING RARITY</span>
                     </p>
+                    <button type="button" id="debugSetRarity" onclick="debugSetRarity()">Set Rarity</button>
+                <span class="debug" id="debugRarity"></span>
                 </div>
                 <div id="customRarityMattersSelector" class="settingContainer">
                     <!-- Rarity Matters selector impacts randomization. -->
@@ -180,6 +197,8 @@
                     <span id="explainRarityMattersIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRarityMattersText', this)" onmouseout="toggleHelp('explainRarityMattersText', this)"></span>
                     <span id="explainRarityMattersText" class="explain hiddenHelp helpFloat">Controls randomizer: effects occur more or less frequently depending on their rarity.</span>
                     </p>
+                    <button type="button" id="debugSetRM" onclick="debugSetRM()">Set Rarity Matters</button>
+                <span class="debug" id="debugRM"></span>
                 </div>
                 <div id="repetitionSelector" class="settingContainer">
                     <!-- Repetition selector impacts randomization. -->
@@ -189,7 +208,14 @@
                     <span id="explainRepetitionIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRepetitionText', this)"  onmouseout="toggleHelp('explainRepetitionText', this)"></span>
                     <span id="explainRepetitionText" class="explain hiddenHelp helpFloat">Allow effects to occur more than once in a game.</span>
                     </p>
+                    <button type="button" id="debugSetRep" onclick="debugSetRep()">Set Repetition</button>
+                <span class="debug" id="debugRep"></span>
                 </div>
+                <button type="button" id="debugMakeGame" onclick="debugMakeGame()">DEBUG MAKE GAME</button>
+                Full Settings Array
+                <div id="debugMakeGameOutput"></div>
+
+                <h1>NOTHING BELOW HERE WORKS</h1>
                 <!--  WHY NO WORKY?! -->
                 <div id="updateGame">
                     <button type="button" id="updateSettingsButton" onclick="makeGame()">Update Game Settings</button> This will reset the current game!
@@ -239,6 +265,7 @@
 <!-- Scripts come after this. -->
 
 <script src="scripts/chaosEffect.js" type="text/javascript"></script>
+<script src="scripts/chaosSettings.js" type="text/javascript"></script>
 <script>
     window.onload = setGameControlVisibility()
 </script>
