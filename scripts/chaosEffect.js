@@ -4,6 +4,7 @@
 
 // Collects all the game settings and turns them into an object
 // WHY DOESN'T THIS WORK??!?!?!?!
+// IT WORKS NOW!
 function makeGame() {
     const gameConfig = [];
     // list configuration
@@ -105,19 +106,19 @@ function debugSetList() {
 function debugSetVeng() {
     var vengeance = document.getElementById("vengeanceToggle").checked;
     document.getElementById("debugVeng").textContent = vengeance.toString();
-    return vengeance.toString();
+    return vengeance; // .toString();
 }
 
 function debugSetPhys() {
     var physical = document.getElementById("physicalToggle").checked;
     document.getElementById("debugPhys").textContent = physical.toString();
-    return physical.toString();
+    return physical; // .toString();
 }
 
 function debugSetMG() {
     var minigames = document.getElementById("minigameToggle").checked;
     document.getElementById("debugMG").textContent = minigames.toString();
-    return minigames.toString();
+    return minigames; // .toString();
 }
 
 function debugSetMGDelay() {
@@ -146,7 +147,7 @@ function debugSetSchool() {
         }   
     }
     document.getElementById("debugSchool").textContent = schoolArray.join(", ");
-    return schoolArray.join(", ");
+    return schoolArray; // what does it look like if I don't use .join(", ") ??
 }
 
 function debugSetDuration() {
@@ -158,7 +159,7 @@ function debugSetDuration() {
         }
     }
     document.getElementById("debugDuration").textContent = durationArray.join(", ");
-    return durationArray.join(", ");
+    return durationArray; // .join(", ");
 }
 
 function debugSetRarity() {
@@ -170,19 +171,19 @@ function debugSetRarity() {
         }
     }
     document.getElementById("debugRarity").textContent = rarityArray.join(", ");
-    return rarityArray.join(", ");
+    return rarityArray; // .join(", ");
 }
 
 function debugSetRM() {
     var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
     document.getElementById("debugRM").textContent = customRarityMatters.toString();
-    return customRarityMatters.toString();
+    return customRarityMatters; // .toString();
 }
 
 function debugSetRep() {
     var repetition = document.getElementById("repetitionToggle").checked;
     document.getElementById("debugRep").textContent = repetition.toString();
-    return repetition.toString();
+    return repetition; // .toString();
 }
 
 // OKAY, so each individual function works FINE.
@@ -213,7 +214,25 @@ function debugMakeGame() {
 
 // HAHAHAHAHA, I had typed "customRarityMAttersToggle", LOOK AT THE CAPITAL 'A' HAHAHAHAHAHA
 
+// Let's make it an object instead... (THANKS AARON)
+function makeGameConfig() {
+    const gameConfig = {
+        players: debugSetPlayerCount(),
+        list: debugSetList(),
+        physical: debugSetPhys(),
+        theme: debugSetTheme(),
+        school: debugSetSchool(),
+        duration: debugSetDuration(),
+        rarity: debugSetRarity(),
+        repetition: debugSetRep(),
+        rarityMatters: debugSetRM(),
+        vengeance: debugSetVeng(),
+        minigame: debugSetMG(),
+        minigameDelay: debugSetMGDelay()
+    }
+    document.getElementById("makeGameObject").textContent = gameConfig;
 
+}
 
 
 //
@@ -226,7 +245,7 @@ function debugMakeGame() {
 const filePath = './lists/chaosList.json'
 
 // declare the library with global scope calling the file loader
-const effectLibrary = loadJson(filePath)
+const effectLibrary = loadJSON(filePath)
 
 // function to go get the file
 async function loadJSON(filePath) {
@@ -234,6 +253,8 @@ async function loadJSON(filePath) {
     const data = await response.json();
     return data;
 }
+
+// define the filter criteria (based on gameConfig array)
 
 
 
