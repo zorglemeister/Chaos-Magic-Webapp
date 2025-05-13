@@ -11,7 +11,7 @@
 
             
 
-            <div id="settingsContainer">
+            <div id="settingsContainer" class="configBlock">
                 <button type="button" id="gameSettingsButton" onclick="setSettingsVisibility()">Hide Game Settings</button>
             <div id="gameSettings">
 <p>Configure your Chaos!</p>
@@ -24,6 +24,8 @@
                     <span id="explainPlayerCountIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPlayerCountText', this)" onmouseout="toggleHelp('explainPlayerCountText', this)"></span>
                     <span id="explainPlayerCountText" class="explain hiddenHelp helpFloat">Some effects work better for games with three or more players. Selecting "Duel" will filter out those effects.</span>
                 </p>
+                <button type="button" id="debugSetPC" onclick="debugSetPlayerCount()">Set Player Count</button>
+                <span class="debug" id="debugPC"></span>
                 </div>
                 
                 <div id="listSelector" class="settingContainer">
@@ -207,10 +209,12 @@
                     <p>Minigames: <span id="debugMinigames"></span></p>
                     <p>MinigameDelay: <span id="debugMinigamesDelay"></span></p>
                 </div>
+                <span id="gameConfigOutput"></span>
 
             </div><!-- End of "gameSettings" -->
 
             </div><!-- End of "settingsContainer" -->
+
 
             <div id="gameContainer">
 

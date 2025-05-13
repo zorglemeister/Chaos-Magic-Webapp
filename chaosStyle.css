@@ -3,6 +3,7 @@
     font-weight: bold;
     color:darkgreen;
 }
+/* Help Icon sits in the upper right corner of anchor container */
 .helpIcon {
 position: absolute;
 top: 10px;
@@ -16,8 +17,12 @@ right: 10px;
     content: "\1F4D6"; /* Unicode Open Book  - toggled state for help icons */
     font-size: 24 px;
 }
+/* Help infobox is hidden by default */
 .hiddenHelp {
     display: none;
+}
+.configBlock {
+    border: 3px solid gold;
 }
 .settingContainer { /* boxes the setting (anchors the floating help text) */
     position: relative;
