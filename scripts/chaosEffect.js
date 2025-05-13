@@ -5,7 +5,7 @@
 // Collects all the game settings and turns them into an object
 // WHY DOESN'T THIS WORK??!?!?!?!
 function makeGame() {
-    const gameConfig = []
+    const gameConfig = [];
     // list configuration
     // playerCount
     var playerCount = document.getElementById("playerCountButton").innerHTML;
@@ -48,7 +48,7 @@ function makeGame() {
     // repetition
     var repetition = document.getElementById("repetitionToggle").checked;
     // customRarityMatters
-    var customRarityMatters = document.getElementById("customRarityMAttersToggle").checked;
+    var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
     // additional functions
     // vengeance
     var vengeance = document.getElementById("vengeanceToggle").checked;
@@ -120,7 +120,7 @@ function debugSetMG() {
     return minigames.toString();
 }
 
-function debugSetMGdelay() {
+function debugSetMGDelay() {
     var minigameDelay = document.getElementById("minigameDelay").value;
     document.getElementById("debugMGDelay").textContent = minigameDelay;
     return minigameDelay;
@@ -174,7 +174,7 @@ function debugSetRarity() {
 }
 
 function debugSetRM() {
-    var customRarityMatters = document.getElementById("customRarityMAttersToggle").checked;
+    var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
     document.getElementById("debugRM").textContent = customRarityMatters.toString();
     return customRarityMatters.toString();
 }
@@ -201,9 +201,9 @@ function debugMakeGame() {
     debugGameConfig.push(debugSetRarity());
     debugGameConfig.push(debugSetRep());
     debugGameConfig.push(debugSetRM());
-    debugGameConfig.push(debugSetVeng());
-    debugGameConfig.push(debugSetMG()); 
-    debugGameConfig.push(debugSetMGdelay());
+    debugGameConfig.push(debugSetVeng()); // Why doesn't this, 
+    debugGameConfig.push(debugSetMG());  // this, 
+    debugGameConfig.push(debugSetMGDelay()); // or this fire? What's wrong with RM?
     document.getElementById("debugMakeGameOutput").textContent = debugGameConfig.join(", ");
 
 }
@@ -211,7 +211,7 @@ function debugMakeGame() {
 // AAAAAARGH
 
 
-
+// HAHAHAHAHA, I had typed "customRarityMAttersToggle", LOOK AT THE CAPITAL 'A' HAHAHAHAHAHA
 
 
 
