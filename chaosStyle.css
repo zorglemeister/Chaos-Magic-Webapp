@@ -3,6 +3,17 @@
     font-weight: bold;
     color:darkgreen;
 }
+/* floating settings display */
+.debugContainer {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 49%;
+    margin-right: 1%;
+    background-color: rgb(219, 192, 36); /* semi-transparent background for debug/aesthetics */
+    padding: 5pm;
+    border: 1px solid black;
+}
 /* Help Icon sits in the upper right corner of anchor container */
 .helpIcon {
 position: absolute;
@@ -26,7 +37,7 @@ right: 10px;
 }
 .settingContainer { /* boxes the setting (anchors the floating help text) */
     position: relative;
-    width: 400px;
+    width: 44%;
     border: 1px solid #000;
 }
 .helpFloat {

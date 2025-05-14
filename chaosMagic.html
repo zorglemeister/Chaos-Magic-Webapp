@@ -6,7 +6,31 @@
     </head>
 
     <body>
-        
+        <div class="debugContainer">
+            <p>VARIOUS VALUES AND STUFF FOR DEBUG</p>
+            <button type="button" id="debugMakeGame" onclick="debugMakeGame()">DEBUG MAKE GAME</button>
+                Full Settings Array
+                <div id="debugMakeGameOutput"></div>
+                <p>Trying as object</p>
+                <button type="button" id="makeGameObjectButton" onclick="makeGameConfig()">make Game Object</button>
+                Full Settings Object
+                <div id="makeGameObject"></div>
+            <div class="debug">
+                <p>PlayerCount: <span id="debugPlayerCount"></span></p>
+                <p>BaseList: <span id="debugBaseList"></span></p>
+                <p>Physical: <span id="debugPhysical"></span></p>
+                <p>ExemplarTheme: <span id="debugExemplarTheme"></span></p>
+                <p>CustomSchool: <span id="debugCustomSchool"></span></p>
+                <p>CustomDuration: <span id="debugCustomDuration"></span></p>
+                <p>CustomRarity: <span id="debugCustomRarity"></span></p>
+                <p>Repetition: <span id="debugRepetition"></span></p>
+                <p>RarityMatters: <span id="debugRarityMatters"></span></p>
+                <p>Vengeance: <span id="debugVengeance"></span></p>
+                <p>Minigames: <span id="debugMinigames"></span></p>
+                <p>MinigameDelay: <span id="debugMinigamesDelay"></span></p>
+            </div>
+            <span id="gameConfigOutput"></span>
+        </div>
         <div class="workspace">
 
             
@@ -226,21 +250,7 @@
                     <button type="button" id="updateSettingsButton" onclick="makeGame()">Update Game Settings</button> This will reset the current game!
                     <!-- This should pop a confirm alert, and if confirmed, update the randomizer configuration and wipe the current effect and history-->
                 </div>
-                <div class="debug">
-                    <p>PlayerCount: <span id="debugPlayerCount"></span></p>
-                    <p>BaseList: <span id="debugBaseList"></span></p>
-                    <p>Physical: <span id="debugPhysical"></span></p>
-                    <p>ExemplarTheme: <span id="debugExemplarTheme"></span></p>
-                    <p>CustomSchool: <span id="debugCustomSchool"></span></p>
-                    <p>CustomDuration: <span id="debugCustomDuration"></span></p>
-                    <p>CustomRarity: <span id="debugCustomRarity"></span></p>
-                    <p>Repetition: <span id="debugRepetition"></span></p>
-                    <p>RarityMatters: <span id="debugRarityMatters"></span></p>
-                    <p>Vengeance: <span id="debugVengeance"></span></p>
-                    <p>Minigames: <span id="debugMinigames"></span></p>
-                    <p>MinigameDelay: <span id="debugMinigamesDelay"></span></p>
-                </div>
-                <span id="gameConfigOutput"></span>
+                
 
             </div><!-- End of "gameSettings" -->
 

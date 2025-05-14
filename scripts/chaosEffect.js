@@ -217,23 +217,25 @@ function debugMakeGame() {
 // Let's make it an object instead... (THANKS AARON)
 function makeGameConfig() {
     const gameConfig = {
-        players: debugSetPlayerCount(),
-        list: debugSetList(),
-        physical: debugSetPhys(),
-        theme: debugSetTheme(),
-        school: debugSetSchool(),
-        duration: debugSetDuration(),
-        rarity: debugSetRarity(),
-        repetition: debugSetRep(),
-        rarityMatters: debugSetRM(),
-        vengeance: debugSetVeng(),
-        minigame: debugSetMG(),
-        minigameDelay: debugSetMGDelay()
-    }
-    document.getElementById("makeGameObject").textContent = gameConfig;
+        players: debugSetPlayerCount(), // string
+        list: debugSetList(), // any
+        physical: debugSetPhys(), // any
+        theme: debugSetTheme(), // string
+        school: debugSetSchool(), // any[]
+        duration: debugSetDuration(), // any[]
+        rarity: debugSetRarity(), // any[]
+        repetition: debugSetRep(), // any
+        rarityMatters: debugSetRM(), // any
+        vengeance: debugSetVeng(), // any
+        minigame: debugSetMG(), // any
+        minigameDelay: debugSetMGDelay() // any
+    };
+    const gameConfigString = JSON.stringify(gameConfig, null, 2);
+    document.getElementById("makeGameObject").innerHTML = gameConfigString;
 
 }
 
+// IT LIVES!
 
 //
 //
@@ -253,9 +255,46 @@ async function loadJSON(filePath) {
     const data = await response.json();
     return data;
 }
-
+// set up filterCriteria
+const filterCriteria = {
+    player: "",
+    inclusion: "",
+    exemplarTheme: "",
+    school: [""],
+    duration: [""],
+    rarity: [""]
+}
 // define the filter criteria (based on gameConfig array)
+function defineFilter() {
+    // First, the list selection will determine SO MUCH, so it's top level logic
+    // aaaaaand I'm gonna do it with a case...
+    // OH! Since I objectified gameConfig, and the filter condition is an object
+    // I don't have to do this in a crazy tree!
 
+    // How... How do I add attributes to an object?
+    // can I do const filterCriteria.list = micro ??
+    switch (gameConfig.list) {
+        case "micro":
+            const filterCriteria.baseList = "micro"
+
+        break;
+        case "lite":
+
+        break;
+        case "exemplar":
+
+        break;
+        case "legacy":
+
+        break;
+        case "full":
+
+        break;
+        case "custom":
+
+    }
+
+}
 
 
 
