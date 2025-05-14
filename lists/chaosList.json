@@ -1,45 +1,49 @@
 {
     "effects":[
         {
-        "Name": "Doubling Round",
-        "ShortDesc": "Until the start of your next turn, double token creation and double counter placement.",
-        "FullDesc": "Until the start of your next turn, if an effect would create one or more tokens under your control, it creates twice that many of those tokens instead and if an effect would place one or more counters on a permanent you control, it places twice that many of those counters on that permanent instead.",
-        "CanonNum": 376,
-        "DispNum": "376",
-        "Players": "Duel",
-        "Inclusion": [
-        "Exemplar"
+        "effectName": "Doubling Round",
+        "shortDesc": "Until the start of your next turn, double token creation and double counter placement.",
+        "fullDesc": "Until the start of your next turn, if an effect would create one or more tokens under your control, it creates twice that many of those tokens instead and if an effect would place one or more counters on a permanent you control, it places twice that many of those counters on that permanent instead.",
+        "indexNum": 376,
+        "displayNum": "376",
+        "player": "duel",
+        "accessible": true,
+        "inclusion": [
+        "exemplar"
         ],
-        "Exemplar": "Complexity",
-        "School": [
-        "Conjuration",
-        "Transmutation"
+        "exemplarTheme": "complexity",
+        "school": [
+        "conjuration",
+        "transmutation"
         ],
-        "Duration": "Round",
-        "Rarity": "Uncommon",
-        "Component": [
+        "duration": "round",
+        "rarity": "uncommon",
+        "component": [
         "1 x Reminder"
         ],
-        "SpecFunc": ""
+        "inspiration": "",
+        "specFunc": ""
         },
         {
-        "Name": "Overrun",
-        "ShortDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
-        "FullDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
-        "CanonNum": 30,
-        "DispNum": "030",
-        "Players": "Duel",
-        "Inclusion": [
-        "Exemplar"
+        "effectName": "Overrun",
+        "shortDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
+        "fullDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
+        "indexNum": 30,
+        "displayNum": "030",
+        "player": "duel",
+        "accessible": true,
+        "inclusion": [
+        "exemplar"
         ],
-        "Exemplar": "Main",
-        "School": [
-        "Transmutation"
+        "exemplarTheme": "main",
+        "school": [
+        "transmutation"
         ],
-        "Duration": "Turn",
-        "Rarity": "Uncommon",
-        "Component": [],
-        "SpecFunc": ""
+        "duration": "turn",
+        "rarity": "uncommon",
+        "component": [],
+        "inspiration": "",
+        "specFunc": ""
         }
         ]
         
