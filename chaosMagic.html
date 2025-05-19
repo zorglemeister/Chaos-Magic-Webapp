@@ -30,6 +30,11 @@
                 <p>MinigameDelay: <span id="debugMinigamesDelay"></span></p>
             </div>
             <span id="gameConfigOutput"></span>
+            <p>MAKE EFFECT LIBRARY</p>
+<button type="button" id="debugMakeEffectLibrary" onclick="debugShowEffectLibrary()">DEBUG Make Effect Library</button>
+                Effect Library
+                <div id="makeEffectLibrary"></div>
+
         </div>
         <div class="workspace">
 
@@ -75,8 +80,13 @@
                 <div id="vengeanceSelector" class="settingContainer">
                     <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
                     <p>
-                    <label for="vengeanceToggle">Vengeance</label>
-                    <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
+                    <label for="vengeanceToggle">Vengeance 
+                        <div class="toggleBox">
+                            <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
+                            <span class="slide"></span>
+                        </div>
+                    </label>
+
                     <span id="explainVengeanceIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainVengeanceText', this)" onmouseout="toggleHelp('explainVengeanceText', this)"></span>
                     <span id="explainVengeanceText" class="explain hiddenHelp helpFloat">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
                     </p>
@@ -283,6 +293,7 @@
 <script src="scripts/chaosSettings.js" type="text/javascript"></script>
 <script>
     window.onload = setGameControlVisibility()
+    
 </script>
 
     </body>

@@ -2,143 +2,45 @@
 
 
 
-// Collects all the game settings and turns them into an object
-// WHY DOESN'T THIS WORK??!?!?!?!
-// IT WORKS NOW!
-function makeGame() {
-    const gameConfig = [];
-    // list configuration
-    // playerCount
+
+
+// CLEANED UP: This sets up the gameConfig with a function to capture each setting ...
+// ... and then a function to turn them into object parameters
+
+function setPlayerCount() {
     var playerCount = document.getElementById("playerCountButton").innerHTML;
-    // baseList
-    var baseList = document.getElementById("listBase").value;
-    // physical
-    var physical = document.getElementById("physicalToggle").checked;
-    // exemplarTheme
-    var exemplarTheme = "";
-    if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
-        exemplarTheme = "all";
-    } else {
-        exemplarTheme = document.getElementById("exemplarTheme").value; // otherwise set it to the selected single value
-    }
-    // customSchool
-    var schoolArray = [];
-    var schoolSelection = document.getElementById("customSchool");
-    for (let i = 0; i < schoolSelection.options.length; i++) {
-        if (schoolSelection.options[i].selected) {
-            schoolArray.push(schoolSelection.options[i].value);
-        }   
-    }
-    // customDuration
-    var durationArray = [];
-    var durationSelection = document.getElementById("customDuration");
-    for (let i = 0; i < durationSelection.options.length; i++) {
-        if (durationSelection.options[i].selected) {
-        durationArray.push(durationSelection.options[i].value);
-        }
-    }
-    // customRarity
-    var rarityArray = [];
-    var raritySelection = document.getElementById("customRarity");
-    for (let i = 0; i < raritySelection.options.length; i++) {
-        if (raritySelection.options[i].selected) {
-        rarityArray.push(raritySelection.options[i].value);
-        }
-    }
-    // randomizer controls
-    // repetition
-    var repetition = document.getElementById("repetitionToggle").checked;
-    // customRarityMatters
-    var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
-    // additional functions
-    // vengeance
-    var vengeance = document.getElementById("vengeanceToggle").checked;
-    // minigames
-    var minigames = document.getElementById("minigameToggle").checked;
-    // minigameDelay
-    var minigameDelay = document.getElementById("minigameDelay").value;
-    // put it into the gameConfig array
-    gameConfig.push(playerCount);
-    gameConfig.push(baseList);
-    gameConfig.push(physical);
-    gameConfig.push(exemplarTheme);
-    gameConfig.push(schoolArray);
-    gameConfig.push(durationArray);
-    gameConfig.push(rarityArray);
-    gameConfig.push(repetition);
-    gameConfig.push(customRarityMatters);
-    gameConfig.push(vengeance);
-    gameConfig.push(minigames);
-    gameConfig.push(minigameDelay);
-    // "Show me." - Morpheus
-    document.getElementById("gameConfigOutput").textContent = gameConfig.join(", ");
-    // DEBUG OUTPUT
-    document.getElementById("debugPlayerCount").textContent = playerCount;
-    document.getElementById("debugBaseList").textContent = baseList;
-    document.getElementById("debugPhysical").textContent = physical.toString();
-    document.getElementById("debugExemplarTheme").textContent = exemplarTheme;
-    document.getElementById("debugCustomSchool").textContent = schoolArray.join(", ");
-    document.getElementById("debugCustomDuration").textContent = durationArray.join(", ");
-    document.getElementById("debugCustomRarity").textContent = rarityArray.join(", ");
-    document.getElementById("debugRepetition").textContent = repetition.toString();
-    document.getElementById("debugRarityMatters").textContent = customRarityMatters.toString();
-    document.getElementById("debugVengeance").textContent = vengeance.toString();
-    document.getElementById("debugMinigames").textContent = minigames.toString();
-    document.getElementById("debugMinigamesDelay").textContent = minigameDelay;
-}
-
-//  AAAAARGH It be debug time
-
-// literally a button to "set" each setting, so I can see what the hell is being passed.
-
-function debugSetPlayerCount() {
-    var playerCount = document.getElementById("playerCountButton").innerHTML;
-    document.getElementById("debugPC").textContent = playerCount;
     return playerCount;
 }
-
-function debugSetList() {
+function setList() {
     var baseList = document.getElementById("listBase").value;
-    document.getElementById("debugList").textContent = baseList;
     return baseList;
 }
-
-function debugSetVeng() {
+function setVeng() {
     var vengeance = document.getElementById("vengeanceToggle").checked;
-    document.getElementById("debugVeng").textContent = vengeance.toString();
-    return vengeance; // .toString();
+    return vengeance;
 }
-
-function debugSetPhys() {
+function setPhys() {
     var physical = document.getElementById("physicalToggle").checked;
-    document.getElementById("debugPhys").textContent = physical.toString();
-    return physical; // .toString();
+    return physical;
 }
-
-function debugSetMG() {
+function setMG() {
     var minigames = document.getElementById("minigameToggle").checked;
-    document.getElementById("debugMG").textContent = minigames.toString();
-    return minigames; // .toString();
+    return minigames;
 }
-
-function debugSetMGDelay() {
+function setMGDelay() {
     var minigameDelay = document.getElementById("minigameDelay").value;
-    document.getElementById("debugMGDelay").textContent = minigameDelay;
     return minigameDelay;
 }
-
-function debugSetTheme() {
+function setTheme() {
     var exemplarTheme = "";
     if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
         exemplarTheme = "all";
     } else {
         exemplarTheme = document.getElementById("exemplarTheme").value; // otherwise set it to the selected single value
     }
-    document.getElementById("debugTheme").textContent = exemplarTheme;
     return exemplarTheme;
 }
-
-function debugSetSchool() {
+function setSchool() {
     var schoolArray = [];
     var schoolSelection = document.getElementById("customSchool");
     for (let i = 0; i < schoolSelection.options.length; i++) {
@@ -146,11 +48,9 @@ function debugSetSchool() {
             schoolArray.push(schoolSelection.options[i].value);
         }   
     }
-    document.getElementById("debugSchool").textContent = schoolArray.join(", ");
-    return schoolArray; // what does it look like if I don't use .join(", ") ??
+    return schoolArray;
 }
-
-function debugSetDuration() {
+function setDuration() {
     var durationArray = [];
     var durationSelection = document.getElementById("customDuration");
     for (let i = 0; i < durationSelection.options.length; i++) {
@@ -158,11 +58,9 @@ function debugSetDuration() {
         durationArray.push(durationSelection.options[i].value);
         }
     }
-    document.getElementById("debugDuration").textContent = durationArray.join(", ");
-    return durationArray; // .join(", ");
+    return durationArray;
 }
-
-function debugSetRarity() {
+function setRarity() {
     var rarityArray = [];
     var raritySelection = document.getElementById("customRarity");
     for (let i = 0; i < raritySelection.options.length; i++) {
@@ -170,72 +68,33 @@ function debugSetRarity() {
         rarityArray.push(raritySelection.options[i].value);
         }
     }
-    document.getElementById("debugRarity").textContent = rarityArray.join(", ");
-    return rarityArray; // .join(", ");
+    return rarityArray;
 }
-
-function debugSetRM() {
+function setRM() {
     var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
-    document.getElementById("debugRM").textContent = customRarityMatters.toString();
-    return customRarityMatters; // .toString();
+    return customRarityMatters;
 }
-
-function debugSetRep() {
+function setRep() {
     var repetition = document.getElementById("repetitionToggle").checked;
-    document.getElementById("debugRep").textContent = repetition.toString();
-    return repetition; // .toString();
+    return repetition;
 }
-
-// OKAY, so each individual function works FINE.
-// What if I just make a function that calls each of those in order and use THAT?!
-// need to add a "return" to each one and split MG and MG Delay...
-// Alright, that's done, now let's make a thing that strings them together and pushes each to an array
-
-function debugMakeGame() {
-    var debugGameConfig = [];
-    debugGameConfig.push(debugSetPlayerCount());
-    debugGameConfig.push(debugSetList());
-    debugGameConfig.push(debugSetPhys());
-    debugGameConfig.push(debugSetTheme());
-    debugGameConfig.push(debugSetSchool());
-    debugGameConfig.push(debugSetDuration());
-    debugGameConfig.push(debugSetRarity());
-    debugGameConfig.push(debugSetRep());
-    debugGameConfig.push(debugSetRM());
-    debugGameConfig.push(debugSetVeng()); // Why doesn't this, 
-    debugGameConfig.push(debugSetMG());  // this, 
-    debugGameConfig.push(debugSetMGDelay()); // or this fire? What's wrong with RM?
-    document.getElementById("debugMakeGameOutput").textContent = debugGameConfig.join(", ");
-
-}
-
-// AAAAAARGH
-
-
-// HAHAHAHAHA, I had typed "customRarityMAttersToggle", LOOK AT THE CAPITAL 'A' HAHAHAHAHAHA
-
-// Let's make it an object instead... (THANKS AARON)
 function makeGameConfig() {
-    const gameConfig = {
-        players: debugSetPlayerCount(), // string
-        list: debugSetList(), // any
-        physical: debugSetPhys(), // any
-        theme: debugSetTheme(), // string
-        school: debugSetSchool(), // any[]
-        duration: debugSetDuration(), // any[]
-        rarity: debugSetRarity(), // any[]
-        repetition: debugSetRep(), // any
-        rarityMatters: debugSetRM(), // any
-        vengeance: debugSetVeng(), // any
-        minigame: debugSetMG(), // any
-        minigameDelay: debugSetMGDelay() // any
+    const configObj = {
+        players: setPlayerCount(), // string
+        list: setList(), // any
+        physical: setPhys(), // any
+        theme: setTheme(), // string
+        school: setSchool(), // any[]
+        duration: setDuration(), // any[]
+        rarity: setRarity(), // any[]
+        repetition: setRep(), // any
+        rarityMatters: setRM(), // any
+        vengeance: setVeng(), // any
+        minigame: setMG(), // any
+        minigameDelay: setMGDelay() // any
     };
-    const gameConfigString = JSON.stringify(gameConfig, null, 2);
-    document.getElementById("makeGameObject").innerHTML = gameConfigString;
-
+    return configObj;
 }
-
-// IT LIVES!
 
 //
 //
@@ -247,7 +106,7 @@ function makeGameConfig() {
 const filePath = './lists/chaosList.json'
 
 // declare the library with global scope calling the file loader
-const effectLibrary = loadJSON(filePath)
+
 
 // function to go get the file
 async function loadJSON(filePath) {
@@ -255,15 +114,26 @@ async function loadJSON(filePath) {
     const data = await response.json();
     return data;
 }
-// set up filterCriteria
-const filterCriteria = {
-    player: "",
-    inclusion: [""],
-    exemplarTheme: "",
-    school: [""],
-    duration: [""],
-    rarity: [""]
+
+// DEBUG
+// WHAT DOES THE effectLibrary LOOK LIKE?
+async function debugShowEffectLibrary() {
+    const effectLibrary = await loadJSON(filePath)
+    const effectLibraryString = JSON.stringify(effectLibrary, null, 2);
+    document.getElementById("makeEffectLibrary").innerHTML = effectLibraryString;
 }
+
+
+
+// set up filterCriteria
+// const filterCriteria = {
+//     player: "",
+//     inclusion: [""],
+//     exemplarTheme: "",
+//     school: [""],
+//     duration: [""],
+//     rarity: [""]
+// }
 // define the filter criteria (based on gameConfig object)
 function defineMainFilter() {
     
@@ -364,7 +234,33 @@ function filterCustom() {
 
 
 
+function makeGameList() {
+    return effectLibrary.filter(obj => {
+        return (
+            (!filterCriteria.player || obj.player.includes(filterCriteria.player)) && // if player is defined and matches
+            (!filterCriteria.accessible || obj.accessible.includes(filterCriteria.accessible)) && // if accessible is defined and matches
+            (!filterCriteria.inclusion || obj.inclusion.includes(filterCriteria.inclusion)) && // if inclusion is defined and matches
+            (!filterCriteria.exemplarTheme || obj.exemplarTheme.includes(filterCriteria.exemplarTheme)) && // if theme is defined and matches
+            (!filterCriteria.school || obj.school.includes(filterCriteria.school)) && // if school is defined and matches
+            (!filterCriteria.duration || obj.duration.includes(filterCriteria.duration)) && // duration
+            (!filterCriteria.rarity || obj.rarity.includes(filterCriteria.rarity)) // rarity
+        );
+    });
+}
 
+function setupGame() {
+    const gameConfig = makeGameConfig();
+    const filterCriteria = defineMainFilter();
+    // Now that we've built the filterCriteria and the effectLibrary, let's combine the two and make our actual gameList
+    const gameList = makeGameList();
+
+
+    // Debug Stuff
+    // display game config
+    const gameConfigString = JSON.stringify(gameConfig, null, 2);
+    document.getElementById("makeGameObject").innerHTML = gameConfigString;
+
+}
 
 //
 //

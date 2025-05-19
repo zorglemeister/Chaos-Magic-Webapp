@@ -9,7 +9,8 @@
         "player": "duel",
         "accessible": true,
         "inclusion": [
-        "exemplar"
+        "exemplar",
+        "custom"
         ],
         "exemplarTheme": "complexity",
         "school": [
@@ -33,7 +34,8 @@
         "player": "duel",
         "accessible": true,
         "inclusion": [
-        "exemplar"
+        "exemplar",
+        "custom"
         ],
         "exemplarTheme": "main",
         "school": [
@@ -41,6 +43,28 @@
         ],
         "duration": "turn",
         "rarity": "uncommon",
+        "component": [],
+        "inspiration": "",
+        "specFunc": ""
+        },
+        {
+        "effectName": "Draw",
+        "shortDesc": "Draw 1 card.",
+        "fullDesc": "Draw 1 card.",
+        "indexNum": 704,
+        "displayNum": "704",
+        "player": "duel",
+        "accessible": true,
+        "inclusion": [
+        "micro",
+        "custom"
+        ],
+        "exemplarTheme": "",
+        "school": [
+        "divination"
+        ],
+        "duration": "instant",
+        "rarity": "common",
         "component": [],
         "inspiration": "",
         "specFunc": ""
