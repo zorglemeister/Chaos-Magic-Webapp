@@ -1,7 +1,7 @@
 // ALL THIS STUFF WORKS. DON'T MESS WITH IT, JO! - Jo
 
 // onLoad behaviours
-window.onload = setGameControlVisibility()
+window.onload = setSettingsVisibility(), setGameControlVisibility()
 
 //
 //

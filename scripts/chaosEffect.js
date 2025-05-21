@@ -1,5 +1,10 @@
 
+// MMM, global variables...
 
+    window.effectLibrary = {}
+    window.gameConfig = {}
+    window.filterCriteria = {}
+    window.gameList = {}
 
 
 
@@ -249,10 +254,10 @@ function makeGameList() {
 }
 
 function setupGame() {
-    const gameConfig = makeGameConfig();
-    const filterCriteria = defineMainFilter();
+    gameConfig = makeGameConfig();
+    filterCriteria = defineMainFilter();
     // Now that we've built the filterCriteria and the effectLibrary, let's combine the two and make our actual gameList
-    const gameList = makeGameList();
+    gameList = makeGameList();
 
 
     // Debug Stuff
