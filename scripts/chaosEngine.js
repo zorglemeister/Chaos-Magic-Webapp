@@ -1,11 +1,5 @@
 // THIS FILE HAS THE "MAKE THINGS WORK" STUFF
 
-// MMM, global variables...
-
-    window.effectLibrary = {}
-    window.gameConfig = {}
-    window.filterCriteria = {}
-    window.gameList = {}
 
 
 
