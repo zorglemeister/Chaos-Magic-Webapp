@@ -38,3 +38,6 @@ function generateInlineSymbols(input) {
     }
     return html
 }
+
+
+// Would love an inline button that displays a die notation (like "2d6") and when you tap/click it, the button disappears and the roll amount is in its place, button has explainer text "Roll XdX", maybe with a die emoji
