@@ -67,18 +67,49 @@ class InlineSymbol extends HTMLElement {
     render() {
         const sourceText = this.textContent; // Get the text (should be symbol notation) : <z-is>UU</z-is>
         const baseURL = "images/"; // tell it where to find the files
-        const lowercaseInput = input.toLowerCase(); // lowercase for consistency (they're typed in uppercase in every effect description)
+        const lowercaseText = sourceText.toLowerCase(); // lowercase for consistency and file-naming convenience (they're typed in uppercase in most effect descriptions)
         let html = ""; // initialize empty html
-        for (let character of lowercaseInput) { // loop through characters
+        for (let character of lowercaseText) { // loop through characters
             html += '<img class="inlineSymbol" src="' += baseURL += character += '.png" alt="' += character =+ '"/>'; // append the image ref
         }
         this.innerHTML = html; // replace the element contents with the img(s)
     }
 }
    
+// make the settings help text a component!
+class HelpBubble extends HTMLElement {
+    constructor() {
+        super();
+    }
+    connectedCallback() {
+        this.render();
+    }
+    render() {
+        const sourceText = this.textContent; // Get the text
+        this.innerHTML = '<div class="helpIconComp helpClosedComp"></div><div class="helpContentComp hiddenHelpComp">${sourceText}</div'; // set up the html structure, default closed/hidden
+
+        this.querySelector('.helpIconComp').addEventListener('click', () => { // what to do on a click?
+            this.getElementsByClassName('helpIconComp').classList.toggle('helpClosedComp'); // toggle Closed class
+            this.getElementsByClassName('helpIconComp').classList.toggle('helpOpenComp'); // toggle Open class
+            this.getElementsByClassName('helpContentComp').classList.toggle('hiddenHelpComp'); // toggle Help visibility
+        })
+    }
+    
+}
+
+
+// component for "current roll"
+
+
+
+
+// component for "history" (can just rack instances of "roll" into it?)
+
+
 
 
 // define the new elements
 
 customElements.define('z-rb', RollButton);
 customElements.define('z-is', InlineSymbol);
+customElements.define('z-tip', HelpBubble);

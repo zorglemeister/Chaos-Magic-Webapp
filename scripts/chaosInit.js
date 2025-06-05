@@ -7,24 +7,32 @@
     window.filterCriteria = {}
     window.gameList = {}
 
-// plain vanilla says this is a good way to ensure stuff doesn't load broken if JavaScript isn't enabled
-const app = () => {
-    const template = document.querySelector('template#page');
-    if (template) document.body.appendChild(template.content, true);
-}
+// onLoad behaviours
+window.onload = setSettingsVisibility(), setGameControlVisibility()
 
-document.addEventListener('DOMContentLoaded', app);
+
+    
+// plain vanilla says this is a good way to ensure stuff doesn't load broken if JavaScript isn't enabled
+// commenting until i figure out how it works
+// const app = () => {
+//     const template = document.querySelector('template#page');
+//     if (template) document.body.appendChild(template.content, true);
+// }
+// 
+// document.addEventListener('DOMContentLoaded', app);
 
 // define all my "getElement" shenanigans here for quicker reuse
-// reference stuff like els.gameConfigBlock.property
+// reference stuff like elem.gameConfigBlock.property
 
-const els = {
+const elem = {
     gameConfigBlock: document.getElementById("gameSettings"), // div that holds all the config stuff
     gameConfigButton: document.getElementById("gameSettingsButton"), // button that shows/hides config stuff
 
+    playerCountBlock: document.getElementById("playerCountSelector"), // player count section
     playerCountText: document.getElementById("playerCountText"), // player count display text
     playerCountButton: document.getElementById("playerCountButton"), // player count button (turn into a toggle at some point?)
 
+    listBlock: document.getElementById("listSelector"), // list section
     listList: document.getElementById("listBase"), // base list selection
 
     vengBlock: document.getElementById("vengeanceSelector"), // vengeance section

@@ -1,8 +1,7 @@
 // THIS FILE HOLDS THE SETTINGS PANEL
 // ALL THIS STUFF WORKS. DON'T MESS WITH IT, JO! - Jo
 
-// onLoad behaviours
-window.onload = setSettingsVisibility(), setGameControlVisibility()
+
 
 //
 //
@@ -10,14 +9,12 @@ window.onload = setSettingsVisibility(), setGameControlVisibility()
 
 // Controls settings visibility
 function setSettingsVisibility() {
-    var settingsDiv = document.getElementById("gameSettings");
-    var btnText = document.getElementById("gameSettingsButton");
-    if (btnText.innerHTML === "Hide Game Settings") {
-        btnText.innerHTML = "Show Game Settings"; 
-        settingsDiv.style.display = "none";
+    if (elem.gameConfigButton.textContent === "Hide Game Settings") {
+        elem.gameConfigButton.textContent = "Show Game Settings"; 
+        elem.gameConfigBlock.style.display = "none";
     } else {
-        btnText.innerHTML = "Hide Game Settings"; 
-        settingsDiv.style.display = "block";
+        elem.gameConfigButton.textContent = "Hide Game Settings"; 
+        elem.gameConfigBlock.style.display = "block";
     }
 }
 // Control help text visibility
@@ -30,91 +27,81 @@ function toggleHelp(targetSpan, triggerIcon) {
 }
 // Updates player count button and clarification text
 function switchPlayerCount() {
-    var helpText = document.getElementById("playerCountText");
-    var btnText = document.getElementById("playerCountButton");
-    if (btnText.innerHTML === "Duel") {
-        btnText.innerHTML = "Group"; 
-        helpText.innerHTML = "3+";
+    if (elem.playerCountButton.textContent === "Duel") {
+        elem.playerCountButton.textContent = "Group"; 
+        elem.playerCountText.textContent = "3+";
     } else {
-        btnText.innerHTML = "Duel"; 
-        helpText.innerHTML = "1 v 1";
+        elem.playerCountButton.textContent = "Duel"; 
+        elem.playerCountText.textContent = "1 v 1";
     }
 }
 // Controls config visibility depending on List selection
 function setGameControlVisibility() {
-    var mode = document.getElementById("listBase").options.selectedIndex;
-    var vengeanceDiv = document.getElementById("vengeanceSelector");
-    var minigameDiv = document.getElementById("minigameSelector");
-    var exemplarDiv = document.getElementById("exemplarThemeSelector");
-    var customSchoolDiv = document.getElementById("customSchoolSelector");
-    var customDurationDiv = document.getElementById("customDurationSelector");
-    var customRarityDiv = document.getElementById("customRaritySelector");
-    var customMattersDiv = document.getElementById("customRarityMattersSelector");
-    var repetitionDiv = document.getElementById("repetitionSelector");
-    document.getElementById("debugSelectionIndex").innerHTML = mode;
-    switch (mode) {
+
+    document.getElementById("debugSelectionIndex").innerHTML = elem.listList.options.selectedIndex;
+    switch (elem.listList.options.selectedIndex) {
         case 0: // Micro
-            vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
-            repetitionDiv.style.display = "none";
+            elem.vengBlock.style.display = "block";
+            elem.mgBlock.style.display = "block";
+            elem.exemplarBlock.style.display = "none";
+            elem.schoolBlock.style.display = "none";
+            elem.durationBlock.style.display = "none";
+            elem.rarityBlock.style.display = "none";
+            elem.mattersBlock.style.display = "none";
+            elem.repeatBlock.style.display = "none";
             break;
         case 1: // Lite
-            vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
-            repetitionDiv.style.display = "block";
+            elem.vengBlock.style.display = "block";
+            elem.mgBlock.style.display = "block";
+            elem.exemplarBlock.style.display = "none";
+            elem.schoolBlock.style.display = "none";
+            elem.durationBlock.style.display = "none";
+            elem.rarityBlock.style.display = "none";
+            elem.mattersBlock.style.display = "none";
+            elem.repeatBlock.style.display = "block";
             break;
         case 2: // Exemplar
-            vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "block";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
-            repetitionDiv.style.display = "block";
+            elem.vengBlock.style.display = "block";
+            elem.mgBlock.style.display = "block";
+            elem.exemplarBlock.style.display = "block";
+            elem.schoolBlock.style.display = "none";
+            elem.durationBlock.style.display = "none";
+            elem.rarityBlock.style.display = "none";
+            elem.mattersBlock.style.display = "none";
+            elem.repeatBlock.style.display = "block";
             break;
         case 3: // Legacy
-            vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "none";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
-            repetitionDiv.style.display = "block";
+            elem.vengBlock.style.display = "block";
+            elem.mgBlock.style.display = "none";
+            elem.exemplarBlock.style.display = "none";
+            elem.schoolBlock.style.display = "none";
+            elem.durationBlock.style.display = "none";
+            elem.rarityBlock.style.display = "none";
+            elem.mattersBlock.style.display = "none";
+            elem.repeatBlock.style.display = "block";
             break;
         case 4: // Full
-            vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "none";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";  
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
-            repetitionDiv.style.display = "block";
+            elem.vengBlock.style.display = "block";
+            elem.mgBlock.style.display = "none";
+            elem.exemplarBlock.style.display = "none";
+            elem.schoolBlock.style.display = "none";  
+            elem.durationBlock.style.display = "none";
+            elem.rarityBlock.style.display = "none";
+            elem.mattersBlock.style.display = "none";
+            elem.repeatBlock.style.display = "block";
             break;
         case 5: // Custom
-            vengeanceDiv.style.display = "block";
-            minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "block";
-            customDurationDiv.style.display = "block";
-            customRarityDiv.style.display = "block";
-            customMattersDiv.style.display = "block";
-            repetitionDiv.style.display = "block";
+            elem.vengBlock.style.display = "block";
+            elem.mgBlock.style.display = "block";
+            elem.exemplarBlock.style.display = "none";
+            elem.schoolBlock.style.display = "block";
+            elem.durationBlock.style.display = "block";
+            elem.rarityBlock.style.display = "block";
+            elem.mattersBlock.style.display = "block";
+            elem.repeatBlock.style.display = "block";
     }
 }
-// Controls vengeance visibility
+// Controls vengeance button visibility
 function setVengeanceVisibility() {
     var vengeanceDiv = document.getElementById("generateVengeance");
     var checkState = document.getElementById("vengeanceToggle");
@@ -128,21 +115,21 @@ function setVengeanceVisibility() {
 function setMinigameDelayVisibility() {
     var delaySpan = document.getElementById("minigameDelaySetting");
     var checkState = document.getElementById("minigameToggle");
-    if (checkState.checked === true) {
-        delaySpan.style.display = "block";
+    if (elem.mgCheck.checked === true) {
+        elem.mgDelayBlock.style.display = "block";
     } else {
-        delaySpan.style.display = "none";
+        elem.mgDelayBlock.style.display = "none";
     }
 }
 // Updates minigame delay number
 var delaySlider = document.getElementById("minigameDelay");
             var outputDelay = document.getElementById("delayNum");
-            outputDelay.innerHTML = delaySlider.value;
+            outputDelay.textContent = delaySlider.value;
             delaySlider.oninput = function() {
                 if (delaySlider.value == 0) {
-                    outputDelay.innerHTML = "Whenever"
+                    outputDelay.textContent = "Whenever"
                 } else {
-                    outputDelay.innerHTML = this.value;
+                    outputDelay.textContent = this.value;
                 }
             }
 // Change Theme Multiselect when ALL is checked or unchecked
@@ -150,11 +137,11 @@ function switchThemeMulti() {
     var listSelector = document.getElementById("exemplarTheme");
     var checkState = document.getElementById("allThemes"); 
     if (checkState.checked === true) {
-        listSelector.type = "select-multiple";
-        listSelector.multiple = true;
+        elem.exemplarList.type = "select-multiple";
+        elem.exemplarList.multiple = true;
     } else {
-        listSelector.type = "select-one";
-        listSelector.multiple = false;
+        elem.exemplarList.type = "select-one";
+        elem.exemplarList.multiple = false;
     }
 }
 // Unchecks ALL and updates Theme Multiselect when theme list is clicked
@@ -163,7 +150,7 @@ function uncheckThemeAll() {
     document.getElementById("exemplarTheme").type = "select-one";
     document.getElementById("exemplarTheme").multiple = false;
 }
-// Reusable selectAll/unselect for ALL checkboxes
+// Reusable selectAll/unselect for ALL checkboxes *** I can't seem to make this work with elem. structure, so leaving as they are.
 function selectAll(allCheck, selectName) {
     var listSelector = document.getElementById(selectName);
     var checkState = document.getElementById(allCheck);
@@ -179,7 +166,7 @@ function selectAll(allCheck, selectName) {
         }
     }
 }
-// Checks if all values are selected, if so, checks ALL
+// Checks if all values are selected, if so, checks ALL *** I can't seem to make this work with elem. structure, so leaving as they are.
 function testSelectAll(allCheck, selectName) {
     var listSelector = document.getElementById(selectName);
     var checkState = document.getElementById(allCheck);
