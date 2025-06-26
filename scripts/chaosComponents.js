@@ -70,7 +70,7 @@ class InlineSymbol extends HTMLElement {
         const lowercaseText = sourceText.toLowerCase(); // lowercase for consistency and file-naming convenience (they're typed in uppercase in most effect descriptions)
         let html = ""; // initialize empty html
         for (let character of lowercaseText) { // loop through characters
-            html += '<img class="inlineSymbol" src="' += baseURL += character += '.png" alt="' += character =+ '"/>'; // append the image ref
+            html += '<img class="inlineSymbol" src="' + baseURL + character + '.png" alt="' + character + '"/>'; // append the image ref
         }
         this.innerHTML = html; // replace the element contents with the img(s)
     }
