@@ -8,31 +8,31 @@
 // ... and then a function to turn them into object parameters
 
 function setPlayerCount() {
-    var playerCount = document.getElementById("playerCountButton").innerHTML;
+    const playerCount = document.getElementById("playerCountButton").innerHTML;
     return playerCount;
 }
 function setList() {
-    var baseList = document.getElementById("listBase").value;
+    const baseList = document.getElementById("listBase").value;
     return baseList;
 }
 function setVeng() {
-    var vengeance = document.getElementById("vengeanceToggle").checked;
+    const vengeance = document.getElementById("vengeanceToggle").checked;
     return vengeance;
 }
 function setPhys() {
-    var physical = document.getElementById("physicalToggle").checked;
+    const physical = document.getElementById("physicalToggle").checked;
     return physical;
 }
 function setMG() {
-    var minigames = document.getElementById("minigameToggle").checked;
+    const minigames = document.getElementById("minigameToggle").checked;
     return minigames;
 }
 function setMGDelay() {
-    var minigameDelay = document.getElementById("minigameDelay").value;
+    const minigameDelay = document.getElementById("minigameDelay").value;
     return minigameDelay;
 }
 function setTheme() {
-    var exemplarTheme = "";
+    let exemplarTheme = "";
     if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
         exemplarTheme = "all";
     } else {
@@ -41,8 +41,8 @@ function setTheme() {
     return exemplarTheme;
 }
 function setSchool() {
-    var schoolArray = [];
-    var schoolSelection = document.getElementById("customSchool");
+    const schoolArray = [];
+    const schoolSelection = document.getElementById("customSchool");
     for (let i = 0; i < schoolSelection.options.length; i++) {
         if (schoolSelection.options[i].selected) {
             schoolArray.push(schoolSelection.options[i].value);
@@ -51,8 +51,8 @@ function setSchool() {
     return schoolArray;
 }
 function setDuration() {
-    var durationArray = [];
-    var durationSelection = document.getElementById("customDuration");
+    const durationArray = [];
+    const durationSelection = document.getElementById("customDuration");
     for (let i = 0; i < durationSelection.options.length; i++) {
         if (durationSelection.options[i].selected) {
         durationArray.push(durationSelection.options[i].value);
@@ -61,8 +61,8 @@ function setDuration() {
     return durationArray;
 }
 function setRarity() {
-    var rarityArray = [];
-    var raritySelection = document.getElementById("customRarity");
+    const rarityArray = [];
+    const raritySelection = document.getElementById("customRarity");
     for (let i = 0; i < raritySelection.options.length; i++) {
         if (raritySelection.options[i].selected) {
         rarityArray.push(raritySelection.options[i].value);
@@ -71,11 +71,11 @@ function setRarity() {
     return rarityArray;
 }
 function setRM() {
-    var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
+    const customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
     return customRarityMatters;
 }
 function setRep() {
-    var repetition = document.getElementById("repetitionToggle").checked;
+    const repetition = document.getElementById("repetitionToggle").checked;
     return repetition;
 }
 function makeGameConfig() {

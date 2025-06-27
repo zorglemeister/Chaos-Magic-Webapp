@@ -19,8 +19,8 @@ function setSettingsVisibility() {
 }
 // Control help text visibility
 function toggleHelp(targetSpan, triggerIcon) {
-    // var helpSpan = document.getElementById(toString(triggerIcon) + "Text");
-    var helpSpan = document.getElementById(targetSpan);
+    // const helpSpan = document.getElementById(toString(triggerIcon) + "Text");
+    const helpSpan = document.getElementById(targetSpan);
     triggerIcon.classList.toggle('helpIconClosed'); // toggle Closed Book class
     triggerIcon.classList.toggle('helpIconOpen'); // toggle Open Book class
     helpSpan.classList.toggle('hiddenHelp'); // toggle Help visibility
@@ -103,8 +103,8 @@ function setGameControlVisibility() {
 }
 // Controls vengeance button visibility
 function setVengeanceVisibility() {
-    var vengeanceDiv = document.getElementById("generateVengeance");
-    var checkState = document.getElementById("vengeanceToggle");
+    const vengeanceDiv = document.getElementById("generateVengeance");
+    const checkState = document.getElementById("vengeanceToggle");
     if (checkState.checked === false) {
         vengeanceDiv.style.display = "none";
     } else {
@@ -113,8 +113,8 @@ function setVengeanceVisibility() {
 }
 // Controls minigame delay slider visibility
 function setMinigameDelayVisibility() {
-    var delaySpan = document.getElementById("minigameDelaySetting");
-    var checkState = document.getElementById("minigameToggle");
+    const delaySpan = document.getElementById("minigameDelaySetting");
+    const checkState = document.getElementById("minigameToggle");
     if (elem.mgCheck.checked === true) {
         elem.mgDelayBlock.style.display = "block";
     } else {
@@ -122,8 +122,8 @@ function setMinigameDelayVisibility() {
     }
 }
 // Updates minigame delay number
-var delaySlider = document.getElementById("minigameDelay");
-            var outputDelay = document.getElementById("delayNum");
+const delaySlider = document.getElementById("minigameDelay");
+            const outputDelay = document.getElementById("delayNum");
             outputDelay.textContent = delaySlider.value;
             delaySlider.oninput = function() {
                 if (delaySlider.value == 0) {
@@ -134,8 +134,8 @@ var delaySlider = document.getElementById("minigameDelay");
             }
 // Change Theme Multiselect when ALL is checked or unchecked
 function switchThemeMulti() {
-    var listSelector = document.getElementById("exemplarTheme");
-    var checkState = document.getElementById("allThemes"); 
+    const listSelector = document.getElementById("exemplarTheme");
+    const checkState = document.getElementById("allThemes");
     if (checkState.checked === true) {
         elem.exemplarList.type = "select-multiple";
         elem.exemplarList.multiple = true;
@@ -152,9 +152,9 @@ function uncheckThemeAll() {
 }
 // Reusable selectAll/unselect for ALL checkboxes *** I can't seem to make this work with elem. structure, so leaving as they are.
 function selectAll(allCheck, selectName) {
-    var listSelector = document.getElementById(selectName);
-    var checkState = document.getElementById(allCheck);
-    var listLength = listSelector.options.length;
+    const listSelector = document.getElementById(selectName);
+    const checkState = document.getElementById(allCheck);
+    const listLength = listSelector.options.length;
     if (checkState.checked === false) {
         for (let i = 1; i < listLength; i++) {
             listSelector.options[0].selected = true; // selects the first value (to avoid filtering EVERYTHING out)
@@ -168,14 +168,14 @@ function selectAll(allCheck, selectName) {
 }
 // Checks if all values are selected, if so, checks ALL *** I can't seem to make this work with elem. structure, so leaving as they are.
 function testSelectAll(allCheck, selectName) {
-    var listSelector = document.getElementById(selectName);
-    var checkState = document.getElementById(allCheck);
-    var listLength = listSelector.options.length;
-    var allSelected = 0;
+    const listSelector = document.getElementById(selectName);
+    const checkState = document.getElementById(allCheck);
+    const listLength = listSelector.options.length;
+    let allSelected = 0;
         for (let i = 0; i < listLength; i++) {
             if (listSelector.options[i].selected === false) {
                 allSelected++;
-            };
+            }
         }
     if (checkState.checked === false && allSelected === 0) {
         checkState.checked = true;
@@ -188,7 +188,7 @@ let generatedArray = [];
 let encodedValue = 0;
 let encodedValueLength = 0;
 function generateArrayToEncode(selectElement) {
-    var listSelection = document.getElementById(selectElement);
+    const listSelection = document.getElementById(selectElement);
     generatedArray = [];
     for (let i = 0; i < listSelection.options.length; i++) {
         generatedArray.push(listSelection.options[i].selected);
