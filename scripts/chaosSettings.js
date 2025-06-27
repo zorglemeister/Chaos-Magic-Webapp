@@ -126,7 +126,7 @@ const delaySlider = document.getElementById("minigameDelay");
             const outputDelay = document.getElementById("delayNum");
             outputDelay.textContent = delaySlider.value;
             delaySlider.oninput = function() {
-                if (delaySlider.value == 0) {
+                if (delaySlider.value === "0") {
                     outputDelay.textContent = "Whenever"
                 } else {
                     outputDelay.textContent = this.value;

@@ -8,8 +8,10 @@
     window.gameList = {}
 
 // onLoad behaviours
-window.onload = setSettingsVisibility(), setGameControlVisibility()
-
+window.onload = () => {
+    setSettingsVisibility();
+    setGameControlVisibility();
+}
 
     
 // plain vanilla says this is a good way to ensure stuff doesn't load broken if JavaScript isn't enabled

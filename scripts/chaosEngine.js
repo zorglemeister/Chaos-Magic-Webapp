@@ -249,10 +249,10 @@ function makeGameList() {
 }
 
 function setupGame() {
-    gameConfig = makeGameConfig();
-    filterCriteria = defineMainFilter();
+    const gameConfig = makeGameConfig();
+    defineMainFilter();
     // Now that we've built the filterCriteria and the effectLibrary, let's combine the two and make our actual gameList
-    gameList = makeGameList();
+    makeGameList();
 
 
     // Debug Stuff
