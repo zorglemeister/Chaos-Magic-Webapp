@@ -69,7 +69,7 @@
                 <div id="playerCountSelector" class="settingContainer">
                     <!-- PlayerCount button switches state between "Duel" and "Group". The button text is passed to generateList() to filter the effect list. -->
                     <p>
-                    <label for="playerCount">How many players?</label>
+                    <label for="playerCountButton">How many players?</label>
                     <button type="button" id="playerCountButton" onclick="switchPlayerCount()">Duel</button> <span id="playerCountText">1 v 1</span>
                     <span id="explainPlayerCountIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPlayerCountText', this)" onmouseout="toggleHelp('explainPlayerCountText', this)"></span>
                     <span id="explainPlayerCountText" class="explain hiddenHelp helpFloat">Some effects work better for games with three or more players. Selecting "Duel" will filter out those effects.</span>
@@ -115,7 +115,7 @@
                     <p>
                     <label for="physicalToggle">Physical</label>
                     <input type="checkbox" id="physicalToggle" value="physical" checked/>
-                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)"onmouseout="toggleHelp('explainPhysicalText', this)"></span>
+                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)" onmouseout="toggleHelp('explainPhysicalText', this)"></span>
                     <span id="explainPhysicalText" class="explain hiddenHelp helpFloat">Some effects involve physical activity that may not be accessible for all players.</span>
                     </p>
                 </div>
@@ -137,7 +137,7 @@
                 <div id="exemplarThemeSelector" class="settingContainer">
                     <!-- Theme selector controls Theme subtable for Exemplar. -->
                     <p>
-                    <label for="themeSelector">Exemplar Theme Table</label>
+                    <label for="exemplarTheme">Exemplar Theme Table</label>
                     <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
                     <input type="checkbox" id="allThemes" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemes', 'exemplarTheme')" />
                     <select id="exemplarTheme" size="8" onclick="uncheckThemeAll()" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
