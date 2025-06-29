@@ -1,3 +1,8 @@
+body {
+    /* Old Style font stack gleaned from https://modernfontstacks.com/ */
+    font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+    font-weight: normal;
+}
 
 .debug {
     font-weight: bold;
@@ -34,11 +39,14 @@ right: 10px;
 }
 .configBlock {
     border: 3px solid gold;
+    padding: 10px;
 }
 .settingContainer { /* boxes the setting (anchors the floating help text) */
+    border: 1px solid #000;
+    margin-top: -1px; /* Prevent double borders. */
+    padding-left: 10px;
     position: relative;
     width: 44%;
-    border: 1px solid #000;
 }
 .helpFloat {
     position: absolute;
