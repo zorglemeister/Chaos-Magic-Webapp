@@ -47,7 +47,7 @@
                         <!-- List choice selector controls the base list, as well as other inputs. The selected value is passed to generateList() to filter the effect list. -->
                         <p>
                             <label for="listBase">Choose a list:</label>
-                            <select id="listBase" size="6" onclick="setGameControlVisibility()" style="overflow: hidden"><!-- TODO: infobubble that displays list details on mouseover/tap -->
+                            <select id="listBase" class="selectList" size="6" onclick="setGameControlVisibility()"><!-- TODO: infobubble that displays list details on mouseover/tap -->
                                 <option value="micro">Micro</option><!-- Vengeance and Minigame are visible -->
                                 <option value="lite" selected>Lite</option><!-- Vengeance, Minigame, and Repetition are visible -->
                                 <option value="exemplar">Exemplar</option><!-- Vengeance, Minigame, Theme, and Repetition are visible -->
@@ -92,9 +92,9 @@
                         <p>
                             <label for="minigameToggle">Minigames</label>
                             <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
-                        <div id="minigameDelaySetting" style="display: none">
+                        <div id="minigameDelaySetting">
                             <label for="minigameDelay">Turns between minigames</label>
-                            <input type="range" class="slider" id="minigameDelay" min="0" max="10" value="4"><span id="delayNum" style="display: none"></span>
+                            <input type="range" class="slider" id="minigameDelay" min="0" max="10" value="4"><span id="delayNum"></span>
                         </div>
                         <span id="explainMinigameIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainMinigameText', this)" onmouseout="toggleHelp('explainMinigameText', this)"></span>
                         <span id="explainMinigameText" class="explain hiddenHelp helpFloat">Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between games or choose to manually trigger one when you feel like it.</span>
@@ -107,7 +107,7 @@
                             <label for="exemplarTheme">Exemplar Theme Table</label>
                             <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
                             <input type="checkbox" id="allThemes" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemes', 'exemplarTheme')" />
-                            <select id="exemplarTheme" size="8" onclick="uncheckThemeAll()" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
+                            <select id="exemplarTheme" class="selectList" size="8" onclick="uncheckThemeAll()"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
                                 <option value="tokenizer" selected>Tokenizer</option>
                                 <option value="complexity">Complexity</option>
                                 <option value="soundalike">Sound-Alike</option>
@@ -128,7 +128,7 @@
                             <label for="customSchool">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
                             <label for="allSchools">All</label> <!-- Quick "select all" checkbox -->
                             <input type="checkbox" id="allSchools" value="allSchools" onclick="selectAll('allSchools', 'customSchool')" checked/>
-                            <select id="customSchool" size="9" multiple onclick="testSelectAll('allSchools', 'customSchool')" style="overflow: hidden"><!-- TODO: infobubble that displays school details on mouseover/tap -->
+                            <select id="customSchool" class="selectList" size="9" multiple onclick="testSelectAll('allSchools', 'customSchool')"><!-- TODO: infobubble that displays school details on mouseover/tap -->
                                 <option value="abjuration" selected>Abjuration</option><span id="explainAbjure" class="listPop">Protective effects</span>
                                 <option value="chronomancy" selected>Chronomancy</option><span id="explainChrono" class="listPop">Time/Turn effects</span>
                                 <option value="conjuration" selected>Conjuration</option><span id="explainConjure" class="listPop">Copies and Tokens</span>
@@ -171,7 +171,7 @@
                             <label for="customDuration">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
                             <label for="allDurations">All</label> <!-- Quick "select all" checkbox -->
                             <input type="checkbox" id="allDurations" value="allDurations" onclick="selectAll('allDurations', 'customDuration')" checked/>
-                            <select id="customDuration" size="4" multiple onclick="testSelectAll('allDurations', 'customDuration')" style="overflow: hidden"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
+                            <select id="customDuration" class="selectList" size="4" multiple onclick="testSelectAll('allDurations', 'customDuration')"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
                                 <option value="instant" selected>Instant</option>
                                 <option value="turn" selected>Turn</option>
                                 <option value="round" selected>Round</option>
@@ -187,7 +187,7 @@
                             <label for="customRarity">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
                             <label for="allRarities">All</label> <!-- Quick "select all" checkbox -->
                             <input type="checkbox" id="allRarities" value="allRarities" onclick="selectAll('allRarities', 'customRarity')" checked/>
-                            <select id="customRarity" size="4" multiple onclick="testSelectAll('allRarities', 'customRarity')" style="overflow: hidden"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
+                            <select id="customRarity" class="selectList" size="4" multiple onclick="testSelectAll('allRarities', 'customRarity')"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
                                 <option value="common" selected>Common</option>
                                 <option value="uncommon" selected>Uncommon</option>
                                 <option value="rare" selected>Rare</option>

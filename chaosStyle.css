@@ -99,6 +99,18 @@ input:checked + .slide:before {
   transform: translateX(1.5rem);
 }
 
+.selectList {
+    overflow: hidden;
+}
+
+#minigameDelaySetting {
+    display: none;
+}
+
+#delayNum {
+    display: none;
+}
+
 /* Component Styling */
 
 /* HelpBubble */
