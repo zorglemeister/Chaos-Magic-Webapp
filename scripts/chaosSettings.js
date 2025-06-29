@@ -113,8 +113,6 @@ function setVengeanceVisibility() {
 }
 // Controls minigame delay slider visibility
 function setMinigameDelayVisibility() {
-    const delaySpan = document.getElementById("minigameDelaySetting");
-    const checkState = document.getElementById("minigameToggle");
     if (elem.mgCheck.checked === true) {
         elem.mgDelayBlock.style.display = "block";
     } else {

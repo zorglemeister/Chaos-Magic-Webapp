@@ -7,10 +7,10 @@
         <meta name="viewport">
         <link rel="stylesheet" href="chaosStyle.css">
         <!-- init script -->
-         <script src="scripts/chaosInit.js" type="text/javascript" defer></script>
+        <script src="scripts/chaosInit.js" type="text/javascript" defer></script>
         <!-- loading custom elements as a module, right? -->
-         <script type="module" src="scripts/chaosComponents.js" defer></script>
-         <!-- Scripts come after this. -->
+        <script type="module" src="scripts/chaosComponents.js" defer></script>
+        <!-- Scripts come after this. -->
         <script src="scripts/chaosEffects.js" type="text/javascript" defer></script>
         <script src="scripts/chaosEngine.js" type="text/javascript" defer></script>
         <script src="scripts/chaosSettings.js" type="text/javascript" defer></script>
@@ -26,7 +26,228 @@
             <main>
                 main content ...
               -->
-        
+
+        <div class="workspace">
+            <div id="settingsContainer" class="configBlock">
+                <button type="button" id="gameSettingsButton" onclick="setSettingsVisibility()">Hide Game Settings</button>
+                <div id="gameSettings">
+                    <p>Configure your Chaos!</p>
+
+                    <div id="playerCountSelector" class="settingContainer">
+                        <!-- PlayerCount button switches state between "Duel" and "Group". The button text is passed to generateList() to filter the effect list. -->
+                        <p>
+                            <label for="playerCountButton">How many players?</label>
+                            <button type="button" id="playerCountButton" onclick="switchPlayerCount()">Duel</button> <span id="playerCountText">1 v 1</span>
+                            <span id="explainPlayerCountIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPlayerCountText', this)" onmouseout="toggleHelp('explainPlayerCountText', this)"></span>
+                            <span id="explainPlayerCountText" class="explain hiddenHelp helpFloat">Some effects work better for games with three or more players. Selecting "Duel" will filter out those effects.</span>
+                        </p>
+                    </div>
+
+                    <div id="listSelector" class="settingContainer">
+                        <!-- List choice selector controls the base list, as well as other inputs. The selected value is passed to generateList() to filter the effect list. -->
+                        <p>
+                            <label for="listBase">Choose a list:</label>
+                            <select id="listBase" size="6" onclick="setGameControlVisibility()" style="overflow: hidden"><!-- TODO: infobubble that displays list details on mouseover/tap -->
+                                <option value="micro">Micro</option><!-- Vengeance and Minigame are visible -->
+                                <option value="lite" selected>Lite</option><!-- Vengeance, Minigame, and Repetition are visible -->
+                                <option value="exemplar">Exemplar</option><!-- Vengeance, Minigame, Theme, and Repetition are visible -->
+                                <option value="legacy">Legacy</option><!-- Vengeance and Repetition are visible -->
+                                <option value="full">Full</option><!-- Vengeance and Repetition are visible -->
+                                <option value="custom">Custom</option><!-- Vengeance, Minigame, School, Duration, Rarity, Rarity Matters, and Repetition are visible -->
+                            </select>
+
+                            <span id="debugSelectionIndex" class="debug"></span>
+                            <span id="explainListSelectorIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainListSelectorText', this)" onmouseout="toggleHelp('explainListSelectorText', this)"></span>
+                            <span id="explainListSelectorText" class="explain hiddenHelp helpFloat">The List has had several "collections" over the years. Pick one or define your own.</span>
+                        </p>
+                    </div>
+
+                    <div id="vengeanceSelector" class="settingContainer">
+                        <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
+                        <p>
+                            <label for="vengeanceToggle">Vengeance
+                                <div class="toggleBox">
+                                    <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
+                                    <span class="slide"></span>
+                                </div>
+                            </label>
+
+                            <span id="explainVengeanceIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainVengeanceText', this)" onmouseout="toggleHelp('explainVengeanceText', this)"></span>
+                            <span id="explainVengeanceText" class="explain hiddenHelp helpFloat">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
+                        </p>
+                    </div>
+
+                    <div id="physicalSelector" class="settingContainer">
+                        <!-- Physical selector controls inclusion of effects that require physical movements outside of normal gameplay -->
+                        <p>
+                            <label for="physicalToggle">Physical</label>
+                            <input type="checkbox" id="physicalToggle" value="physical" checked/>
+                            <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)" onmouseout="toggleHelp('explainPhysicalText', this)"></span>
+                            <span id="explainPhysicalText" class="explain hiddenHelp helpFloat">Some effects involve physical activity that may not be accessible for all players.</span>
+                        </p>
+                    </div>
+
+                    <div id="minigameSelector" class="settingContainer">
+                        <!-- Minigame selector controls visibility of "Minigame" button, as well as "minigame delay". This will also require some sort of turn tracker?-->
+                        <p>
+                            <label for="minigameToggle">Minigames</label>
+                            <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
+                        <div id="minigameDelaySetting" style="display: none">
+                            <label for="minigameDelay">Turns between minigames</label>
+                            <input type="range" class="slider" id="minigameDelay" min="0" max="10" value="4"><span id="delayNum" style="display: none"></span>
+                        </div>
+                        <span id="explainMinigameIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainMinigameText', this)" onmouseout="toggleHelp('explainMinigameText', this)"></span>
+                        <span id="explainMinigameText" class="explain hiddenHelp helpFloat">Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between games or choose to manually trigger one when you feel like it.</span>
+                        </p>
+                    </div>
+
+                    <div id="exemplarThemeSelector" class="settingContainer">
+                        <!-- Theme selector controls Theme subtable for Exemplar. -->
+                        <p>
+                            <label for="exemplarTheme">Exemplar Theme Table</label>
+                            <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
+                            <input type="checkbox" id="allThemes" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemes', 'exemplarTheme')" />
+                            <select id="exemplarTheme" size="8" onclick="uncheckThemeAll()" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
+                                <option value="tokenizer" selected>Tokenizer</option>
+                                <option value="complexity">Complexity</option>
+                                <option value="soundalike">Sound-Alike</option>
+                                <option value="prodigal">Prodigal</option>
+                                <option value="beat">Beat</option>
+                                <option value="university">University</option>
+                                <option value="toxin">Toxin</option>
+                                <option value="badthings">Bad Things</option>
+                            </select>
+                            <span id="explainThemeIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainThemeText', this)" onmouseout="toggleHelp('explainThemeText', this)"></span>
+                            <span id="explainThemeText" class="explain hiddenHelp helpFloat">The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table or include all of them.</span>
+                        </p>
+                    </div>
+
+                    <div id="customSchoolSelector" class="settingContainer">
+                        <!-- School selector controls school filter logic. -->
+                        <p>
+                            <label for="customSchool">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
+                            <label for="allSchools">All</label> <!-- Quick "select all" checkbox -->
+                            <input type="checkbox" id="allSchools" value="allSchools" onclick="selectAll('allSchools', 'customSchool')" checked/>
+                            <select id="customSchool" size="9" multiple onclick="testSelectAll('allSchools', 'customSchool')" style="overflow: hidden"><!-- TODO: infobubble that displays school details on mouseover/tap -->
+                                <option value="abjuration" selected>Abjuration</option><span id="explainAbjure" class="listPop">Protective effects</span>
+                                <option value="chronomancy" selected>Chronomancy</option><span id="explainChrono" class="listPop">Time/Turn effects</span>
+                                <option value="conjuration" selected>Conjuration</option><span id="explainConjure" class="listPop">Copies and Tokens</span>
+                                <option value="divination" selected>Divination</option><span id="explainDivine" class="listPop">Hands, Libraries, and Draw</span>
+                                <option value="enchantment" selected>Enchantment</option><span id="explainEnchant" class="listPop">Permanent Alterations</span>
+                                <option value="evocation" selected>Evocation</option><span id="explainEvoke" class="listPop">Damage</span>
+                                <option value="illusion" selected>Illusion</option><span id="explainIllusion" class="listPop">Temporary Alterations</span>
+                                <option value="necromancy" selected>Necromancy</option><span id="explainNecro" class="listPop">Graveyard</span>
+                                <option value="transmutation" selected>Transmutation</option><span id="explainTransmute" class="listPop">Alterations</span>
+                            </select>
+                            <span id="explainSchoolIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainSchoolText', this)" onmouseout="toggleHelp('explainSchoolText', this)"></span>
+                            <span id="explainSchoolText" class="explain hiddenHelp helpFloat">Every effect belongs to one or more schools of magic. Choose which sorts of effects to include.</span>
+                        </p>
+
+                        <div class="debug">
+                            <button class="debug" type="button" id="generateSchool" onclick="generateArrayToEncode('customSchool')">Generate Array Schools</button>
+                            <button class="debug" type="button" id="encodeSchool" onclick="encodeArrayToBitwise(generatedArray)">Bitwise Encode Schools</button>
+                            <button class="debug" type="button" id="decodeSchool" onclick="decodeArrayFromBitwise(encodedValue, encodedValueLength)">Bitwise Decode Schools</button>
+                            <br />
+                            <button class="debug" type="button" id="genEnDeSchool" onclick="doItAll('customSchool')">Do all Three</button>
+                            <br />
+                            Generated School Array: <span id="debugGeneratedSchool"></span>
+                            <br />
+                            Generated School Array Length: <span id="debugGeneratedSchoolLength"></span>
+                            <br />
+                            Encoded School Value: <span id="debugEncodedSchool"></span>
+                            <br />
+                            Encoded School Value Length: <span id="debugEncodedSchoolLength"></span>
+                            <br />
+                            Decoded School Array: <span id="debugDecodedSchool"></span>
+                        </div> <!-- End Debug -->
+                    </div>
+
+
+
+
+                    <div id="customDurationSelector" class="settingContainer">
+                        <!-- Duration selector controls duration filter logic. -->
+                        <p>
+                            <label for="customDuration">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
+                            <label for="allDurations">All</label> <!-- Quick "select all" checkbox -->
+                            <input type="checkbox" id="allDurations" value="allDurations" onclick="selectAll('allDurations', 'customDuration')" checked/>
+                            <select id="customDuration" size="4" multiple onclick="testSelectAll('allDurations', 'customDuration')" style="overflow: hidden"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
+                                <option value="instant" selected>Instant</option>
+                                <option value="turn" selected>Turn</option>
+                                <option value="round" selected>Round</option>
+                                <option value="ongoing" selected>Ongoing</option>
+                            </select>
+                            <span id="explainDurationIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainDurationText', this)" onmouseout="toggleHelp('explainDurationText', this)"></span>
+                            <span id="explainDurationText" class="explain hiddenHelp helpFloat">TEXT EXPLAINING DURATION</span>
+                        </p>
+                    </div>
+                    <div id="customRaritySelector" class="settingContainer">
+                        <!-- Rarity selector controls rarity filter logic. -->
+                        <p>
+                            <label for="customRarity">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
+                            <label for="allRarities">All</label> <!-- Quick "select all" checkbox -->
+                            <input type="checkbox" id="allRarities" value="allRarities" onclick="selectAll('allRarities', 'customRarity')" checked/>
+                            <select id="customRarity" size="4" multiple onclick="testSelectAll('allRarities', 'customRarity')" style="overflow: hidden"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
+                                <option value="common" selected>Common</option>
+                                <option value="uncommon" selected>Uncommon</option>
+                                <option value="rare" selected>Rare</option>
+                                <option value="mythic" selected>Mythic</option>
+                            </select>
+                            <span id="explainRarityIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRarityText', this)" onmouseout="toggleHelp('explainRarityText', this)"></span>
+                            <span id="explainRarityText" class="explain hiddenHelp helpFloat">TEXT EXPLAINING RARITY</span>
+                        </p>
+                    </div>
+                    <div id="customRarityMattersSelector" class="settingContainer">
+                        <!-- Rarity Matters selector impacts randomization. -->
+                        <p>
+                            <label for="customRarityMattersToggle">Rarity Matters?</label>
+                            <input type="checkbox" id="customRarityMattersToggle" value="rarityMatters"/>
+                            <span id="explainRarityMattersIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRarityMattersText', this)" onmouseout="toggleHelp('explainRarityMattersText', this)"></span>
+                            <span id="explainRarityMattersText" class="explain hiddenHelp helpFloat">Controls randomizer: effects occur more or less frequently depending on their rarity.</span>
+                        </p>
+                    </div>
+                    <div id="repetitionSelector" class="settingContainer">
+                        <!-- Repetition selector impacts randomization. -->
+                        <p>
+                            <label for="repetitionToggle">Repeat Effects?</label>
+                            <input type="checkbox" id="repetitionToggle" value="repetition" checked/>
+                            <span id="explainRepetitionIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRepetitionText', this)"  onmouseout="toggleHelp('explainRepetitionText', this)"></span>
+                            <span id="explainRepetitionText" class="explain hiddenHelp helpFloat">Allow effects to occur more than once in a game.</span>
+                        </p>
+                    </div>
+
+                    <h1>NOTHING BELOW HERE WORKS</h1>
+                    <!--  WHY NO WORKY?! -->
+                    <div id="updateGame">
+                        <button type="button" id="updateSettingsButton" onclick="makeGame()">Update Game Settings</button> This will reset the current game!
+                        <!-- This should pop a confirm alert, and if confirmed, update the randomizer configuration and wipe the current effect and history-->
+                    </div>
+
+
+                </div><!-- End of "gameSettings" -->
+
+            </div><!-- End of "settingsContainer" -->
+
+
+            <div id="gameContainer">
+
+                <div id="generateEffect">
+                    <input type="button" value="ROLL" onclick="getEffect">
+                </div>
+                <div id="generateVengeance">
+                    <button type="button" id="vengeanceButton" onclick="getVengeance()">Vengeance</button>
+                </div>
+
+                <div id="effectDisplay">
+
+                </div>
+
+                <div id="effectHistory">
+
+                </div>
+            </div><!-- End of "gameContainer" -->
+
+        </div><!-- End of "workspace" -->
         <div class="debugContainer">
             <p>VARIOUS VALUES AND STUFF FOR DEBUG</p>
             <button type="button" id="debugMakeGame" onclick="debugMakeGame()">DEBUG MAKE GAME</button>
@@ -57,237 +278,6 @@
                 <div id="makeEffectLibrary"></div>
 
         </div>
-        <div class="workspace">
-
-            
-
-            <div id="settingsContainer" class="configBlock">
-                <button type="button" id="gameSettingsButton" onclick="setSettingsVisibility()">Hide Game Settings</button>
-            <div id="gameSettings">
-<p>Configure your Chaos!</p>
-                
-                <div id="playerCountSelector" class="settingContainer">
-                    <!-- PlayerCount button switches state between "Duel" and "Group". The button text is passed to generateList() to filter the effect list. -->
-                    <p>
-                    <label for="playerCountButton">How many players?</label>
-                    <button type="button" id="playerCountButton" onclick="switchPlayerCount()">Duel</button> <span id="playerCountText">1 v 1</span>
-                    <span id="explainPlayerCountIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPlayerCountText', this)" onmouseout="toggleHelp('explainPlayerCountText', this)"></span>
-                    <span id="explainPlayerCountText" class="explain hiddenHelp helpFloat">Some effects work better for games with three or more players. Selecting "Duel" will filter out those effects.</span>
-                </p>
-                </div>
-                
-                <div id="listSelector" class="settingContainer">
-                    <!-- List choice selector controls the base list, as well as other inputs. The selected value is passed to generateList() to filter the effect list. -->
-                    <p>
-                    <label for="listBase">Choose a list:</label>
-                    <select id="listBase" size="6" onclick="setGameControlVisibility()" style="overflow: hidden"><!-- TODO: infobubble that displays list details on mouseover/tap -->
-                        <option value="micro">Micro</option><!-- Vengeance and Minigame are visible -->
-                        <option value="lite" selected>Lite</option><!-- Vengeance, Minigame, and Repetition are visible -->
-                        <option value="exemplar">Exemplar</option><!-- Vengeance, Minigame, Theme, and Repetition are visible -->
-                        <option value="legacy">Legacy</option><!-- Vengeance and Repetition are visible -->
-                        <option value="full">Full</option><!-- Vengeance and Repetition are visible -->
-                        <option value="custom">Custom</option><!-- Vengeance, Minigame, School, Duration, Rarity, Rarity Matters, and Repetition are visible -->
-                    </select>
-                    
-                    <span id="debugSelectionIndex" class="debug"></span>
-                    <span id="explainListSelectorIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainListSelectorText', this)" onmouseout="toggleHelp('explainListSelectorText', this)"></span>
-                    <span id="explainListSelectorText" class="explain hiddenHelp helpFloat">The List has had several "collections" over the years. Pick one or define your own.</span>
-                    </p>
-                </div>
-
-                <div id="vengeanceSelector" class="settingContainer">
-                    <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
-                    <p>
-                    <label for="vengeanceToggle">Vengeance 
-                        <div class="toggleBox">
-                            <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
-                            <span class="slide"></span>
-                        </div>
-                    </label>
-
-                    <span id="explainVengeanceIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainVengeanceText', this)" onmouseout="toggleHelp('explainVengeanceText', this)"></span>
-                    <span id="explainVengeanceText" class="explain hiddenHelp helpFloat">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
-                    </p>
-                </div>
-
-                <div id="physicalSelector" class="settingContainer">
-                    <!-- Physical selector controls inclusion of effects that require physical movements outside of normal gameplay -->
-                    <p>
-                    <label for="physicalToggle">Physical</label>
-                    <input type="checkbox" id="physicalToggle" value="physical" checked/>
-                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)" onmouseout="toggleHelp('explainPhysicalText', this)"></span>
-                    <span id="explainPhysicalText" class="explain hiddenHelp helpFloat">Some effects involve physical activity that may not be accessible for all players.</span>
-                    </p>
-                </div>
-
-                <div id="minigameSelector" class="settingContainer">
-                    <!-- Minigame selector controls visibility of "Minigame" button, as well as "minigame delay". This will also require some sort of turn tracker?-->
-                    <p>
-                    <label for="minigameToggle">Minigames</label>
-                    <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
-                    <div id="minigameDelaySetting">
-                        <label for="minigameDelay">Turns between minigames</label>
-                        <input type="range" class="slider" id="minigameDelay" min="0" max="10" value="4"><span id="delayNum" style="display: none"></span>
-                    </div>
-                    <span id="explainMinigameIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainMinigameText', this)" onmouseout="toggleHelp('explainMinigameText', this)"></span>
-                    <span id="explainMinigameText" class="explain hiddenHelp helpFloat">Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between games or choose to manually trigger one when you feel like it.</span>
-                    </p>
-                </div>
-
-                <div id="exemplarThemeSelector" class="settingContainer">
-                    <!-- Theme selector controls Theme subtable for Exemplar. -->
-                    <p>
-                    <label for="exemplarTheme">Exemplar Theme Table</label>
-                    <label for="allThemes">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allThemes" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemes', 'exemplarTheme')" />
-                    <select id="exemplarTheme" size="8" onclick="uncheckThemeAll()" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
-                        <option value="tokenizer" selected>Tokenizer</option>
-                        <option value="complexity">Complexity</option>
-                        <option value="soundalike">Sound-Alike</option>
-                        <option value="prodigal">Prodigal</option>
-                        <option value="beat">Beat</option>
-                        <option value="university">University</option>
-                        <option value="toxin">Toxin</option>
-                        <option value="badthings">Bad Things</option>
-                    </select>
-                    <span id="explainThemeIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainThemeText', this)" onmouseout="toggleHelp('explainThemeText', this)"></span>
-                    <span id="explainThemeText" class="explain hiddenHelp helpFloat">The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table or include all of them.</span>
-                    </p>
-                </div>
-                
-                <div id="customSchoolSelector" class="settingContainer">
-                    <!-- School selector controls school filter logic. -->
-                    <p>
-                    <label for="customSchool">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
-                    <label for="allSchools">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allSchools" value="allSchools" onclick="selectAll('allSchools', 'customSchool')" checked/>
-                    <select id="customSchool" size="9" multiple onclick="testSelectAll('allSchools', 'customSchool')" style="overflow: hidden"><!-- TODO: infobubble that displays school details on mouseover/tap -->
-                        <option value="abjuration" selected>Abjuration</option><span id="explainAbjure" class="listPop">Protective effects</span>
-                        <option value="chronomancy" selected>Chronomancy</option><span id="explainChrono" class="listPop">Time/Turn effects</span>
-                        <option value="conjuration" selected>Conjuration</option><span id="explainConjure" class="listPop">Copies and Tokens</span>
-                        <option value="divination" selected>Divination</option><span id="explainDivine" class="listPop">Hands, Libraries, and Draw</span>
-                        <option value="enchantment" selected>Enchantment</option><span id="explainEnchant" class="listPop">Permanent Alterations</span>
-                        <option value="evocation" selected>Evocation</option><span id="explainEvoke" class="listPop">Damage</span>
-                        <option value="illusion" selected>Illusion</option><span id="explainIllusion" class="listPop">Temporary Alterations</span>
-                        <option value="necromancy" selected>Necromancy</option><span id="explainNecro" class="listPop">Graveyard</span>
-                        <option value="transmutation" selected>Transmutation</option><span id="explainTransmute" class="listPop">Alterations</span>
-                    </select>
-                    <span id="explainSchoolIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainSchoolText', this)" onmouseout="toggleHelp('explainSchoolText', this)"></span>
-                    <span id="explainSchoolText" class="explain hiddenHelp helpFloat">Every effect belongs to one or more schools of magic. Choose which sorts of effects to include.</span>
-                    </p>
-                
-                <div class="debug">
-                <button class="debug" type="button" id="generateSchool" onclick="generateArrayToEncode('customSchool')">Generate Array Schools</button>
-                <button class="debug" type="button" id="encodeSchool" onclick="encodeArrayToBitwise(generatedArray)">Bitwise Encode Schools</button>
-                <button class="debug" type="button" id="decodeSchool" onclick="decodeArrayFromBitwise(encodedValue, encodedValueLength)">Bitwise Decode Schools</button>
-                <br />
-                <button class="debug" type="button" id="genEnDeSchool" onclick="doItAll('customSchool')">Do all Three</button>
-                <br />
-                Generated School Array: <span id="debugGeneratedSchool"></span>
-                <br />
-                Generated School Array Length: <span id="debugGeneratedSchoolLength"></span>
-                <br />
-                Encoded School Value: <span id="debugEncodedSchool"></span>
-                <br />
-                Encoded School Value Length: <span id="debugEncodedSchoolLength"></span>
-                <br />
-                Decoded School Array: <span id="debugDecodedSchool"></span>
-            </div> <!-- End Debug -->
-            </div>
-
-
-
-
-                <div id="customDurationSelector" class="settingContainer">
-                    <!-- Duration selector controls duration filter logic. -->
-                    <p>
-                    <label for="customDuration">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
-                    <label for="allDurations">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allDurations" value="allDurations" onclick="selectAll('allDurations', 'customDuration')" checked/>
-                    <select id="customDuration" size="4" multiple onclick="testSelectAll('allDurations', 'customDuration')" style="overflow: hidden"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
-                        <option value="instant" selected>Instant</option>
-                        <option value="turn" selected>Turn</option>
-                        <option value="round" selected>Round</option>
-                        <option value="ongoing" selected>Ongoing</option>
-                    </select>
-                    <span id="explainDurationIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainDurationText', this)" onmouseout="toggleHelp('explainDurationText', this)"></span>
-                    <span id="explainDurationText" class="explain hiddenHelp helpFloat">TEXT EXPLAINING DURATION</span>
-                    </p>
-                </div>
-                <div id="customRaritySelector" class="settingContainer">
-                    <!-- Rarity selector controls rarity filter logic. -->
-                    <p>
-                    <label for="customRarity">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
-                    <label for="allRarities">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allRarities" value="allRarities" onclick="selectAll('allRarities', 'customRarity')" checked/>
-                    <select id="customRarity" size="4" multiple onclick="testSelectAll('allRarities', 'customRarity')" style="overflow: hidden"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
-                        <option value="common" selected>Common</option>
-                        <option value="uncommon" selected>Uncommon</option>
-                        <option value="rare" selected>Rare</option>
-                        <option value="mythic" selected>Mythic</option>
-                    </select>
-                    <span id="explainRarityIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRarityText', this)" onmouseout="toggleHelp('explainRarityText', this)"></span>
-                    <span id="explainRarityText" class="explain hiddenHelp helpFloat">TEXT EXPLAINING RARITY</span>
-                    </p>
-                </div>
-                <div id="customRarityMattersSelector" class="settingContainer">
-                    <!-- Rarity Matters selector impacts randomization. -->
-                    <p>
-                    <label for="customRarityMattersToggle">Rarity Matters?</label>
-                    <input type="checkbox" id="customRarityMattersToggle" value="rarityMatters"/>
-                    <span id="explainRarityMattersIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRarityMattersText', this)" onmouseout="toggleHelp('explainRarityMattersText', this)"></span>
-                    <span id="explainRarityMattersText" class="explain hiddenHelp helpFloat">Controls randomizer: effects occur more or less frequently depending on their rarity.</span>
-                    </p>
-                </div>
-                <div id="repetitionSelector" class="settingContainer">
-                    <!-- Repetition selector impacts randomization. -->
-                    <p>
-                    <label for="repetitionToggle">Repeat Effects?</label>
-                    <input type="checkbox" id="repetitionToggle" value="repetition" checked/>
-                    <span id="explainRepetitionIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainRepetitionText', this)"  onmouseout="toggleHelp('explainRepetitionText', this)"></span>
-                    <span id="explainRepetitionText" class="explain hiddenHelp helpFloat">Allow effects to occur more than once in a game.</span>
-                    </p>
-                </div>
-                <button type="button" id="debugMakeGame" onclick="debugMakeGame()">DEBUG MAKE GAME</button>
-                Full Settings Array
-                <div id="debugMakeGameOutput"></div>
-                <p>Trying as object</p>
-                <button type="button" id="makeGameObjectButton" onclick="makeGameConfig()">make Game Object</button>
-                Full Settings Object
-                <div id="makeGameObject"></div>
-
-                <h1>NOTHING BELOW HERE WORKS</h1>
-                <!--  WHY NO WORKY?! -->
-                <div id="updateGame">
-                    <button type="button" id="updateSettingsButton" onclick="makeGame()">Update Game Settings</button> This will reset the current game!
-                    <!-- This should pop a confirm alert, and if confirmed, update the randomizer configuration and wipe the current effect and history-->
-                </div>
-                
-
-            </div><!-- End of "gameSettings" -->
-
-            </div><!-- End of "settingsContainer" -->
-
-
-            <div id="gameContainer">
-
-                <div id="generateEffect">
-                    <input type="button" value="ROLL" onclick="getEffect">
-                </div>
-                <div id="generateVengeance">
-                    <button type="button" id="vengeanceButton" onclick="getVengeance()">Vengeance</button>
-                </div>
-
-                <div id="effectDisplay">
-
-                </div>
-
-                <div id="effectHistory">
-
-                </div>
-            </div><!-- End of "gameContainer" -->
-
-        </div><!-- End of "workspace" -->
 
 <!-- Scripts come after this. -->
 
