@@ -52,6 +52,7 @@ body {
 .hiddenHelp {
     display: none;
 }
+
 .configBlock {
     padding: 10px;
 }
@@ -78,12 +79,13 @@ body {
 }
 .helpFloat {
     position: absolute;
-    top: 20px;
-    left: 50px;
+    width: 200px;
+    left: 450px;
     margin-right: 50px;
     background-color: rgba(255, 255, 255, 1); /* semi-transparent background for debug/aesthetics */
     padding: 5px;
     border: 1px solid black;
+    z-index: 1;
 }
 
 /* Making a toggle */
@@ -161,15 +163,11 @@ z-tip.helpOpenComp::before {
     font-size: 24px;
 }
 z-tip.helpContentComp {
-    display: block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    position: relative;
     transform: translate(-50%, -50%);
     background: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
 }
 z-tip.hiddenHelpComp {
     display: none;
