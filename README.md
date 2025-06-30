@@ -1,1 +1,1 @@
-jsCollected branch has the current stuff
+Component-Based branch has the current stuff
