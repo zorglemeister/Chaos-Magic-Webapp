@@ -10,10 +10,12 @@
 // Controls settings visibility
 function setSettingsVisibility() {
     if (elem.gameConfigButton.textContent === "Hide Game Settings") {
-        elem.gameConfigButton.textContent = "Show Game Settings"; 
+        elem.gameConfigButton.textContent = "Show Game Settings";
+        elem.gameSettingsContainer.classList.remove("visibleBorder");
         elem.gameConfigBlock.style.display = "none";
     } else {
-        elem.gameConfigButton.textContent = "Hide Game Settings"; 
+        elem.gameConfigButton.textContent = "Hide Game Settings";
+        elem.gameSettingsContainer.classList.add("visibleBorder");
         elem.gameConfigBlock.style.display = "block";
     }
 }
@@ -41,8 +43,8 @@ function setGameControlVisibility() {
     document.getElementById("debugSelectionIndex").innerHTML = elem.listList.options.selectedIndex;
     switch (elem.listList.options.selectedIndex) {
         case 0: // Micro
-            elem.vengBlock.style.display = "block";
-            elem.mgBlock.style.display = "block";
+            elem.vengBlock.style.display = "flex";
+            elem.mgBlock.style.display = "flex";
             elem.exemplarBlock.style.display = "none";
             elem.schoolBlock.style.display = "none";
             elem.durationBlock.style.display = "none";
@@ -51,54 +53,54 @@ function setGameControlVisibility() {
             elem.repeatBlock.style.display = "none";
             break;
         case 1: // Lite
-            elem.vengBlock.style.display = "block";
-            elem.mgBlock.style.display = "block";
+            elem.vengBlock.style.display = "flex";
+            elem.mgBlock.style.display = "flex";
             elem.exemplarBlock.style.display = "none";
             elem.schoolBlock.style.display = "none";
             elem.durationBlock.style.display = "none";
             elem.rarityBlock.style.display = "none";
             elem.mattersBlock.style.display = "none";
-            elem.repeatBlock.style.display = "block";
+            elem.repeatBlock.style.display = "flex";
             break;
         case 2: // Exemplar
-            elem.vengBlock.style.display = "block";
-            elem.mgBlock.style.display = "block";
-            elem.exemplarBlock.style.display = "block";
+            elem.vengBlock.style.display = "flex";
+            elem.mgBlock.style.display = "flex";
+            elem.exemplarBlock.style.display = "flex";
             elem.schoolBlock.style.display = "none";
             elem.durationBlock.style.display = "none";
             elem.rarityBlock.style.display = "none";
             elem.mattersBlock.style.display = "none";
-            elem.repeatBlock.style.display = "block";
+            elem.repeatBlock.style.display = "flex";
             break;
         case 3: // Legacy
-            elem.vengBlock.style.display = "block";
+            elem.vengBlock.style.display = "flex";
             elem.mgBlock.style.display = "none";
             elem.exemplarBlock.style.display = "none";
             elem.schoolBlock.style.display = "none";
             elem.durationBlock.style.display = "none";
             elem.rarityBlock.style.display = "none";
             elem.mattersBlock.style.display = "none";
-            elem.repeatBlock.style.display = "block";
+            elem.repeatBlock.style.display = "flex";
             break;
         case 4: // Full
-            elem.vengBlock.style.display = "block";
+            elem.vengBlock.style.display = "flex";
             elem.mgBlock.style.display = "none";
             elem.exemplarBlock.style.display = "none";
             elem.schoolBlock.style.display = "none";  
             elem.durationBlock.style.display = "none";
             elem.rarityBlock.style.display = "none";
             elem.mattersBlock.style.display = "none";
-            elem.repeatBlock.style.display = "block";
+            elem.repeatBlock.style.display = "flex";
             break;
         case 5: // Custom
-            elem.vengBlock.style.display = "block";
-            elem.mgBlock.style.display = "block";
+            elem.vengBlock.style.display = "flex";
+            elem.mgBlock.style.display = "flex";
             elem.exemplarBlock.style.display = "none";
-            elem.schoolBlock.style.display = "block";
-            elem.durationBlock.style.display = "block";
-            elem.rarityBlock.style.display = "block";
-            elem.mattersBlock.style.display = "block";
-            elem.repeatBlock.style.display = "block";
+            elem.schoolBlock.style.display = "flex";
+            elem.durationBlock.style.display = "flex";
+            elem.rarityBlock.style.display = "flex";
+            elem.mattersBlock.style.display = "flex";
+            elem.repeatBlock.style.display = "flex";
     }
 }
 // Controls vengeance button visibility
@@ -121,15 +123,15 @@ function setMinigameDelayVisibility() {
 }
 // Updates minigame delay number
 const delaySlider = document.getElementById("minigameDelay");
-            const outputDelay = document.getElementById("delayNum");
-            outputDelay.textContent = delaySlider.value;
-            delaySlider.oninput = function() {
-                if (delaySlider.value === "0") {
-                    outputDelay.textContent = "Whenever"
-                } else {
-                    outputDelay.textContent = this.value;
-                }
-            }
+    const outputDelay = document.getElementById("delayNum");
+    outputDelay.textContent = delaySlider.value;
+    delaySlider.oninput = function() {
+        if (delaySlider.value === "0") {
+            outputDelay.textContent = "Whenever"
+        } else {
+            outputDelay.textContent = this.value;
+        }
+    }
 // Change Theme Multiselect when ALL is checked or unchecked
 function switchThemeMulti() {
     const listSelector = document.getElementById("exemplarTheme");

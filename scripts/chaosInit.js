@@ -27,6 +27,7 @@ window.onload = () => {
 // reference stuff like elem.gameConfigBlock.property
 
 const elem = {
+    gameSettingsContainer: document.getElementById("settingsContainer"), // div that holds the config button and settings
     gameConfigBlock: document.getElementById("gameSettings"), // div that holds all the config stuff
     gameConfigButton: document.getElementById("gameSettingsButton"), // button that shows/hides config stuff
 
