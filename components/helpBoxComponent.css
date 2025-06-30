@@ -1,0 +1,24 @@
+.helpParent {
+    display: block;
+    position: relative;
+    width: 70%;
+    border: 1px dashed black;
+}
+z-hb details {
+    border: 1px dashed black;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 50%;
+    background-color: rgb(226, 193, 144);
+    padding-right: 2rem;
+}
+z-hb summary {
+    border: 1px dashed black;
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: rgb(226, 193, 144);
+    border-radius: 50%;
+}

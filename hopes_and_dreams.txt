@@ -3,7 +3,21 @@ The Grand Vision:
 A web app that allows a user to configure their list from a selection of metadata filters, determine randomization style, and then start a game session that generates a new effect on demand and keeps a log of history for that game. Nothing is persisted outside of the browser session.
 
 JSON file contains effect list:
-Name, ShortDescription, FullDescription, CanonicalNumber, DisplayNumber, Players [Duel, Multi], Inclusion (Vengeance, Micro, Lite, Exemplar [Main, ThemeX], Legacy, Minigame), School [Abjuration, Chronomancy, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, Transmutation], Duration [Instant, Turn, Round, Ongoing], Rarity [Common, Uncommon, Rare, Mythic], Component [TokenX, CounterX]
+Name, ShortDescription, FullDescription, CanonicalNumber, DisplayNumber, Players [Duel, Multi], Inclusion [Vengeance, Micro, Lite, Exemplar, Legacy, Minigame, Physical], Exemplar [Main, Tokenizer, Complexity, Sound-Alike, Prodigal, Beat, University, Toxin, Bad Things], School [Abjuration, Chronomancy, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, Transmutation], Duration [Instant, Turn, Round, Ongoing], Rarity [Common, Uncommon, Rare, Mythic], Component [TokenX, CounterX]
+
+Name
+ShortDesc
+FullDesc
+CanonNum
+DispNum
+Players [Duel, Multi]
+Inclusion [Vengeance, Micro, Lite, Exemplar, Legacy, Minigame, Physical]
+Exemplar [Main, Tokenizer, Complexity, Sound-Alike, Prodigal, Beat, University, Toxin, Bad Things]
+School [Abjuration, Chronomancy, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, Transmutation]
+Duration [Instant, Turn, Round, Ongoing]
+Rarity [Common, Uncommon, Rare, Mythic]
+Component [TokenX, CounterX]
+SpecFunc
 
 Button: Game Settings (shows/hides Game Settings)
 
@@ -22,5 +36,24 @@ Repetition [singleSelect: True, False]
 
 Button: Update Game Settings (This will reset the current game)
 
+Game Settings Payload
+A count - duel:0 multi:1
+B baseList - micro:0 lite:1 exemplar:2 legacy:3 full:4 custom:5
+C exemplarTheme - token:0 comp:1 sound:2 prod:3 beat:4 uni:5 tox:6 bad:7 all:8
+D customSchool - bitwise encoded array, length 9
+E customDuration - bitwise encoded array, length 4
+F customRarity - bitwise encoded array, length 4
+G customMatters - boolean
+H repetition - boolean
+A,B,C,D,E,F,G,H
+
 Button: Generate Effect
 ifVengeance, Button: Vengeance!
+
+need to build a "random [thing]" that returns a direction, colour, land type, card type, or other value
+tempted to have a column in the data for "special function" that would allow me to write the code for effects to update dynamically with any randomized value they contain
+yeah, going to do that
+essentially, if a "special function" exists, it'll call that function and return the effect text
+
+
+if repetition is false, need a "remaining effects" counter and a "reshuffle" button that regenerates the list
