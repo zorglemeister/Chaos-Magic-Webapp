@@ -10,28 +10,15 @@ class HelpBox extends HTMLElement {
         this.render(); // When it shows up, render it!
     }
     render() {
-        const sourceText = this.innerHTML; // Get the help text : <z-hb>Explanation</z-hb> [changed to innerHTML to facilitate formatting!]
-        console.log('Source Text=' + sourceText);
-        // this.textContent = ''; // wipes the tag content to prep for the html [I don't think I need to do this]
-        // this.icon = document.createElement('span');
-        // this.innerHTML = ; // this makes the Icon span?
-        // augh, eff it, I'm just writing the HTML
-        // OOH! I can use the <details><summary> structure!
-        this.innerHTML = `<details class="helpText"><summary class="helpIcon">📕</summary>${sourceText}</details>`;
-        this.querySelector('summary').addEventListener('click', () => { // handler for clicking on the Summary
-            const newIcon = this.toggleClick();
-            this.querySelector('summary').textContent = newIcon;
-        });
+        const sourceText = this.innerHTML; // Get the help text : <z-hb>Explanation</z-hb>
+        this.innerHTML = `<div class="helpIconComp helpClosedComp"></div><div class="helpContentComp hiddenHelpComp">${sourceText}</div>`;
+        this.getElementByClassName('helpIconComp').addEventListener('click', this.toggleClick());
     }
 
     toggleClick() {
-       let icon = "";
-       if (this.querySelector('summary').textContent === '📕') {
-            icon = '📖';
-       } else {
-           icon = '📕';
-       }
-        return icon;
+       this.getElementsByClassName('helpIconComp').classList.toggle('helpClosedComp'); // toggle Closed class
+            this.getElementsByClassName('helpIconComp').classList.toggle('helpOpenComp'); // toggle Open class
+            this.getElementsByClassName('helpContentComp').classList.toggle('hiddenHelpComp'); // toggle Help visibility
     }
 }
 

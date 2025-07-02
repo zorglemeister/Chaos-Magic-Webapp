@@ -1,8 +1,95 @@
 // THIS FILE HOLDS THE SETTINGS PANEL
-// ALL THIS STUFF WORKS. DON'T MESS WITH IT, JO! - Jo
-
+//
 // onLoad behaviours
 window.onload = setSettingsVisibility(), setGameControlVisibility()
+
+// Div Definition
+// I'm only defining the divs I need to interact with, but I placeholdered the rest in the structure
+
+// "settingsContainer"
+const settingsDiv = document.getElementById("gameSettings");
+    // "settingBasics"
+        // "playerCountSetting"
+        // "listSetting"
+        const exemplarDiv = document.getElementById("themeSetting");
+        const customSchoolDiv = document.getElementById("schoolSetting");
+        const customDurationDiv = document.getElementById("durationSetting");
+        const customRarityDiv = document.getElementById("raritySetting");
+    // "settingRandomizer"
+        const repetitionDiv = document.getElementById("repetitionSetting");
+        const customMattersDiv = document.getElementById("rarityMattersSetting");
+    // "settingExtras"
+        // "physicalSetting"
+        const vengeanceDiv = document.getElementById("vengeanceSetting");
+        const minigameDiv = document.getElementById("minigameSetting");
+    // "updateGame"
+
+
+// Element Definition + Click Handlers
+
+// All the elements with onClicks
+const configSettingsButton = document.getElementById("gameSettingsButton");
+configSettingsButton.addEventListener('click', setSettingsVisibility);
+
+const configListSelect = document.getElementById("listSelect");
+configListSelect.addEventListener('click', setGameControlVisibility);
+
+const configExemplarAll = document.getElementById("allThemesToggle");
+configExemplarAll.addEventListener('click', () => {switchThemeMulti(); selectAll('allThemesToggle', 'themeSelect');});
+
+const configExemplarTheme = document.getElementById("themeSelect");
+configExemplarTheme.addEventListener('click', uncheckThemeAll);
+
+const configSchoolAll = document.getElementById("allSchoolsToggle");
+configSchoolAll.addEventListener('click', selectAll('allSchoolsToggle', 'schoolSelect'));
+
+const configSchoolSelect = document.getElementById("schoolSelect");
+configSchoolSelect.addEventListener('click', testSelectAll('allSchoolsToggle', 'schoolSelect'));
+
+const configDurationAll = document.getElementById("allDurationsToggle");
+configDurationAll.addEventListener('click', selectAll('allDurationsToggle', 'durationSelect'));
+
+const configDurationSelect = document.getElementById("durationSelect");
+configDurationSelect.addEventListener('click', testSelectAll('allDurationsToggle', 'durationSelect'));
+
+const configRarityAll = document.getElementById("allRaritiesToggle");
+configRarityAll.addEventListener('click', selectAll('allRaritiesToggle', 'raritySelect'));
+
+const configRaritySelect = document.getElementById("raritySelect");
+configRaritySelect.addEventListener('click', testSelectAll('allRaritiesToggle', 'raritySelect'));
+
+const configMinigame = document.getElementById("minigameToggle");
+configMinigame.addEventListener('click', setMinigameDelayVisibility);
+
+// Defining the Sliders and value update handlers
+
+const configPlayerCount = document.getElementById("playerCountSlider");
+const configOutputPlayer = document.getElementById("playerCountText");
+    configOutputPlayer.innerHTML = configPlayerCount.value;
+    configPlayerCount.oninput = function() {
+        configOutputPlayer.innerHTML = this.value;
+    }
+
+const configMinigameDelay = document.getElementById("minigameDelaySlider");
+const configOutputDelay = document.getElementById("minigameDelayText");
+    configOutputDelay.innerHTML = configMinigameDelay.value;
+    configMinigameDelay.oninput = function() {
+        if (configMinigameDelay.value == 0) {
+            configOutputDelay.innerHTML = "Whenever"
+        } else {
+            configOutputDelay.innerHTML = this.value;
+        }
+    }
+
+// All the "simple" checkboxes
+
+const configRepetition = document.getElementById("repetitionToggle");
+const configRarityMatters = document.getElementById("rarityMattersToggle");
+const configVengeance = document.getElementById("vengeanceToggle");
+const configPhysical = document.getElementById("physicalToggle");
+
+
+
 
 //
 //
@@ -28,18 +115,7 @@ function toggleHelp(targetSpan, triggerIcon) {
     triggerIcon.classList.toggle('helpIconOpen'); // toggle Open Book class
     helpSpan.classList.toggle('hiddenHelp'); // toggle Help visibility
 }
-// Updates player count button and clarification text
-function switchPlayerCount() {
-    var helpText = document.getElementById("playerCountText");
-    var btnText = document.getElementById("playerCountButton");
-    if (btnText.innerHTML === "Duel") {
-        btnText.innerHTML = "Group"; 
-        helpText.innerHTML = "3+";
-    } else {
-        btnText.innerHTML = "Duel"; 
-        helpText.innerHTML = "1 v 1";
-    }
-}
+
 // Controls config visibility depending on List selection
 function setGameControlVisibility() {
     var mode = document.getElementById("listBase").options.selectedIndex;
@@ -134,17 +210,7 @@ function setMinigameDelayVisibility() {
         delaySpan.style.display = "none";
     }
 }
-// Updates minigame delay number
-var delaySlider = document.getElementById("minigameDelay");
-            var outputDelay = document.getElementById("delayNum");
-            outputDelay.innerHTML = delaySlider.value;
-            delaySlider.oninput = function() {
-                if (delaySlider.value == 0) {
-                    outputDelay.innerHTML = "Whenever"
-                } else {
-                    outputDelay.innerHTML = this.value;
-                }
-            }
+
 // Change Theme Multiselect when ALL is checked or unchecked
 function switchThemeMulti() {
     var listSelector = document.getElementById("exemplarTheme");

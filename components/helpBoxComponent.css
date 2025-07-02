@@ -22,3 +22,26 @@ z-hb summary {
     background-color: rgb(226, 193, 144);
     border-radius: 50%;
 }
+
+z-hb.helpIconComp {
+    cursor: pointer;
+
+}
+z-hb.helpClosedComp::before {
+    content: "\1F4D5"; /* Unicode Closed Book  - default for help icons */
+    font-size: 24px;
+}
+z-hb.helpOpenComp::before {
+    content: "\1F4D6"; /* Unicode Open Book  - toggled state for help icons */
+    font-size: 24px;
+}
+z-hb.helpContentComp {
+    position: relative;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+z-hb.hiddenHelpComp {
+    display: none;
+}
