@@ -5,15 +5,16 @@
         <title>Chaos Magic</title>
         <meta charset="utf-8">
         <meta name="viewport">
-        <link rel="stylesheet" href="chaosStyle.css">
+        <!--<link rel="stylesheet" href="chaosStyle.css"> -->
         <link rel="stylesheet" href="index.css">
         <!-- init script -->
          <script src="scripts/index.js" type="module" defer></script>
 
-         <!-- Scripts come after this. -->
+         <!-- Scripts come after this.
         <script src="scripts/chaosEffects.js" type="text/javascript" defer></script>
         <script src="scripts/chaosEngine.js" type="text/javascript" defer></script>
-        <script src="scripts/chaosSettings.js" type="text/javascript"></script>
+         -->
+        
     </head>
 
     <body>
@@ -106,9 +107,7 @@
                 <div id="themeSetting" class="settingContainer">
                     <p>
                     <label for="themeSelect">Exemplar Theme Table</label>
-                    <label for="allThemesToggle">All</label> <!-- Quick "select all" checkbox -->
-                    <input type="checkbox" id="allThemesToggle" value="allThemes" onclick="switchThemeMulti(); selectAll('allThemesToggle', 'themeSelect')" />
-                    <select type="select-one" id="themeSelect" size="8" onclick="uncheckThemeAll()" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
+                    <select type="select-one" id="themeSelect" size="8" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
                         <option value="tokenizer" selected>Tokenizer</option>
                         <option value="complexity">Complexity</option>
                         <option value="soundalike">Sound-Alike</option>
@@ -119,7 +118,7 @@
                         <option value="badthings">Bad Things</option>
                     </select>
                     <span id="explainThemeIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainThemeText', this)" onmouseout="toggleHelp('explainThemeText', this)"></span>
-                    <span id="explainThemeText" class="explain hiddenHelp helpFloat">The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table or include all of them.</span>
+                    <span id="explainThemeText" class="explain hiddenHelp helpFloat">The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table.</span>
                     </p>
                 </div>
                 
@@ -290,7 +289,7 @@
 
 <!-- Scripts come after this. -->
 
-
+<script src="scripts/chaosSettings.js" type="text/javascript"></script>
 
 <!-- plain vanilla template bits, commented
 </main>

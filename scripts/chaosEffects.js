@@ -62,8 +62,7 @@ function effectMusicalLibraries() {
 }
 // Musical Life (41)
 function effectMusicalLife() {
-    let message = "";
-    message += "Each player's life total is transferred to the player to the ${randDirection()}.";
+    return "Each player's life total is transferred to the player to the ${randDirection()}.";
 }
 // Musical Creatures (42)
 function effectMusicalCreatures() {

@@ -11,17 +11,18 @@ const settingsDiv = document.getElementById("gameSettings");
     // "settingBasics"
         // "playerCountSetting"
         // "listSetting"
-        const exemplarDiv = document.getElementById("themeSetting");
-        const customSchoolDiv = document.getElementById("schoolSetting");
-        const customDurationDiv = document.getElementById("durationSetting");
-        const customRarityDiv = document.getElementById("raritySetting");
+        const themeDiv = document.getElementById("themeSetting");
+        const schoolDiv = document.getElementById("schoolSetting");
+        const durationDiv = document.getElementById("durationSetting");
+        const rarityDiv = document.getElementById("raritySetting");
     // "settingRandomizer"
         const repetitionDiv = document.getElementById("repetitionSetting");
-        const customMattersDiv = document.getElementById("rarityMattersSetting");
+        const mattersDiv = document.getElementById("rarityMattersSetting");
     // "settingExtras"
         // "physicalSetting"
         const vengeanceDiv = document.getElementById("vengeanceSetting");
         const minigameDiv = document.getElementById("minigameSetting");
+        const delayDiv = document.getElementById("minigameDelaySetting");
     // "updateGame"
 
 
@@ -29,16 +30,10 @@ const settingsDiv = document.getElementById("gameSettings");
 
 // All the elements with onClicks
 const configSettingsButton = document.getElementById("gameSettingsButton");
-configSettingsButton.addEventListener('click', setSettingsVisibility);
+configSettingsButton.addEventListener('click', setSettingsVisibility());
 
 const configListSelect = document.getElementById("listSelect");
-configListSelect.addEventListener('click', setGameControlVisibility);
-
-const configExemplarAll = document.getElementById("allThemesToggle");
-configExemplarAll.addEventListener('click', () => {switchThemeMulti(); selectAll('allThemesToggle', 'themeSelect');});
-
-const configExemplarTheme = document.getElementById("themeSelect");
-configExemplarTheme.addEventListener('click', uncheckThemeAll);
+configListSelect.addEventListener('click', setGameControlVisibility());
 
 const configSchoolAll = document.getElementById("allSchoolsToggle");
 configSchoolAll.addEventListener('click', selectAll('allSchoolsToggle', 'schoolSelect'));
@@ -59,7 +54,7 @@ const configRaritySelect = document.getElementById("raritySelect");
 configRaritySelect.addEventListener('click', testSelectAll('allRaritiesToggle', 'raritySelect'));
 
 const configMinigame = document.getElementById("minigameToggle");
-configMinigame.addEventListener('click', setMinigameDelayVisibility);
+configMinigame.addEventListener('click', setMinigameDelayVisibility());
 
 // Defining the Sliders and value update handlers
 
@@ -81,8 +76,9 @@ const configOutputDelay = document.getElementById("minigameDelayText");
         }
     }
 
-// All the "simple" checkboxes
+// All the "simple" elements
 
+const configTheme = document.getElementById("themeSelect");
 const configRepetition = document.getElementById("repetitionToggle");
 const configRarityMatters = document.getElementById("rarityMattersToggle");
 const configVengeance = document.getElementById("vengeanceToggle");
@@ -97,13 +93,11 @@ const configPhysical = document.getElementById("physicalToggle");
 
 // Controls settings visibility
 function setSettingsVisibility() {
-    var settingsDiv = document.getElementById("gameSettings");
-    var btnText = document.getElementById("gameSettingsButton");
-    if (btnText.innerHTML === "Hide Game Settings") {
-        btnText.innerHTML = "Show Game Settings"; 
+    if (configSettingsButton.innerHTML === "Hide Game Settings") {
+        configSettingsButton.innerHTML = "Show Game Settings"; 
         settingsDiv.style.display = "none";
     } else {
-        btnText.innerHTML = "Hide Game Settings"; 
+        configSettingsButton.innerHTML = "Hide Game Settings"; 
         settingsDiv.style.display = "block";
     }
 }
@@ -115,86 +109,73 @@ function toggleHelp(targetSpan, triggerIcon) {
     triggerIcon.classList.toggle('helpIconOpen'); // toggle Open Book class
     helpSpan.classList.toggle('hiddenHelp'); // toggle Help visibility
 }
-
 // Controls config visibility depending on List selection
 function setGameControlVisibility() {
-    var mode = document.getElementById("listBase").options.selectedIndex;
-    var vengeanceDiv = document.getElementById("vengeanceSelector");
-    var minigameDiv = document.getElementById("minigameSelector");
-    var exemplarDiv = document.getElementById("exemplarThemeSelector");
-    var customSchoolDiv = document.getElementById("customSchoolSelector");
-    var customDurationDiv = document.getElementById("customDurationSelector");
-    var customRarityDiv = document.getElementById("customRaritySelector");
-    var customMattersDiv = document.getElementById("customRarityMattersSelector");
-    var repetitionDiv = document.getElementById("repetitionSelector");
-    document.getElementById("debugSelectionIndex").innerHTML = mode;
-    switch (mode) {
+    switch (configListSelect.options.selectedIndex) {
         case 0: // Micro
             vengeanceDiv.style.display = "block";
             minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
+            themeDiv.style.display = "none";
+            schoolDiv.style.display = "none";
+            durationDiv.style.display = "none";
+            rarityDiv.style.display = "none";
+            mattersDiv.style.display = "none";
             repetitionDiv.style.display = "none";
             break;
         case 1: // Lite
             vengeanceDiv.style.display = "block";
             minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
+            themeDiv.style.display = "none";
+            schoolDiv.style.display = "none";
+            durationDiv.style.display = "none";
+            rarityDiv.style.display = "none";
+            mattersDiv.style.display = "none";
             repetitionDiv.style.display = "block";
             break;
         case 2: // Exemplar
             vengeanceDiv.style.display = "block";
             minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "block";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
+            themeDiv.style.display = "block";
+            schoolDiv.style.display = "none";
+            durationDiv.style.display = "none";
+            rarityDiv.style.display = "none";
+            mattersDiv.style.display = "none";
             repetitionDiv.style.display = "block";
             break;
         case 3: // Legacy
             vengeanceDiv.style.display = "block";
             minigameDiv.style.display = "none";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
+            themeDiv.style.display = "none";
+            schoolDiv.style.display = "none";
+            durationDiv.style.display = "none";
+            rarityDiv.style.display = "none";
+            mattersDiv.style.display = "none";
             repetitionDiv.style.display = "block";
             break;
         case 4: // Full
             vengeanceDiv.style.display = "block";
             minigameDiv.style.display = "none";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "none";  
-            customDurationDiv.style.display = "none";
-            customRarityDiv.style.display = "none";
-            customMattersDiv.style.display = "none";
+            themeDiv.style.display = "none";
+            schoolDiv.style.display = "none";  
+            durationDiv.style.display = "none";
+            rarityDiv.style.display = "none";
+            mattersDiv.style.display = "none";
             repetitionDiv.style.display = "block";
             break;
         case 5: // Custom
             vengeanceDiv.style.display = "block";
             minigameDiv.style.display = "block";
-            exemplarDiv.style.display = "none";
-            customSchoolDiv.style.display = "block";
-            customDurationDiv.style.display = "block";
-            customRarityDiv.style.display = "block";
-            customMattersDiv.style.display = "block";
+            themeDiv.style.display = "none";
+            schoolDiv.style.display = "block";
+            durationDiv.style.display = "block";
+            rarityDiv.style.display = "block";
+            mattersDiv.style.display = "block";
             repetitionDiv.style.display = "block";
     }
 }
 // Controls vengeance visibility
 function setVengeanceVisibility() {
-    var vengeanceDiv = document.getElementById("generateVengeance");
-    var checkState = document.getElementById("vengeanceToggle");
-    if (checkState.checked === false) {
+    if (configVengeance.checked === false) {
         vengeanceDiv.style.display = "none";
     } else {
         vengeanceDiv.style.display = "block";
@@ -202,67 +183,41 @@ function setVengeanceVisibility() {
 }
 // Controls minigame delay slider visibility
 function setMinigameDelayVisibility() {
-    var delaySpan = document.getElementById("minigameDelaySetting");
-    var checkState = document.getElementById("minigameToggle");
-    if (checkState.checked === true) {
-        delaySpan.style.display = "block";
+    if (configMinigame.checked === true) {
+        delayDiv.style.display = "block";
     } else {
-        delaySpan.style.display = "none";
+        delayDiv.style.display = "none";
     }
-}
-
-// Change Theme Multiselect when ALL is checked or unchecked
-function switchThemeMulti() {
-    var listSelector = document.getElementById("exemplarTheme");
-    var checkState = document.getElementById("allThemes"); 
-    if (checkState.checked === true) {
-        listSelector.type = "select-multiple";
-        listSelector.multiple = true;
-    } else {
-        listSelector.type = "select-one";
-        listSelector.multiple = false;
-    }
-}
-// Unchecks ALL and updates Theme Multiselect when theme list is clicked
-function uncheckThemeAll() {
-    document.getElementById("allThemes").checked = false;
-    document.getElementById("exemplarTheme").type = "select-one";
-    document.getElementById("exemplarTheme").multiple = false;
 }
 // Reusable selectAll/unselect for ALL checkboxes
 function selectAll(allCheck, selectName) {
-    var listSelector = document.getElementById(selectName);
-    var checkState = document.getElementById(allCheck);
-    var listLength = listSelector.options.length;
-    if (checkState.checked === false) {
-        for (let i = 1; i < listLength; i++) {
-            listSelector.options[0].selected = true; // selects the first value (to avoid filtering EVERYTHING out)
-            listSelector.options[i].selected = false; // unselects the rest
+    if (allCheck.checked === false) {
+        for (let i = 1; i < selectName.options.length; i++) {
+            selectName.options[0].selected = true; // selects the first value (to avoid filtering EVERYTHING out)
+            selectName.options[i].selected = false; // unselects the rest
         }
     } else {
         for (let i = 0; i < listLength; i++) {
-            listSelector.options[i].selected = true; // selects all the options
+            selectName.options[i].selected = true; // selects all the options
         }
     }
 }
 // Checks if all values are selected, if so, checks ALL
 function testSelectAll(allCheck, selectName) {
-    var listSelector = document.getElementById(selectName);
-    var checkState = document.getElementById(allCheck);
-    var listLength = listSelector.options.length;
-    var allSelected = 0;
-        for (let i = 0; i < listLength; i++) {
-            if (listSelector.options[i].selected === false) {
+    let allSelected = 0;
+        for (let i = 0; i < selectName.options.length; i++) {
+            if (selectName.options[i].selected === false) {
                 allSelected++;
             };
         }
-    if (checkState.checked === false && allSelected === 0) {
-        checkState.checked = true;
-    } else if (checkState.checked === true && allSelected !== 0) {
-        checkState.checked = false;
+    if (allCheck.checked === false && allSelected === 0) {
+        allCheck.checked = true;
+    } else if (allCheck.checked === true && allSelected !== 0) {
+        allCheck.checked = false;
     }
 }
 // FANCY BITWISE ARRAY ENCODING/DECODING
+// THIS ISN'T IMPORTANT, IT'S ME BEING A NERD
 let generatedArray = [];
 let encodedValue = 0;
 let encodedValueLength = 0;
