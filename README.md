@@ -1,7 +1,5 @@
-Chaos Magic as a web thing, take... 17 or so, this time with functional if..else statements (if nothing else)
+To hell with components and modules and attempting to define elements as const...
 
-This is extremely "i don't know what i'm doing", inelegant, and super basic. Sorry to everyone who actually knows a thing about javascript...
-
-Currently, work is in the "Component-Based" branch (because I don't know what i'm doing)
+Apparently I'm doomed to never having anything remotely fancy work, so I'm going to reconcile everything back to the original structure.
 
 
