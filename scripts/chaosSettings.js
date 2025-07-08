@@ -1,3 +1,5 @@
+// OBSOLETE, MIGRATED TO settingsModule.js
+
 // THIS FILE HOLDS THE SETTINGS PANEL
 //
 // onLoad behaviours
