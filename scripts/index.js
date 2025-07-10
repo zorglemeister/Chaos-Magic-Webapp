@@ -4,17 +4,17 @@ import { registerInlineSymbolComponent } from '../components/inlineSymbolCompone
 import { registerHelpBoxComponent } from '../components/helpBoxComponent.js';
 
 // import the settings module here
-import * as set from './settingsModule.js';
-// so, theoretically, the const's from this module will be available as "set.configSettingsButton"
-// and the functions will be "set.doSomething()"
+import * as settings from './settingsModule.js';
+// so, theoretically, the const's from this module will be available as "settings.configSettingsButton"
+// and the functions will be "settings.doSomething()"
 
 // add them to the app definition here
 const app = () => {
     registerRollButtonComponent();
     registerInlineSymbolComponent();
     registerHelpBoxComponent();
-    set.defineEvents(); // this adds all the click and input handlers for Settings
-    set.initialState(); // this sets the Settings up for initial interactions
+    settings.defineEvents(); // this adds all the click and input handlers for Settings
+    settings.initialState(); // this sets the Settings up for initial interactions
     // loadScript('./scripts/chaosSettings.js');
 
 
@@ -23,6 +23,7 @@ const app = () => {
 // waits for the DOM to fully load before tripping the app components
 document.addEventListener('DOMContentLoaded', app);
 
+// NAH, GONNA MODULE THEM
 // Trying out a script load to stick all the scripts into the page after DOM has loaded
 // 
 // function loadScript(url)
