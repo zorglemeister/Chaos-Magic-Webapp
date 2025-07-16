@@ -3,6 +3,9 @@
 @import "./components/rollButtonComponent.css";
 @import "./components/helpBoxComponent.css";
 
+/* import module styles here */
+@import "./styles/settingsStyle.css";
+
 /* non-component styles below */
 
 body {
