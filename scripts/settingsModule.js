@@ -1,3 +1,5 @@
+
+
 // Element Definition + Click Handlers
 
 // "settingsContainer"
@@ -29,6 +31,7 @@ export const configDurationSelect = document.getElementById("durationSelect");
 export const configRarityAll = document.getElementById("allRaritiesToggle");
 export const configRaritySelect = document.getElementById("raritySelect");
 export const configMinigame = document.getElementById("minigameToggle");
+export const configSaveButton = document.getElementById("updateSettingsButton");
 
 // Defining the sliders and value spans
 export const configPlayerCount = document.getElementById("playerCountSlider");
@@ -61,6 +64,7 @@ export function defineEvents() {
         } else {
             configOutputDelay.innerHTML = this.value;
         }});
+    configSaveButton.addEventListener('click', saveSettings());
 }
 
 // Set the initial state
@@ -197,4 +201,8 @@ function testSelectAll(allCheck, selectName) {
     } else if (allCheck.checked === true && allSelected !== 0) {
         allCheck.checked = false;
     }
+}
+// Creates the game configuration when settings are saved (dream: pop a confirm dialog?)
+function saveSettings() {
+    console.log = "This is where I'd save my settings"
 }

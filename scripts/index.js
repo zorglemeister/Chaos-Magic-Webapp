@@ -2,6 +2,7 @@
 import { registerRollButtonComponent } from '../components/rollButtonComponent.js';
 import { registerInlineSymbolComponent } from '../components/inlineSymbolComponent.js';
 import { registerHelpBoxComponent } from '../components/helpBoxComponent.js';
+import { registerSettingsComponent } from '../components/settingsComponent.js';
 
 // import the settings module here
 import * as settings from './settingsModule.js';
@@ -13,7 +14,9 @@ const app = () => {
     registerRollButtonComponent();
     registerInlineSymbolComponent();
     registerHelpBoxComponent();
-    settings.defineEvents(); // this adds all the click and input handlers for Settings
+    registerSettingsComponent(); // this uses HelpBox, so I'm pretty sure it needs to load after that component
+    // do i need to add the <z-settings> tag to the HTML _after_ this is registered?
+    settings.defineEvents(); // this adds all the click and input handlers for Settings (which loaded before it)
     settings.initialState(); // this sets the Settings up for initial interactions
     // loadScript('./scripts/chaosSettings.js');
 
