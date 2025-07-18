@@ -1,3 +1,7 @@
+// do i need to import the helpbox here?
+
+import { registerHelpBoxComponent } from '../components/helpBoxComponent.js';
+
 // Page Content as Component?
 
 const settingsTemplate = document.createElement('template');
@@ -128,7 +132,14 @@ settingsTemplate.innerHTML = `
 class SettingsComponent extends HTMLElement {
     constructor() {
         super();
+    }
+    connectedCallback() {
+        this.render();
+    }
+    render() {
+        registerHelpBoxComponent();
         this.append(settingsTemplate.content.cloneNode(true)) // I _think_ this'll clone the template and append it to the contents in the HTML?
+
     }
 }
 
