@@ -13,7 +13,9 @@ z-hb details {
     background-color: rgb(226, 193, 144);
     padding-right: 2rem;
 }
-z-hb summary {
+
+z-hb .helpIconComp {
+    cursor: pointer;
     border: 1px dashed black;
     display: block;
     position: absolute;
@@ -21,11 +23,6 @@ z-hb summary {
     right: 0px;
     background-color: rgb(226, 193, 144);
     border-radius: 50%;
-}
-
-z-hb .helpIconComp {
-    cursor: pointer;
-
 }
 z-hb .helpClosedComp::before {
     content: "\1F4D5"; /* Unicode Closed Book  - default for help icons */
@@ -36,11 +33,12 @@ z-hb .helpOpenComp::before {
     font-size: 24px;
 }
 z-hb .helpContentComp {
-    position: relative;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    transform: translate(-10%, -10%);
     background: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
 }
 z-hb .hiddenHelpComp {
     display: none;

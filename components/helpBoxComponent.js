@@ -16,16 +16,16 @@ class HelpBox extends HTMLElement {
     render() {
         const sourceText = this.innerHTML; // Get the help text : <z-hb>Explanation</z-hb>
         this.innerHTML = '';
-        console.log(`Source Text Pre-Append: ${sourceText}`);
+        // console.log(`Source Text Pre-Append: ${sourceText}`);
         this.append(helpTemplate.content.cloneNode(true))
-        console.log(`Source Text Post-Append: ${sourceText}`);
+        // console.log(`Source Text Post-Append: ${sourceText}`);
         // const helpIcon = document.createElement('div');
         // const helpText = document.createElement('div');
         // helpIcon.innerHTML = `<div id="helpIcon" class="helpIconComp helpClosedComp"></div>`;
-        console.log(`innerHTML Post-Append: ${this.innerHTML}`);
+        // console.log(`innerHTML Post-Append: ${this.innerHTML}`);
         this.getElementsByClassName('helpContentComp')[0].innerHTML = `${sourceText}`;
         //FOR FUTURE REFERENCE: getElementsByClassName returns an HTMLCollection, and I need to reference the first [0] instance of that class!!!
-        console.log(`innerHTML after merging sourceText: ${this.innerHTML}`);
+        // console.log(`innerHTML after merging sourceText: ${this.innerHTML}`);
         // this.innerHTML = `<div id="helpIcon" class="helpIconComp helpClosedComp"></div><div class="helpContentComp hiddenHelpComp">${sourceText}</div>`;
         // this.content = `${helpIcon}${helpText}`;
         this.getElementsByClassName('helpIconComp')[0].addEventListener('click', this.toggleClick.bind(this));

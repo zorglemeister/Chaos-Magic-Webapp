@@ -1,0 +1,36 @@
+/* . means class */
+/* # means id */
+/* A B means B within A (any generation) */
+/* A>B means B as direct child of A */
+
+
+z-settings .gameSettingsButton {
+    border-color: gold;
+    border-radius: 5px;
+}
+
+z-settings .hiddenPart {
+    display: none;
+}
+
+z-settings .settingContainer { /* boxes the setting (anchors the floating help text) */
+    position: relative; /* anchors the helpBox within the container */
+    border: 1px solid #d4af37;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -1px; /* Prevent double borders. */
+    padding: 10px;
+}
+
+z-settings .settingLabel {
+    width: 40%;
+    display: block;
+}
+
+z-settings .selectList {
+    overflow: hidden;
+}
+
+z-settings .allSelect {
+    display: block;
+}

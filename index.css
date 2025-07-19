@@ -2,9 +2,10 @@
 @import "./components/inlineSymbolComponent.css";
 @import "./components/rollButtonComponent.css";
 @import "./components/helpBoxComponent.css";
+@import "./components/settingsComponent.css";
 
-/* import module styles here */
-@import "./styles/settingsStyle.css";
+
+
 
 /* non-component styles below */
 
@@ -46,11 +47,13 @@ body {
     padding: 10px;
     border: 3px solid gold;
 }
-.settingContainer { /* boxes the setting (anchors the floating help text) */
+
+/* handled in settingsComponent.css
+.settingContainer { /* boxes the setting (anchors the floating help text) 
     border: 1px solid #d4af37;
     display: flex;
     flex-wrap: wrap;
-    margin-top: -1px; /* Prevent double borders. */
+    margin-top: -1px; /* Prevent double borders. 
     padding: 10px;
 }
 .settingLabel {
@@ -67,7 +70,7 @@ body {
     width: 200px;
     left: 450px;
     margin-right: 50px;
-    background-color: rgba(255, 255, 255, 1); /* semi-transparent background for debug/aesthetics */
+    background-color: rgba(255, 255, 255, 1); /* semi-transparent background for debug/aesthetics 
     padding: 5px;
     border: 1px solid black;
     z-index: 1;
@@ -76,3 +79,4 @@ body {
 .selectList {
     overflow: hidden;
 }
+    */
