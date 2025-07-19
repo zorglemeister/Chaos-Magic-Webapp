@@ -3,7 +3,8 @@
 // The other is the help content, which lives in a box.
 
 const helpTemplate = document.createElement('template');
-helpTemplate.innerHTML = `<div class="visibleBorder helpIconComp helpClosedComp"></div><div class="visibleBorder helpContentComp hiddenHelpComp"></div>`;
+helpTemplate.innerHTML = `<div class="helpParent"><div class="helpIcon helpClosed"></div><div class="helpContent helpHidden"></div></div>`;
+
 
 class HelpBox extends HTMLElement {
      constructor() {
@@ -15,18 +16,19 @@ class HelpBox extends HTMLElement {
     }
     render() {
         const sourceText = this.innerHTML; // Get the help text : <z-hb>Explanation</z-hb>
-        this.innerHTML = '';
+        this.innerHTML = ''; // wipe the help text from the tag
 
-        this.append(helpTemplate.content.cloneNode(true))
-        this.getElementsByClassName('helpContentComp')[0].innerHTML = `${sourceText}`;
+        this.append(helpTemplate.content.cloneNode(true)) // add the HTML to the DOM
+
+        this.getElementsByClassName('helpContent')[0].innerHTML = `${sourceText}`; // replace the help text in the template
         //FOR FUTURE REFERENCE: getElementsByClassName returns an HTMLCollection, and I need to reference the first [0] instance of that class!!!
-        this.getElementsByClassName('helpIconComp')[0].addEventListener('click', this.toggleClick.bind(this));
+        this.getElementsByClassName('helpIcon')[0].addEventListener('click', this.toggleClick.bind(this)); // toggle viz when helpIcon is clicked
     }
 
     toggleClick() {
-       this.getElementsByClassName('helpIconComp')[0].classList.toggle('helpClosedComp'); // toggle Closed class
-            this.getElementsByClassName('helpIconComp')[0].classList.toggle('helpOpenComp'); // toggle Open class
-            this.getElementsByClassName('helpContentComp')[0].classList.toggle('hiddenHelpComp'); // toggle Help visibility
+        this.getElementsByClassName('helpIcon')[0].classList.toggle('helpClosed'); // toggle Closed class
+        this.getElementsByClassName('helpIcon')[0].classList.toggle('helpOpen'); // toggle Open class
+        this.getElementsByClassName('helpContent')[0].classList.toggle('helpHidden'); // toggle Help visibility
     }
 }
 

@@ -22,7 +22,7 @@ settingsTemplate.innerHTML = `
                 <div class="playerCountSetting settingContainer">
                     <label class="settingLabel" for="playerCount">How many players?</label>
                     <input id="playerCountSlider" class="playerCountSlider slider" type="range" min="2" max="10" value="4"><span class="playerCountText"></span>
-                     <z-hb>Some effects work better (or only work) in games with three or more players.</z-hb>
+                    <z-hb>Some effects work better (or only work) in games with three or more players.</z-hb>
                 </div>
                 <div class="listSetting settingContainer">
                     <label class="settingLabel" for="listSelect">Choose a list:</label>
@@ -105,7 +105,6 @@ settingsTemplate.innerHTML = `
                     <z-hb>Allow effects to occur more than once in a game.</z-hb>
                 </div>
                 <div class="rarityMattersSetting settingContainer">
-                    <p>
                     <label for="rarityMattersToggle">Rarity Matters?</label>
                     <input id="rarityMattersToggle" class="rarityMattersToggle" type="checkbox"/>
                     <z-hb>Controls randomizer: effects occur more or less frequently depending on their rarity.</z-hb>

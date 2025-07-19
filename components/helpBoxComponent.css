@@ -1,45 +1,37 @@
-.helpParent {
-    display: block;
-    position: relative;
-    width: 70%;
-    border: 1px dashed black;
-}
-z-hb details {
-    border: 1px dashed black;
+z-hb .helpParent {
+    width: 60%;
     position: absolute;
-    top: 0px;
-    left: 50%;
-    width: 50%;
-    background-color: rgb(226, 193, 144);
-    padding-right: 2rem;
+    top: 0;
+    right: 0;
 }
-
-z-hb .helpIconComp {
-    cursor: pointer;
-    border: 1px dashed black;
-    display: block;
+z-hb .helpIcon {
     position: absolute;
     top: 0px;
     right: 0px;
-    background-color: rgb(226, 193, 144);
+    padding: 2px;
+    border: 2px solid gold;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(226, 193, 144);
+    cursor: pointer;
 }
-z-hb .helpClosedComp::before {
+z-hb .helpClosed::before {
     content: "\1F4D5"; /* Unicode Closed Book  - default for help icons */
     font-size: 24px;
 }
-z-hb .helpOpenComp::before {
+z-hb .helpOpen::before {
     content: "\1F4D6"; /* Unicode Open Book  - toggled state for help icons */
     font-size: 24px;
 }
-z-hb .helpContentComp {
-    position: relative;
-    transform: translate(-10%, -10%);
-    background: white;
-    padding: 20px;
+z-hb .helpContent {
+    margin-right: 40px;
+    background-color: rgba(226, 193, 144, 0.8);
+    padding: 10px;
+    box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1;
 }
-z-hb .hiddenHelpComp {
+z-hb .helpHidden {
     display: none;
 }
