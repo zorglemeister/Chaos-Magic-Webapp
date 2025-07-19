@@ -21,7 +21,7 @@ settingsTemplate.innerHTML = `
             <div class="settingBasics settingGroup">
                 <div class="playerCountSetting settingContainer">
                     <label class="settingLabel" for="playerCount">How many players?</label>
-                    <input id="playerCountSlider" class="playerCountSlider slider" type="range" min="4" max="10" value="2"><span class="playerCountText"></span>
+                    <input id="playerCountSlider" class="playerCountSlider slider" type="range" min="2" max="10" value="4"><span class="playerCountText"></span>
                      <z-hb>Some effects work better (or only work) in games with three or more players.</z-hb>
                 </div>
                 <div class="listSetting settingContainer">
@@ -125,10 +125,10 @@ settingsTemplate.innerHTML = `
                 <div class="minigameSetting settingContainer">
                     <label class="settingLabel" for="minigameToggle">Minigames</label>
                     <input id="minigameToggle" class="minigameToggle" type="checkbox"/>
-                    <div class="minigameDelaySetting" style="display:none">
+                    <div class="minigameDelaySetting hiddenPart">
                         <label class="sliderLabel" for="minigameDelaySlider">Turns between minigames</label>
                         <input id="minigameDelaySlider" class="minigameDelaySlider slider" type="range" min="0" max="10" value="4">
-                        <span class="minigameDelayText" style="display: none"></span>
+                        <span class="minigameDelayText"></span>
                     </div>
                     <z-hb>Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between minigames or choose to manually trigger one when you feel like it.</z-hb>
                 </div>
@@ -142,6 +142,7 @@ settingsTemplate.innerHTML = `
 
 // trying to declare elements to be scoped for the whole component
         // define the constants so they can be referenced across methods
+        // using let so the values can be updated in render()
         // "settingsContainer"
         let settingsDiv = null;
             // "settingBasics"
@@ -248,22 +249,22 @@ class SettingsComponent extends HTMLElement {
         configPhysical = this.getElementsByClassName("physicalToggle")[0];
 
         // Define the Event Handlers
-        configSettingsButton.addEventListener('click', this.setSettingsVisibility());
-        configListSelect.addEventListener('click', this.setGameControlVisibility());
-        configSchoolAll.addEventListener('click', this.selectAll(configSchoolAll, configSchoolSelect));
-        configSchoolSelect.addEventListener('click', this.testSelectAll(configSchoolAll, configSchoolSelect));
-        configDurationAll.addEventListener('click', this.selectAll(configDurationAll, configDurationSelect));
-        configDurationSelect.addEventListener('click', this.testSelectAll(configDurationAll, configDurationSelect));
-        configRarityAll.addEventListener('click', this.selectAll(configRarityAll, configRaritySelect));
-        configRaritySelect.addEventListener('click', this.testSelectAll(configRarityAll, configRaritySelect));
-        configMinigame.addEventListener('click', this.setMinigameDelayVisibility());
+        configSettingsButton.addEventListener('click', this.setSettingsVisibility.bind(this));
+        configListSelect.addEventListener('click', this.setGameControlVisibility.bind(this));
+        configSchoolAll.addEventListener('click', this.selectAll.bind(this, configSchoolAll, configSchoolSelect));
+        configSchoolSelect.addEventListener('click', this.testSelectAll.bind(this, configSchoolAll, configSchoolSelect));
+        configDurationAll.addEventListener('click', this.selectAll.bind(this, configDurationAll, configDurationSelect));
+        configDurationSelect.addEventListener('click', this.testSelectAll.bind(this, configDurationAll, configDurationSelect));
+        configRarityAll.addEventListener('click', this.selectAll.bind(this, configRarityAll, configRaritySelect));
+        configRaritySelect.addEventListener('click', this.testSelectAll.bind(this, configRarityAll, configRaritySelect));
+        configMinigame.addEventListener('click', () => {delayDiv.classList.toggle("hiddenPart");});// this.setMinigameDelayVisibility.bind(this,));
         configPlayerCount.addEventListener('input', () => {configOutputPlayer.innerHTML = configPlayerCount.value;});
         configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value == 0) {
             configOutputDelay.innerHTML = "Whenever"
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
             }});
-        configSaveButton.addEventListener('click', this.saveSettings());
+        configSaveButton.addEventListener('click', this.saveSettings.bind(this));
 
         // Set the initial state
         this.setInitialState();
@@ -348,7 +349,7 @@ class SettingsComponent extends HTMLElement {
     }
     setMinigameDelayVisibility() { // configMinigame action
         if (configMinigame.checked === true) {
-            delayDiv.style.display = "block";
+            delayDiv.classList.toggle("hiddenPart");
         } else {
             delayDiv.style.display = "none";
         }
@@ -379,7 +380,7 @@ class SettingsComponent extends HTMLElement {
         }
     }
     saveSettings() { // Creates the game configuration when settings are saved (dream: pop a confirm dialog?)
-        console.log = "This is where I'd save my settings"
+        console.log("This is where I'd save my settings");
     }
 }
 

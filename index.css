@@ -30,10 +30,12 @@ body {
     justify-content: space-evenly;
 }
 
+/* handled in settingsComponent.css
 #gameSettingsButton {
     border-color: gold;
     border-radius: 5px;
 }
+    */
 
 .workspace {
     width: 45%;
