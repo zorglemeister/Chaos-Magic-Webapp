@@ -1,6 +1,6 @@
 // do i need to import the helpbox here?
 
-import { registerHelpBoxComponent } from '../components/helpBoxComponent.js';
+import { registerHelpBoxComponent } from './helpBoxComponent.js';
 
 // Page Content as Component?
 

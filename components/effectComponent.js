@@ -1,6 +1,10 @@
-// import inlineSymbolComponent.js
-// import rollButtonComponent.js
+
+// import child components
+import { registerRollButtonComponent } from './rollButtonComponent.js';
+import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
+
 // import specialEffects.js <- holds all the effect-specific scripts
+// import * as special from '../scripts/specialEffects.js';
 // define a template
 
 // handling flow:

@@ -4,10 +4,12 @@
 //
 // THIS IS ALL THE EFFECT-LEVEL SPECIAL FUNCTIONS
 //
-// They should all return two strings:
-// one for the short desc
-// one for the full desc
-// Some might have custom buttons?
+// They should all return a block that matches this format:
+// <div class="shortDesc"></div>
+// <div class="fullDesc hiddenPart"></div>
+
+// die rolls should be tagged like <z-rb>2d6</z-rb>
+// symbols should be tagged like <z-is>WUBRG</z-is>
 
 // ###########################
 // Special Effect Functions

@@ -1,7 +1,7 @@
 // import components here
 import { registerRollButtonComponent } from '../components/rollButtonComponent.js';
 import { registerInlineSymbolComponent } from '../components/inlineSymbolComponent.js';
-import { registerHelpBoxComponent } from '../components/helpBoxComponent.js';
+// import { registerHelpBoxComponent } from '../components/helpBoxComponent.js';  Used in settingsComponent
 import { registerSettingsComponent } from '../components/settingsComponent.js';
 
 // import the settings module here
