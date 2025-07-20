@@ -1,5 +1,5 @@
 z-hb .helpParent {
-    width: 60%;
+    width: 80%;
     position: absolute;
     top: 0;
     right: 0;
@@ -27,7 +27,7 @@ z-hb .helpOpen::before {
 }
 z-hb .helpContent {
     margin-right: 40px;
-    background-color: rgba(226, 193, 144, 0.8);
+    background-color: rgba(226, 193, 144, 0.9);
     padding: 10px;
     box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
