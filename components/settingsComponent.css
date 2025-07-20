@@ -17,6 +17,14 @@ z-settings .bigControl {
     transform: scale(1.5);
 }
 
+z-settings .configTitle {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 z-settings .settingContainer { /* boxes the setting (anchors the floating help text) */
     position: relative; /* anchors the helpBox within the container */
     border: 1px solid #d4af37;
@@ -32,20 +40,30 @@ z-settings .settingTitle {
 }
 
 z-settings .settingText {
-    width: 60%;
+    height: fit-content;
     margin: 0 auto;
     text-align: center;
+    text-wrap: wrap;
     margin-bottom: 20px;
 }
 
 z-settings .settingContent {
-    width: 60%;
     margin: 0 auto;
     text-align: center;
 }
 
 z-settings .selectList {
     overflow: hidden;
+}
+
+z-settings select {
+    width: 200px;
+}
+
+z-settings select option {
+    text-align: center;
+    font-size: 16pt;
+    font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
 }
 
 z-settings .allSelect {
@@ -67,14 +85,16 @@ z-settings .toggleDrawer {
 
 z-settings .drawerContents {
     position: fixed;
-    top: 0;
-    right: -800px; /* off-screen to the right, may need to adjust */
-    width: 800px; /* will set the width for the gameSettings div, too */
-    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -400px; /* off-screen to the right, may need to adjust */
+    width: 400px; /* will set the width for the gameSettings div, too */
+    height: 94%;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transition: right 1s ease-in-out; /* smooth motion, may need to adjust timing */
     z-index: 500; /* below the button, above other stuff */
+    overflow-x: auto;
 }
 
 z-settings .drawerContents.openDrawer {
