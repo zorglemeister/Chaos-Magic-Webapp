@@ -13,18 +13,35 @@ z-settings .hiddenPart {
     display: none;
 }
 
+z-settings .bigControl {
+    transform: scale(1.5);
+}
+
 z-settings .settingContainer { /* boxes the setting (anchors the floating help text) */
     position: relative; /* anchors the helpBox within the container */
     border: 1px solid #d4af37;
-    display: flex;
-    flex-wrap: wrap;
     margin-top: -1px; /* Prevent double borders. */
     padding: 10px;
 }
 
-z-settings .settingLabel {
-    width: 40%;
-    display: block;
+z-settings .settingTitle {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+z-settings .settingText {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+z-settings .settingContent {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 z-settings .selectList {
@@ -33,4 +50,33 @@ z-settings .selectList {
 
 z-settings .allSelect {
     display: block;
+}
+
+/* styles for the drawer effect */
+
+z-settings .drawerContainer {
+    position: relative;
+}
+
+z-settings .toggleDrawer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 600; /* above the drawer */
+}
+
+z-settings .drawerContents {
+    position: fixed;
+    top: 0;
+    right: -800px; /* off-screen to the right, may need to adjust */
+    width: 800px; /* will set the width for the gameSettings div, too */
+    height: 100%;
+    background-color: lightgray;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 500; /* below the button, above other stuff */
+}
+
+z-settings .drawerContents.openDrawer {
+    right: 0; /* should cause it to slide in */
 }

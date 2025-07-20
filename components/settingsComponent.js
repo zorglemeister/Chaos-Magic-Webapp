@@ -14,18 +14,23 @@ const settingsTemplate = document.createElement('template');
 // The exceptions are the labeled pieces, because label's for= uses the id
 
 settingsTemplate.innerHTML = `
-        <div class="settingsContainer configBlock">
-                <button type="button" class="gameSettingsButton">Hide Game Settings</button>
-            <div class="gameSettings">
+        <div class="settingsContainer configBlock drawerContainer">
+            <button type="button" class="gameSettingsButton toggleDrawer"><!-- Hide Game -->Settings</button>
+            <div class="gameSettings drawerContents">
             <p>Configure your Chaos!</p>
             <div class="settingBasics settingGroup">
                 <div class="playerCountSetting settingContainer">
-                    <label class="settingLabel" for="playerCount">How many players?</label>
+                    <div class="visibleBorder settingTitle">Player Count</div>
+                    <label class="visibleBorder settingText" for="playerCount">How many players?</label>
+                    <div class="visibleBorder settingContent">
                     <input id="playerCountSlider" class="playerCountSlider slider" type="range" min="2" max="10" value="4"><span class="playerCountText"></span>
+                    </div>
                     <z-hb>Some effects work better (or only work) in games with three or more players.</z-hb>
                 </div>
                 <div class="listSetting settingContainer">
-                    <label class="settingLabel" for="listSelect">Choose a list:</label>
+                    <div class="settingTitle">List Template</div>
+                    <label class="settingText" for="listSelect">Choose a list:</label>
+                    <div class="settingContent">
                     <select id="listSelect" class="listSelect selectList" type="select-one" size="6" style="overflow: hidden">
                         <option value="micro">Micro</option>
                         <option value="lite" selected>Lite</option>
@@ -34,10 +39,13 @@ settingsTemplate.innerHTML = `
                         <option value="full">Full</option>
                         <option value="custom">Custom</option>
                     </select>
+                    </div>
                     <z-hb>The List has had several "collections" over the years. Pick one or define your own.</z-hb>
                 </div>
                 <div class="themeSetting settingContainer">
-                    <label class="settingLabel" for="themeSelect">Exemplar Theme Table</label>
+                    <div class="settingTitle">Theme Table</div>
+                    <label class="settingText" for="themeSelect">Exemplar Theme Table</label>
+                    <div class="settingContent">
                     <select id="themeSelect" class="themeSelect selectList" type="select-one" size="8" style="overflow: hidden">
                         <option value="tokenizer" selected>Tokenizer</option>
                         <option value="complexity">Complexity</option>
@@ -48,13 +56,16 @@ settingsTemplate.innerHTML = `
                         <option value="toxin">Toxin</option>
                         <option value="badthings">Bad Things</option>
                     </select>
+                    </div>
                     <z-hb>The Exemplar Chaos List involves a themed sub-list for some effects. Choose your theme table.</z-hb>
                 </div>
                 <div class="schoolSetting settingContainer">
-                    <label class="settingLabel" for="schoolSelect">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
+                    <div class="settingTitle">Schools of Magic</div>
+                    <label class="settingText" for="schoolSelect">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
+                    <div class="settingContent">
                     <div class="allSelect">
                     <label for="allSchoolsToggle">All</label>
-                    <input id="allSchoolsToggle" class="allSchoolsToggle" type="checkbox" checked/>
+                    <input id="allSchoolsToggle" class="bigControl allSchoolsToggle" type="checkbox" checked/>
                     </div>
                     <select id="schoolSelect" class="schoolSelect selectList" type="select-multiple" size="9" multiple style="overflow: hidden">
                         <option value="abjuration" selected>Abjuration</option>
@@ -67,13 +78,16 @@ settingsTemplate.innerHTML = `
                         <option value="necromancy" selected>Necromancy</option>
                         <option value="transmutation" selected>Transmutation</option>
                     </select>
+                    </div>
                     <z-hb>Every effect belongs to one or more schools of magic. Choose which sorts of effects to include.</z-hb>
                 </div>
                 <div class="durationSetting settingContainer">
-                    <label class="settingLabel" for="durationSelect">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
+                    <div class="settingTitle">Durations</div>
+                    <label class="settingText" for="durationSelect">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
+                    <div class="settingContent">
                     <div class="allSelect">
                     <label for="allDurationsToggle">All</label>
-                    <input id="allDurationsToggle" class="allDurationsToggle" type="checkbox" checked/>
+                    <input id="allDurationsToggle" class="bigControl allDurationsToggle" type="checkbox" checked/>
                     </div>
                     <select id="durationSelect" class="durationSelect selectList" type="select-multiple" size="4" multiple style="overflow: hidden">
                         <option value="instant" selected>Instant</option>
@@ -81,13 +95,16 @@ settingsTemplate.innerHTML = `
                         <option value="round" selected>Round</option>
                         <option value="ongoing" selected>Ongoing</option>
                     </select>
+                    </div>
                     <z-hb>TEXT EXPLAINING DURATION</z-hb>
                 </div>
                 <div class="raritySetting settingContainer">
-                    <label class="settingLabel" for="raritySelect">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
+                    <div class="settingTitle">Rarities</div>
+                    <label class="settingText" for="raritySelect">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
+                    <div class="settingContent">
                     <div class="allSelect">
                     <label for="allRaritiesToggle">All</label>
-                    <input id="allRaritiesToggle" class="allRaritiesToggle" type="checkbox" checked/>
+                    <input id="allRaritiesToggle" class="bigControl allRaritiesToggle" type="checkbox" checked/>
                     </div>
                     <select id="raritySelect" class="raritySelect selectList" type="select-multiple" size="4" multiple style="overflow: hidden">
                         <option value="common" selected>Common</option>
@@ -95,39 +112,55 @@ settingsTemplate.innerHTML = `
                         <option value="rare" selected>Rare</option>
                         <option value="mythic" selected>Mythic</option>
                     </select>
+                    </div>
                     <z-hb>TEXT EXPLAINING RARITY</z-hb>
                 </div>
                 </div>
                 <div class="settingRandomizer settingGroup">
                 <div class="repetitionSetting settingContainer">
-                    <label class="settingLabel" for="repetitionToggle">Repeat Effects?</label>
-                    <input id="repetitionToggle" class="repetitionToggle" type="checkbox" checked/>
+                    <div class="settingTitle">Effect Repetition</div>
+                    <label class="settingText" for="repetitionToggle">Effects can be repeated more than once in a session.</label>
+                    <div class="settingContent">
+                    <input id="repetitionToggle" class="bigControl repetitionToggle" type="checkbox" checked/>
+                    </div>
                     <z-hb>Allow effects to occur more than once in a game.</z-hb>
                 </div>
                 <div class="rarityMattersSetting settingContainer">
-                    <label for="rarityMattersToggle">Rarity Matters?</label>
-                    <input id="rarityMattersToggle" class="rarityMattersToggle" type="checkbox"/>
+                    <div class="settingTitle">Weighted Rarities</div>
+                    <label class="settingText" for="rarityMattersToggle">Rarity matters for frequency of effects.</label>
+                    <div class="settingContent">
+                    <input id="rarityMattersToggle" class="bigControl rarityMattersToggle" type="checkbox"/>
+                    </div>
                     <z-hb>Controls randomizer: effects occur more or less frequently depending on their rarity.</z-hb>
                 </div>
                 </div>
                 <div class="settingExtras settingGroup">
                 <div class="physicalSetting settingContainer">
-                    <label class="settingLabel" for="physicalToggle">Physical</label>
-                    <input id="physicalToggle" class="physicalToggle" type="checkbox" checked/>
+                    <div class="settingTitle">Physical Effects</div>
+                    <label class="settingText" for="physicalToggle">Effects that involve physical action are included.</label>
+                    <div class="settingContent">
+                    <input id="physicalToggle" class="bigControl physicalToggle" type="checkbox" checked/>
+                    </div>
                     <z-hb>Some effects involve physical activity that may not be accessible for all players.</z-hb>
                 </div>
                 <div class="vengeanceSetting settingContainer">
-                    <label class="settingLabel" for="vengeanceToggle">Vengeance</label>
-                    <input id="vengeanceToggle" class="vengeanceToggle" type="checkbox" checked/>
+                    <div class="settingTitle">Vengeance</div>
+                    <label class="settingText" for="vengeanceToggle">Players roll on the Vengeance table if they would lose the game.</label>
+                    <div class="settingContent">
+                    <input id="vengeanceToggle" class="bigControl vengeanceToggle" type="checkbox" checked/>
+                    </div>
                     <z-hb>When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</z-hb>
                 </div>
                 <div class="minigameSetting settingContainer">
-                    <label class="settingLabel" for="minigameToggle">Minigames</label>
-                    <input id="minigameToggle" class="minigameToggle" type="checkbox"/>
+                    <div class="settingTitle">Minigames</div>
+                    <label class="settingText" for="minigameToggle">Play a minigame occasionally.</label>
+                    <div class="settingContent">
+                    <input id="minigameToggle" class="bigControl minigameToggle" type="checkbox"/>
                     <div class="minigameDelaySetting hiddenPart">
                         <label class="sliderLabel" for="minigameDelaySlider">Turns between minigames</label>
                         <input id="minigameDelaySlider" class="minigameDelaySlider slider" type="range" min="0" max="10" value="4">
                         <span class="minigameDelayText"></span>
+                    </div>
                     </div>
                     <z-hb>Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between minigames or choose to manually trigger one when you feel like it.</z-hb>
                 </div>
@@ -186,6 +219,10 @@ settingsTemplate.innerHTML = `
         let configRarityMatters = null;
         let configVengeance = null;
         let configPhysical = null;
+
+        // The Drawer Pieces
+        let drawerButton = null;
+        let drawerContents = null;
 
 class SettingsComponent extends HTMLElement {
     
@@ -247,8 +284,12 @@ class SettingsComponent extends HTMLElement {
         configVengeance = this.getElementsByClassName("vengeanceToggle")[0];
         configPhysical = this.getElementsByClassName("physicalToggle")[0];
 
+        // The Drawer Pieces
+        drawerButton = this.getElementsByClassName("toggleDrawer")[0];
+        drawerContents = this.getElementsByClassName("drawerContents")[0];
+
         // Define the Event Handlers
-        configSettingsButton.addEventListener('click', this.setSettingsVisibility.bind(this));
+        // configSettingsButton.addEventListener('click', this.setSettingsVisibility.bind(this)); // handled by Drawer
         configListSelect.addEventListener('click', this.setGameControlVisibility.bind(this));
         configSchoolAll.addEventListener('click', this.selectAll.bind(this, configSchoolAll, configSchoolSelect));
         configSchoolSelect.addEventListener('click', this.testSelectAll.bind(this, configSchoolAll, configSchoolSelect));
@@ -265,6 +306,9 @@ class SettingsComponent extends HTMLElement {
             }});
         configSaveButton.addEventListener('click', this.saveSettings.bind(this));
 
+        // Drawer Handler
+        drawerButton.addEventListener('click', () => {drawerContents.classList.toggle('openDrawer');});
+
         // Set the initial state
         this.setInitialState();
 
@@ -272,17 +316,19 @@ class SettingsComponent extends HTMLElement {
     setInitialState() { // this is a method in case i need to call it separately
         configOutputPlayer.innerHTML = configPlayerCount.value;
         configOutputDelay.innerHTML = configMinigameDelay.value;
-        this.setSettingsVisibility();
+        // this.setSettingsVisibility(); // handled by Drawer
         this.setGameControlVisibility();
     }
-    setSettingsVisibility() { // configSettingsButton action
-        if (configSettingsButton.textContent === "Hide Game Settings") {
-            configSettingsButton.textContent = "Show Game Settings"; 
-        } else {
-            configSettingsButton.textContent = "Hide Game Settings";
-        }
-        settingsDiv.classList.toggle("hiddenPart");
-    }
+    // This is handled by the Drawer functionality
+    //
+    // setSettingsVisibility() { // configSettingsButton action
+    //    if (configSettingsButton.textContent === "Hide Game Settings") {
+    //        configSettingsButton.textContent = "Show Game Settings"; 
+    //    } else {
+    //        configSettingsButton.textContent = "Hide Game Settings";
+    //    }
+    //    settingsDiv.classList.toggle("hiddenPart");
+    //}
     setGameControlVisibility() { // configListSelect action
         switch (configListSelect.options.selectedIndex) {
             case 0: // Micro
