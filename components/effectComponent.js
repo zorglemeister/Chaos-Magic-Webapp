@@ -5,8 +5,8 @@ import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
 
 // import specialEffects.js <- holds all the effect-specific scripts
 import * as special from '../scripts/specialEffects.js';
-// define a template
 
+// define a template
 const effectTemplate = document.createElement('template');
 
 // effect parameters the display cares about:
@@ -63,9 +63,9 @@ class EffectComponent extends HTMLElement {
     }
     connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only?
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
-        const uniqueId = 'effect-${Date.now().toString(36)}-${Math.random().toString(36).substr(2, 9)}'; //generate unique Id "effect-timestamp-randomNumber" (should be sufficiently unique because timestamp inclusion, even if the randomizer)
+        // moved to inline const uniqueId = 'effect-${randomUnique()}'; //generate unique Id "effect-timestamp-randomNumber" (should be sufficiently unique because timestamp inclusion, even if the randomizer creates the same output twice)
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
-        effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', uniqueId); // does this WORK? will be cool if it does.
+        effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${this.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
         // might be worth pulling this into a higher-scope method
         this.append(effectContent); // sticks the updated copy in the DOM
@@ -73,11 +73,46 @@ class EffectComponent extends HTMLElement {
         this.render(); 
     }
     render() {
-
+        let rollTags = this.getElementsByTagName('z-rb');
+        for (let rollTag of rollTags) {
+            rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML));
+        }
     }
-    randomElementId() {
-        
+    randomUnique() {
+        return '${Date.now().toString(36)}-${Math.random().toString(36).substr(2, 9)}';
+    }
+    linkRollButtons() {
+        let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc
+        let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
+        // assumptions:
+        // 1 - there are the same number of rollTags in shortDesc as there are in fullDesc
+        // 2 - the rollTags are in the same order in each
+        for (let i = 0; i < sRollTags.length; i++) { // loop through the contents of sRollTags
+            let sharedId = this.randomUnique() // for each entry pair, generate a uniqueId
+            sRollTags[i].setAttribute('id', `sroll-${sharedId}`); // add sroll-[SharedId] to the tag in shortDesc
+            fRollTags[i].setAttribute('id', `froll-${sharedId}`); // add froll-[SharedId] to the corresponding tag in fullDesc
+        }
+    }
+    updateLinkedRollTags(triggerTagId, updatedContent) {
+        // snag the triggering element Id - remember, getAttribute() returns lowercase
+        // copy the updated content (should be the outcome of the roll) as innerHTML
+        // figure out if the update came from sRoll or fRoll
+        if (triggerTagId.substr(0, 1) === "s") { // if sRoll is triggered
+            let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb');// find the matching fRoll
+            for (let fRollTag of fRollTags) {
+                if (fRollTag.getAttribute('id') === `f${triggerTagId.slice(1)}`) {
+                    fRollTag.innerHTML = updatedContent; // replace the fRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
+                }
+            } else { // if fRoll is triggered
+            let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb');// find the matching sRoll
+            for (let sRollTag of sRollTags) {
+                if (sRollTag.getAttribute('id') === `s${triggerTagId.slice(1)}`) {
+                    sRollTag.innerHTML = updatedContent; // replace the sRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
+                }
+            }
+        }
 
+        // potential complication: will this update trigger the EventListener again? if so, should i add a "rollFixed" class to check for and prevent an update loop?
     }
 }
 
