@@ -18,7 +18,7 @@ class HelpBox extends HTMLElement {
         const sourceText = this.innerHTML; // Get the help text : <z-hb>Explanation</z-hb>
         this.innerHTML = ''; // wipe the help text from the tag
 
-        this.append(helpTemplate.content.cloneNode(true)) // add the HTML to the DOM
+        this.append(helpTemplate.content.cloneNode(true)); // add the HTML to the DOM
 
         this.getElementsByClassName('helpContent')[0].innerHTML = `${sourceText}`; // replace the help text in the template
         //FOR FUTURE REFERENCE: getElementsByClassName returns an HTMLCollection, and I need to reference the first [0] instance of that class!!!

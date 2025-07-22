@@ -225,8 +225,6 @@ settingsTemplate.innerHTML = `
         let drawerContents = null;
 
 class SettingsComponent extends HTMLElement {
-    
-
     constructor() {
         super();
 
