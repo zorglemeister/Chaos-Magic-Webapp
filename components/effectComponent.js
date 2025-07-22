@@ -63,7 +63,7 @@ class EffectComponent extends HTMLElement {
     }
     connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only?
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
-        // moved to inline const uniqueId = 'effect-${randomUnique()}'; //generate unique Id "effect-timestamp-randomNumber" (should be sufficiently unique because timestamp inclusion, even if the randomizer creates the same output twice)
+        // moved to inline const uniqueId = 'effect-${randomUnique()}'; //generate unique Id "effect-timestamp-randomNumber" 
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
         effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${this.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
@@ -79,7 +79,10 @@ class EffectComponent extends HTMLElement {
         }
     }
     randomUnique() {
-        return '${Date.now().toString(36)}-${Math.random().toString(36).substr(2, 9)}';
+        return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`; 
+        // should be sufficiently unique because timestamp inclusion, even if the randomizer creates the same output twice
+        // sliced because the Math.random().toString(36) will always start with a "0.", so that's like, two characters less random, amirite?
+        // this is where I hum The Eels "My Beloved Monster" (you're welcome, Jewel!)
     }
     linkRollButtons() {
         let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc
@@ -103,7 +106,8 @@ class EffectComponent extends HTMLElement {
                 if (fRollTag.getAttribute('id') === `f${triggerTagId.slice(1)}`) {
                     fRollTag.innerHTML = updatedContent; // replace the fRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
                 }
-            } else { // if fRoll is triggered
+            }
+        } else { // if fRoll is triggered
             let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb');// find the matching sRoll
             for (let sRollTag of sRollTags) {
                 if (sRollTag.getAttribute('id') === `s${triggerTagId.slice(1)}`) {
