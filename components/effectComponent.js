@@ -29,7 +29,7 @@ effectTemplate.innerHTML = `
         <div class="effectComponents"></div>
         <div class="inspiration"></div>
     </div>
-    <button type="button" class="descSwitch descClosed"></button>
+    <button type="button" class="descSwitch descButtonClosed"></button>
 </div>
 `
 
@@ -73,10 +73,17 @@ class EffectComponent extends HTMLElement {
         this.render(); 
     }
     render() {
-        let rollTags = this.getElementsByTagName('z-rb');
-        for (let rollTag of rollTags) {
-            rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML));
+        let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
+        for (let rollTag of rollTags) { // loop through them and add an event handler on update
+            rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML)); // when one is updated, find its pair and match the contents
         }
+        this.getElementsByClassName('descSwitch')[0].addEventListener('click', this.toggleDescContent.bind(this)); // desc expand/shrink button
+    }
+    toggleDescContent() {
+        this.getElementsByClassName('descSwitch')[0].classList.toggle('descButtonClosed');
+        this.getElementsByClassName('descSwitch')[0].classList.toggle('descButtonOpen');
+        this.getElementsByClassName('shortDesc')[0].classList.toggle('hiddenPart');
+        this.getElementsByClassName('fullDesc')[0].classList.toggle('hiddenPart');
     }
     randomUnique() {
         return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`; 

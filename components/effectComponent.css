@@ -2,11 +2,14 @@
 
 
  /* controls the button text for the descSwitch button */
-z-eff .descClosed::before {
+z-eff .descButtonClosed::before {
     content: "⮟ ⮟";
     font-size: 24px;
 }
-z-eff .descOpen::before {
+z-eff .descButtonOpen::before {
     content: "⮝ ⮝";
     font-size: 24px;
+}
+z-eff .hiddenPart {
+    display: none;
 }
