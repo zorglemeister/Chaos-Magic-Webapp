@@ -305,15 +305,16 @@ class SettingsComponent extends HTMLElement {
         configSaveButton.addEventListener('click', this.saveSettings.bind(this));
 
         // Drawer Handler
-        drawerButton.addEventListener('click', () => {
-            drawerContents.classList.toggle('openDrawer'); // trigger the drawer slide in/out
-            drawerButton.classList.toggle('drawerClosed'); // change the Settings button state
-            drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
-        });
+        drawerButton.addEventListener('click', this.drawerToggleAction.bind(this));
 
         // Set the initial state
         this.setInitialState();
 
+    }
+    drawerToggleAction() {
+        drawerContents.classList.toggle('openDrawer'); // trigger the drawer slide in/out
+        drawerButton.classList.toggle('drawerClosed'); // change the Settings button state
+        drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
     }
     setInitialState() { // this is a method in case i need to call it separately
         configOutputPlayer.innerHTML = configPlayerCount.value;
@@ -444,6 +445,12 @@ class SettingsComponent extends HTMLElement {
         //     minigame: null, // any
         //     minigameDelay: null // any
         // }
+        
+        // Send the "settings updated" event
+        const settingsUpdated = new Event('settingsUpdate');
+        window.dispatchEvent(settingsUpdated);
+        // close Settings drawer
+        this.drawerToggleAction();
     }
 }
 

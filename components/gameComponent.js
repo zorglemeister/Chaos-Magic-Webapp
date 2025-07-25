@@ -143,6 +143,8 @@ class GameComponent extends HTMLElement {
         rollButton.addEventListener('click',this.rollClick.bind(this));
         minigameButton.addEventListener('click',this.minigameClick.bind(this));
         vengeanceButton.addEventListener('click',this.vengeanceClick.bind(this));
+        // settings update listener
+        window.addEventListener('settingsUpdate', this.settingsUpdatedHandler.bind(this));
 
         // start things off!
         this.initiateChaos();
