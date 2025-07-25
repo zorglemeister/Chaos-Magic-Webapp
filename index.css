@@ -24,32 +24,19 @@ body {
     /* Old Style font stack gleaned from https://modernfontstacks.com/ */
     font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
     font-weight: normal;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.scrollable {
+    overflow-y: auto;
+}
+.noScroll {
+    overflow-y: hidden;
 }
 
-.pageTitle {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.contentLayout {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-/* handled in settingsComponent.css
-#gameSettingsButton {
-    border-color: gold;
-    border-radius: 5px;
-}
-    */
-
-.workspace {
-    width: 45%;
-}
-
-.configBlock {
-    padding: 10px;
-}
 .visibleBorder {
     border: 3px solid gold;
 }
@@ -82,36 +69,3 @@ body {
     /* for IE/Edge */
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-
-/* handled in settingsComponent.css
-.settingContainer { /* boxes the setting (anchors the floating help text) 
-    border: 1px solid #d4af37;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: -1px; /* Prevent double borders. 
-    padding: 10px;
-}
-.settingLabel {
-    width: 40%;
-}
-.settingInput {
-    width: 57%;
-}
-.settingExplanation {
-    width: 3%;
-}
-.helpFloat {
-    position: absolute;
-    width: 200px;
-    left: 450px;
-    margin-right: 50px;
-    background-color: rgba(255, 255, 255, 1); /* semi-transparent background for debug/aesthetics 
-    padding: 5px;
-    border: 1px solid black;
-    z-index: 1;
-}
-
-.selectList {
-    overflow: hidden;
-}
-    */

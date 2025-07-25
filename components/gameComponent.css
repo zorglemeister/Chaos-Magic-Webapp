@@ -15,7 +15,7 @@ z-index reference
 /* need to make the game field fill the viewport */
 z-game .gameField {
     position: relative;
-    width: 98vh;
+    width: 99vw;
     height: 98vh;
     bottom: 0;
 }
@@ -24,10 +24,9 @@ z-game .gameField {
 
 z-game .gameDrawerContainer {
     position: fixed;
-    bottom: -300px;
+    bottom: -390px;
     right: 0;
     width: 100%;
-    max-height: 400px;
     transition: bottom 0.5s ease-in-out;
     z-index: 400; /* below the button, above other stuff */
 }
@@ -38,9 +37,10 @@ z-game .gameDrawerContainer.open {
 
 z-game .gameDrawerToggle {
     position: absolute;
-    bottom: 10px;
+    bottom: 100px;
     right: 10px;
     z-index: 401; /* above the drawer */
+    transition: bottom 0.5s ease-in-out;
 }
 
 z-game .gameDrawerContainer.open .gameDrawerToggle {

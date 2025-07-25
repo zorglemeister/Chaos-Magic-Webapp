@@ -66,14 +66,14 @@ class GameComponent extends HTMLElement {
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
 
         // The Drawer Pieces
-        drawerButton = this.getElementsByClassName("gameDrawerToggle")[0];
-        drawerContents = this.getElementsByClassName("gameDrawerContents")[0];
-        drawerContainer = this.getElementsByClassName("gameDrawerContainer")[0];
+        const drawerButton = this.getElementsByClassName("gameDrawerToggle")[0];
+        const drawerContents = this.getElementsByClassName("gameDrawerContents")[0];
+        const drawerContainer = this.getElementsByClassName("gameDrawerContainer")[0];
          // Drawer Handler
-        this.getElementsByClassName("gameDrawerToggle")[0].addEventListener('click', () => {
-            this.getElementsByClassName("gameDrawerContainer")[0].classList.toggle('gameDrawerOpen'); // trigger the drawer slide in/out
-            this.getElementsByClassName("gameDrawerToggle")[0].classList.toggle('gameDrawerClosed'); // change the Settings button state
-            this.getElementsByClassName("gameDrawerToggle")[0].classList.toggle('open'); // flippity-flip-flop
+        drawerButton.addEventListener('click', () => {
+            drawerContainer.classList.toggle('open'); // trigger the drawer slide in/out
+            drawerButton.classList.toggle('gameDrawerClosed'); // change the Settings button state
+            drawerButton.classList.toggle('gameDrawerOpen'); // flippity-flip-flop
         });
 
     }
