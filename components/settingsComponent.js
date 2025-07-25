@@ -15,7 +15,7 @@ const settingsTemplate = document.createElement('template');
 
 settingsTemplate.innerHTML = `
         <div class="settingsContainer configBlock drawerContainer">
-            <button type="button" class="gameSettingsButton toggleDrawer"><!-- Hide Game -->Settings</button>
+            <button type="button" class="gameSettingsButton drawerToggle drawerClosed"></button>
             <div class="gameSettings drawerContents">
             <div class="configTitle">Configure your Chaos!</div>
             <div class="settingBasics settingGroup">
@@ -283,7 +283,7 @@ class SettingsComponent extends HTMLElement {
         configPhysical = this.getElementsByClassName("physicalToggle")[0];
 
         // The Drawer Pieces
-        drawerButton = this.getElementsByClassName("toggleDrawer")[0];
+        drawerButton = this.getElementsByClassName("drawerToggle")[0];
         drawerContents = this.getElementsByClassName("drawerContents")[0];
 
         // Define the Event Handlers
@@ -305,7 +305,11 @@ class SettingsComponent extends HTMLElement {
         configSaveButton.addEventListener('click', this.saveSettings.bind(this));
 
         // Drawer Handler
-        drawerButton.addEventListener('click', () => {drawerContents.classList.toggle('openDrawer');});
+        drawerButton.addEventListener('click', () => {
+            drawerContents.classList.toggle('openDrawer'); // trigger the drawer slide in/out
+            drawerButton.classList.toggle('drawerClosed'); // change the Settings button state
+            drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
+        });
 
         // Set the initial state
         this.setInitialState();
@@ -424,6 +428,22 @@ class SettingsComponent extends HTMLElement {
     }
     saveSettings() { // Creates the game configuration when settings are saved (dream: pop a confirm dialog?)
         console.log("This is where I'd save my settings");
+
+        // here's the structure of settingsPayload
+        // settingsPayload = {
+        //     players: null, // any
+        //     list: null, // any
+        //     physical: null, // any
+        //     theme: null, // string
+        //     school: null, // any[]
+        //     duration: null, // any[]
+        //     rarity: null, // any[]
+        //     repetition: null, // any
+        //     rarityMatters: null, // any
+        //     vengeance: null, // any
+        //     minigame: null, // any
+        //     minigameDelay: null // any
+        // }
     }
 }
 

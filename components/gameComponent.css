@@ -1,0 +1,54 @@
+/*
+. means class
+# means id
+A B means B within A (any generation)
+A>B means B as direct child of A
+*/
+
+/*
+z-index reference
+601/600 - Settings
+500 - Vengeance/Minigame modals
+401/400 - History
+*/
+
+/* styles for the drawer effect */
+
+z-game .drawerContainer {
+    position: relative;
+}
+
+z-game .drawerToggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 401; /* above the drawer */
+}
+
+z-game .drawerContents {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: -400px; /* off-screen to the bottom, may need to adjust */
+    width: 94%;
+    height: 400px;
+    background-color: lightgray;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: bottom 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 400; /* below the button, above other stuff */
+    overflow-x: auto;
+}
+
+z-game .drawerContents.openDrawer {
+    bottom: 0; /* should cause it to slide in */
+}
+
+z-game .drawerClosed::before {
+    content: "⮝ History ⮝"; /* Unicode Closed Book  - default for help icons */
+    font-size: 24px;
+}
+
+z-game .drawerOpen::before {
+    content: "⮟ History ⮟"; /* Unicode Open Book  - toggled state for help icons */
+    font-size: 24px;
+}

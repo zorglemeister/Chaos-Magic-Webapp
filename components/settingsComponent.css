@@ -1,8 +1,16 @@
-/* . means class */
-/* # means id */
-/* A B means B within A (any generation) */
-/* A>B means B as direct child of A */
+/*
+. means class
+# means id
+A B means B within A (any generation)
+A>B means B as direct child of A
+*/
 
+/*
+z-index reference
+601/600 - Settings
+500 - Vengeance/Minigame modals
+401/400 - History
+*/
 
 z-settings .gameSettingsButton {
     border-color: gold;
@@ -77,7 +85,7 @@ z-settings .drawerContainer {
     position: relative;
 }
 
-z-settings .toggleDrawer {
+z-settings .drawerToggle {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -100,4 +108,14 @@ z-settings .drawerContents {
 
 z-settings .drawerContents.openDrawer {
     right: 0; /* should cause it to slide in */
+}
+
+z-settings .drawerClosed::before {
+    content: "Settings ⮜"; /* Unicode Closed Book  - default for help icons */
+    font-size: 24px;
+}
+
+z-settings .drawerOpen::before {
+    content: "Settings ⮞"; /* Unicode Open Book  - toggled state for help icons */
+    font-size: 24px;
 }

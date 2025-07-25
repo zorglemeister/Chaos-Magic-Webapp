@@ -1,9 +1,17 @@
+/*
+. means class
+# means id
+A B means B within A (any generation)
+A>B means B as direct child of A
+*/
+
 z-hb .helpParent {
     width: 80%;
     position: absolute;
     top: 0;
     right: 0;
 }
+
 z-hb .helpIcon {
     position: absolute;
     top: 0px;
@@ -17,14 +25,17 @@ z-hb .helpIcon {
     background-color: rgb(226, 193, 144);
     cursor: pointer;
 }
+
 z-hb .helpClosed::before {
     content: "\1F4D5"; /* Unicode Closed Book  - default for help icons */
     font-size: 24px;
 }
+
 z-hb .helpOpen::before {
     content: "\1F4D6"; /* Unicode Open Book  - toggled state for help icons */
     font-size: 24px;
 }
+
 z-hb .helpContent {
     margin-right: 40px;
     background-color: rgba(226, 193, 144, 0.9);
@@ -32,6 +43,7 @@ z-hb .helpContent {
     box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 z-hb .helpHidden {
     display: none;
 }

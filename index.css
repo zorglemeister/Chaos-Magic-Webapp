@@ -3,16 +3,22 @@
 @import "./components/rollButtonComponent.css";
 @import "./components/helpBoxComponent.css";
 @import "./components/settingsComponent.css";
+@import "./components/effectComponent.css";
+@import "./components/gameComponent.css";
 
+/*
+z-index reference
+601/600 - Settings
+500 - Vengeance/Minigame modals
+401/400 - History
+*/
 
-
-
-/* non-component styles below */
-
-/* . means class */
-/* # means id */
-/* A B means B within A (any generation) */
-/* A>B means B as direct child of A */
+/*
+. means class
+# means id
+A B means B within A (any generation)
+A>B means B as direct child of A
+*/
 
 body {
     /* Old Style font stack gleaned from https://modernfontstacks.com/ */
