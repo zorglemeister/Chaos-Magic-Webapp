@@ -88,8 +88,8 @@ z-settings .drawerContainer {
 z-settings .drawerToggle {
     position: absolute;
     top: 10px;
-    right: 10px;
-    z-index: 600; /* above the drawer */
+    transition: right 1s ease-in-out;
+    z-index: 601; /* above the drawer */
 }
 
 z-settings .drawerContents {
@@ -98,11 +98,11 @@ z-settings .drawerContents {
     transform: translateY(-50%);
     right: -400px; /* off-screen to the right, may need to adjust */
     width: 400px; /* will set the width for the gameSettings div, too */
-    height: 94%;
+    height: 98%;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transition: right 1s ease-in-out; /* smooth motion, may need to adjust timing */
-    z-index: 500; /* below the button, above other stuff */
+    z-index: 600; /* below the button, above other stuff */
     overflow-x: auto;
 }
 
@@ -118,4 +118,12 @@ z-settings .drawerClosed::before {
 z-settings .drawerOpen::before {
     content: "Settings ⮞"; /* Unicode Open Book  - toggled state for help icons */
     font-size: 24px;
+}
+
+z-settings .drawerClosed {
+        right: 10px;
+}
+
+z-settings .drawerOpen {
+        right: 410px;
 }

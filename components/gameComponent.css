@@ -15,55 +15,57 @@ z-index reference
 /* need to make the game field fill the viewport */
 z-game .gameField {
     position: relative;
-    width: 99vw;
-    height: 98vh;
-    bottom: 0;
+    height: 100vh;
 }
+
+
+
 
 /* styles for the drawer effect */
 
-z-game .gameDrawerContainer {
-    position: fixed;
-    bottom: -390px;
-    right: 0;
-    width: 100%;
-    transition: bottom 0.5s ease-in-out;
-    z-index: 400; /* below the button, above other stuff */
+z-game .drawerContainer {
+    position: relative;
 }
 
-z-game .gameDrawerContainer.open {
-    bottom: 0;
-}
-
-z-game .gameDrawerToggle {
+z-game .drawerToggle {
     position: absolute;
-    bottom: 100px;
     right: 10px;
+    transition: bottom 1s ease-in-out;
     z-index: 401; /* above the drawer */
-    transition: bottom 0.5s ease-in-out;
 }
 
-z-game .gameDrawerContainer.open .gameDrawerToggle {
-    bottom: 410px; /* move the button up with the drawer */
-}
-
-z-game .gameDrawerContents {
-    height: 400px;
+z-game .drawerContents {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -400px; /* off-screen to the bottom, may need to adjust */
+    height: 400px; /* drawerHeight (also, how far up it has to move */
+    width: 98%;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: bottom 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 400; /* below the button, above other stuff */
     overflow-x: auto;
 }
 
-z-game .gameDrawerContents.openGameDrawer {
+z-game .drawerContents.openDrawer {
     bottom: 0; /* should cause it to slide in */
 }
 
-z-game .gameDrawerClosed::before {
-    content: "⮝ History ⮝"; /* Unicode Closed Book  - default for help icons */
+z-game .drawerClosed::before {
+    content: "History ⮝"; /* Unicode Closed Book  - default for help icons */
     font-size: 24px;
 }
 
-z-game .gameDrawerOpen::before {
-    content: "⮟ History ⮟"; /* Unicode Open Book  - toggled state for help icons */
+z-game .drawerOpen::before {
+    content: "History ⮟"; /* Unicode Open Book  - toggled state for help icons */
     font-size: 24px;
+}
+
+z-game .drawerClosed {
+        bottom: 10px;
+}
+
+z-game .drawerOpen {
+        bottom: 410px;
 }

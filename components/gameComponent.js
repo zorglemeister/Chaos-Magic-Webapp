@@ -6,7 +6,7 @@ import { registerEffectComponent } from './effectComponent.js';
 // let's build a template!
 const gameTemplate = document.createElement('template');
 gameTemplate.innerHTML = `
-<div class="gameField visibleBlueBorder">
+<div class="gameField drawerContainer visibleBlueBorder">
 <div class="visiblePart visibleBorder">
 <div class="activeContainer">active cont</div>
 <div class="minigameModal">minigame cont</div>
@@ -22,9 +22,9 @@ gameTemplate.innerHTML = `
 <div class="historyControlPlaceholder"></div>
 </div>
 </div>
-<div class="historyDrawer gameDrawerContainer visibleGreenBorder">
-<button type="button" class="historyButton gameDrawerToggle gameDrawerClosed"></button>
-<div class="historyContainer gameDrawerContents">hist Cont</div>
+<div class="historyDrawer  visibleGreenBorder">
+<button type="button" class="historyButton drawerToggle drawerClosed"></button>
+<div class="historyContainer drawerContents">hist Cont</div>
 </div>
 </div>
 `
@@ -54,6 +54,10 @@ gameTemplate.innerHTML = `
 // minigame flow
 // (pretty much just the same as vengeance)
 
+// The Drawer Pieces
+        let drawerButton = null;
+        let drawerContents = null;
+
 class GameComponent extends HTMLElement {
     constructor() {
         super();
@@ -66,14 +70,14 @@ class GameComponent extends HTMLElement {
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
 
         // The Drawer Pieces
-        const drawerButton = this.getElementsByClassName("gameDrawerToggle")[0];
-        const drawerContents = this.getElementsByClassName("gameDrawerContents")[0];
-        const drawerContainer = this.getElementsByClassName("gameDrawerContainer")[0];
+        drawerButton = this.getElementsByClassName("drawerToggle")[0];
+        drawerContents = this.getElementsByClassName("drawerContents")[0];
+        // const drawerContainer = this.getElementsByClassName("gameDrawerContainer")[0];
          // Drawer Handler
         drawerButton.addEventListener('click', () => {
-            drawerContainer.classList.toggle('open'); // trigger the drawer slide in/out
-            drawerButton.classList.toggle('gameDrawerClosed'); // change the Settings button state
-            drawerButton.classList.toggle('gameDrawerOpen'); // flippity-flip-flop
+            drawerContents.classList.toggle('openDrawer'); // trigger the drawer slide in/out
+            drawerButton.classList.toggle('drawerClosed'); // change the History button state
+            drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
         });
 
     }
