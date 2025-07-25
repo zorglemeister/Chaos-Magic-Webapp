@@ -51,9 +51,13 @@ body {
     padding: 10px;
 }
 .visibleBorder {
-    margin-bottom: 10px;
-    padding: 10px;
     border: 3px solid gold;
+}
+.visibleGreenBorder {
+    border: 3px solid green;
+}
+.visibleBlueBorder {
+    border: 3px solid blue;
 }
 
 /* scrollbar style */

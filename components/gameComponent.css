@@ -12,43 +12,58 @@ z-index reference
 401/400 - History
 */
 
-/* styles for the drawer effect */
-
-z-game .drawerContainer {
+/* need to make the game field fill the viewport */
+z-game .gameField {
     position: relative;
+    width: 98vh;
+    height: 98vh;
+    bottom: 0;
 }
 
-z-game .drawerToggle {
+/* styles for the drawer effect */
+
+z-game .gameDrawerContainer {
+    position: fixed;
+    bottom: -300px;
+    right: 0;
+    width: 100%;
+    max-height: 400px;
+    transition: bottom 0.5s ease-in-out;
+    z-index: 400; /* below the button, above other stuff */
+}
+
+z-game .gameDrawerContainer.open {
+    bottom: 0;
+}
+
+z-game .gameDrawerToggle {
     position: absolute;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     z-index: 401; /* above the drawer */
 }
 
-z-game .drawerContents {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    bottom: -400px; /* off-screen to the bottom, may need to adjust */
-    width: 94%;
+z-game .gameDrawerContainer.open .gameDrawerToggle {
+    bottom: 410px; /* move the button up with the drawer */
+}
+
+z-game .gameDrawerContents {
     height: 400px;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transition: bottom 1s ease-in-out; /* smooth motion, may need to adjust timing */
-    z-index: 400; /* below the button, above other stuff */
     overflow-x: auto;
 }
 
-z-game .drawerContents.openDrawer {
+z-game .gameDrawerContents.openGameDrawer {
     bottom: 0; /* should cause it to slide in */
 }
 
-z-game .drawerClosed::before {
+z-game .gameDrawerClosed::before {
     content: "⮝ History ⮝"; /* Unicode Closed Book  - default for help icons */
     font-size: 24px;
 }
 
-z-game .drawerOpen::before {
+z-game .gameDrawerOpen::before {
     content: "⮟ History ⮟"; /* Unicode Open Book  - toggled state for help icons */
     font-size: 24px;
 }
