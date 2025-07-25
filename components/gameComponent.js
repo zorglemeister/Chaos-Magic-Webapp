@@ -8,7 +8,7 @@ const gameTemplate = document.createElement('template');
 gameTemplate.innerHTML = `
 <div class="gameField drawerContainer visibleBlueBorder">
 <div class="initialModal modalFrame">
-<button type="button" class="defaultsButton">Use Defaults</button>
+<button type="button" class="defaultButton">Use Defaults</button>
 <button type="button" class="customizeButton">Open Settings</button>
 </div>
 <div class="visiblePart visibleBorder">
@@ -88,6 +88,8 @@ let gameField = null;
 // The Drawer Pieces
     let drawerButton = null;
     let drawerContents = null;
+// Settings, in case i need it?
+    let settingsBlock = null;
 
 class GameComponent extends HTMLElement {
     constructor() {
@@ -132,7 +134,7 @@ class GameComponent extends HTMLElement {
             drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
         });
         // settings reference, because fancy
-        settingsBlock = document.getElementsByName('z-settings')[0];
+        settingsBlock = document.getElementsByClassName('settingsBlock')[0];
         // time for event handlers!
         defaultButton.addEventListener('click',this.defaultsClick.bind(this));
         customizeButton.addEventListener('click',this.customizeClick.bind(this));
@@ -145,7 +147,7 @@ class GameComponent extends HTMLElement {
         // start things off!
         this.initiateChaos();
     }
-    
+
     // INITIAL STATE -----------------------
     initiateChaos() {
         // hide game controls and history
