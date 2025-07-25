@@ -397,7 +397,7 @@ function effectFlare635() {
 
 // random permanent type
 // Effect: Tariff Sheriff (911)
-function randBasicLand() {
+function effectTariff911() {
     let genLand = "Something Went Wrong - Jo";
     switch (dieRoll(1,7)) {
         case "1":
