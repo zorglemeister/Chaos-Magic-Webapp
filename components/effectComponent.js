@@ -61,9 +61,8 @@ class EffectComponent extends HTMLElement {
     constructor() {
         super();
     }
-    connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only?
+    connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only? UPDATE - reparenting does NOT trip connectedCallback() !!
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
-        // moved to inline const uniqueId = 'effect-${randomUnique()}'; //generate unique Id "effect-timestamp-randomNumber" 
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
         effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${this.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
@@ -73,6 +72,11 @@ class EffectComponent extends HTMLElement {
         this.render(); 
     }
     render() {
+        // get the generatedEffect
+
+        // put the pieces of the generated effect into the template contents
+
+
         let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
         for (let rollTag of rollTags) { // loop through them and add an event handler on update
             rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML)); // when one is updated, find its pair and match the contents

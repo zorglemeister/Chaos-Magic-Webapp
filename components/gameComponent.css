@@ -12,6 +12,11 @@ z-index reference
 401/400 - History
 */
 
+/* basic "hide it" class */
+z-game .hiddenPart {
+    display: none;
+}
+
 /* need to make the game field fill the viewport */
 z-game .gameField {
     position: relative;

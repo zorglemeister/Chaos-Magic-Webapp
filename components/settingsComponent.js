@@ -23,7 +23,7 @@ settingsTemplate.innerHTML = `
                     <div class="visibleBorder settingTitle">Player Count</div>
                     <label class="visibleBorder settingText" for="playerCount">How many players?</label>
                     <div class="visibleBorder settingContent">
-                    <input id="playerCountSlider" class="playerCountSlider slider" type="range" min="2" max="10" value="4"><span class="playerCountText"></span>
+                    <p><input id="playerCountSlider" class="playerCountSlider slider" type="range" min="2" max="10" value="4"></p><span class="playerCountText"></span>
                     </div>
                     <z-hb>Some effects work better (or only work) in games with three or more players.</z-hb>
                 </div>
@@ -158,7 +158,7 @@ settingsTemplate.innerHTML = `
                     <input id="minigameToggle" class="bigControl minigameToggle" type="checkbox"/>
                     <div class="minigameDelaySetting hiddenPart">
                         <label class="sliderLabel" for="minigameDelaySlider">Turns between minigames</label>
-                        <input id="minigameDelaySlider" class="minigameDelaySlider slider" type="range" min="0" max="10" value="4">
+                        <p><input id="minigameDelaySlider" class="minigameDelaySlider slider" type="range" min="0" max="10" value="4"></p>
                         <span class="minigameDelayText"></span>
                     </div>
                     </div>
@@ -166,7 +166,7 @@ settingsTemplate.innerHTML = `
                 </div>
                 </div>
                 <div class="updateGame">
-                    <button class="updateSettingsButton" type="button">Update Game Settings</button> This will reset the current game!
+                    <button class="updateSettingsButton" type="button">Update Game Settings</button>
                 </div>
             </div>
             </div>
