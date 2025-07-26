@@ -79,6 +79,24 @@ z-settings .allSelect {
     font-size: 16pt;
 }
 
+/* save modal */
+z-settings .saveModal {
+    position: fixed;
+    z-index: 601;
+    bottom: 10px;
+    background-color: lightblue;
+}
+
+z-settings .saveButton {
+    background-color: darkgreen;
+    color: white;
+}
+
+z-settings .cancelButton {
+    background-color: darkred;
+    color: white;
+}
+
 /* styles for the drawer effect */
 
 z-settings .drawerContainer {

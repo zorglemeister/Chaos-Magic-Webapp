@@ -167,6 +167,11 @@ settingsTemplate.innerHTML = `
                 </div>
                 <div class="updateGame">
                     <button class="updateSettingsButton" type="button">Update Game Settings</button>
+                    <div class="saveModal hiddenPart">
+                        <p>Updating Game Settings will reset the current game. Do you wish to save settings and start a new game?</p>
+                        <button type="button" class="saveButton">Save</button>
+                        <button type="button" class="cancelButton">Cancel</button>
+                    </div>
                 </div>
             </div>
             </div>
@@ -223,6 +228,11 @@ settingsTemplate.innerHTML = `
         // The Drawer Pieces
         let drawerButton = null;
         let drawerContents = null;
+
+        // the Save modal
+        let saveModal = null;
+        let saveButton = null;
+        let cancelButton = null;
 
 class SettingsComponent extends HTMLElement {
     constructor() {
@@ -286,6 +296,11 @@ class SettingsComponent extends HTMLElement {
         drawerButton = this.getElementsByClassName("drawerToggle")[0];
         drawerContents = this.getElementsByClassName("drawerContents")[0];
 
+        // The Save Modal
+        saveModal = this.getElementsByClassName("saveModal")[0];
+        saveButton = this.getElementsByClassName("saveButton")[0];
+        cancelButton = this.getElementsByClassName("cancelButton")[0];
+
         // Define the Event Handlers
         // configSettingsButton.addEventListener('click', this.setSettingsVisibility.bind(this)); // handled by Drawer
         configListSelect.addEventListener('click', this.setGameControlVisibility.bind(this));
@@ -302,10 +317,14 @@ class SettingsComponent extends HTMLElement {
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
             }});
-        configSaveButton.addEventListener('click', this.saveSettings.bind(this));
+        configSaveButton.addEventListener('click', () => {saveModal.classList.toggle('hiddenPart');});
 
         // Drawer Handler
         drawerButton.addEventListener('click', this.drawerToggleAction.bind(this));
+
+        // Save Modal
+        cancelButton.addEventListener('click', () => {saveModal.classList.toggle('hiddenPart');});
+        saveButton.addEventListener('click', this.updateSettings.bind(this));
 
         // Set the initial state
         this.setInitialState();
@@ -397,9 +416,9 @@ class SettingsComponent extends HTMLElement {
     }
     setMinigameDelayVisibility() { // configMinigame action
         if (configMinigame.checked === true) {
-            delayDiv.classList.toggle("hiddenPart");
+            delayDiv.classList.add("hiddenPart");
         } else {
-            delayDiv.style.display = "none";
+            delayDiv.classList.remove("hiddenPart");
         }
     }
     selectAll(allCheck, selectName) { // Reusable selectAll/unselect for ALL checkboxes
@@ -427,8 +446,14 @@ class SettingsComponent extends HTMLElement {
             allCheck.checked = false;
         }
     }
-    saveSettings() { // Creates the game configuration when settings are saved (dream: pop a confirm dialog?)
-        console.log("This is where I'd save my settings");
+    // saveSettings() { // displays and handles the save modal
+        // console.log("This is where I'd save my settings");
+        // add click handlers
+        
+        // show the Save Modal
+        // saveModal.classList.toggle('hiddenPart');
+    // }
+    updateSettings() {
 
         // here's the structure of settingsPayload
         // settingsPayload = {
@@ -449,7 +474,8 @@ class SettingsComponent extends HTMLElement {
         // Send the "settings updated" event
         const settingsUpdated = new Event('settingsUpdate');
         window.dispatchEvent(settingsUpdated);
-        // close Settings drawer
+        // hide Save Modal and close Settings drawer
+        saveModal.classList.toggle('hiddenPart');
         this.drawerToggleAction();
     }
 }
