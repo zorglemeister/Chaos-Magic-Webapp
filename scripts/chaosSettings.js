@@ -202,7 +202,7 @@ function selectAll(allCheck, selectName) {
             selectName.options[i].selected = false; // unselects the rest
         }
     } else {
-        for (let i = 0; i < listLength; i++) {
+        for (let i = 0; i < selectName.options.length; i++) {
             selectName.options[i].selected = true; // selects all the options
         }
     }
