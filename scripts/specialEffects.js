@@ -149,7 +149,7 @@ function effectNotAgain() {
 }
 // Ryan Loves Dice (185)
 function effectRyanDice() {
-    let plusY = toString(dieRoll(1,20));
+    let plusY = dieRoll(1,20).toString();
     return "Choose up to ${toString(dieRoll(1,8))} target creatures. Put ${toString(dieRoll(1,6))} +1/+1 counters on each. Choose up to ${toString(dieRoll(1,4))} other target creatures. Those gain +" + plusY + "/+" + plusY + " until end of turn. All players discard ${toString(dieRoll(1,6))} cards, then draw ${toString(dieRoll(1,8))} cards. Flip a coin. If you win the flip, all players gain ${toString(dieRoll(1,10))} life. If you lose the flip, all players lose ${toString(dieRoll(2,4))} life.";
 }
 // random colour + colourless

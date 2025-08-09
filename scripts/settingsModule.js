@@ -49,22 +49,22 @@ export const configPhysical = document.getElementById("physicalToggle");
 
 // Set the events
 export function defineEvents() {
-    configSettingsButton.addEventListener('click', setSettingsVisibility());
-    configListSelect.addEventListener('click', setGameControlVisibility());
+    configSettingsButton.addEventListener('click', setSettingsVisibility);
+    configListSelect.addEventListener('click', setGameControlVisibility);
     configSchoolAll.addEventListener('click', selectAll('allSchoolsToggle', 'schoolSelect'));
     configSchoolSelect.addEventListener('click', testSelectAll('allSchoolsToggle', 'schoolSelect'));
     configDurationAll.addEventListener('click', selectAll('allDurationsToggle', 'durationSelect'));
     configDurationSelect.addEventListener('click', testSelectAll('allDurationsToggle', 'durationSelect'));
     configRarityAll.addEventListener('click', selectAll('allRaritiesToggle', 'raritySelect'));
     configRaritySelect.addEventListener('click', testSelectAll('allRaritiesToggle', 'raritySelect'));
-    configMinigame.addEventListener('click', setMinigameDelayVisibility());
+    configMinigame.addEventListener('click', setMinigameDelayVisibility);
     configPlayerCount.addEventListener('input', () => {configOutputPlayer.innerHTML = this.value;});
     configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value === 0) {
             configOutputDelay.innerHTML = "Whenever"
         } else {
             configOutputDelay.innerHTML = this.value;
         }});
-    configSaveButton.addEventListener('click', saveSettings());
+    configSaveButton.addEventListener('click', saveSettings);
 }
 
 // Set the initial state

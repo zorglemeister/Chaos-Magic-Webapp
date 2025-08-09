@@ -35,10 +35,10 @@ const settingsDiv = document.getElementById("gameSettings");
 
 // All the elements with onClicks
 const configSettingsButton = document.getElementById("gameSettingsButton");
-configSettingsButton.addEventListener('click', setSettingsVisibility());
+configSettingsButton.addEventListener('click', setSettingsVisibility);
 
 const configListSelect = document.getElementById("listSelect");
-configListSelect.addEventListener('click', setGameControlVisibility());
+configListSelect.addEventListener('click', setGameControlVisibility);
 
 const configSchoolAll = document.getElementById("allSchoolsToggle");
 configSchoolAll.addEventListener('click', selectAll('allSchoolsToggle', 'schoolSelect'));
@@ -59,7 +59,7 @@ const configRaritySelect = document.getElementById("raritySelect");
 configRaritySelect.addEventListener('click', testSelectAll('allRaritiesToggle', 'raritySelect'));
 
 const configMinigame = document.getElementById("minigameToggle");
-configMinigame.addEventListener('click', setMinigameDelayVisibility());
+configMinigame.addEventListener('click', setMinigameDelayVisibility);
 
 // Defining the Sliders and value update handlers
 
