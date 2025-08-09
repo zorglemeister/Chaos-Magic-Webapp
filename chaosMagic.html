@@ -75,7 +75,7 @@
                     <!-- PlayerCount slider, handles both the turn/round counter and the "duel/multi" filter -->
                 <div id="playerCountSetting" class="settingContainer">
                     <p>
-                    <label for="playerCount">How many players?</label>
+                    <label for="playerCountSlider">How many players?</label>
                     <input type="range" class="slider" id="playerCountSlider" min="4" max="10" value="2"><span id="playerCountText"></span>
                     <!-- Component help box variant -->
                      <z-tip>Some effects work better (or only work) in games with three or more players.</z-tip>
@@ -223,7 +223,7 @@
                     <p>
                     <label for="physicalToggle">Physical</label>
                     <input type="checkbox" id="physicalToggle" value="physical" checked/>
-                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)"onmouseout="toggleHelp('explainPhysicalText', this)"></span>
+                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)" onmouseout="toggleHelp('explainPhysicalText', this)"></span>
                     <span id="explainPhysicalText" class="explain hiddenHelp helpFloat">Some effects involve physical activity that may not be accessible for all players.</span>
                     </p>
                 </div>
