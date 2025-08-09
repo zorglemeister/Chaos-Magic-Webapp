@@ -106,7 +106,7 @@ function setSettingsVisibility() {
 // Control help text visibility
 function toggleHelp(targetSpan, triggerIcon) {
     // var helpSpan = document.getElementById(toString(triggerIcon) + "Text");
-    var helpSpan = document.getElementById(targetSpan);
+    const helpSpan = document.getElementById(targetSpan);
     triggerIcon.classList.toggle('helpIconClosed'); // toggle Closed Book class
     triggerIcon.classList.toggle('helpIconOpen'); // toggle Open Book class
     helpSpan.classList.toggle('hiddenHelp'); // toggle Help visibility
@@ -224,7 +224,7 @@ let generatedArray = [];
 let encodedValue = 0;
 let encodedValueLength = 0;
 function generateArrayToEncode(selectElement) {
-    var listSelection = document.getElementById(selectElement);
+    const listSelection = document.getElementById(selectElement);
     generatedArray = [];
     for (let i = 0; i < listSelection.options.length; i++) {
         generatedArray.push(listSelection.options[i].selected);

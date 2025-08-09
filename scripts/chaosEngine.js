@@ -62,11 +62,11 @@ function getSelectedValues(element) {
     return arr;
 }
 function getRM() {
-    var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
+    const customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
     return customRarityMatters;
 }
 function getRep() {
-    var repetition = document.getElementById("repetitionToggle").checked;
+    const repetition = document.getElementById("repetitionToggle").checked;
     return repetition;
 }
 function getGameConfig() {
