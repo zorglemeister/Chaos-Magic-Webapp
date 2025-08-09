@@ -19,8 +19,8 @@ class RollButton extends HTMLElement {
         const dieArray = diceNotation.split('d'); // split the string at 'd'
         let dieCount = parseInt(dieArray[0], 10); // use the first number as "count"
         let dieSides = parseInt(dieArray[1], 10); // use the second number as "sides"
-        let outcome = this.dieRoll(dieCount, dieSides).toString(); // hand it to the die roller and return the result as a string
-        return outcome;    
+        // hand it to the die roller and return the result as a string
+        return this.dieRoll(dieCount, dieSides).toString();
     }
 
     dieRoll(count, sides) {

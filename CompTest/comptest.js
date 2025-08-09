@@ -19,8 +19,7 @@ class HelpBox extends HTMLElement {
         // OOH! I can use the <details><summary> structure!
         this.innerHTML = `<details class="helpText"><summary class="helpIcon">📕</summary>${sourceText}</details>`;
         this.querySelector('summary').addEventListener('click', () => { // handler for clicking on the Summary
-            const newIcon = this.toggleClick();
-            this.querySelector('summary').textContent = newIcon;
+            this.querySelector('summary').textContent = this.toggleClick();
         });
     }
 

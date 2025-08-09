@@ -28,8 +28,8 @@ class RollButton extends HTMLElement {
         this.innerHTML = '<button>&#127922; ${sourceText}</button>'; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die unicode character "&#127922;" : [🎲 2d6]
 
         this.querySelector('button').addEventListener('click', () => { // what to do on a click?
-            const result = this.handleClick(sourceText); // get a result by passing the text to the click handler...
-            this.innerHTML = result; // then replace the contents with the result!
+            // get a result by passing the text to the click handler then replace the contents with the result!
+            this.innerHTML = this.handleClick(sourceText);
         });
     }
 

@@ -28,8 +28,7 @@ const filePath = './lists/chaosList.json'
 // go get the file
 async function loadJSON(path) {
     const response = await fetch(path);
-    const data = await response.json();
-    return data;
+    return await response.json();
 }
 
 // make the list from the file
