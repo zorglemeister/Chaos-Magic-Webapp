@@ -49,10 +49,9 @@ z-settings .settingTitle {
 
 z-settings .settingText {
     height: fit-content;
-    margin: 0 auto;
     text-align: center;
     text-wrap: wrap;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
 }
 
 z-settings .settingContent {
