@@ -26,7 +26,7 @@ function getMGDelay() {
     return document.getElementById("minigameDelay").value;
 }
 function getTheme() {
-    let exemplarTheme = "";
+    let exemplarTheme;
     if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
         exemplarTheme = "all";
     } else {

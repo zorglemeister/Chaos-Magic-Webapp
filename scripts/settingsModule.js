@@ -194,7 +194,7 @@ function testSelectAll(allCheck, selectName) {
         for (let i = 0; i < selectName.options.length; i++) {
             if (selectName.options[i].selected === false) {
                 allSelected++;
-            };
+            }
         }
     if (allCheck.checked === false && allSelected === 0) {
         allCheck.checked = true;
@@ -204,5 +204,5 @@ function testSelectAll(allCheck, selectName) {
 }
 // Creates the game configuration when settings are saved (dream: pop a confirm dialog?)
 function saveSettings() {
-    console.log = "This is where I'd save my settings"
+    console.log("This is where I'd save my settings");
 }

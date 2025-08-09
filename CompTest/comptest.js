@@ -24,9 +24,9 @@ class HelpBox extends HTMLElement {
     }
 
     toggleClick() {
-       let icon = "";
+       let icon;
        if (this.querySelector('summary').textContent === '📕') {
-            icon = '📖';
+           icon = '📖';
        } else {
            icon = '📕';
        }
