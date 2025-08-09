@@ -111,7 +111,7 @@ class EffectComponent extends HTMLElement {
         // snag the triggering element Id - remember, getAttribute() returns lowercase
         // copy the updated content (should be the outcome of the roll) as innerHTML
         // figure out if the update came from sRoll or fRoll
-        if (triggerTagId.substr(0, 1) === "s") { // if sRoll is triggered
+        if (triggerTagId.substring(0, 1) === "s") { // if sRoll is triggered
             let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb');// find the matching fRoll
             for (let fRollTag of fRollTags) {
                 if (fRollTag.getAttribute('id') === `f${triggerTagId.slice(1)}`) {
