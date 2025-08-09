@@ -179,12 +179,8 @@ function filterMicro() {
     window.filterCriteria.rarity = [""];
 }
 function filterLite() {
-    // Lite  only cares about inclusion
-    window.filterCriteria.inclusion = window.gameConfig.list;
-    window.filterCriteria.exemplarTheme = "";
-    window.filterCriteria.school = [""];
-    window.filterCriteria.duration = [""];
-    window.filterCriteria.rarity = [""];
+    // Lite  only cares about inclusion, same as Micro
+    filterMicro();
 }
 function filterExemplar() {
     // Exemplar cares about inclusion and theme (if all, include everything)
@@ -199,12 +195,8 @@ function filterExemplar() {
     window.filterCriteria.rarity = [""];
 }
 function filterLegacy() {
-    // Legacy only cares about inclusion
-    window.filterCriteria.inclusion = window.gameConfig.list;
-    window.filterCriteria.exemplarTheme = "";
-    window.filterCriteria.school = [""];
-    window.filterCriteria.duration = [""];
-    window.filterCriteria.rarity = [""];
+    // Legacy only cares about inclusion, same as Micro
+    filterMicro();
 }
 function filterFull() {
     // Full REALLY doesn't care

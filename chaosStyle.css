@@ -96,7 +96,5 @@ input:focus + .slide {
   box-shadow: 0 0 1px #2196F3;
 }
 input:checked + .slide:before {
-  -webkit-transform: translateX(1.5rem);
-  -ms-transform: translateX(1.5rem);
   transform: translateX(1.5rem);
 }
