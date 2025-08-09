@@ -59,7 +59,7 @@ export function defineEvents() {
     configRaritySelect.addEventListener('click', testSelectAll('allRaritiesToggle', 'raritySelect'));
     configMinigame.addEventListener('click', setMinigameDelayVisibility());
     configPlayerCount.addEventListener('input', () => {configOutputPlayer.innerHTML = this.value;});
-    configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value == 0) {
+    configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value === 0) {
             configOutputDelay.innerHTML = "Whenever"
         } else {
             configOutputDelay.innerHTML = this.value;

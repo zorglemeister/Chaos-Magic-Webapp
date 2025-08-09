@@ -74,7 +74,7 @@ const configMinigameDelay = document.getElementById("minigameDelaySlider");
 const configOutputDelay = document.getElementById("minigameDelayText");
     configOutputDelay.innerHTML = configMinigameDelay.value;
     configMinigameDelay.oninput = function() {
-        if (configMinigameDelay.value == 0) {
+        if (configMinigameDelay.value === 0) {
             configOutputDelay.innerHTML = "Whenever"
         } else {
             configOutputDelay.innerHTML = this.value;

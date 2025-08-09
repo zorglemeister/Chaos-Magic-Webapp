@@ -312,7 +312,7 @@ class SettingsComponent extends HTMLElement {
         configRaritySelect.addEventListener('click', this.testSelectAll.bind(this, configRarityAll, configRaritySelect));
         configMinigame.addEventListener('click', () => {delayDiv.classList.toggle("hiddenPart");});// this.setMinigameDelayVisibility.bind(this,));
         configPlayerCount.addEventListener('input', () => {configOutputPlayer.innerHTML = configPlayerCount.value;});
-        configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value == 0) {
+        configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value === 0) {
             configOutputDelay.innerHTML = "Whenever"
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
