@@ -7,7 +7,7 @@
 z-hb details {
     border: 1px dashed black;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 50%;
     width: 50%;
     background-color: rgb(226, 193, 144);
@@ -17,8 +17,8 @@ z-hb summary {
     border: 1px dashed black;
     display: block;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     background-color: rgb(226, 193, 144);
     border-radius: 50%;
 }
