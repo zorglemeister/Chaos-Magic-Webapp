@@ -229,7 +229,6 @@
                 </div>
                 <div id="vengeanceSetting" class="settingContainer">
                     <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
-                    <p>
                     <label for="vengeanceToggle">Vengeance</label>
                     <div class="toggleBox">
                         <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
@@ -237,11 +236,9 @@
                     </div>
                     <span id="explainVengeanceIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainVengeanceText', this)" onmouseout="toggleHelp('explainVengeanceText', this)"></span>
                     <span id="explainVengeanceText" class="explain hiddenHelp helpFloat">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
-                    </p>
                 </div>
                 <div id="minigameSetting" class="settingContainer">
                     <!-- Minigame selector controls visibility of "Minigame" button, as well as "minigame delay". This will also require some sort of turn tracker?-->
-                    <p>
                     <label for="minigameToggle">Minigames</label>
                     <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
                     <div id="minigameDelaySetting" style="display:none">
