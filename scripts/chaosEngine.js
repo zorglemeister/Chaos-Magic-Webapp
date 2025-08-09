@@ -8,31 +8,31 @@
 // ... and then a function to turn them into object parameters
 
 function getPlayerCount() {
-    var playerCount = document.getElementById("playerCountButton").innerHTML;
+    const playerCount = document.getElementById("playerCountButton").innerHTML;
     return playerCount;
 }
 function getList() {
-    var baseList = document.getElementById("listBase").value;
+    const baseList = document.getElementById("listBase").value;
     return baseList;
 }
 function getVeng() {
-    var vengeance = document.getElementById("vengeanceToggle").checked;
+    const vengeance = document.getElementById("vengeanceToggle").checked;
     return vengeance;
 }
 function getPhys() {
-    var physical = document.getElementById("physicalToggle").checked;
+    const physical = document.getElementById("physicalToggle").checked;
     return physical;
 }
 function getMG() {
-    var minigames = document.getElementById("minigameToggle").checked;
+    const minigames = document.getElementById("minigameToggle").checked;
     return minigames;
 }
 function getMGDelay() {
-    var minigameDelay = document.getElementById("minigameDelay").value;
+    const minigameDelay = document.getElementById("minigameDelay").value;
     return minigameDelay;
 }
 function getTheme() {
-    var exemplarTheme = "";
+    let exemplarTheme = "";
     if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
         exemplarTheme = "all";
     } else {
@@ -41,11 +41,11 @@ function getTheme() {
     return exemplarTheme;
 }
 function getSchool() {
-    var schoolSelection = document.getElementById("customSchool");
+    const schoolSelection = document.getElementById("customSchool");
     return getSelectedValues(schoolSelection);
 }
 function getDuration() {
-    var durationSelection = document.getElementById("customDuration");
+    const durationSelection = document.getElementById("customDuration");
     return getSelectedValues(durationSelection);
 }
 function getRarity() {
