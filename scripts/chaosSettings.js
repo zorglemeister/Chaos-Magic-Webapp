@@ -3,7 +3,10 @@
 // THIS FILE HOLDS THE SETTINGS PANEL
 //
 // onLoad behaviours
-window.onload = setSettingsVisibility(), setGameControlVisibility()
+window.onload = function (){
+    setSettingsVisibility();
+    setGameControlVisibility();
+}
 
 // Div Definition
 // I'm only defining the divs I need to interact with, but I placeholdered the rest in the structure
@@ -230,7 +233,7 @@ function generateArrayToEncode(selectElement) {
         generatedArray.push(listSelection.options[i].selected);
     }
     document.getElementById("debugGeneratedSchool").innerHTML = generatedArray;
-    document.getElementById("debugGeneratedSchoolLength").innerHTML = generatedArray.length;
+    document.getElementById("debugGeneratedSchoolLength").innerHTML = generatedArray.length.toString();
 }
 function encodeArrayToBitwise() {
     encodedValue = 0;
@@ -248,7 +251,7 @@ function decodeArrayFromBitwise() {
     for (let i = 0; i < encodedValueLength; i++) {
         decodedArray.push((encodedValue & (1 << i)) !== 0);
     }
-    document.getElementById("debugDecodedSchool").innerHTML = decodedArray;
+    document.getElementById("debugDecodedSchool").innerHTML = decodedArray.toString();
 }
 function doItAll(inputElement) {
     generateArrayToEncode(inputElement);
