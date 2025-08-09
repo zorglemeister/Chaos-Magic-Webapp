@@ -25,7 +25,7 @@ class RollButton extends HTMLElement {
     }
     render() {
         const sourceText = this.textContent; // Get the text (should be die notation) : <z-rb>2d6</z-rb>
-        this.innerHTML = '<button>&#127922; ${sourceText}</button>'; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die unicode character "&#127922;" : [🎲 2d6]
+        this.innerHTML = '<button>&#127922; ${sourceText}</button>'; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die Unicode character "&#127922;" : [🎲 2d6]
 
         this.querySelector('button').addEventListener('click', () => { // what to do on a click?
             // get a result by passing the text to the click handler then replace the contents with the result!

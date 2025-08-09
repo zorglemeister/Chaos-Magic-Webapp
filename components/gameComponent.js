@@ -53,7 +53,7 @@ gameTemplate.innerHTML = `
 // increment turn counter
 
 // vengeance flow:
-// vengeace is clicked
+// vengeance is clicked
 // if vengeanceEffect exists, remove it from vengeanceModal
 // generate vengeanceEffect, add to vengeanceModal
 // display vengeanceModal
@@ -88,7 +88,7 @@ let gameField = null;
 // The Drawer Pieces
     let drawerButton = null;
     let drawerContents = null;
-// Settings, in case i need it?
+// Settings, in case I need it?
     let settingsBlock = null;
 
 class GameComponent extends HTMLElement {

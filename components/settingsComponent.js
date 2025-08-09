@@ -1,4 +1,4 @@
-// do i need to import the helpbox here?
+// Do I need to import the help box here?
 
 import { registerHelpBoxComponent } from './helpBoxComponent.js';
 
@@ -335,7 +335,7 @@ class SettingsComponent extends HTMLElement {
         drawerButton.classList.toggle('drawerClosed'); // change the Settings button state
         drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
     }
-    setInitialState() { // this is a method in case i need to call it separately
+    setInitialState() { // this is a method in case I need to call it separately
         configOutputPlayer.innerHTML = configPlayerCount.value;
         configOutputDelay.innerHTML = configMinigameDelay.value;
         // this.setSettingsVisibility(); // handled by Drawer

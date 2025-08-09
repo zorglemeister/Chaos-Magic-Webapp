@@ -158,7 +158,7 @@ function defineMainFilter() {
 
 }
 
-// I'm going to put the filter construction for each list selection into it's own function
+// I'm going to put the filter construction for each list selection into its own function
 function filterMicro() {
     // Micro only cares about inclusion
     window.filterCriteria.inclusion = window.gameConfig.list;

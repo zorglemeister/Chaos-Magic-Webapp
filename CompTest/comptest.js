@@ -1,5 +1,5 @@
 // Help box is going to have two pieces:
-// One is the icon that stays visible on the page. Clicking it expands and hides the helpcontent as well as switching its visual indication
+// One is the icon that stays visible on the page. Clicking it expands and hides the help content as well as switching its visual indication
 // The other is the help content, which lives in a box.
 
 class HelpBox extends HTMLElement {
