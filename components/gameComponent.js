@@ -7,7 +7,7 @@ import { registerEffectComponent } from './effectComponent.js';
 const gameTemplate = document.createElement('template');
 gameTemplate.innerHTML = `
 <div class="gameField drawerContainer visibleBlueBorder">
-<div class="welcomeModal modalFrame">
+<div class="welcomeModal">
 <div class="welcomeTitle">
 Welcome to Chaos Magic
 </div>
@@ -26,7 +26,7 @@ Meaningful intro text here. Really, choose a quick start or configure your game.
 </ul>
 </div>
 <div class="welcomeDetail">
-<button type="button" class="customizeButton">Custom Chaos</button>
+<button type="button" class="welcomeButton customizeButton">Custom Chaos</button>
 <ul>
 <li>Variable player count</li>
 <li>Choose-a-List</li>
@@ -38,21 +38,27 @@ Meaningful intro text here. Really, choose a quick start or configure your game.
 </div>
 <div class="visiblePart visibleBorder">
 <div class="activeContainer">active cont</div>
-<div class="minigameModal">Minigame Cont
+<div class="minigameModal">
+<div class="minigameContent">
+Minigame Content
+</div>
 <button type="button" class="minigameCloseButton">Done</button></div>
 </div>
-<div class="vengeanceModal">vengeance cont
+<div class="vengeanceModal">
+<div class="vengeanceContent">
+Vengeance Content
+</div>
 <button type="button" class="vengeanceCloseButton">Done</button></div>
 </div>
 <div class="controlContainer visibleBorder">
-<div class="rollControl">
-<button type="button" class="rollButton">Roll</button>
-</div>
-<div class="minigameControl">
-<button type="button" class="minigameButton">Minigame</button></div>
-<div class="vengeanceControl">
-<button type="button" class="vengeanceButton">Vengeance</button></div>
-<div class="historyControlPlaceholder"></div>
+<!-- div class="rollControl" -->
+<button type="button" class="controlButton rollButton">Roll</button>
+<!-- /div -->
+<!-- div class="minigameControl" -->
+<button type="button" class="controlButton minigameButton">Minigame</button><!-- /div -->
+<!-- div class="vengeanceControl" -->
+<button type="button" class="controlButton vengeanceButton">Vengeance</button><!-- /div -->
+<!-- div class="historyControlPlaceholder" --><!-- /div -->
 </div>
 </div>
 <div class="historyDrawer  visibleGreenBorder">
@@ -95,8 +101,10 @@ let gameField = null;
     let visiblePart = null;
         let activeContainer = null;
         let minigameModal = null;
+            let minigameContent = null;
             let minigameCloseButton = null;
         let vengeanceModal = null;
+            let vengeanceContent = null;
             let vengeanceCloseButton = null;
         let controlContainer = null;
             let rollControl = null;
@@ -116,6 +124,10 @@ let gameField = null;
 // Settings, in case I need it?
     let settingsBlock = null;
 
+// Gamestate counters
+    let rollCounter = 0;
+    let minigameCounter = 0;
+
 class GameComponent extends HTMLElement {
     constructor() {
         super();
@@ -134,8 +146,10 @@ class GameComponent extends HTMLElement {
             visiblePart = this.getElementsByClassName("visiblePart")[0];
                 activeContainer = this.getElementsByClassName("activeContainer")[0];
                 minigameModal = this.getElementsByClassName("minigameModal")[0];
+                    minigameContent = this.getElementsByClassName("minigameContent")[0];
                     minigameCloseButton = this.getElementsByClassName("minigameCloseButton")[0];
                 vengeanceModal = this.getElementsByClassName("vengeanceModal")[0];
+                    vengeanceContent = this.getElementsByClassName("vengeanceContent")[0];
                     vengeanceCloseButton = this.getElementsByClassName("vengeanceCloseButton")[0];
                 controlContainer = this.getElementsByClassName("controlContainer")[0];
                     rollControl = this.getElementsByClassName("rollControl")[0];
@@ -180,6 +194,9 @@ class GameComponent extends HTMLElement {
         // hide game controls and history
         this.hide(visiblePart);
         this.hide(historyDrawer);
+        // hide minigame and vengeance modals
+        this.hide(minigameModal);
+        this.hide(vengeanceModal);
         // hide settings
         this.hide(settingsBlock);
         // display welcomeModal
@@ -205,6 +222,8 @@ class GameComponent extends HTMLElement {
         this.show(visiblePart);
         this.show(historyDrawer);
         // call list generator
+        // reset Gamestate Counters
+        this.initializeGame();
     }
     defaultsClick() {
         // load preset into settingsPayload
@@ -213,22 +232,33 @@ class GameComponent extends HTMLElement {
         // activate game controls
         this.show(visiblePart);
         this.show(historyDrawer);
+        // show settings
+        this.show(settingsBlock);
         // hide welcomeModal
         this.hide(welcomeModal);
     }
-
+    initializeGame() {
+        rollCounter = 0;
+        minigameCounter = 0;
+    }
     // GAME CONTROLS -----------------------
     rollClick() { // assuming one click per player turn
+        // increment rollCounter
+        rollCounter++;
         // poke the randomizer to update generatedEffect
         // move the current active effect to history
+        if (activeContainer.firstChild) {
+            this.moveActiveToHistory();
+        }
+    
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
+        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}!</div>`;
         // increment minigameTimer
     }
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
-        const activeEffect = document.getElementById('activeContainer').firstChild; // get the first (and only) div in the active container
-        const historyTarget = document.getElementById('historyContainer'); // get the history container
-        historyTarget.insertBefore(activeEffect, historyTarget.firstChild); // reparent the effect to the top of the history container
+        const activeEffect = activeContainer.firstChild; // get the first (and only) div in the active container
+        historyContainer.insertBefore(activeEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
     }
     vengeanceClick() {
         // poke the vengeanceRandomizer

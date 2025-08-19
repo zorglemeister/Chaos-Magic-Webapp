@@ -36,7 +36,6 @@ z-game .welcomeModal {
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -44,12 +43,12 @@ z-game .welcomeTitle {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px;
 }
 z-game .welcomeDescription {
     font-size: 16px;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 z-game .welcomeColumns {
     display: flex;
@@ -63,7 +62,7 @@ z-game .welcomeDetail {
     align-items: center;
 }
 z-game .welcomeButton {
-    margin-bottom: 10px;
+    margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -77,6 +76,81 @@ z-game ul {
 z-game li {
     margin-bottom: 10px;
     text-align: center;
+}
+
+/* minigame modal */
+z-game .minigameModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+}
+z-game .minigameContent {
+    font-size: 16px;
+    text-align: center;
+    margin: 20px auto;
+}
+z-game .minigameCloseButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* vengeance modal */
+z-game .vengeanceModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
+}
+z-game .vengeanceContent {
+    font-size: 16px;
+    text-align: center;
+    margin: 20px auto;
+}
+z-game .vengeanceCloseButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* game buttons section */
+z-game .controlContainer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+z-game .controlButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 
