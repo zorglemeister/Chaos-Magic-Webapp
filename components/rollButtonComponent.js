@@ -7,7 +7,7 @@ class RollButton extends HTMLElement {
     }
     render() {
         const sourceText = this.textContent.trim(); // Get the text (should be die notation) : <z-rb>2d6</z-rb>
-        this.innerHTML = `<button>&#127922; ${sourceText}</button>`; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die unicode character "&#127922;" : [🎲 2d6]
+        this.innerHTML = `<button>&#127922; ${sourceText}</button>`; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die Unicode character "&#127922;" : [🎲 2d6]
 
         this.querySelector('button').addEventListener('click', () => { // what to do on a click?
             const result = this.handleClick(sourceText); // get a result by passing the text to the click handler...
@@ -19,8 +19,8 @@ class RollButton extends HTMLElement {
         const dieArray = diceNotation.split('d'); // split the string at 'd'
         let dieCount = parseInt(dieArray[0], 10); // use the first number as "count"
         let dieSides = parseInt(dieArray[1], 10); // use the second number as "sides"
-        let outcome = this.dieRoll(dieCount, dieSides).toString(); // hand it to the die roller and return the result as a string
-        return outcome;    
+        // hand it to the die roller and return the result as a string
+        return this.dieRoll(dieCount, dieSides).toString();
     }
 
     dieRoll(count, sides) {

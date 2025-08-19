@@ -108,10 +108,10 @@ class EffectComponent extends HTMLElement {
         }
     }
     updateLinkedRollTags(triggerTagId, updatedContent) {
-        // snag the triggering element Id - remember, getAttribute() returns lowercase
+        // snag the triggering element ID - remember, getAttribute() returns lowercase
         // copy the updated content (should be the outcome of the roll) as innerHTML
         // figure out if the update came from sRoll or fRoll
-        if (triggerTagId.substr(0, 1) === "s") { // if sRoll is triggered
+        if (triggerTagId.substring(0, 1) === "s") { // if sRoll is triggered
             let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb');// find the matching fRoll
             for (let fRollTag of fRollTags) {
                 if (fRollTag.getAttribute('id') === `f${triggerTagId.slice(1)}`) {
@@ -127,7 +127,7 @@ class EffectComponent extends HTMLElement {
             }
         }
 
-        // potential complication: will this update trigger the EventListener again? if so, should i add a "rollFixed" class to check for and prevent an update loop?
+        // Potential complication: Will this update trigger the EventListener again? If so, should I add a "rollFixed" class to check for and prevent an update loop?
     }
 }
 

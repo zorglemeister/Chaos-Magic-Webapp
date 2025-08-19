@@ -8,31 +8,25 @@
 // ... and then a function to turn them into object parameters
 
 function getPlayerCount() {
-    var playerCount = document.getElementById("playerCountButton").innerHTML;
-    return playerCount;
+    return document.getElementById("playerCountButton").innerHTML;
 }
 function getList() {
-    var baseList = document.getElementById("listBase").value;
-    return baseList;
+    return document.getElementById("listBase").value;
 }
 function getVeng() {
-    var vengeance = document.getElementById("vengeanceToggle").checked;
-    return vengeance;
+    return document.getElementById("vengeanceToggle").checked;
 }
 function getPhys() {
-    var physical = document.getElementById("physicalToggle").checked;
-    return physical;
+    return document.getElementById("physicalToggle").checked;
 }
 function getMG() {
-    var minigames = document.getElementById("minigameToggle").checked;
-    return minigames;
+    return document.getElementById("minigameToggle").checked;
 }
 function getMGDelay() {
-    var minigameDelay = document.getElementById("minigameDelay").value;
-    return minigameDelay;
+    return document.getElementById("minigameDelay").value;
 }
 function getTheme() {
-    var exemplarTheme = "";
+    let exemplarTheme;
     if (document.getElementById("allThemes").checked === true) { // if it's "all", set it to "all"
         exemplarTheme = "all";
     } else {
@@ -41,11 +35,11 @@ function getTheme() {
     return exemplarTheme;
 }
 function getSchool() {
-    var schoolSelection = document.getElementById("customSchool");
+    const schoolSelection = document.getElementById("customSchool");
     return getSelectedValues(schoolSelection);
 }
 function getDuration() {
-    var durationSelection = document.getElementById("customDuration");
+    const durationSelection = document.getElementById("customDuration");
     return getSelectedValues(durationSelection);
 }
 function getRarity() {
@@ -62,15 +56,13 @@ function getSelectedValues(element) {
     return arr;
 }
 function getRM() {
-    var customRarityMatters = document.getElementById("customRarityMattersToggle").checked;
-    return customRarityMatters;
+    return document.getElementById("customRarityMattersToggle").checked;
 }
 function getRep() {
-    var repetition = document.getElementById("repetitionToggle").checked;
-    return repetition;
+    return document.getElementById("repetitionToggle").checked;
 }
 function getGameConfig() {
-    const configObj = {
+    return {
         players: getPlayerCount(), // string
         list: getList(), // any
         physical: getPhys(), // any
@@ -84,7 +76,6 @@ function getGameConfig() {
         minigame: getMG(), // any
         minigameDelay: getMGDelay() // any
     };
-    return configObj;
 }
 
 //
@@ -102,16 +93,14 @@ const filePath = './lists/chaosList.json'
 // function to go get the file
 async function loadJSON(filePath) {
     const response = await fetch(filePath);
-    const data = await response.json();
-    return data;
+    return await response.json();
 }
 
 // DEBUG
 // WHAT DOES THE effectLibrary LOOK LIKE?
 async function debugShowEffectLibrary() {
     window.effectLibrary = await loadJSON(filePath)
-    const effectLibraryString = JSON.stringify(window.effectLibrary, null, 2);
-    document.getElementById("makeEffectLibrary").innerHTML = effectLibraryString;
+    document.getElementById("makeEffectLibrary").innerHTML = JSON.stringify(window.effectLibrary, null, 2);
 }
 
 
@@ -169,7 +158,7 @@ function defineMainFilter() {
 
 }
 
-// I'm going to put the filter construction for each list selection into it's own function
+// I'm going to put the filter construction for each list selection into its own function
 function filterMicro() {
     // Micro only cares about inclusion
     window.filterCriteria.inclusion = window.gameConfig.list;
@@ -179,12 +168,8 @@ function filterMicro() {
     window.filterCriteria.rarity = [""];
 }
 function filterLite() {
-    // Lite  only cares about inclusion
-    window.filterCriteria.inclusion = window.gameConfig.list;
-    window.filterCriteria.exemplarTheme = "";
-    window.filterCriteria.school = [""];
-    window.filterCriteria.duration = [""];
-    window.filterCriteria.rarity = [""];
+    // Lite  only cares about inclusion, same as Micro
+    filterMicro();
 }
 function filterExemplar() {
     // Exemplar cares about inclusion and theme (if all, include everything)
@@ -199,12 +184,8 @@ function filterExemplar() {
     window.filterCriteria.rarity = [""];
 }
 function filterLegacy() {
-    // Legacy only cares about inclusion
-    window.filterCriteria.inclusion = window.gameConfig.list;
-    window.filterCriteria.exemplarTheme = "";
-    window.filterCriteria.school = [""];
-    window.filterCriteria.duration = [""];
-    window.filterCriteria.rarity = [""];
+    // Legacy only cares about inclusion, same as Micro
+    filterMicro();
 }
 function filterFull() {
     // Full REALLY doesn't care
@@ -248,8 +229,7 @@ function setupGame() {
 
     // Debug Stuff
     // display game config
-    const gameConfigString = JSON.stringify(window.gameConfig, null, 2);
-    document.getElementById("makeGameObject").innerHTML = gameConfigString;
+    document.getElementById("makeGameObject").innerHTML = JSON.stringify(window.gameConfig, null, 2);
 
 }
 

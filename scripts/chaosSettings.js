@@ -3,7 +3,10 @@
 // THIS FILE HOLDS THE SETTINGS PANEL
 //
 // onLoad behaviours
-window.onload = setSettingsVisibility(), setGameControlVisibility()
+window.onload = function (){
+    setSettingsVisibility();
+    setGameControlVisibility();
+}
 
 // Div Definition
 // I'm only defining the divs I need to interact with, but I placeholdered the rest in the structure
@@ -32,10 +35,10 @@ const settingsDiv = document.getElementById("gameSettings");
 
 // All the elements with onClicks
 const configSettingsButton = document.getElementById("gameSettingsButton");
-configSettingsButton.addEventListener('click', setSettingsVisibility());
+configSettingsButton.addEventListener('click', setSettingsVisibility);
 
 const configListSelect = document.getElementById("listSelect");
-configListSelect.addEventListener('click', setGameControlVisibility());
+configListSelect.addEventListener('click', setGameControlVisibility);
 
 const configSchoolAll = document.getElementById("allSchoolsToggle");
 configSchoolAll.addEventListener('click', selectAll('allSchoolsToggle', 'schoolSelect'));
@@ -56,7 +59,7 @@ const configRaritySelect = document.getElementById("raritySelect");
 configRaritySelect.addEventListener('click', testSelectAll('allRaritiesToggle', 'raritySelect'));
 
 const configMinigame = document.getElementById("minigameToggle");
-configMinigame.addEventListener('click', setMinigameDelayVisibility());
+configMinigame.addEventListener('click', setMinigameDelayVisibility);
 
 // Defining the Sliders and value update handlers
 
@@ -71,7 +74,7 @@ const configMinigameDelay = document.getElementById("minigameDelaySlider");
 const configOutputDelay = document.getElementById("minigameDelayText");
     configOutputDelay.innerHTML = configMinigameDelay.value;
     configMinigameDelay.oninput = function() {
-        if (configMinigameDelay.value == 0) {
+        if (configMinigameDelay.value === 0) {
             configOutputDelay.innerHTML = "Whenever"
         } else {
             configOutputDelay.innerHTML = this.value;
@@ -106,7 +109,7 @@ function setSettingsVisibility() {
 // Control help text visibility
 function toggleHelp(targetSpan, triggerIcon) {
     // var helpSpan = document.getElementById(toString(triggerIcon) + "Text");
-    var helpSpan = document.getElementById(targetSpan);
+    const helpSpan = document.getElementById(targetSpan);
     triggerIcon.classList.toggle('helpIconClosed'); // toggle Closed Book class
     triggerIcon.classList.toggle('helpIconOpen'); // toggle Open Book class
     helpSpan.classList.toggle('hiddenHelp'); // toggle Help visibility
@@ -199,7 +202,7 @@ function selectAll(allCheck, selectName) {
             selectName.options[i].selected = false; // unselects the rest
         }
     } else {
-        for (let i = 0; i < listLength; i++) {
+        for (let i = 0; i < selectName.options.length; i++) {
             selectName.options[i].selected = true; // selects all the options
         }
     }
@@ -210,7 +213,7 @@ function testSelectAll(allCheck, selectName) {
         for (let i = 0; i < selectName.options.length; i++) {
             if (selectName.options[i].selected === false) {
                 allSelected++;
-            };
+            }
         }
     if (allCheck.checked === false && allSelected === 0) {
         allCheck.checked = true;
@@ -224,13 +227,13 @@ let generatedArray = [];
 let encodedValue = 0;
 let encodedValueLength = 0;
 function generateArrayToEncode(selectElement) {
-    var listSelection = document.getElementById(selectElement);
+    const listSelection = document.getElementById(selectElement);
     generatedArray = [];
     for (let i = 0; i < listSelection.options.length; i++) {
         generatedArray.push(listSelection.options[i].selected);
     }
     document.getElementById("debugGeneratedSchool").innerHTML = generatedArray;
-    document.getElementById("debugGeneratedSchoolLength").innerHTML = generatedArray.length;
+    document.getElementById("debugGeneratedSchoolLength").innerHTML = generatedArray.length.toString();
 }
 function encodeArrayToBitwise() {
     encodedValue = 0;
@@ -248,7 +251,7 @@ function decodeArrayFromBitwise() {
     for (let i = 0; i < encodedValueLength; i++) {
         decodedArray.push((encodedValue & (1 << i)) !== 0);
     }
-    document.getElementById("debugDecodedSchool").innerHTML = decodedArray;
+    document.getElementById("debugDecodedSchool").innerHTML = decodedArray.toString();
 }
 function doItAll(inputElement) {
     generateArrayToEncode(inputElement);

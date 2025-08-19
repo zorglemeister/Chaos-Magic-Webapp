@@ -14,8 +14,8 @@ z-hb .helpParent {
 
 z-hb .helpIcon {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     padding: 2px;
     border: 2px solid gold;
     border-radius: 50%;

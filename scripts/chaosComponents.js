@@ -25,11 +25,11 @@ class RollButton extends HTMLElement {
     }
     render() {
         const sourceText = this.textContent; // Get the text (should be die notation) : <z-rb>2d6</z-rb>
-        this.innerHTML = '<button>&#127922; ${sourceText}</button>'; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die unicode character "&#127922;" : [🎲 2d6]
+        this.innerHTML = '<button>&#127922; ${sourceText}</button>'; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die Unicode character "&#127922;" : [🎲 2d6]
 
         this.querySelector('button').addEventListener('click', () => { // what to do on a click?
-            const result = this.handleClick(sourceText); // get a result by passing the text to the click handler...
-            this.innerHTML = result; // then replace the contents with the result!
+            // get a result by passing the text to the click handler then replace the contents with the result!
+            this.innerHTML = this.handleClick(sourceText);
         });
     }
 
@@ -37,7 +37,7 @@ class RollButton extends HTMLElement {
         const dieArray = diceNotation.split('d'); // split the string at 'd'
         let dieCount = parseInt(dieArray[0], 10); // use the first number as "count"
         let dieSides = parseInt(dieArray[1], 10); // use the second number as "sides"
-        return toString(dieRoll(dieCount, dieSides)); // hand it to the die roller and return the result as a string
+        return dieRoll(dieCount, dieSides).toString(); // hand it to the die roller and return the result as a string
     }
 }
 
@@ -70,7 +70,7 @@ class InlineSymbol extends HTMLElement {
         const lowercaseInput = input.toLowerCase(); // lowercase for consistency (they're typed in uppercase in every effect description)
         let html = ""; // initialize empty html
         for (let character of lowercaseInput) { // loop through characters
-            html += '<img class="inlineSymbol" src="' += baseURL += character += '.png" alt="' += character =+ '"/>'; // append the image ref
+            html += '<img class="inlineSymbol" src="' + baseURL + character + '.png" alt="' + character + '"/>'; // append the image ref
         }
         this.innerHTML = html; // replace the element contents with the img(s)
     }

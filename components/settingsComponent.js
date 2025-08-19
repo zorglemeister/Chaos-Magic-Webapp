@@ -1,4 +1,4 @@
-// do i need to import the helpbox here?
+// Do I need to import the help box here?
 
 import { registerHelpBoxComponent } from './helpBoxComponent.js';
 
@@ -312,7 +312,7 @@ class SettingsComponent extends HTMLElement {
         configRaritySelect.addEventListener('click', this.testSelectAll.bind(this, configRarityAll, configRaritySelect));
         configMinigame.addEventListener('click', () => {delayDiv.classList.toggle("hiddenPart");});// this.setMinigameDelayVisibility.bind(this,));
         configPlayerCount.addEventListener('input', () => {configOutputPlayer.innerHTML = configPlayerCount.value;});
-        configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value == 0) {
+        configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value === 0) {
             configOutputDelay.innerHTML = "Whenever"
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
@@ -335,7 +335,7 @@ class SettingsComponent extends HTMLElement {
         drawerButton.classList.toggle('drawerClosed'); // change the Settings button state
         drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
     }
-    setInitialState() { // this is a method in case i need to call it separately
+    setInitialState() { // this is a method in case I need to call it separately
         configOutputPlayer.innerHTML = configPlayerCount.value;
         configOutputDelay.innerHTML = configMinigameDelay.value;
         // this.setSettingsVisibility(); // handled by Drawer
@@ -438,7 +438,7 @@ class SettingsComponent extends HTMLElement {
             for (let i = 0; i < selectName.options.length; i++) {
                 if (selectName.options[i].selected === false) {
                     allSelected++;
-                };
+                }
             }
         if (allCheck.checked === false && allSelected === 0) {
             allCheck.checked = true;

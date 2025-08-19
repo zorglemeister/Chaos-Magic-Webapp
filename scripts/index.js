@@ -28,15 +28,14 @@ const filePath = './lists/chaosList.json'
 // go get the file
 async function loadJSON(path) {
     const response = await fetch(path);
-    const data = await response.json();
-    return data;
+    return await response.json();
 }
 
 // make the list from the file
-const sourceList = await loadJSON(filePath); // the contents shouldn't change, so its a const
+const sourceList = await loadJSON(filePath); // the contents shouldn't change, so it's a const
 
 // settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
-let settingsPayload = { // the contents will change, so its a let
+let settingsPayload = { // the contents will change, so it's a let
     players: null, // any
     list: null, // any
     physical: null, // any
@@ -52,7 +51,7 @@ let settingsPayload = { // the contents will change, so its a let
 }
 
 // gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
-let gameList = null; // the contents will change, so its a let
+let gameList = null; // the contents will change, so it's a let
 
 // generatedEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-let generatedEffect = null; // the contents will change, so its a let
+let generatedEffect = null; // the contents will change, so it's a let

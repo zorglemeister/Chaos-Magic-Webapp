@@ -60,7 +60,7 @@
 // 
 //     rarityBlock: document.getElementById("customRaritySelector"), // rarity section
 //     rarityList: document.getElementById("customRarity"), // rarity list
-//     rarityAllCheck: document.getElementById("allRarities"), // all raritys checkbox
+//     rarityAllCheck: document.getElementById("allRarities"), // all rarities checkbox
 // 
 //     mattersBlock: document.getElementById("customRarityMattersSelector"), // rarity matters section
 //     mattersCheck: document.getElementById("customRarityMattersToggle"), // rarity matters checkbox

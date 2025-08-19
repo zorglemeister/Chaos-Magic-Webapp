@@ -19,7 +19,7 @@
 
     <body>
         <!-- plain vanilla noscript capture and template, commenting until I figure it out (remember the bit at the bottom!)
-        <noscript><strong>Y'all need JavaScript for this.</strong></noscript>
+        <noscript><strong>You need JavaScript for this.</strong></noscript>
         <template id="page">
             <header>
                 title and navigation ...
@@ -27,7 +27,7 @@
             <main>
                 main content ...
               -->
-        <!-- Debug stuff, commenting for now, trying to fix settingsContainer child visiblity
+        <!-- Debug stuff, commenting for now, trying to fix settingsContainer child visibility
         <div class="debugContainer">
             <p>VARIOUS VALUES AND STUFF FOR DEBUG</p>
             <button type="button" id="debugMakeGame" onclick="debugMakeGame()">DEBUG MAKE GAME</button>
@@ -75,7 +75,7 @@
                     <!-- PlayerCount slider, handles both the turn/round counter and the "duel/multi" filter -->
                 <div id="playerCountSetting" class="settingContainer">
                     <p>
-                    <label for="playerCount">How many players?</label>
+                    <label for="playerCountSlider">How many players?</label>
                     <input type="range" class="slider" id="playerCountSlider" min="4" max="10" value="2"><span id="playerCountText"></span>
                     <!-- Component help box variant -->
                      <z-tip>Some effects work better (or only work) in games with three or more players.</z-tip>
@@ -90,7 +90,7 @@
                 <div id="listSetting" class="settingContainer">
                     <p>
                     <label for="listSelect">Choose a list:</label>
-                    <select type="select-one" id="listSelect" size="6" onclick="setGameControlVisibility()" style="overflow: hidden"><!-- TODO: infobubble that displays list details on mouseover/tap -->
+                    <select id="listSelect" size="6" onclick="setGameControlVisibility()" style="overflow: hidden"><!-- TODO: infobubble that displays list details on mouseover/tap -->
                         <option value="micro">Micro</option><!-- Vengeance and Minigame are visible -->
                         <option value="lite" selected>Lite</option><!-- Vengeance, Minigame, and Repetition are visible -->
                         <option value="exemplar">Exemplar</option><!-- Vengeance, Minigame, Theme, and Repetition are visible -->
@@ -107,7 +107,7 @@
                 <div id="themeSetting" class="settingContainer">
                     <p>
                     <label for="themeSelect">Exemplar Theme Table</label>
-                    <select type="select-one" id="themeSelect" size="8" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
+                    <select id="themeSelect" size="8" style="overflow: hidden"><!-- TODO: infobubble that displays theme details on mouseover/tap -->
                         <option value="tokenizer" selected>Tokenizer</option>
                         <option value="complexity">Complexity</option>
                         <option value="soundalike">Sound-Alike</option>
@@ -128,7 +128,7 @@
                     <label for="schoolSelect">Choose included schools of magic (Shift and Ctrl click to select multiple)</label>
                     <label for="allSchoolsToggle">All</label> <!-- Quick "select all" checkbox -->
                     <input type="checkbox" id="allSchoolsToggle" value="allSchools" onclick="selectAll('allSchoolsToggle', 'schoolSelect')" checked/>
-                    <select type="select-multiple" id="schoolSelect" size="9" multiple onclick="testSelectAll('allSchoolsToggle', 'schoolSelect')" style="overflow: hidden"><!-- TODO: infobubble that displays school details on mouseover/tap -->
+                    <select id="schoolSelect" size="9" multiple onclick="testSelectAll('allSchoolsToggle', 'schoolSelect')" style="overflow: hidden"><!-- TODO: infobubble that displays school details on mouseover/tap -->
                         <option value="abjuration" selected>Abjuration</option>
                         <option value="chronomancy" selected>Chronomancy</option>
                         <option value="conjuration" selected>Conjuration</option>
@@ -162,7 +162,7 @@
                     <label for="durationSelect">Choose included durations of effects (Shift and Ctrl click to select multiple)</label>
                     <label for="allDurationsToggle">All</label> <!-- Quick "select all" checkbox -->
                     <input type="checkbox" id="allDurationsToggle" value="allDurations" onclick="selectAll('allDurationsToggle', 'durationSelect')" checked/>
-                    <select type="select-multiple" id="durationSelect" size="4" multiple onclick="testSelectAll('allDurationsToggle', 'durationSelect')" style="overflow: hidden"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
+                    <select id="durationSelect" size="4" multiple onclick="testSelectAll('allDurationsToggle', 'durationSelect')" style="overflow: hidden"><!-- TODO: infobubble that displays duration explanation on mouseover/tap -->
                         <option value="instant" selected>Instant</option>
                         <option value="turn" selected>Turn</option>
                         <option value="round" selected>Round</option>
@@ -179,7 +179,7 @@
                     <label for="raritySelect">Choose included rarity of effects (Shift and Ctrl click to select multiple)</label>
                     <label for="allRaritiesToggle">All</label> <!-- Quick "select all" checkbox -->
                     <input type="checkbox" id="allRaritiesToggle" value="allRarities" onclick="selectAll('allRaritiesToggle', 'raritySelect')" checked/>
-                    <select type="select-multiple" id="raritySelect" size="4" multiple onclick="testSelectAll('allRaritiesToggle', 'raritySelect')" style="overflow: hidden"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
+                    <select id="raritySelect" size="4" multiple onclick="testSelectAll('allRaritiesToggle', 'raritySelect')" style="overflow: hidden"><!-- TODO: infobubble that displays rarity descriptions on mouseover/tap -->
                         <option value="common" selected>Common</option>
                         <option value="uncommon" selected>Uncommon</option>
                         <option value="rare" selected>Rare</option>
@@ -223,26 +223,22 @@
                     <p>
                     <label for="physicalToggle">Physical</label>
                     <input type="checkbox" id="physicalToggle" value="physical" checked/>
-                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)"onmouseout="toggleHelp('explainPhysicalText', this)"></span>
+                    <span id="explainPhysicalIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainPhysicalText', this)" onmouseout="toggleHelp('explainPhysicalText', this)"></span>
                     <span id="explainPhysicalText" class="explain hiddenHelp helpFloat">Some effects involve physical activity that may not be accessible for all players.</span>
                     </p>
                 </div>
                 <div id="vengeanceSetting" class="settingContainer">
                     <!-- Vengeance selector controls visibility of the "Vengeance" button (and associated roll output) -->
-                    <p>
-                    <label for="vengeanceToggle">Vengeance 
-                        <div class="toggleBox">
-                            <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
-                            <span class="slide"></span>
-                        </div>
-                    </label>
+                    <label for="vengeanceToggle">Vengeance</label>
+                    <div class="toggleBox">
+                        <input type="checkbox" id="vengeanceToggle" value="vengeance" onclick="setVengeanceVisibility()" checked/>
+                        <span class="slide"></span>
+                    </div>
                     <span id="explainVengeanceIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainVengeanceText', this)" onmouseout="toggleHelp('explainVengeanceText', this)"></span>
                     <span id="explainVengeanceText" class="explain hiddenHelp helpFloat">When a player would lose the game, they roll Vengeance. This <i>might</i> keep them in the game.</span>
-                    </p>
                 </div>
                 <div id="minigameSetting" class="settingContainer">
                     <!-- Minigame selector controls visibility of "Minigame" button, as well as "minigame delay". This will also require some sort of turn tracker?-->
-                    <p>
                     <label for="minigameToggle">Minigames</label>
                     <input type="checkbox" id="minigameToggle" value="minigame" onclick="setMinigameDelayVisibility()"/>
                     <div id="minigameDelaySetting" style="display:none">
@@ -251,14 +247,13 @@
                     </div>
                     <span id="explainMinigameIcon" class="helpIconClosed helpIcon" onmouseover="toggleHelp('explainMinigameText', this)" onmouseout="toggleHelp('explainMinigameText', this)"></span>
                     <span id="explainMinigameText" class="explain hiddenHelp helpFloat">Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between games or choose to manually trigger one when you feel like it.</span>
-                    </p>
                 </div>
                 </div><!-- end of "settingExtras"-->
 
              
                 <div id="updateGame">
                     <button type="button" id="updateSettingsButton" onclick="makeGame()">Update Game Settings</button> This will reset the current game!
-                    <!-- This should pop a confirm alert, and if confirmed, update the randomizer configuration and wipe the current effect and history-->
+                    <!-- This should pop a confirmation alert, and if confirmed, update the randomizer configuration and wipe the current effect and history-->
                 </div>
                 
 
