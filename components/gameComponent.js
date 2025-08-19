@@ -193,6 +193,7 @@ class GameComponent extends HTMLElement {
     initiateChaos() {
         // hide game controls and history
         this.hide(visiblePart);
+        this.hide(controlContainer);
         this.hide(historyDrawer);
         // hide minigame and vengeance modals
         this.hide(minigameModal);
@@ -220,6 +221,7 @@ class GameComponent extends HTMLElement {
         historyContainer.innerHTML = '';
         // activate game controls (no effect is past initial state)
         this.show(visiblePart);
+        this.show(controlContainer);
         this.show(historyDrawer);
         // call list generator
         // reset Gamestate Counters
@@ -231,6 +233,7 @@ class GameComponent extends HTMLElement {
         // call randomizer update
         // activate game controls
         this.show(visiblePart);
+        this.show(controlContainer);
         this.show(historyDrawer);
         // show settings
         this.show(settingsBlock);
