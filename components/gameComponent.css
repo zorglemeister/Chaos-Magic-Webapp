@@ -23,7 +23,61 @@ z-game .gameField {
     height: 100vh;
 }
 
-
+/* first-load modal */
+z-game .welcomeModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+z-game .welcomeTitle {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+z-game .welcomeDescription {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+z-game .welcomeColumns {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+z-game .welcomeDetail {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+z-game .welcomeButton {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+z-game ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+z-game li {
+    margin-bottom: 10px;
+    text-align: center;
+}
 
 
 /* styles for the drawer effect */

@@ -7,9 +7,34 @@ import { registerEffectComponent } from './effectComponent.js';
 const gameTemplate = document.createElement('template');
 gameTemplate.innerHTML = `
 <div class="gameField drawerContainer visibleBlueBorder">
-<div class="initialModal modalFrame">
-<button type="button" class="defaultButton">Use Defaults</button>
-<button type="button" class="customizeButton">Open Settings</button>
+<div class="welcomeModal modalFrame">
+<div class="welcomeTitle">
+Welcome to Chaos Magic
+</div>
+<div class="welcomeDecription">
+Meaningful intro text here. Really, choose a quick start or configure your game.
+</div>
+<div class="welcomeColumns">
+<div class="welcomeDetail">
+<button type="button" class="welcomeButton defaultButton">Quick Start</button>
+<ul>
+<li>4 players</li>
+<li>Chaos Lite (120)</li>
+<li>Vengeance: On</li>
+<li>Minigames: Off</li>
+<li>Repetition: On</li>
+</ul>
+</div>
+<div class="welcomeDetail">
+<button type="button" class="customizeButton">Custom Chaos</button>
+<ul>
+<li>Variable player count</li>
+<li>Choose-a-List</li>
+<li>Filter included effects</li>
+<li>Tweak randomizer</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="visiblePart visibleBorder">
 <div class="activeContainer">active cont</div>
@@ -64,7 +89,7 @@ gameTemplate.innerHTML = `
 
 // Defining elements (not as complex as Settings!)
 let gameField = null;
-    let initialModal = null;
+    let welcomeModal = null;
         let defaultButton = null;
         let customizeButton = null;
     let visiblePart = null;
@@ -103,7 +128,7 @@ class GameComponent extends HTMLElement {
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
         // after it's in the DOM, initialize the element references
         gameField = this.getElementsByClassName("gameField")[0];
-            initialModal = this.getElementsByClassName("initialModal")[0];
+            welcomeModal = this.getElementsByClassName("welcomeModal")[0];
                 defaultButton = this.getElementsByClassName("defaultButton")[0];
                 customizeButton = this.getElementsByClassName("customizeButton")[0];
             visiblePart = this.getElementsByClassName("visiblePart")[0];
@@ -157,12 +182,12 @@ class GameComponent extends HTMLElement {
         this.hide(historyDrawer);
         // hide settings
         this.hide(settingsBlock);
-        // display initialModal
-        this.show(initialModal);
+        // display welcomeModal
+        this.show(welcomeModal);
     }
     customizeClick() {
-        // hide initialModal
-        this.hide(initialModal);
+        // hide welcomeModal
+        this.hide(welcomeModal);
         // show settings
         this.show(settingsBlock);
         // trigger "settingsButton" click
@@ -170,8 +195,8 @@ class GameComponent extends HTMLElement {
         document.getElementsByClassName('gameSettingsButton')[0].dispatchEvent(clickSettings);
     }
     settingsUpdatedHandler() {
-        // hide initialModal (no effect if past initial state)
-        this.hide(initialModal);
+        // hide welcomeModal (no effect if past initial state)
+        this.hide(welcomeModal);
         // wipe active effect
         activeContainer.innerHTML = '';
         // wipe history
@@ -188,8 +213,8 @@ class GameComponent extends HTMLElement {
         // activate game controls
         this.show(visiblePart);
         this.show(historyDrawer);
-        // hide initialModal
-        this.hide(initialModal);
+        // hide welcomeModal
+        this.hide(welcomeModal);
     }
 
     // GAME CONTROLS -----------------------
