@@ -128,12 +128,12 @@ z-settings .drawerContents.openDrawer {
 }
 
 z-settings .drawerClosed::before {
-    content: "Settings ⮜"; /* Unicode Closed Book  - default for help icons */
+    content: "Settings ⮜"; /*  */
     font-size: 24px;
 }
 
 z-settings .drawerOpen::before {
-    content: "Settings ⮞"; /* Unicode Open Book  - toggled state for help icons */
+    content: "Settings ⮞"; /*  */
     font-size: 24px;
 }
 

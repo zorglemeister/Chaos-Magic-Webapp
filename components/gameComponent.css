@@ -185,12 +185,12 @@ z-game .drawerContents.openDrawer {
 }
 
 z-game .drawerClosed::before {
-    content: "History ⮝"; /* Unicode Closed Book  - default for help icons */
+    content: "History ⮝"; /*  */
     font-size: 24px;
 }
 
 z-game .drawerOpen::before {
-    content: "History ⮟"; /* Unicode Open Book  - toggled state for help icons */
+    content: "History ⮟"; /*  */
     font-size: 24px;
 }
 
