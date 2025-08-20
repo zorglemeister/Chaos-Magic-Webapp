@@ -249,6 +249,7 @@ class GameComponent extends HTMLElement {
         // increment rollCounter
         rollCounter++;
         // poke the randomizer to update generatedEffect
+        // this.randomizer
         // move the current active effect to history
         if (activeContainer.firstChild) {
             this.moveActiveToHistory();
