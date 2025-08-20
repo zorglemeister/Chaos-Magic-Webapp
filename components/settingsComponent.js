@@ -167,13 +167,17 @@ settingsTemplate.innerHTML = `
                 </div>
                 <div class="updateGame">
                     <button class="updateSettingsButton" type="button">Update Game Settings</button>
-                    <div class="saveModal hiddenPart">
-                        <p>Updating Game Settings will reset the current game. Do you wish to save settings and start a new game?</p>
-                        <button type="button" class="saveButton">Save</button>
-                        <button type="button" class="cancelButton">Cancel</button>
-                    </div>
                 </div>
             </div>
+            <div class="updateModal hiddenPart">
+                        <div class="updateText">
+                        Updating Game Settings will reset the current game. Do you wish to save settings and start a new game?
+                        <div>
+                        <div class="updateButtons">
+                        <button type="button" class="saveButton">Save</button>
+                        <button type="button" class="cancelButton">Cancel</button>
+                        </div>
+                    </div>
             </div>
 `;
 
@@ -229,8 +233,8 @@ settingsTemplate.innerHTML = `
         let drawerButton = null;
         let drawerContents = null;
 
-        // the Save modal
-        let saveModal = null;
+        // the Update modal
+        let updateModal = null;
         let saveButton = null;
         let cancelButton = null;
 
@@ -296,8 +300,8 @@ class SettingsComponent extends HTMLElement {
         drawerButton = this.getElementsByClassName("drawerToggle")[0];
         drawerContents = this.getElementsByClassName("drawerContents")[0];
 
-        // The Save Modal
-        saveModal = this.getElementsByClassName("saveModal")[0];
+        // The Update Modal
+        updateModal = this.getElementsByClassName("updateModal")[0];
         saveButton = this.getElementsByClassName("saveButton")[0];
         cancelButton = this.getElementsByClassName("cancelButton")[0];
 
@@ -317,13 +321,13 @@ class SettingsComponent extends HTMLElement {
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
             }});
-        configSaveButton.addEventListener('click', () => {saveModal.classList.toggle('hiddenPart');});
+        configSaveButton.addEventListener('click', () => {updateModal.classList.toggle('hiddenPart');});
 
         // Drawer Handler
         drawerButton.addEventListener('click', this.drawerToggleAction.bind(this));
 
         // Save Modal
-        cancelButton.addEventListener('click', () => {saveModal.classList.toggle('hiddenPart');});
+        cancelButton.addEventListener('click', () => {updateModal.classList.toggle('hiddenPart');});
         saveButton.addEventListener('click', this.updateSettings.bind(this));
 
         // Set the initial state
@@ -474,8 +478,8 @@ class SettingsComponent extends HTMLElement {
         // Send the "settings updated" event
         const settingsUpdated = new Event('settingsUpdate');
         window.dispatchEvent(settingsUpdated);
-        // hide Save Modal and close Settings drawer
-        saveModal.classList.toggle('hiddenPart');
+        // hide Update Modal and close Settings drawer
+        updateModal.classList.toggle('hiddenPart');
         this.drawerToggleAction();
     }
 }

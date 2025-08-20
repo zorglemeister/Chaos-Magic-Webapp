@@ -79,21 +79,48 @@ z-settings .allSelect {
 }
 
 /* save modal */
-z-settings .saveModal {
+z-settings .updateModal {
     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    background-color: lightsalmon;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
     z-index: 601;
-    bottom: 10px;
-    background-color: lightblue;
 }
-
+z-settings .updateText {
+    font-size: 24px;
+    text-align: center;
+    margin: 20px auto;
+}
+z-settings .updateButtons {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
 z-settings .saveButton {
     background-color: darkgreen;
     color: white;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 z-settings .cancelButton {
     background-color: darkred;
     color: white;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 /* styles for the drawer effect */
@@ -128,12 +155,12 @@ z-settings .drawerContents.openDrawer {
 }
 
 z-settings .drawerClosed::before {
-    content: "Settings ⮜"; /*  */
+    content: "Settings ˂"; /*  */
     font-size: 24px;
 }
 
 z-settings .drawerOpen::before {
-    content: "Settings ⮞"; /*  */
+    content: "Settings ˃"; /*  */
     font-size: 24px;
 }
 

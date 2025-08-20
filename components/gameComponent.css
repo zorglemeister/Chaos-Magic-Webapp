@@ -185,12 +185,12 @@ z-game .drawerContents.openDrawer {
 }
 
 z-game .drawerClosed::before {
-    content: "History ⮝"; /*  */
+    content: "History ˄"; /*  */
     font-size: 24px;
 }
 
 z-game .drawerOpen::before {
-    content: "History ⮟"; /*  */
+    content: "History ˅"; /*  */
     font-size: 24px;
 }
 
