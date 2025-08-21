@@ -172,6 +172,10 @@ class GameComponent extends HTMLElement {
             drawerButton.classList.toggle('drawerClosed'); // change the History button state
             drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
         });
+        // set the "History" button height and width for fancy drawer CSS
+        document.documentElement.style.setProperty('--history-button-width', `${historyButton.offsetWidth}px`);
+        document.documentElement.style.setProperty('--history-button-height', `${historyButton.offsetHeight}px`);
+
         // settings reference, because fancy
         settingsBlock = document.getElementsByClassName('settingsBlock')[0];
         // time for event handlers!

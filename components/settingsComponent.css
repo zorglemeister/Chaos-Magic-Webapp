@@ -12,6 +12,11 @@ z-index reference
 401/400 - History
 */
 
+z-settings :root {
+    --settings-button-width: 0px;
+    --settings-button-height: 0px;
+}
+
 z-settings .gameSettingsButton {
     border-color: gold;
     border-radius: 5px;
@@ -27,7 +32,7 @@ z-settings .bigControl {
 
 z-settings .configTitle {
     text-align: center;
-    margin-top: 15px;
+    margin-top: calc(5px + var(--settings-button-height));
     margin-bottom: 10px;
     font-size: 24px;
     font-weight: bold;
@@ -169,5 +174,5 @@ z-settings .drawerClosed {
 }
 
 z-settings .drawerOpen {
-        right: 410px;
+        right: calc(390px - var(--settings-button-width));
 }

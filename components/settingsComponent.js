@@ -330,6 +330,10 @@ class SettingsComponent extends HTMLElement {
         cancelButton.addEventListener('click', () => {updateModal.classList.toggle('hiddenPart');});
         saveButton.addEventListener('click', this.updateSettings.bind(this));
 
+        // set the "Settings" button height and width for fancy drawer CSS
+        document.documentElement.style.setProperty('--settings-button-width', `${configSettingsButton.offsetWidth}px`);
+        document.documentElement.style.setProperty('--settings-button-height', `${configSettingsButton.offsetHeight}px`);
+
         // Set the initial state
         this.setInitialState();
 

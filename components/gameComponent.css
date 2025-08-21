@@ -12,6 +12,11 @@ z-index reference
 401/400 - History
 */
 
+z-game :root {
+    --history-button-width: 0px;
+    --history-button-height: 0px;
+}
+
 /* basic "hide it" class */
 z-game .hiddenPart {
     display: none;
@@ -199,5 +204,5 @@ z-game .drawerClosed {
 }
 
 z-game .drawerOpen {
-        bottom: 410px;
+        bottom: calc(390px - var(--settings-button-height));
 }
