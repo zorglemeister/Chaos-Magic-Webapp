@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', app);
 
 // sourceList <- updated by "loadJSON" function, holds the complete list source
 // set the sourceJSON location
-const filePath = './lists/chaosList.json'
+const filePath = '../lists/chaosList.json';
 
 // go get the file
 async function loadJSON(path) {
@@ -31,11 +31,16 @@ async function loadJSON(path) {
     return await response.json();
 }
 
-// make the list from the file
-const sourceList = await loadJSON(filePath); // the contents shouldn't change, so it's a const
+// make the list from the file (export so I can use it in the gameComponent)
+export const sourceList = await loadJSON(filePath); // the contents shouldn't change, so it's a const
+
+// do it again for Vengeance
+const vengPath = '../lists/chaosVengeance.json';
+// make the list from the file (export so I can use it in the gameComponent)
+export const vengList = await loadJSON(vengPath); // the contents shouldn't change, so it's a const
 
 // settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
-let settingsPayload = { // the contents will change, so it's a let
+export let settingsPayload = { // the contents will change, so it's a let
     players: null, // any
     list: null, // any
     physical: null, // any
@@ -51,7 +56,7 @@ let settingsPayload = { // the contents will change, so it's a let
 }
 
 // gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
-let gameList = null; // the contents will change, so it's a let
+export let gameList = null; // the contents will change, so it's a let
 
 // generatedEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-let generatedEffect = null; // the contents will change, so it's a let
+export let generatedEffect = null; // the contents will change, so it's a let

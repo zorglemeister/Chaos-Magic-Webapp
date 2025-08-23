@@ -2,6 +2,11 @@
 // pretty sure I need to import the bits...
 
 import { registerEffectComponent } from './effectComponent.js';
+import { sourceList } from '../scripts/index.js'; // bring in the source list from index.js
+import { vengList } from '../scripts/index.js'; // bring in the vengeance list from index.js
+import { settingsPayload } from '../scripts/index.js'; // bring in the settings from index.js
+import { gameList } from '../scripts/index.js'; // bring in the filtered game list from index.js
+import { generatedEffect } from '../scripts/index.js'; // bring in the global generated effect from index.js
 
 // let's build a template!
 const gameTemplate = document.createElement('template');
@@ -272,11 +277,77 @@ class GameComponent extends HTMLElement {
         // poke the vengeanceRandomizer
         // update the vengeanceModal contents
         // display the vengeanceModal
+        vengeanceContent.innerHTML = this.vengRand();
         this.show(vengeanceModal);
+    }
+    vengRand() {
+    //    let roll = Math.ceil(Math.random() * 20); // roll!
+    //    let tag = 'fizzle'; // base tag (in case something goes wrong)
+    //    switch (roll) { // i feel like there's gotta be a better way to do this...
+    //        case 1:
+    //            tag = 'retribution';
+    //            break;
+    //        case 2:
+    //        case 3:
+    //            tag = 'poke';
+    //            break;
+    //        case 4:
+    //        case 5:
+    //            tag = 'reinforce';
+    //            break;
+    //        case 6:
+    //        case 7:
+    //        case 8:
+    //        case 9:
+    //        case 10:
+    //        case 11:
+    //        case 12:
+    //        case 13:
+    //        case 14:
+    //        case 15:
+    //            tag = 'fizzle';
+    //            break;
+    //        case 16:
+    //        case 17:
+    //            tag = 'inspire';
+    //            break;
+    //        case 18:
+    //        case 19:
+    //            tag = 'life';
+    //            break;
+    //        case 20:
+    //            tag = 'phoenix';
+    //    }
+    //    let pull = vengList.filter(obj => {
+    //        return (obj.toLowerCase(effectName).includes(tag)) // go get the tag by filtering the list?
+    //    })
+    //    return `<div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div>`; // send back the innerHTML
+    // nah, eff that crap... lets build a weighted array of the tag values...
+
+    const weightedVengeance = [
+        'retribution', // 1
+        'poke', 'poke', // 2-3
+        'reinforce', 'reinforce', // 4-5
+        'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', // hopefully I've got ten of these for 6-15
+        'inspire', 'inspire', // 16-17
+        'life', 'life', // 18-19
+        'phoenix' // 20
+        ];
+    let roll = Math.floor(Math.random() * weightedVengeance.length); // roll using length in case i need to change the weighting
+    let tag = weightedVengeance[roll]; // get the indexed tag
+    let pull = vengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
+    // ha ha, take that comparison operator! FU MSFT
+    return `<div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div>`; // send back the innerHTML
     }
     closeVengeanceClick() {
         // hide the vengeanceModal
         this.hide(vengeanceModal);
+        // move the effect to the History list
+        this.moveVengeanceToHistory();
+    }
+    moveVengeanceToHistory() { // here's moving the vengeance effect to the top of the history section:
+        const vengEffect = vengeanceContent.firstChild; // get the first (and only) div in the vengeance container
+        historyContainer.insertBefore(vengEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
     }
     minigameClick() {
         // poke the minigameRandomizer
@@ -289,7 +360,10 @@ class GameComponent extends HTMLElement {
         this.hide(minigameModal);
         // reset the minigameTimer
     }
-
+    nextTurn() {
+        // minigame timer
+        // check active effects
+    }
     // Utility! -----------------------
     hide(elementName) {
         if (!elementName.classList.contains('hiddenPart')) {

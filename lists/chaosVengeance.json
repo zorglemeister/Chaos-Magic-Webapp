@@ -1,0 +1,32 @@
+{
+    "effects":[
+        {
+        "effectName": "Retribution",
+        "desc": "You may deal 3 damage to each of up to three target creatures, planeswalkers, or players."
+        },
+        {
+        "effectName": "Poke",
+        "desc": "You may deal 2 damage to any target."
+        },
+        {
+        "effectName": "Reinforce",
+        "desc": "You may put two +1/+1 counters on target creature controlled by another player."
+        },
+        {
+        "effectName": "Fizzle",
+        "desc": "Nothing happens."
+        },
+        {
+        "effectName": "Inspire",
+        "desc": "You may put a card from your hand into target player's hand."
+        },
+        {
+        "effectName": "Life",
+        "desc": "Gain 1 life."
+        },
+        {
+        "effectName": "Phoenix",
+        "desc": "Gain 5 life. Draw until you have 7 cards in hand."
+        }
+    ]
+}
