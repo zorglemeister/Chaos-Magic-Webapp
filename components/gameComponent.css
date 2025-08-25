@@ -132,6 +132,40 @@ z-game .vengeanceContent {
     text-align: center;
     margin: 20px auto;
 }
+z-game .vengEffect {
+    display: flex;
+    width: 96%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    background-color: coral;
+    border-radius: 8px;
+    padding: 10px;
+}
+z-game .vengRoll {
+    font-size: 36px;
+    text-align: center;
+    margin: 2px;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+z-game .vengContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2px auto;
+    width: 75%;
+}
+z-game .vengTitle {
+    font-size: 24px;
+    text-align: center;
+    margin: 2px 0;
+}
+z-game .vengBody {
+    font-size: 16px;
+    text-align: center;
+    margin: 2px 0;
+}
 z-game .vengeanceCloseButton {
     margin: 10px;
     padding: 10px 20px;

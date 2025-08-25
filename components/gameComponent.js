@@ -338,7 +338,8 @@ class GameComponent extends HTMLElement {
     let tag = weightedVengeance[roll]; // get the indexed tag
     let pull = vengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
     // ha ha, take that comparison operator! FU MSFT
-    return `<div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div>`; // send back the innerHTML
+    return `
+    <div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengContent"><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div></div>`; // send back the innerHTML
     }
     closeVengeanceClick() {
         // hide the vengeanceModal
