@@ -6,6 +6,10 @@
 // - - - rollButton
 // - - - inlineSymbol
 
+
+
+
+
 import { registerSettingsComponent } from '../components/settingsComponent.js';
 import { registerGameComponent } from '../components/gameComponent.js';
 
@@ -18,6 +22,11 @@ const app = () => {
 
 // waits for the DOM to fully load before tripping the app components
 document.addEventListener('DOMContentLoaded', app);
+
+
+// I think I need to initalize the global objects first, THEN register the components that use them...
+
+// if I put these above the imports, it breaks everything... why?
 
 // this is where I need to declare the primary game objects, so they're at the app scope and everything else can see them, right?
 

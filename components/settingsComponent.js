@@ -2,6 +2,11 @@
 
 import { registerHelpBoxComponent } from './helpBoxComponent.js';
 
+// pull in the base objects from index.js
+// import { sourceList } from '../scripts/index.js'; // source list
+// import { settingsPayload } from '../scripts/index.js'; // settings
+// import { gameList } from '../scripts/index.js'; // filtered game list
+
 // Page Content as Component?
 
 const settingsTemplate = document.createElement('template');
@@ -317,7 +322,7 @@ class SettingsComponent extends HTMLElement {
         configMinigame.addEventListener('click', () => {delayDiv.classList.toggle("hiddenPart");});// this.setMinigameDelayVisibility.bind(this,));
         configPlayerCount.addEventListener('input', () => {configOutputPlayer.innerHTML = configPlayerCount.value;});
         configMinigameDelay.addEventListener('input', () => {if (configMinigameDelay.value === 0) {
-            configOutputDelay.innerHTML = "Whenever"
+            configOutputDelay.innerHTML = "Whenever";
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
             }});

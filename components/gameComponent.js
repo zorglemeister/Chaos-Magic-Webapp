@@ -2,11 +2,12 @@
 // pretty sure I need to import the bits...
 
 import { registerEffectComponent } from './effectComponent.js';
-import { sourceList } from '../scripts/index.js'; // bring in the source list from index.js
-import { vengList } from '../scripts/index.js'; // bring in the vengeance list from index.js
-import { settingsPayload } from '../scripts/index.js'; // bring in the settings from index.js
-import { gameList } from '../scripts/index.js'; // bring in the filtered game list from index.js
-import { generatedEffect } from '../scripts/index.js'; // bring in the global generated effect from index.js
+// pull in the base objects from index.js
+import { sourceList } from '../scripts/index.js'; // source list
+import { vengList } from '../scripts/index.js'; // vengeance list
+// import { settingsPayload } from '../scripts/index.js'; // settings
+// import { gameList } from '../scripts/index.js'; // filtered game list
+// import { generatedEffect } from '../scripts/index.js'; // global generated effect
 
 // let's build a template!
 const gameTemplate = document.createElement('template');
