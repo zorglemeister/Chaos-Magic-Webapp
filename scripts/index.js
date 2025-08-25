@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', app);
 
 // sourceList <- updated by "loadJSON" function, holds the complete list source
 // set the sourceJSON location
-const filePath = '../lists/chaosList.json';
+const filePath = 'lists/chaosList.json';
 
 // go get the file
 async function loadJSON(path) {
@@ -44,7 +44,7 @@ async function loadJSON(path) {
 export const sourceList = await loadJSON(filePath); // the contents shouldn't change, so it's a const
 
 // do it again for Vengeance
-const vengPath = '../lists/chaosVengeance.json';
+const vengPath = 'lists/chaosVengeance.json';
 // make the list from the file (export so I can use it in the gameComponent)
 export const vengList = await loadJSON(vengPath); // the contents shouldn't change, so it's a const
 

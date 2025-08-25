@@ -69,7 +69,7 @@ Vengeance Content
 </div>
 <div class="historyDrawer  visibleGreenBorder">
 <button type="button" class="historyButton drawerToggle drawerClosed"></button>
-<div class="historyContainer drawerContents">hist Cont</div>
+<div class="historyContainer drawerContents"><div class="histGameStart">Game Start</div></div>
 </div>
 </div>
 `
@@ -228,7 +228,7 @@ class GameComponent extends HTMLElement {
         // wipe active effect
         activeContainer.innerHTML = '';
         // wipe history
-        historyContainer.innerHTML = '';
+        historyContainer.innerHTML = '<div class="histGameStart">Game Start</div>';
         // activate game controls (no effect is past initial state)
         this.show(visiblePart);
         this.show(controlContainer);
@@ -349,7 +349,10 @@ class GameComponent extends HTMLElement {
     }
     moveVengeanceToHistory() { // here's moving the vengeance effect to the top of the history section:
         const vengEffect = vengeanceContent.firstChild; // get the first (and only) div in the vengeance container
+        console.log('Moving element: ', vengEffect);
+        console.log('Old parent: ', vengEffect.parentNode);
         historyContainer.insertBefore(vengEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
+        console.log('New parent: ', vengEffect.parentNode);
     }
     minigameClick() {
         // poke the minigameRandomizer
