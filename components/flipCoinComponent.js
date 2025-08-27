@@ -28,6 +28,7 @@ class FlipCoin extends HTMLElement {
         button.disabled = true; // disable the button during the flip
         coin.classList.remove('hiddenPart'); // show the coin
         coin.style.animation = 'flipShape 2s linear infinite, flipColor 2s steps(1, end) infinite'; // start the animation 
+        coinContainer.style.animation = 'coinVert 4s ease-in-out 1'; // hopefully vertical animation
         const interval = setInterval(() => { // starts the timer
             if (countdown > 0) { // as long as there's time left...
                 coin.textContent = countdown; // set the text to the countdown number

@@ -6,12 +6,16 @@ z-fc .coinContainer {
     height: 210px;
     width: 210px;
     position: fixed;
-    top: 50%;
+    top: calc(50% - 105px);
     left: 50%;
     transform: translate(-50%, -50%);
     perspective: 1000px;
     background-color: rgba(0,0,150,0.5);
+    margin: 0;
+    padding: 0;
+    transform-origin: center;
 }
+
 z-fc .coin {
     width: 200px;
     height: 200px;
@@ -25,9 +29,7 @@ z-fc .coin {
     text-align: center;
     transform-style: preserve-3d;
 }
-z-fc .flipping {
-    animation: flip 2.0s steps(1, end) infinite;
-}
+
 /* keyframes for shape change */
 @keyframes flipShape {
     0%, 100% {
@@ -50,7 +52,15 @@ z-fc .flipping {
     }
     
 }
-
+/* keyframes for up and down motion */
+@keyframes coinVert {
+    0%, 100% {
+        transform: translateY(0); /* start position */
+    }
+    50% {
+        transform: translateY(-300px); /* peak*/
+    }
+}
 
 z-fc .flipButton {
     margin: 10px;
