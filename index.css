@@ -1,5 +1,6 @@
 /* import component styles here */
 @import "./components/inlineSymbolComponent.css";
+@import "./components/flipCoinComponent.css";
 @import "./components/rollButtonComponent.css";
 @import "./components/helpBoxComponent.css";
 @import "./components/settingsComponent.css";

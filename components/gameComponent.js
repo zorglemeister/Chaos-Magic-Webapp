@@ -2,9 +2,11 @@
 // pretty sure I need to import the bits...
 
 import { registerEffectComponent } from './effectComponent.js';
+import { registerFlipCoinComponent } from './flipCoinComponent.js';
 // pull in the base objects from index.js
 import { sourceList } from '../scripts/index.js'; // source list
 import { vengList } from '../scripts/index.js'; // vengeance list
+
 // import { settingsPayload } from '../scripts/index.js'; // settings
 // import { gameList } from '../scripts/index.js'; // filtered game list
 // import { generatedEffect } from '../scripts/index.js'; // global generated effect
@@ -143,6 +145,7 @@ class GameComponent extends HTMLElement {
     }
     render() {
         registerEffectComponent(); // get the effectComponent in here
+        registerFlipCoinComponent(); // get the coinFlip in here
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
         // after it's in the DOM, initialize the element references
         gameField = this.getElementsByClassName("gameField")[0];
@@ -267,7 +270,7 @@ class GameComponent extends HTMLElement {
     
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
-        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}!</div>`;
+        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}!<z-fc></z-fc></div>`;
         // increment minigameTimer
     }
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:

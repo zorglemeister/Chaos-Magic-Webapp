@@ -1,0 +1,60 @@
+z-fc .coinContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 210px;
+    width: 210px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 1000px;
+    background-color: rgba(0,0,150,0.5);
+}
+z-fc .coin {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: darkgoldenrod;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    color: white;
+    text-align: center;
+    transform-style: preserve-3d;
+}
+z-fc .flipping {
+    animation: flip 2.0s steps(1, end) infinite;
+}
+/* keyframes for shape change */
+@keyframes flipShape {
+    0%, 100% {
+        transform: scaleX(0.05);
+    }
+    25%, 75% {
+        transform: scaleX(1);
+    }
+    50% {
+        transform: scaleX(0.05);
+    }
+}
+/* keyframes for hard color shift */
+@keyframes flipColor {
+    0%, 100% {
+        background-color: darkgoldenrod;
+    }
+    50% {
+        background-color: gold;
+    }
+    
+}
+
+
+z-fc .flipButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: help;
+}

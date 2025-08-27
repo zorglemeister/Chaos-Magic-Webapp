@@ -15,6 +15,7 @@ import { registerGameComponent } from '../components/gameComponent.js';
 
 // add them to the app definition here
 const app = () => {
+
     registerSettingsComponent(); 
     registerGameComponent();
     
