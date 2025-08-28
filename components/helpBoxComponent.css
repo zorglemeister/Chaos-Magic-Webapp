@@ -17,7 +17,7 @@ z-hb .helpIcon {
     top: 0;
     right: 0;
     padding: 2px;
-    border: 2px solid gold;
+    /* border: 2px solid gold; */
     border-radius: 50%;
     display: flex;
     align-items: center;

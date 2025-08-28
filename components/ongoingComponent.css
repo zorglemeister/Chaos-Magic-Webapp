@@ -1,0 +1,57 @@
+
+
+z-oe :root {
+    --ongoing-button-width: 0px;
+    --ongoing-button-height: 0px;
+}
+
+
+
+/* drawer stuff */
+
+z-oe .ongoingButton {
+    border-color: gold;
+    border-radius: 5px;
+}
+z-oe .drawerOEContainer {
+    position: relative;
+}
+z-oe .drawerOEControl {
+    position: absolute;
+    top: 10px;
+    transition: right 1s ease-in-out;
+    z-index: 601; /* above the drawer */
+}
+z-oe .drawerOEContents {
+    position: fixed;
+    top: calc(50% + (var(--ongoing-button-height)));
+    transform: translateY(-50%);
+    right: -400px; /* off-screen to the right, may need to adjust */
+    width: 400px; /* will set the width for the ongoingEffectList div, too */
+    height: calc(100% - (var(--ongoing-button-height) + 25px));
+    background-color: lightgray;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 600; /* below the button, above other stuff */
+    overflow-x: auto;
+}
+z-oe .drawerOEContents.openOEDrawer {
+    right: 0;
+}
+z-oe .drawerOEClosed::before {
+    content: "Active Effects ˂"; /*  */
+    font-size: 24px;
+}
+
+z-oe .drawerOEOpen::before {
+    content: "Active Effects ˃"; /*  */
+    font-size: 24px;
+}
+
+z-oe .drawerOEClosed {
+    right: 10px;
+}
+
+z-oe .drawerOEOpen {
+    right: calc(390px - var(--ongoing-button-width));
+}

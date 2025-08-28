@@ -3,6 +3,7 @@
 
 import { registerEffectComponent } from './effectComponent.js';
 import { registerFlipCoinComponent } from './flipCoinComponent.js';
+import { registerOngoingComponent } from './ongoingComponent.js';
 // pull in the base objects from index.js
 import { sourceList } from '../scripts/index.js'; // source list
 import { vengList } from '../scripts/index.js'; // vengeance list
@@ -14,7 +15,7 @@ import { vengList } from '../scripts/index.js'; // vengeance list
 // let's build a template!
 const gameTemplate = document.createElement('template');
 gameTemplate.innerHTML = `
-<div class="gameField drawerContainer visibleBlueBorder">
+<div class="gameField drawerContainer">
 <div class="welcomeModal">
 <div class="welcomeTitle">
 Welcome to Chaos Magic
@@ -44,7 +45,8 @@ Meaningful intro text here. Really, choose a quick start or configure your game.
 </div>
 </div>
 </div>
-<div class="visiblePart visibleBorder">
+<div class="visiblePart">
+<z-oe></z-oe>
 <div class="activeContainer">active cont</div>
 <div class="minigameModal">
 <div class="minigameContent">
@@ -58,7 +60,7 @@ Vengeance Content
 </div>
 <button type="button" class="vengeanceCloseButton">Done</button></div>
 </div>
-<div class="controlContainer visibleBorder">
+<div class="controlContainer">
 <!-- div class="rollControl" -->
 <button type="button" class="controlButton rollButton">Roll</button>
 <!-- /div -->
@@ -69,7 +71,7 @@ Vengeance Content
 <!-- div class="historyControlPlaceholder" --><!-- /div -->
 </div>
 </div>
-<div class="historyDrawer  visibleGreenBorder">
+<div class="historyDrawer">
 <button type="button" class="historyButton drawerToggle drawerClosed"></button>
 <div class="historyContainer drawerContents"><div class="histGameStart">Game Start</div></div>
 </div>
@@ -146,6 +148,7 @@ class GameComponent extends HTMLElement {
     render() {
         registerEffectComponent(); // get the effectComponent in here
         registerFlipCoinComponent(); // get the coinFlip in here
+        registerOngoingComponent(); // get the ongoing Effect drawer in here
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
         // after it's in the DOM, initialize the element references
         gameField = this.getElementsByClassName("gameField")[0];
@@ -259,6 +262,9 @@ class GameComponent extends HTMLElement {
     }
     // GAME CONTROLS -----------------------
     rollClick() { // assuming one click per player turn
+        // send the "newRoll" event
+        const newRoll = new Event('newRoll');
+        window.dispatchEvent(newRoll);
         // increment rollCounter
         rollCounter++;
         // poke the randomizer to update generatedEffect

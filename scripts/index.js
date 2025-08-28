@@ -68,5 +68,7 @@ export let settingsPayload = { // the contents will change, so it's a let
 // gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
 export let gameList = null; // the contents will change, so it's a let
 
-// generatedEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-export let generatedEffect = null; // the contents will change, so it's a let
+// newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
+export let newEffect = null; // the contents will change, so it's a let
+// previousEffect <- updated by new roll (game), used by ongoing
+export let previousEffect = null; // the contents will change, so it's a let

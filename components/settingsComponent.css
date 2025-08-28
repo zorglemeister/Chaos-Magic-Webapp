@@ -159,7 +159,7 @@ z-settings .drawerContents {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    left: -400px; /* off-screen to the right, may need to adjust */
+    left: -400px; /* off-screen to the left, may need to adjust */
     width: 400px; /* will set the width for the gameSettings div, too */
     height: calc(100vh - (var(--settings-button-height) + var(--update-button-height) + 25px));
     background-color: lightgray;
