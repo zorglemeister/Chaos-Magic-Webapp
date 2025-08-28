@@ -43,6 +43,10 @@ class FlipCoin extends HTMLElement {
                 button.textContent = 'Clear';
                 button.disabled = false;
                 // Add an event listener to remove the component
+                // ****
+                // ****
+                // TO DO!
+                // This also needs to replace the template with the outcome (I'll need to do the same for the inline roller!!!!) otherwise it'll re-render when moved to history for whatever reason
                 button.addEventListener('click', () => {
                     coinContainer.remove();
                     button.remove();
