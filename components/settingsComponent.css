@@ -15,11 +15,19 @@ z-index reference
 z-settings :root {
     --settings-button-width: 0px;
     --settings-button-height: 0px;
+    --update-button-width: 0px;
+    --update-button-height: 0px;
 }
 
 z-settings .gameSettingsButton {
     border-color: gold;
     border-radius: 5px;
+}
+
+z-settings .updateSettingsButton {
+    border-color: gold;
+    border-radius: 5px;
+    font-size: 24px;
 }
 
 z-settings .hiddenPart {
@@ -32,7 +40,7 @@ z-settings .bigControl {
 
 z-settings .configTitle {
     text-align: center;
-    margin-top: calc(5px + var(--settings-button-height));
+    margin-top: 5px;
     margin-bottom: 10px;
     font-size: 24px;
     font-weight: bold;
@@ -134,10 +142,16 @@ z-settings .drawerContainer {
     position: relative;
 }
 
-z-settings .drawerToggle {
+z-settings .drawerSettings {
     position: absolute;
     top: 10px;
-    transition: right 1s ease-in-out;
+    transition: left 1s ease-in-out;
+    z-index: 601; /* above the drawer */
+}
+z-settings .drawerUpdate {
+    position: fixed;
+    bottom: 10px;
+    transition: left 1s ease-in-out;
     z-index: 601; /* above the drawer */
 }
 
@@ -145,34 +159,42 @@ z-settings .drawerContents {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    right: -400px; /* off-screen to the right, may need to adjust */
+    left: -400px; /* off-screen to the right, may need to adjust */
     width: 400px; /* will set the width for the gameSettings div, too */
-    height: 98%;
+    height: calc(100vh - (var(--settings-button-height) + var(--update-button-height) + 25px));
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transition: right 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    transition: left 1s ease-in-out; /* smooth motion, may need to adjust timing */
     z-index: 600; /* below the button, above other stuff */
     overflow-x: auto;
 }
 
 z-settings .drawerContents.openDrawer {
-    right: 0; /* should cause it to slide in */
+    left: 0; /* should cause it to slide in */
 }
 
 z-settings .drawerClosed::before {
-    content: "Settings ˂"; /*  */
-    font-size: 24px;
-}
-
-z-settings .drawerOpen::before {
     content: "Settings ˃"; /*  */
     font-size: 24px;
 }
 
+z-settings .drawerOpen::before {
+    content: "Settings ˂"; /*  */
+    font-size: 24px;
+}
+
 z-settings .drawerClosed {
-        right: 10px;
+    left: 10px;
 }
 
 z-settings .drawerOpen {
-        right: calc(390px - var(--settings-button-width));
+    left: calc(390px - var(--settings-button-width));
+}
+z-settings .drawerUpdateClosed {
+    left: -400px;
+   /* left: -10px; */
+    /*    left: -var(--update-button-width); */
+}
+z-settings .drawerUpdateOpen {
+    left: calc(400px - var(--update-button-width));
 }

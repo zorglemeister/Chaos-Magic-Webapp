@@ -51,6 +51,9 @@ body {
 .visibleBlueBorder {
     border: 3px solid blue;
 }
+.visibleRedBorder {
+    border: 3px solid red;
+}
 
 /* scrollbar style */
 /* for WebKit browsers */

@@ -19,8 +19,9 @@ const settingsTemplate = document.createElement('template');
 // The exceptions are the labeled pieces, because label's for= uses the id
 
 settingsTemplate.innerHTML = `
-        <div class="settingsContainer configBlock drawerContainer">
-            <button type="button" class="gameSettingsButton drawerToggle drawerClosed"></button>
+        <div class="settingsContainer configBlock drawerContainer visibleRedBorder">
+            <button type="button" class="gameSettingsButton drawerSettings drawerClosed"></button>
+            <button type="button" class="updateSettingsButton drawerUpdate drawerUpdateClosed">Update Game Settings</button>
             <div class="gameSettings drawerContents">
             <div class="configTitle">Configure your Chaos!</div>
             <div class="settingBasics settingGroup">
@@ -170,10 +171,8 @@ settingsTemplate.innerHTML = `
                     <z-hb>Minigames are more complicated effects that may pull attention away from the game. If you wish to play with them, you can set a round timer between minigames or choose to manually trigger one when you feel like it.</z-hb>
                 </div>
                 </div>
-                <div class="updateGame">
-                    <button class="updateSettingsButton" type="button">Update Game Settings</button>
-                </div>
             </div>
+            
             <div class="updateModal hiddenPart">
                         <div class="updateText">
                         Updating Game Settings will reset the current game. Do you wish to save settings and start a new game?
@@ -218,7 +217,7 @@ settingsTemplate.innerHTML = `
         let configRarityAll = null;
         let configRaritySelect = null;
         let configMinigame = null;
-        let configSaveButton = null;
+        let configUpdateButton = null;
 
         // The sliders and value spans
         let configPlayerCount = null;
@@ -285,7 +284,7 @@ class SettingsComponent extends HTMLElement {
         configRarityAll = this.getElementsByClassName("allRaritiesToggle")[0];
         configRaritySelect = this.getElementsByClassName("raritySelect")[0];
         configMinigame = this.getElementsByClassName("minigameToggle")[0];
-        configSaveButton = this.getElementsByClassName("updateSettingsButton")[0];
+        configUpdateButton = this.getElementsByClassName("updateSettingsButton")[0];
 
         // The sliders and value spans
         configPlayerCount = this.getElementsByClassName("playerCountSlider")[0];
@@ -302,7 +301,7 @@ class SettingsComponent extends HTMLElement {
         configPhysical = this.getElementsByClassName("physicalToggle")[0];
 
         // The Drawer Pieces
-        drawerButton = this.getElementsByClassName("drawerToggle")[0];
+        drawerButton = this.getElementsByClassName("drawerSettings")[0];
         drawerContents = this.getElementsByClassName("drawerContents")[0];
 
         // The Update Modal
@@ -326,7 +325,7 @@ class SettingsComponent extends HTMLElement {
             } else {
             configOutputDelay.innerHTML = configMinigameDelay.value;
             }});
-        configSaveButton.addEventListener('click', () => {updateModal.classList.toggle('hiddenPart');});
+        configUpdateButton.addEventListener('click', () => {updateModal.classList.toggle('hiddenPart');});
 
         // Drawer Handler
         drawerButton.addEventListener('click', this.drawerToggleAction.bind(this));
@@ -335,9 +334,11 @@ class SettingsComponent extends HTMLElement {
         cancelButton.addEventListener('click', () => {updateModal.classList.toggle('hiddenPart');});
         saveButton.addEventListener('click', this.updateSettings.bind(this));
 
-        // set the "Settings" button height and width for fancy drawer CSS
+        // set the "Settings" and "Save" button height and width for fancy drawer CSS
         document.documentElement.style.setProperty('--settings-button-width', `${configSettingsButton.offsetWidth}px`);
         document.documentElement.style.setProperty('--settings-button-height', `${configSettingsButton.offsetHeight}px`);
+        document.documentElement.style.setProperty('--update-button-width', `${configUpdateButton.offsetWidth}px`);
+        document.documentElement.style.setProperty('--update-button-height', `${configUpdateButton.offsetHeight}px`);
 
         // Set the initial state
         this.setInitialState();
@@ -347,6 +348,8 @@ class SettingsComponent extends HTMLElement {
         drawerContents.classList.toggle('openDrawer'); // trigger the drawer slide in/out
         drawerButton.classList.toggle('drawerClosed'); // change the Settings button state
         drawerButton.classList.toggle('drawerOpen'); // flippity-flip-flop
+        configUpdateButton.classList.toggle('drawerUpdateClosed'); // change the Update button state
+        configUpdateButton.classList.toggle('drawerUpdateOpen'); // flippity-flip-flop
     }
     setInitialState() { // this is a method in case I need to call it separately
         configOutputPlayer.innerHTML = configPlayerCount.value;
