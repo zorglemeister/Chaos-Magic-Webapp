@@ -4,6 +4,8 @@
 import { registerEffectComponent } from './effectComponent.js';
 import { registerFlipCoinComponent } from './flipCoinComponent.js';
 import { registerOngoingComponent } from './ongoingComponent.js';
+import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
+import { registerRollButtonComponent } from './rollButtonComponent.js';
 // pull in the base objects from index.js
 import { sourceList } from '../scripts/index.js'; // source list
 import { vengList } from '../scripts/index.js'; // vengeance list
@@ -149,6 +151,8 @@ class GameComponent extends HTMLElement {
         registerEffectComponent(); // get the effectComponent in here
         registerFlipCoinComponent(); // get the coinFlip in here
         registerOngoingComponent(); // get the ongoing Effect drawer in here
+        registerInlineSymbolComponent(); // get the inline Symbols in here
+        registerRollButtonComponent(); // get the roll button in here
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
         // after it's in the DOM, initialize the element references
         gameField = this.getElementsByClassName("gameField")[0];
@@ -276,7 +280,7 @@ class GameComponent extends HTMLElement {
     
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
-        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}!<z-fc></z-fc></div>`;
+        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}! Do the inline symbols work? <z-is>wubrg</z-is> and for an effect: <z-is>1</z-is>, <z-is>t</z-is>: do a thing! Let's try rolling <z-rb>2d6</z-rb> inline, as well as flipping a coin.<z-fc></z-fc></div>`;
         // increment minigameTimer
     }
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
