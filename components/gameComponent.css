@@ -204,6 +204,9 @@ z-game .controlContainer {
     align-items: center;
 
 }
+z-game .controlContainer.hiddenPart {
+    display: none;
+}
 z-game .buttonWrapper {
     display: flex;
     gap: 20px;
