@@ -78,14 +78,21 @@ class RollButton extends HTMLElement {
     handleWord(word) {
         // I'll get to the words later, but i think it'll be a switch+cases and handoff to other methods...
         // woof, just realized this could get nearly effect specific
-        // // but it would be easier to do it here than in a weird specialEffect handler (I'd like to limit those...)
+        // but it would be easier to do it here than in a weird specialEffect handler (I'd like to limit those...)
         // EACH OF THESE CAN BE AN ARRAY! (like the vengeance randomizer)
+        // GOOD IDEA YESTERDAY JO, I can build a component just to handle those weird specialEffects
+        // it'll work like this, passing the effect title (or id?) so I can have one thing where that lives
+        // and I don't have to worry about reading a parameter in the JSON
+        let rollValue = 'preroll';
         switch (word) {
             case 'direction':
                 // left or right
+                rollValue = this.dieRoll(1,2) === 1 ? 'right' : 'left'; // 1 (right) or 2 (left)
                 break;
             case 'color':
                 // WUBRG
+                let options = ['white','blue','black','red','green'];
+                rollValue = options[this.dieRoll(1,options.length)];
                 break;
             case 'mana type':
                 // WUBRG+generic (chaos Sleight 321, Terrestrial Upheaval 494) OOH! have this return a <z-is> tag!
@@ -108,6 +115,7 @@ class RollButton extends HTMLElement {
             case 'landwalk':
                 // plainswalk, islandwalk, swampwalk, mountainwalk, forestwalk, nonbasic landwalk (Dicewalk 636)
         } 
+        return rollValue.toString();
     }
 
 
