@@ -10,7 +10,7 @@ class RollButton extends HTMLElement {
         }
     }
     render() {
-        const sourceText = this.textContent.trim(); // Get the text (should be die notation) : <z-rb>2d6</z-rb>
+        const sourceText = this.textContent.trim(); // Get the text
         this.innerHTML = `<button>&#127922; ${sourceText}</button>`; // Replace the innerHTML with a button displaying the text and (hopefully) the Game Die Unicode character "&#127922;" : [🎲 2d6]
 
         this.querySelector('button').addEventListener('click', () => { // what to do on a click?
@@ -84,6 +84,7 @@ class RollButton extends HTMLElement {
         // it'll work like this, passing the effect title (or id?) so I can have one thing where that lives
         // and I don't have to worry about reading a parameter in the JSON
         let rollValue = 'preroll';
+        let option = null;
         switch (word) {
             case 'direction':
                 // left or right
@@ -91,29 +92,53 @@ class RollButton extends HTMLElement {
                 break;
             case 'color':
                 // WUBRG
-                let options = ['white','blue','black','red','green'];
-                rollValue = options[this.dieRoll(1,options.length)];
+                option = ['white','blue','black','red','green'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'mana type':
-                // WUBRG+generic (chaos Sleight 321, Terrestrial Upheaval 494) OOH! have this return a <z-is> tag!
+                // WUBRG+colorless (chaos Sleight 321, Terrestrial Upheaval 494) OOH! have this return a <z-is> tag!
+                option = ['<z-is>w</z-is>','<z-is>u</z-is>','<z-is>b</z-is>','<z-is>r</z-is>','<z-is>g</z-is>','<z-is>c</z-is>'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'color or colourless':
-                // WUBRG+colorless
+                // WUBRG+colorless (Bouncy House 187)
+                option = ['white','blue','black','red','green','colorless'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'basicland':
                 // plains, island, swamp, mountain, forest
+                option = ['plains','island','swamp','mountain','forest'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'basic+wastes':
                 // plains, island, swamp, mountain, forest, wastes
+                option = ['plains','island','swamp','mountain','forest','wastes'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'land type':
                 // plains, island, swamp, mountain, forest, nonbasic (Chaos Hack 322)
+                option = ['plains','island','swamp','mountain','forest','nonbasic land'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'any basic land':
                 // a plains, an island, a swamp, a mountain, a forest, any basic land (Flare 635)
+                option = ['a plains','an island','a swamp','a mountain','a forest','any basic land'];
+                rollValue = option[this.dieRoll(1,option.length)];
                 break;
             case 'landwalk':
                 // plainswalk, islandwalk, swampwalk, mountainwalk, forestwalk, nonbasic landwalk (Dicewalk 636)
+                option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','nonbasic landwalk'];
+                rollValue = option[this.dieRoll(1,option.length)];
+                break;
+            case 'permanent':
+                // creatures, artifacts, lands, enchantments, planeswalkers (Tariff Sheriff 910)
+                option = ['creatures','artifacts','lands','enchantments','planeswalkers'];
+                rollValue = option[this.dieRoll(1,option.length)];
+                break;
+            case 'walk':
+                // big list... (Boots, Made for Walking 928)
+                option = ['white','blue','black','red','green','colorless'];
+                rollValue = option[this.dieRoll(1,option.length)];
         } 
         return rollValue.toString();
     }

@@ -8,6 +8,7 @@
 // X = x = x.png
 // Infinite = i = i.png
 // Colourless = c = c.png
+// Snow = s = s.png
 // 0 = 0 = 0.png
 // 1 = 1 = 1.png
 // 2 = 2 = 2.png
