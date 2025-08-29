@@ -9,10 +9,13 @@ helpTemplate.innerHTML = `<div class="helpParent"><div class="helpIcon helpClose
 class HelpBox extends HTMLElement {
      constructor() {
         super(); // important!
-
+        this._isRendered = false; // flag for only rendering once
     }
     connectedCallback() {
-        this.render(); // When it shows up, render it!
+        if (!this._isRendered) { // if it hasn't already been rendered...
+            this.render(); // render it...
+            this._isRendered = true; // and set the flag
+        }
     }
     render() {
         const sourceText = this.innerHTML; // Get the help text : <z-hb>Explanation</z-hb>

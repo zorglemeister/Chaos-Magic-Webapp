@@ -63,6 +63,7 @@ Vengeance Content
 <button type="button" class="vengeanceCloseButton">Done</button></div>
 </div>
 <div class="controlContainer">
+<div class="buttonWrapper">
 <!-- div class="rollControl" -->
 <button type="button" class="controlButton rollButton">Roll</button>
 <!-- /div -->
@@ -71,6 +72,7 @@ Vengeance Content
 <!-- div class="vengeanceControl" -->
 <button type="button" class="controlButton vengeanceButton">Vengeance</button><!-- /div -->
 <!-- div class="historyControlPlaceholder" --><!-- /div -->
+</div>
 </div>
 </div>
 <div class="historyDrawer">
@@ -143,9 +145,13 @@ let gameField = null;
 class GameComponent extends HTMLElement {
     constructor() {
         super();
+        this._isRendered = false; // flag for only rendering once
     }
     connectedCallback() {
-        this.render();
+        if (!this._isRendered) { // if it hasn't already been rendered...
+            this.render(); // render it...
+            this._isRendered = true; // and set the flag
+        }
     }
     render() {
         registerEffectComponent(); // get the effectComponent in here

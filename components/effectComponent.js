@@ -60,8 +60,10 @@ effectTemplate.innerHTML = `
 class EffectComponent extends HTMLElement {
     constructor() {
         super();
+        this._isRendered = false; // flag for only rendering once
     }
     connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only? UPDATE - reparenting does NOT trip connectedCallback() !!
+        if (!this._isRendered) { // if it hasn't already been rendered...
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
         let effectId = this.textContent;
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
@@ -70,7 +72,9 @@ class EffectComponent extends HTMLElement {
         // might be worth pulling this into a higher-scope method
         this.append(effectContent); // sticks the updated copy in the DOM
 
-        this.render(); 
+        this.render(); // render it...
+        this._isRendered = true; // and set the flag
+        }
     }
     render(effectId) {
         // get the generatedEffect

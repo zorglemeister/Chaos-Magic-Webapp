@@ -16,10 +16,14 @@
 
 class InlineSymbol extends HTMLElement {
      constructor() {
-        super(); // 
+        super(); // lookit me, i'm super! I'm important and needed!
+        this._isRendered = false; // flag for only rendering once
     }
     connectedCallback() {
-        this.render(); // When it shows up, render it!
+        if (!this._isRendered) { // if it hasn't already been rendered...
+            this.render(); // render it...
+            this._isRendered = true; // and set the flag
+        }
     }
     render() {
         const sourceText = this.textContent; // Get the text (should be symbol notation) : <z-is>UU</z-is>

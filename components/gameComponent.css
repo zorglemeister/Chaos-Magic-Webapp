@@ -26,6 +26,7 @@ z-game .hiddenPart {
 z-game .gameField {
     position: relative;
     height: 100vh;
+    background-color: lightblue;
 }
 
 /* first-load modal */
@@ -81,6 +82,23 @@ z-game ul {
 z-game li {
     margin-bottom: 10px;
     text-align: center;
+}
+
+/* active container stuff */
+z-game .activeContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 95%;
+    background-color: tan;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* minigame modal */
@@ -176,19 +194,26 @@ z-game .vengeanceCloseButton {
 /* game buttons section */
 z-game .controlContainer {
     position: fixed;
+    display: flex;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
 
+}
+z-game .buttonWrapper {
+    display: flex;
+    gap: 20px;
 }
 z-game .controlButton {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 

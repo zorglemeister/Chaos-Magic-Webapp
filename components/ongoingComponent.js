@@ -23,10 +23,13 @@ let ongoingEffectList = null;
 class OngoingComponent extends HTMLElement {
     constructor() {
         super();
-
+        this._isRendered = false; // flag for only rendering once
     }
     connectedCallback() {
-        this.render(); // render it!
+        if (!this._isRendered) { // if it hasn't already been rendered...
+            this.render(); // render it...
+            this._isRendered = true; // and set the flag
+        }
     }
     render() {
         this.append(ongoingEffectsTemplate.content.cloneNode(true)); // put it in the HTML

@@ -1,9 +1,14 @@
 class RollButton extends HTMLElement {
     constructor() {
         super(); // apparently this is important?
+        this._isRendered = false; // flag for only rendering once
     }
     connectedCallback() {
         this.render(); // When it shows up, render it!
+        if (!this._isRendered) { // if it hasn't already been rendered...
+            this.render(); // render it...
+            this._isRendered = true; // and set the flag
+        }
     }
     render() {
         const sourceText = this.textContent.trim(); // Get the text (should be die notation) : <z-rb>2d6</z-rb>
