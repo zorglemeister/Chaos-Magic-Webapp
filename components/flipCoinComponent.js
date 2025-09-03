@@ -40,21 +40,18 @@ class FlipCoin extends HTMLElement {
                 countdown--; // decrement the countdown
             } else {
                 clearInterval(interval); // stop the timer
-                coin.textContent = Math.random() < 0.5 ? 'H' : 'T'; // generate a random number, compare to .5, if less Heads, if more Tails
+                coin.textContent = Math.random() < 0.5 ? 'Ⓗ' : 'Ⓣ'; // generate a random number, compare to .5, if less Heads, if more Tails
                 coin.style.backgroundColor = 'darkgoldenrod';
                 setTimeout(() => {
                 coin.style.animation = 'none'; // stop the animation
                 // change the button to "Clear" and enable it
                 button.textContent = 'Clear';
                 button.disabled = false;
-                // Add an event listener to remove the component
-                // ****
-                // ****
-                // TO DO!
-                // This also needs to replace the template with the outcome (I'll need to do the same for the inline roller!!!!) otherwise it'll re-render when moved to history for whatever reason
+                // Add an event listener to remove the component and update the component text contents
                 button.addEventListener('click', () => {
                     coinContainer.remove();
                     button.remove();
+                    this.innerHTML = `<b>${coin.textContent === 'Ⓗ' ? 'Ⓗ Heads' : 'Ⓣ Tails'}</b>`
                 }, { once: true }); // can only be triggered once
                 }, 500)
             }

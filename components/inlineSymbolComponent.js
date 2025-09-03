@@ -38,7 +38,6 @@ class InlineSymbol extends HTMLElement {
     }
 }
 
-
 export const registerInlineSymbolComponent = () => {
     customElements.define('z-is', InlineSymbol);
 }
