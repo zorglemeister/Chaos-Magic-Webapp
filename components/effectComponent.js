@@ -6,6 +6,8 @@ import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
 // import specialEffects.js <- holds all the effect-specific scripts
 import * as special from '../scripts/specialEffects.js';
 
+import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique()
+
 // define a template
 const effectTemplate = document.createElement('template');
 
@@ -74,7 +76,7 @@ class EffectComponent extends HTMLElement {
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
         let effectId = this.textContent;
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
-        effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${this.randomUnique()}`); // does this WORK? will be cool if it does.
+        effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
         // might be worth pulling this into a higher-scope method
 
@@ -109,12 +111,6 @@ class EffectComponent extends HTMLElement {
         this.getElementsByClassName('shortDesc')[0].classList.toggle('hiddenPart');
         this.getElementsByClassName('fullDesc')[0].classList.toggle('hiddenPart');
     }
-    randomUnique() {
-        return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`; 
-        // should be sufficiently unique because timestamp inclusion, even if the randomizer creates the same output twice
-        // sliced because the Math.random().toString(36) will always start with a "0.", so that's like, two characters less random, amirite?
-        // this is where I hum The Eels "My Beloved Monster" (you're welcome, Jewel!)
-    }
     linkRollButtons() {
         let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc
         let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
@@ -122,7 +118,7 @@ class EffectComponent extends HTMLElement {
         // 1 - there are the same number of rollTags in shortDesc as there are in fullDesc
         // 2 - the rollTags are in the same order in each
         for (let i = 0; i < sRollTags.length; i++) { // loop through the contents of sRollTags
-            let sharedId = this.randomUnique() // for each entry pair, generate a uniqueId
+            let sharedId = shared.randomUnique(); // for each entry pair, generate a uniqueId
             sRollTags[i].setAttribute('id', `sroll-${sharedId}`); // add sroll-[SharedId] to the tag in shortDesc
             fRollTags[i].setAttribute('id', `froll-${sharedId}`); // add froll-[SharedId] to the corresponding tag in fullDesc
         }

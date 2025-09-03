@@ -6,9 +6,8 @@ import { registerFlipCoinComponent } from './flipCoinComponent.js';
 import { registerOngoingComponent } from './ongoingComponent.js';
 import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
 import { registerRollButtonComponent } from './rollButtonComponent.js';
-// pull in the base objects from index.js
-import { sourceList } from '../scripts/index.js'; // source list
-import { vengList } from '../scripts/index.js'; // vengeance list
+// pull in the shared assets
+import * as shared from '../scripts/sharedAssets.js';
 
 // import { settingsPayload } from '../scripts/index.js'; // settings
 // import { gameList } from '../scripts/index.js'; // filtered game list
@@ -355,7 +354,7 @@ class GameComponent extends HTMLElement {
         ];
     let roll = Math.floor(Math.random() * weightedVengeance.length); // roll using length in case i need to change the weighting
     let tag = weightedVengeance[roll]; // get the indexed tag
-    let pull = vengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
+    let pull = shared.vengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
     // ha ha, take that comparison operator! FU MSFT
     return `
     <div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengContent"><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div></div>`; // send back the innerHTML

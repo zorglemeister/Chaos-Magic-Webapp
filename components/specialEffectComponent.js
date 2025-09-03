@@ -10,6 +10,8 @@
 //     <div class="fullDesc hiddenPart"></div>
 // </div>
 
+import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique() and dieRoll(count, sides)
+
 class SpecialEffect extends HTMLElement {
     constructor() {
         super(); // apparently this is important?
@@ -87,21 +89,12 @@ class SpecialEffect extends HTMLElement {
         } 
         return returnBody; // should return as something that works in innerHTML
     }
-    // Here's the dice roller, because that's always nice
-    dieRoll(count, sides) {
-    let total = 0;
-    for (let i = 0; i < count; i++){
-        let roll = Math.ceil(Math.random() * sides);
-        total = total + roll;
-        }
-    return total;
-    }
 
     // Beyond this is the specific effect functions
     // each one will be called by the effect's canonical index number
     // if there's a randomized element, it should be styled to look like the rollButton
     // if rollButton can be used (for example, Zerg Rush has each player roll 2d6), use it
-    // the output format should be nearly identical to the effectComponent structure
+    // the output format should be identical to the effectComponent structure
 
     // Zerg Rush (136)
     effect136() {
@@ -123,8 +116,31 @@ class SpecialEffect extends HTMLElement {
 
     // Nuclear Launch Detected (104)
     effect104() {
-        let message = "Something Went Wrong - Jo";
-        switch (dieRoll(1,6)) {
+        // create linking ID
+        let sharedId = shared.randomUnique();
+        // create shortDesc ID
+        let shortId = `sdesc-${sharedId}`;
+        // create fullDesc ID
+        let fullId = `fdesc-${sharedId}`;
+        // create shortButton ID
+        let shortButtonId = `sbutt-${sharedId}`;
+        // create fullButton ID
+        let fullButtonId = `fbutt-${sharedId}`;
+        // set up the shortDesc
+        let shortDesc = `<div id="${shortId}" style="effectText"><button id="${shortButtonId}>&#127922; Destroy a random color.</button></div>`;
+        // set up the fullDesc
+        let fullDesc = `<div id="${fullId}" style="effectText"><button id="${fullButtonId}>&#127922; Destroy a random color.</button></div>`;
+        // create the content body
+        let effectContent = `<div class="descBlock">
+            <div class="shortDesc">${shortDesc}</div>
+            <div class="fullDesc hiddenPart">${fullDesc}</div>
+            </div>`;
+        // set up click handlers
+        
+        return message;
+    }
+    effect104click() {
+        switch (shared.dieRoll(1,6)) {
             case "1":
                 message = "Destroy all white permanents.";
             break;
@@ -143,7 +159,6 @@ class SpecialEffect extends HTMLElement {
             case "6":
                 message = "Choose a color. Destroy all permanents of chosen color.";
         }
-        return message;
     }
 }
 

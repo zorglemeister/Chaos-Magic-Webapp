@@ -1,5 +1,6 @@
-    const coinTemplate = document.createElement('template');
-    coinTemplate.innerHTML = `
+
+const coinTemplate = document.createElement('template');
+coinTemplate.innerHTML = `
     <div class="coinContainer">
     <div class="coin hiddenPart">Call It!</div>
     </div>

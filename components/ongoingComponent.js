@@ -1,3 +1,5 @@
+import * as shared from '../scripts/sharedAssets.js';
+
 // this drawer will sit on the right, with a floating button in the upper right
 // it will contain effects that haven't expired yet
 // as effects with a Round or Ongoing duration are generated, they'll need to be passed here, in addition to the History

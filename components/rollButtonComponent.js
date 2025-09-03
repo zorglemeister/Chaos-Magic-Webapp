@@ -1,3 +1,5 @@
+import * as shared from '../scripts/sharedAssets.js'; // import shared stuff (dice roller, in this case!)
+
 class RollButton extends HTMLElement {
     constructor() {
         super(); // apparently this is important?
@@ -36,7 +38,7 @@ class RollButton extends HTMLElement {
         let dieCount = parseInt(dieArray[0], 10); // use the first number as "count"
         let dieSides = parseInt(dieArray[1], 10); // use the second number as "sides"
         // hand it to the die roller and return the result as a string
-        return this.dieRoll(dieCount, dieSides).toString();
+        return shared.dieRoll(dieCount, dieSides).toString();
     }
     handleDiceWithNumber(diceNotation) {
         // okay, process...
@@ -53,7 +55,7 @@ class RollButton extends HTMLElement {
             let dieCount = parseInt(parsedDice[1], 10); // sets count to the first part, resolved as a base10 integer
             let dieSides = parseInt(parsedDice[2], 10); // sets sides to the second part
             let rollModifier = parseInt(parsedDice[3], 10); // sets modifier to the third part (should handle positive/negative so I can just add it later)
-            let rollValue = this.dieRoll(dieCount, dieSides) + rollModifier; // Ohai, die roller + modifier
+            let rollValue = shared.dieRoll(dieCount, dieSides) + rollModifier; // Ohai, die roller + modifier
             return rollValue.toString();// send it back as a string
         }
         return 'D+N Failed'; // if the structure didn't match, let me know! (whaaaaaat?! error handling?!)
@@ -93,52 +95,52 @@ class RollButton extends HTMLElement {
             case 'color':
                 // WUBRG
                 option = ['white','blue','black','red','green'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'mana type':
                 // WUBRG+colorless (chaos Sleight 321, Terrestrial Upheaval 494) OOH! have this return a <z-is> tag!
                 option = ['<z-is>w</z-is>','<z-is>u</z-is>','<z-is>b</z-is>','<z-is>r</z-is>','<z-is>g</z-is>','<z-is>c</z-is>'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'color or colourless':
                 // WUBRG+colorless (Bouncy House 187)
                 option = ['white','blue','black','red','green','colorless'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'basicland':
                 // plains, island, swamp, mountain, forest
                 option = ['plains','island','swamp','mountain','forest'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'basic+wastes':
                 // plains, island, swamp, mountain, forest, wastes
                 option = ['plains','island','swamp','mountain','forest','wastes'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'land type':
                 // plains, island, swamp, mountain, forest, nonbasic (Chaos Hack 322)
                 option = ['plains','island','swamp','mountain','forest','nonbasic land'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'any basic land':
                 // a plains, an island, a swamp, a mountain, a forest, any basic land (Flare 635)
                 option = ['a plains','an island','a swamp','a mountain','a forest','any basic land'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'landwalk':
                 // plainswalk, islandwalk, swampwalk, mountainwalk, forestwalk, nonbasic landwalk (Dicewalk 636)
                 option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','nonbasic landwalk'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'permanent':
                 // creatures, artifacts, lands, enchantments, planeswalkers (Tariff Sheriff 910)
                 option = ['creatures','artifacts','lands','enchantments','planeswalkers'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
                 break;
             case 'walk':
                 // big list... (Boots, Made for Walking 928)
                 option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','wasteswalk','nonbasic landwalk','denimwalk','snackwalk','facewalk','no cards in handwalk','snow landwalk','legendary landwalk','artifact landwalk','sagawalk','desertwalk','commanderwalk','eldraziwalk','proxywalk','energywalk','+1/+1 walk','full art landwalk','tokenwalk','shinywalk','untapped landwalk'];
-                rollValue = option[this.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length)];
         } 
         return rollValue.toString();
     }

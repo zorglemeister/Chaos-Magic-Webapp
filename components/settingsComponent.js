@@ -1,6 +1,7 @@
 // Do I need to import the help box here?
 
 import { registerHelpBoxComponent } from './helpBoxComponent.js';
+import * as shared from '../scripts/sharedAssets.js';
 
 // pull in the base objects from index.js
 // import { sourceList } from '../scripts/index.js'; // source list

@@ -12,6 +12,7 @@
 
 import { registerSettingsComponent } from '../components/settingsComponent.js';
 import { registerGameComponent } from '../components/gameComponent.js';
+import * as shared from './sharedAssets.js';
 
 // add them to the app definition here
 const app = () => {
@@ -24,51 +25,55 @@ const app = () => {
 // waits for the DOM to fully load before tripping the app components
 document.addEventListener('DOMContentLoaded', app);
 
-
-// I think I need to initalize the global objects first, THEN register the components that use them...
-
-// if I put these above the imports, it breaks everything... why?
-
-// this is where I need to declare the primary game objects, so they're at the app scope and everything else can see them, right?
-
-// sourceList <- updated by "loadJSON" function, holds the complete list source
-// set the sourceJSON location
-const filePath = 'lists/chaosList.json';
-
-// go get the file
+// ***** Make the list(s)
+// go get a file
 async function loadJSON(path) {
     const response = await fetch(path);
     return await response.json();
 }
 
-// make the list from the file (export so I can use it in the gameComponent)
-export const sourceList = await loadJSON(filePath); // the contents shouldn't change, so it's a const
+// set the sourceJSON location
+const sourcePath = 'lists/chaosList.json';
+// populate the list from the file
+
+// running into challenges updating the imported object.
+// i don't think I can assign a value directly like this
+// shared.sourceList = await loadJSON(sourcePath);
+// so i need to use .assign to overwrite the object structure
+// do i need to clear the current contents? not sure. I'll do it to be safe...
+
+async function updateSourceList() {
+    const newSourceList = await loadJSON(sourcePath); // get the file and put it into a new object
+
+    // how to clear an object?
+    // loop through properties and delete them?
+    for (let key in shared.sourceList) { // for each key in sourceList...
+        if (shared.sourceList.hasOwnProperty(key)) { // if sourceList has a property with that name (it should!)
+            delete shared.sourceList[key]; // delete that property
+        }
+    }
+
+    Object.assign(shared.sourceList, newSourceList); // target sourceList and assign the new object definition to it
+}
+// Now do it:
+updateSourceList();
+
 
 // do it again for Vengeance
 const vengPath = 'lists/chaosVengeance.json';
-// make the list from the file (export so I can use it in the gameComponent)
-export const vengList = await loadJSON(vengPath); // the contents shouldn't change, so it's a const
+// populate the list from the file
+// (this actually should use filtering on the source list to create this so it's all one original JSON)
+// shared.vengList = await loadJSON(vengPath);
 
-// settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
-export let settingsPayload = { // the contents will change, so it's a let
-    players: null, // any
-    list: null, // any
-    physical: null, // any
-    theme: null, // string
-    school: null, // any[]
-    duration: null, // any[]
-    rarity: null, // any[]
-    repetition: null, // any
-    rarityMatters: null, // any
-    vengeance: null, // any
-    minigame: null, // any
-    minigameDelay: null // any
+async function updateVengList() {
+    const newVengList = await loadJSON(vengPath); // get the file and put it into a new object
+    for (let key in shared.vengList) { // for each key in vengList...
+        if (shared.vengList.hasOwnProperty(key)) { // if vengList has a property with that name (it should!)
+            delete shared.vengList[key]; // delete that property
+        }
+    }
+    Object.assign(shared.vengList, newVengList); // target vengList and assign the new object definition to it
 }
+// Now do it:
+updateVengList();
 
-// gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
-export let gameList = null; // the contents will change, so it's a let
-
-// newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-export let newEffect = null; // the contents will change, so it's a let
-// previousEffect <- updated by new roll (game), used by ongoing
-export let previousEffect = null; // the contents will change, so it's a let
