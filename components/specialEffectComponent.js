@@ -88,7 +88,14 @@ class SpecialEffect extends HTMLElement {
         return returnBody; // should return as something that works in innerHTML
     }
     // Here's the dice roller, because that's always nice
-
+    dieRoll(count, sides) {
+    let total = 0;
+    for (let i = 0; i < count; i++){
+        let roll = Math.ceil(Math.random() * sides);
+        total = total + roll;
+        }
+    return total;
+    }
 
     // Beyond this is the specific effect functions
     // each one will be called by the effect's canonical index number
