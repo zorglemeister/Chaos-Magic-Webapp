@@ -22,7 +22,7 @@ effectTemplate.innerHTML = `
     <div class="effectName"></div>
     <div class="displayNum"></div>
     <div class="descDetails">
-        <div class="descBlock">
+        <div class="descBlock"> <!-- this gets replaced by special effects -->
             <div class="shortDesc"></div>
             <div class="fullDesc hiddenPart"></div>
         </div>
@@ -34,9 +34,13 @@ effectTemplate.innerHTML = `
 `
 
 // handling flow:
-// receive effect data from randomizer
+// receive effect data from randomizer (HOW?)
 // check for and call any special effects
 // put the effect data into the template
+
+// can the randomizer add <z-eff>[CanonicalId]</z-eff> to the activeContainer and then this use that to go pull the effect from the list?
+// that might work pretty well, the randomizer can maintain its own array of active effects and pop(norepeats) from that list as needed?
+
 
 // generate a unique ID for the effectContainer div
 // this will facilitate reparenting it between active and history
@@ -47,10 +51,13 @@ effectTemplate.innerHTML = `
 
 // this way, the specialEffect payload can be used for the whole "descBlock", and I don't have to write two functions (one for each return)
 
-// replacement syntax for specialEffect
+// replacement syntax for specialEffect   ****** REVISITING THIS
 // insertSpecial(specFunc) {
 // this.getElementsByClassName("descBlock")[0].innerHTML = special.specFunc();
 // }
+// *** CHECK THIS VVV
+// I think it needs to check specFunc (boolean) and if true, it replaces descBlock with the shortDesc content
+// This'll let the specialEffectComponent re-render the descBlock with its work
 
 // scope challenge for effects that reference other effects (like "roll twice" or "repeat last"):
 // how do I allow the specialEffect function to reference the effect generator and the effect history?
@@ -70,6 +77,9 @@ class EffectComponent extends HTMLElement {
         effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${this.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
         // might be worth pulling this into a higher-scope method
+
+        // If specFunc is true
+
         this.append(effectContent); // sticks the updated copy in the DOM
 
         this.render(); // render it...
@@ -80,7 +90,12 @@ class EffectComponent extends HTMLElement {
         // get the generatedEffect
 
         // put the pieces of the generated effect into the template contents
-
+        
+        // Jo Raises Their Hand... "I HAS QUESTION!"
+        // Will this handle the output of a specialEffectComponent smoothly?
+        // because we're putting the effect content into the DOM during connectedCallback...
+        // I think that means any included rollButtons will get flagged correctly
+        // WE'LL SURE FIND OUT
 
         let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
         for (let rollTag of rollTags) { // loop through them and add an event handler on update

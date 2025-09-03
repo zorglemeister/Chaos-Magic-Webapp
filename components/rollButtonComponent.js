@@ -137,7 +137,7 @@ class RollButton extends HTMLElement {
                 break;
             case 'walk':
                 // big list... (Boots, Made for Walking 928)
-                option = ['white','blue','black','red','green','colorless'];
+                option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','wasteswalk','nonbasic landwalk','denimwalk','snackwalk','facewalk','no cards in handwalk','snow landwalk','legendary landwalk','artifact landwalk','sagawalk','desertwalk','commanderwalk','eldraziwalk','proxywalk','energywalk','+1/+1 walk','full art landwalk','tokenwalk','shinywalk','untapped landwalk'];
                 rollValue = option[this.dieRoll(1,option.length)];
         } 
         return rollValue.toString();

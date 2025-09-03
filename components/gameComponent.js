@@ -286,7 +286,7 @@ class GameComponent extends HTMLElement {
     
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
-        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}! Do the inline symbols work? <z-is>wubrg</z-is> and for an effect: <z-is>1</z-is>, <z-is>t</z-is>: do a thing! Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb> <z-rb>color</z-rb> inline, as well as flipping a coin.<z-fc></z-fc></div>`;
+        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}! Do the inline symbols work? <z-is>WUBRG</z-is> and for an effect: <z-is>1</z-is>, <z-is>T</z-is>: do a thing! MORE! <z-is>TXICS0123EEEE</z-is> Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb> <z-rb>color</z-rb> inline, as well as flipping a coin.<z-fc></z-fc></div>`;
         // increment minigameTimer
     }
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
