@@ -35,6 +35,37 @@ export let previousEffect = null;
 
 // Here there be functions!
 
+// Build the lists
+async function loadJSON(path) {
+    const response = await fetch(path);
+    return await response.json();
+}
+// sourceList
+export async function updateSourceList(sourcePath) {
+    const newSourceList = await loadJSON(sourcePath); // get the file and put it into a new object
+
+    // how to clear an object?
+    // loop through properties and delete them?
+    for (let key in sourceList) { // for each key in sourceList...
+        if (sourceList.hasOwnProperty(key)) { // if sourceList has a property with that name (it should!)
+            delete sourceList[key]; // delete that property
+        }
+    }
+
+    Object.assign(sourceList, newSourceList); // target sourceList and assign the new object definition to it
+}
+// vengList
+export async function updateVengList(vengPath) {
+    const newVengList = await loadJSON(vengPath); // get the file and put it into a new object
+    for (let key in vengList) { // for each key in vengList...
+        if (vengList.hasOwnProperty(key)) { // if vengList has a property with that name (it should!)
+            delete vengList[key]; // delete that property
+        }
+    }
+    Object.assign(vengList, newVengList); // target vengList and assign the new object definition to it
+}
+
+
 // The dice roller!
 export function dieRoll(count, sides) {
     let total = 0;
@@ -52,3 +83,8 @@ export function randomUnique() {
         // sliced because the Math.random().toString(36) will always start with a "0.", so that's like, two characters less random, amirite?
         // this is where I hum The Eels "My Beloved Monster" (you're welcome, Jewel!)
     }
+
+// *** OOH! I need to put the effect builder/randomizer in here!
+function buildWeighted() { // lets try it with Vengeance first as POC
+//    for each shared.vengList.effects
+}
