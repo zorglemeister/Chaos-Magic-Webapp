@@ -249,6 +249,7 @@ class GameComponent extends HTMLElement {
         this.show(controlContainer);
         this.show(historyDrawer);
         // call list generator
+        shared.buildVengWeighted(); // make the weighted vengeance array
         // reset Gamestate Counters
         this.initializeGame();
     }
@@ -343,18 +344,30 @@ class GameComponent extends HTMLElement {
     //    return `<div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div>`; // send back the innerHTML
     // nah, eff that crap... lets build a weighted array of the tag values...
 
-    const weightedVengeance = [
-        'retribution', // 1
-        'poke', 'poke', // 2-3
-        'reinforce', 'reinforce', // 4-5
-        'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', // hopefully I've got ten of these for 6-15
-        'inspire', 'inspire', // 16-17
-        'life', 'life', // 18-19
-        'phoenix' // 20
-        ];
-    let roll = Math.floor(Math.random() * weightedVengeance.length); // roll using length in case i need to change the weighting
-    let tag = weightedVengeance[roll]; // get the indexed tag
-    let pull = shared.vengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
+    // swapping these out for the weightedVeng generated in sharedAssets
+    // **const weightedVengeance = [
+    //    'retribution', // 1
+    //    'poke', 'poke', // 2-3
+    //    'reinforce', 'reinforce', // 4-5
+    //    'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', // hopefully I've got ten of these for 6-15
+    //    'inspire', 'inspire', // 16-17
+    //    'life', 'life', // 18-19
+    //    'phoenix' // 20
+    //    ];
+    // ** let roll = Math.floor(Math.random() * weightedVengeance.length); // roll using length in case i need to change the weighting
+    // **let tag = weightedVengeance[roll]; // get the indexed tag
+
+    // using weightedVeng
+    shared.updateWeightedVeng(); // call the vengweight setter
+    const localWeightedVeng = shared.getWeightedVeng(); // call the vengweight getter
+    console.log(`localWeightedVeng: ${localWeightedVeng.length}`);
+    let roll = Math.floor(Math.random() * localWeightedVeng.length);
+    console.log(`Veng Roll: ${roll}`);
+    let tag = localWeightedVeng[roll];
+    console.log(`Veng tag: ${tag}`);
+    const localVengList = shared.getVengList(); // call the venglist getter
+    let pull = localVengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
+    console.log(`Veng pull: ${pull}`);
     // ha ha, take that comparison operator! FU MSFT
     return `
     <div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengContent"><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div></div>`; // send back the innerHTML

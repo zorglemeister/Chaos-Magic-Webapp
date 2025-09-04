@@ -3,11 +3,9 @@
 // anything in /components will use
 // import * as shared from '../scripts/sharedAssets.js';
 
-// sourceList <- raw effect data source
-export let sourceList = {};
 
-// vengList <- vengeance effect data source
-export let vengList = {};
+
+
 
 // settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
 export let settingsPayload = {
@@ -40,7 +38,14 @@ async function loadJSON(path) {
     const response = await fetch(path);
     return await response.json();
 }
-// sourceList
+
+// sourceList <- raw effect data source
+let sourceList = {};
+// sourceList Getter
+export function getSourceList() {
+    return sourceList;
+}
+// sourceList Setter
 export async function updateSourceList(sourcePath) {
     const newSourceList = await loadJSON(sourcePath); // get the file and put it into a new object
 
@@ -54,7 +59,14 @@ export async function updateSourceList(sourcePath) {
 
     Object.assign(sourceList, newSourceList); // target sourceList and assign the new object definition to it
 }
-// vengList
+
+// vengList <- vengeance effect data source
+let vengList = {};
+// vengList Getter
+export function getVengList() {
+    return vengList;
+}
+// vengList Setter
 export async function updateVengList(vengPath) {
     const newVengList = await loadJSON(vengPath); // get the file and put it into a new object
     for (let key in vengList) { // for each key in vengList...
@@ -69,7 +81,7 @@ export async function updateVengList(vengPath) {
 // The dice roller!
 export function dieRoll(count, sides) {
     let total = 0;
-    for (let i = 0; i < count; i++){
+    for (let i = 0; i < count; i++) {
         let roll = Math.ceil(Math.random() * sides);
         total = total + roll;
         }
@@ -85,6 +97,20 @@ export function randomUnique() {
     }
 
 // *** OOH! I need to put the effect builder/randomizer in here!
-function buildWeighted() { // lets try it with Vengeance first as POC
-//    for each shared.vengList.effects
+
+// lets try it with Vengeance first as POC
+// initialize weighted Vengeance array
+let weightedVeng = [];
+// this is called a "getter" (watch Jo learn common concepts!)
+export function getWeightedVeng() {
+    return weightedVeng;
+}
+// this is called a "setter". it modifies the array
+// (specifically, populates it with entries = key * weight)
+export function updateWeightedVeng() { 
+    for (let effect in vengList.effects) { // for each effect...
+        for (let i = 0; i < effect.weight; i++) { // for the "weight"...
+            weightedVeng.push(effect.effectName); // add the effectName to the array
+        } // This should create an array where each effectName shows up a number of times equal to the weight value
+    }
 }
