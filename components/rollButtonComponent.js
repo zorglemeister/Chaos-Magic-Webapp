@@ -95,52 +95,52 @@ class RollButton extends HTMLElement {
             case 'color':
                 // WUBRG
                 option = ['white','blue','black','red','green'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
             case 'mana type':
                 // WUBRG+colorless (chaos Sleight 321, Terrestrial Upheaval 494) OOH! have this return a <z-is> tag!
                 option = ['<z-is>w</z-is>','<z-is>u</z-is>','<z-is>b</z-is>','<z-is>r</z-is>','<z-is>g</z-is>','<z-is>c</z-is>'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
-            case 'color or colourless':
+            case 'color or colorless':
                 // WUBRG+colorless (Bouncy House 187)
                 option = ['white','blue','black','red','green','colorless'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
-            case 'basicland':
+            case 'basic land':
                 // plains, island, swamp, mountain, forest
                 option = ['plains','island','swamp','mountain','forest'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
-            case 'basic+wastes':
+            case 'basic and wastes':
                 // plains, island, swamp, mountain, forest, wastes
                 option = ['plains','island','swamp','mountain','forest','wastes'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
             case 'land type':
                 // plains, island, swamp, mountain, forest, nonbasic (Chaos Hack 322)
                 option = ['plains','island','swamp','mountain','forest','nonbasic land'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
             case 'any basic land':
                 // a plains, an island, a swamp, a mountain, a forest, any basic land (Flare 635)
                 option = ['a plains','an island','a swamp','a mountain','a forest','any basic land'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
             case 'landwalk':
                 // plainswalk, islandwalk, swampwalk, mountainwalk, forestwalk, nonbasic landwalk (Dicewalk 636)
                 option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','nonbasic landwalk'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
             case 'permanent':
                 // creatures, artifacts, lands, enchantments, planeswalkers (Tariff Sheriff 910)
                 option = ['creatures','artifacts','lands','enchantments','planeswalkers'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
                 break;
             case 'walk':
                 // big list... (Boots, Made for Walking 928)
                 option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','wasteswalk','nonbasic landwalk','denimwalk','snackwalk','facewalk','no cards in handwalk','snow landwalk','legendary landwalk','artifact landwalk','sagawalk','desertwalk','commanderwalk','eldraziwalk','proxywalk','energywalk','+1/+1 walk','full art landwalk','tokenwalk','shinywalk','untapped landwalk'];
-                rollValue = option[shared.dieRoll(1,option.length)];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
         } 
         return rollValue.toString();
     }

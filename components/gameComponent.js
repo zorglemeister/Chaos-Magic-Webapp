@@ -240,16 +240,12 @@ class GameComponent extends HTMLElement {
     settingsUpdatedHandler() {
         // hide welcomeModal (no effect if past initial state)
         this.hide(welcomeModal);
-        // wipe active effect
-        activeContainer.innerHTML = '';
-        // wipe history
-        historyContainer.innerHTML = '<div class="histGameStart">Game Start</div>';
+        
         // activate game controls (no effect is past initial state)
         this.show(visiblePart);
         this.show(controlContainer);
         this.show(historyDrawer);
-        // call list generator
-        shared.buildVengWeighted(); // make the weighted vengeance array
+        
         // reset Gamestate Counters
         this.initializeGame();
     }
@@ -267,8 +263,14 @@ class GameComponent extends HTMLElement {
         this.hide(welcomeModal);
     }
     initializeGame() {
-        rollCounter = 0;
-        minigameCounter = 0;
+        // call list generator
+        shared.updateWeightedVeng(); // make the weighted vengeance array  *** Move this after POC
+        // wipe active effect
+        activeContainer.innerHTML = '';
+        // wipe history
+        historyContainer.innerHTML = '<div class="histGameStart">Game Start</div>';
+        shared.setRollCounter(0);
+        shared.setMinigameCounter(0);
     }
     // GAME CONTROLS -----------------------
     rollClick() { // assuming one click per player turn
@@ -276,7 +278,7 @@ class GameComponent extends HTMLElement {
         const newRoll = new Event('newRoll');
         window.dispatchEvent(newRoll);
         // increment rollCounter
-        rollCounter++;
+        shared.setRollCounter(shared.getRollCounter() + 1);
         // poke the randomizer to update generatedEffect
         // this.randomizer
         // move the current active effect to history
@@ -286,12 +288,15 @@ class GameComponent extends HTMLElement {
     
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
-        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${rollCounter}! Do the inline symbols work? <z-is>WUBRG</z-is> and for an effect: <z-is>1</z-is>, <z-is>T</z-is>: do a thing! MORE! <z-is>TXICS0123EEEE</z-is> Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb> <z-rb>color</z-rb> inline, as well as flipping a coin.<z-fc></z-fc></div>`;
+        // ** CURRENTLY A PLACEHOLDER FOR TESTING
+        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${shared.getRollCounter()}! Do the inline symbols work? <z-is>WUBRG</z-is> and for an effect: <z-is>1</z-is>, <z-is>T</z-is>: do a thing! MORE! <z-is>TXICS0123EEEE</z-is> Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb>, <z-rb>color</z-rb>, <z-rb>mana type</z-rb>, <z-rb>color or colorless</z-rb>, <z-rb>basic land</z-rb>, <z-rb>basic and wastes</z-rb>, <z-rb>land type</z-rb>, <z-rb>any basic land</z-rb>, <z-rb>landwalk</z-rb>, <z-rb>permanent</z-rb>, <z-rb>walk</z-rb> inline.</div>`;
+        // took out "as well as flipping a coin.<z-fc></z-fc>" until I'm ready to dive in to troubleshooting that...
         // increment minigameTimer
+        shared.setMinigameCounter(shared.getMinigameCounter() + 1);
     }
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
-        const activeEffect = activeContainer.firstChild; // get the first (and only) div in the active container
-        historyContainer.insertBefore(activeEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
+        const moveEffect = activeContainer.firstChild; // get the first (and only) div in the active container
+        historyContainer.insertBefore(moveEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
     }
     vengeanceClick() {
         // poke the vengeanceRandomizer
@@ -301,48 +306,6 @@ class GameComponent extends HTMLElement {
         this.show(vengeanceModal);
     }
     vengRand() {
-    //    let roll = Math.ceil(Math.random() * 20); // roll!
-    //    let tag = 'fizzle'; // base tag (in case something goes wrong)
-    //    switch (roll) { // i feel like there's gotta be a better way to do this...
-    //        case 1:
-    //            tag = 'retribution';
-    //            break;
-    //        case 2:
-    //        case 3:
-    //            tag = 'poke';
-    //            break;
-    //        case 4:
-    //        case 5:
-    //            tag = 'reinforce';
-    //            break;
-    //        case 6:
-    //        case 7:
-    //        case 8:
-    //        case 9:
-    //        case 10:
-    //        case 11:
-    //        case 12:
-    //        case 13:
-    //        case 14:
-    //        case 15:
-    //            tag = 'fizzle';
-    //            break;
-    //        case 16:
-    //        case 17:
-    //            tag = 'inspire';
-    //            break;
-    //        case 18:
-    //        case 19:
-    //            tag = 'life';
-    //            break;
-    //        case 20:
-    //            tag = 'phoenix';
-    //    }
-    //    let pull = vengList.filter(obj => {
-    //        return (obj.toLowerCase(effectName).includes(tag)) // go get the tag by filtering the list?
-    //    })
-    //    return `<div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div>`; // send back the innerHTML
-    // nah, eff that crap... lets build a weighted array of the tag values...
 
     // swapping these out for the weightedVeng generated in sharedAssets
     // **const weightedVengeance = [
@@ -373,17 +336,17 @@ class GameComponent extends HTMLElement {
     <div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengContent"><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div></div>`; // send back the innerHTML
     }
     closeVengeanceClick() {
+        if (vengeanceContent.firstChild) {
+            this.moveVengeanceToHistory();
+        }
         // hide the vengeanceModal
         this.hide(vengeanceModal);
         // move the effect to the History list
-        this.moveVengeanceToHistory();
+        // this.moveVengeanceToHistory();
     }
     moveVengeanceToHistory() { // here's moving the vengeance effect to the top of the history section:
-        const vengEffect = vengeanceContent.firstChild; // get the first (and only) div in the vengeance container
-        console.log('Moving element: ', vengEffect);
-        console.log('Old parent: ', vengEffect.parentNode);
-        historyContainer.insertBefore(vengEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
-        console.log('New parent: ', vengEffect.parentNode);
+        const moveEffect = vengeanceContent.firstChild; // get the first (and only) div in the vengeance container
+        historyContainer.insertBefore(moveEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
     }
     minigameClick() {
         // poke the minigameRandomizer

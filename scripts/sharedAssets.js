@@ -3,12 +3,28 @@
 // anything in /components will use
 // import * as shared from '../scripts/sharedAssets.js';
 
+// define
+// let thing = null/[]/{};
+// get
+// export function getThing() {
+//    return thing;
+// }
+// set
+// export function setThing(value) {
+//    thing = value;
+// }
+// update
+// export function updateThing(value) {
+//    // complicated make the thing stuff
+// }
 
 
 
+// ***
+// HERE BE THINGS THAT ARE SET/GET
 
-// settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
-export let settingsPayload = {
+// define settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
+let settingsPayload = {
     players: null, // any
     list: null, // any
     physical: null, // any
@@ -22,30 +38,98 @@ export let settingsPayload = {
     minigame: null, // any
     minigameDelay: null // any
 }
+// get settingsPayload
+export function getSettingsPayload() {
+    return settingsPayload;
+}
+// set settingsPayload
+export function setSettingsPayload(newSettings) {
+    settingsPayload = newSettings;
+}
 
-// gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
-export let gameList = null;
+// define gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
+let gameList = {};
+// get gameList
+export function getGameList() {
+    return gameList;
+}
+// set gameList
+export function setGameList(newGameList) {
+    gameList = newGameList;
+}
 
-// newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-export let newEffect = null;
-// previousEffect <- updated by new roll (game), used by ongoing
-export let previousEffect = null;
+// define newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
+let newEffect = {};
+// get newEffect
+export function getNewEffect() {
+    return newEffect;
+}
+// set newEffect
+export function setNewEffect(newNewEffect) {
+    newEffect = newNewEffect;
+}
 
-// Here there be functions!
+// define previousEffect <- updated by new roll (game), used by ongoing
+let previousEffect = null;
+// get previousEffect
+export function getPreviousEffect() {
+    return previousEffect;
+}
+// set previousEffect
+export function setPreviousEffect(newPreviousEffect) {
+    previousEffect = newPreviousEffect;
+}
 
-// Build the lists
+// define rollCounter
+let rollCounter = null;
+// get rollCounter
+export function getRollCounter() {
+    return rollCounter;
+}
+// set rollCounter
+export function setRollCounter(newRollCounter) {
+    rollCounter = newRollCounter;
+}
+
+// define minigameCounter
+let minigameCounter = null;
+// get minigameCounter
+export function getMinigameCounter() {
+    return minigameCounter;
+}
+// set minigameCounter
+export function setMinigameCounter(newMinigameCounter) {
+    minigameCounter = newMinigameCounter;
+}
+
+// define activePlayers
+let activePlayers = null;
+// get activePlayers
+export function getActivePlayers() {
+    return activePlayers;
+}
+// set activePlayers
+export function setActivePlayers(newActivePlayers) {
+    activePlayers = newActivePlayers;
+}
+
+
+// ***
+// HERE BE THINGS THAT ARE FANCY
+
+// fetch a file
 async function loadJSON(path) {
     const response = await fetch(path);
     return await response.json();
 }
 
-// sourceList <- raw effect data source
+// define sourceList
 let sourceList = {};
-// sourceList Getter
+// get sourceList
 export function getSourceList() {
     return sourceList;
 }
-// sourceList Setter
+// update sourceList
 export async function updateSourceList(sourcePath) {
     const newSourceList = await loadJSON(sourcePath); // get the file and put it into a new object
 
@@ -60,13 +144,13 @@ export async function updateSourceList(sourcePath) {
     Object.assign(sourceList, newSourceList); // target sourceList and assign the new object definition to it
 }
 
-// vengList <- vengeance effect data source
+// define vengList
 let vengList = {};
-// vengList Getter
+// get vengList
 export function getVengList() {
     return vengList;
 }
-// vengList Setter
+// update vengList
 export async function updateVengList(vengPath) {
     const newVengList = await loadJSON(vengPath); // get the file and put it into a new object
     for (let key in vengList) { // for each key in vengList...
@@ -77,6 +161,23 @@ export async function updateVengList(vengPath) {
     Object.assign(vengList, newVengList); // target vengList and assign the new object definition to it
 }
 
+// define weightedVeng
+let weightedVeng = [];
+// get weightedVeng
+export function getWeightedVeng() {
+    return weightedVeng;
+}
+// update weightedVeng (specifically, populates it with entries = key * weight)
+export function updateWeightedVeng() { 
+    for (let effect in vengList.effects) { // for each effect...
+        for (let i = 0; i < effect.weight; i++) { // for the "weight"...
+            weightedVeng.push(effect.effectName); // add the effectName to the array
+        } // This should create an array where each effectName shows up a number of times equal to the weight value
+    }
+}
+
+// ***
+// HERE BE SUPPORTING FUNCTIONS
 
 // The dice roller!
 export function dieRoll(count, sides) {
@@ -95,22 +196,3 @@ export function randomUnique() {
         // sliced because the Math.random().toString(36) will always start with a "0.", so that's like, two characters less random, amirite?
         // this is where I hum The Eels "My Beloved Monster" (you're welcome, Jewel!)
     }
-
-// *** OOH! I need to put the effect builder/randomizer in here!
-
-// lets try it with Vengeance first as POC
-// initialize weighted Vengeance array
-let weightedVeng = [];
-// this is called a "getter" (watch Jo learn common concepts!)
-export function getWeightedVeng() {
-    return weightedVeng;
-}
-// this is called a "setter". it modifies the array
-// (specifically, populates it with entries = key * weight)
-export function updateWeightedVeng() { 
-    for (let effect in vengList.effects) { // for each effect...
-        for (let i = 0; i < effect.weight; i++) { // for the "weight"...
-            weightedVeng.push(effect.effectName); // add the effectName to the array
-        } // This should create an array where each effectName shows up a number of times equal to the weight value
-    }
-}
