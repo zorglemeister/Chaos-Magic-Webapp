@@ -7,8 +7,7 @@ z-fc .coinContainer {
     width: 210px;
     position: fixed;
     top: calc(50% - 105px);
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: calc(50% - 105px);
     perspective: 1000px;
     background-color: rgba(0,0,150,0.5);
     margin: 0;
