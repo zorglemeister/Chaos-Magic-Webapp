@@ -323,14 +323,10 @@ class GameComponent extends HTMLElement {
     // using weightedVeng
     shared.updateWeightedVeng(); // call the vengweight setter
     const localWeightedVeng = shared.getWeightedVeng(); // call the vengweight getter
-    console.log(`localWeightedVeng: ${localWeightedVeng.length}`);
     let roll = Math.floor(Math.random() * localWeightedVeng.length);
-    console.log(`Veng Roll: ${roll}`);
     let tag = localWeightedVeng[roll];
-    console.log(`Veng tag: ${tag}`);
     const localVengList = shared.getVengList(); // call the venglist getter
-    let pull = localVengList.effects.find(effect => effect.effectName.toLowerCase() === tag); //get the matching entry from vengList
-    console.log(`Veng pull: ${pull}`);
+    let pull = localVengList.effects.find((effect) => effect.effectName === tag); //get the matching entry from vengList
     // ha ha, take that comparison operator! FU MSFT
     return `
     <div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengContent"><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div></div>`; // send back the innerHTML
@@ -345,8 +341,8 @@ class GameComponent extends HTMLElement {
         // this.moveVengeanceToHistory();
     }
     moveVengeanceToHistory() { // here's moving the vengeance effect to the top of the history section:
-        const moveEffect = vengeanceContent.firstChild; // get the first (and only) div in the vengeance container
-        historyContainer.insertBefore(moveEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
+        const moveEffect = vengeanceContent.firstElementChild; // get the first (and only) div in the vengeance container
+        historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
     minigameClick() {
         // poke the minigameRandomizer
