@@ -505,6 +505,8 @@ class SettingsComponent extends HTMLElement {
         console.log(customPayload);
         // set settingsPayload
         shared.setSettingsPayload(customPayload);
+        // update the gameList
+        shared.updateGameList();
         // Send the "settings updated" event
         const settingsUpdated = new Event('settingsUpdate');
         window.dispatchEvent(settingsUpdated);
