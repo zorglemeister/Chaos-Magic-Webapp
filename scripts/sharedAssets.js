@@ -180,7 +180,7 @@ let gameList = {};
 export function getGameList() {
     return gameList;
 }
-// set gameList -- used when weighted to pop entries out
+// set gameList
 export function setGameList(newGameList) {
     gameList = newGameList;
 }
@@ -205,6 +205,11 @@ function clearGameList() {
     }
     console.log(`Game List Cleared.`);
 }
+// return random element from gameList
+function getRandFromGameList() {}
+// return random element from gameList (destructive with slice)
+function getSlicedRandFromGameList() {}
+
 
 // settingsPayload = {
 //    players:

@@ -371,71 +371,37 @@ class SettingsComponent extends HTMLElement {
     setGameControlVisibility() { // configListSelect action
         switch (configListSelect.options.selectedIndex) {
             case 0: // Micro
-                vengeanceDiv.style.display = "block";
-                minigameDiv.style.display = "block";
-                themeDiv.style.display = "none";
-                schoolDiv.style.display = "none";
-                durationDiv.style.display = "none";
-                rarityDiv.style.display = "none";
-                mattersDiv.style.display = "none";
-                repetitionDiv.style.display = "none";
+                this.hide([themeDiv,schoolDiv,durationDiv,rarityDiv,mattersDiv,repetitionDiv]);
+                this.show([vengeanceDiv,minigameDiv]);
                 break;
             case 1: // Lite
-                vengeanceDiv.style.display = "block";
-                minigameDiv.style.display = "block";
-                themeDiv.style.display = "none";
-                schoolDiv.style.display = "none";
-                durationDiv.style.display = "none";
-                rarityDiv.style.display = "none";
-                mattersDiv.style.display = "none";
-                repetitionDiv.style.display = "block";
+                this.hide([themeDiv,schoolDiv,durationDiv,rarityDiv,mattersDiv]);
+                this.show([vengeanceDiv,minigameDiv,repetitionDiv]);
                 break;
             case 2: // Exemplar
-                vengeanceDiv.style.display = "block";
-                minigameDiv.style.display = "block";
-                themeDiv.style.display = "block";
-                schoolDiv.style.display = "none";
-                durationDiv.style.display = "none";
-                rarityDiv.style.display = "none";
-                mattersDiv.style.display = "none";
-                repetitionDiv.style.display = "block";
+                this.hide([schoolDiv,durationDiv,rarityDiv,mattersDiv]);
+                this.show([vengeanceDiv,minigameDiv,themeDiv,repetitionDiv]);
                 break;
             case 3: // Legacy
-                vengeanceDiv.style.display = "block";
-                minigameDiv.style.display = "none";
-                themeDiv.style.display = "none";
-                schoolDiv.style.display = "none";
-                durationDiv.style.display = "none";
-                rarityDiv.style.display = "none";
-                mattersDiv.style.display = "none";
-                repetitionDiv.style.display = "block";
+                this.hide([minigameDiv,themeDiv,schoolDiv,durationDiv,rarityDiv,mattersDiv]);
+                this.show([vengeanceDiv,repetitionDiv]);
                 break;
             case 4: // Full
-                vengeanceDiv.style.display = "block";
-                minigameDiv.style.display = "none";
-                themeDiv.style.display = "none";
-                schoolDiv.style.display = "none";  
-                durationDiv.style.display = "none";
-                rarityDiv.style.display = "none";
-                mattersDiv.style.display = "none";
-                repetitionDiv.style.display = "block";
+                this.hide([minigameDiv,themeDiv,schoolDiv,durationDiv,rarityDiv,mattersDiv]);
+                this.show([vengeanceDiv,repetitionDiv]);
                 break;
             case 5: // Custom
-                vengeanceDiv.style.display = "block";
-                minigameDiv.style.display = "block";
-                themeDiv.style.display = "none";
-                schoolDiv.style.display = "block";
-                durationDiv.style.display = "block";
-                rarityDiv.style.display = "block";
-                mattersDiv.style.display = "block";
-                repetitionDiv.style.display = "block";
+                this.hide([themeDiv]);
+                this.show([vengeanceDiv,minigameDiv,schoolDiv,durationDiv,rarityDiv,mattersDiv,repetitionDiv]);
         }
     }
     setMinigameDelayVisibility() { // configMinigame action
         if (configMinigame.checked === true) {
-            delayDiv.classList.add("hiddenPart");
+            this.hide([delayDiv]);
+            /* delayDiv.classList.add("hiddenPart"); */
         } else {
-            delayDiv.classList.remove("hiddenPart");
+            this.show([delayDiv]);
+            /* delayDiv.classList.remove("hiddenPart"); */
         }
     }
     selectAll(allCheck, selectName) { // Reusable selectAll/unselect for ALL checkboxes
@@ -513,6 +479,21 @@ class SettingsComponent extends HTMLElement {
         // hide Update Modal and close Settings drawer
         updateModal.classList.toggle('hiddenPart');
         this.drawerToggleAction();
+    }
+    // Utility! -----------------------
+    hide(elementArray) {
+        for (const element of elementArray) {
+            if (!element.classList.contains('hiddenPart')) {
+                element.classList.add('hiddenPart');
+            }
+        }
+    }
+    show(elementArray) {
+        for (const element of elementArray) {
+            if (element.classList.contains('hiddenPart')) {
+                element.classList.remove('hiddenPart');
+            }
+        }
     }
 }
 

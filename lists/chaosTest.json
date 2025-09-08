@@ -1,0 +1,227 @@
+{
+    "effects": [
+        {
+            "effectName": "duel, TRUE, exemplar [main}, custom, Abjuration, Instant, common",
+            "shortDesc": "Short Description with a rollButton: <z-rb>1d6</z-rb>",
+            "fullDesc": "Full Description with a rollButton: <z-rb>1d6</z-rb>",
+            "indexNum": 1,
+            "displayNum": "012",
+            "player": "duel",
+            "accessible": "TRUE",
+            "inclusion": [
+                "exemplar",
+                "custom"
+            ],
+            "exemplarTheme": "main",
+            "school": [
+                "Abjuration"
+            ],
+            "duration": "Instant",
+            "rarity": "common",
+            "component": "",
+            "inspiration": "Dave H",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "multi, TRUE, lite, custom, Chronomancy, Instant, common",
+            "shortDesc": "Short Description with inlineSymbol: <z-is>WUBRG</z-is>",
+            "fullDesc": "Full Description with inlineSymbol: <z-is>WUBRG</z-is>",
+            "indexNum": 2,
+            "displayNum": "123",
+            "player": "multi",
+            "accessible": "TRUE",
+            "inclusion": [
+                "lite",
+                "custom"
+            ],
+            "exemplarTheme": "",
+            "school": [
+                "Chronomancy"
+            ],
+            "duration": "Instant",
+            "rarity": "common",
+            "component": "Reminder",
+            "inspiration": "CJ H",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "duel, FALSE, lite, custom, Conjuration, Instant, uncommon",
+            "shortDesc": "Short Description with two rollButtons: <z-rb>1d6</z-rb> and <z-rb>2d4+3</z-rb>",
+            "fullDesc": "Full Description with two rollButtons: <z-rb>1d6</z-rb> and <z-rb>2d4+3</z-rb>",
+            "indexNum": 3,
+            "displayNum": "234",
+            "player": "duel",
+            "accessible": "FALSE",
+            "inclusion": [
+                "lite",
+                "custom"
+            ],
+            "exemplarTheme": "",
+            "school": [
+                "Conjuration"
+            ],
+            "duration": "Instant",
+            "rarity": "uncommon",
+            "component": "",
+            "inspiration": "Aelwynn H",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "duel, TRUE, legacy, custom, Divination, Instant, rare",
+            "shortDesc": "Short Description: Until the start of your next turn, the casting cost of all spells is reduced by <z-is>1</z-is>.",
+            "fullDesc": "Full Description: Until the start of your next turn, the casting cost of all spells is reduced by <z-is>1</z-is>.",
+            "indexNum": 4,
+            "displayNum": "345",
+            "player": "duel",
+            "accessible": "TRUE",
+            "inclusion": [
+                "legacy",
+                "custom"
+            ],
+            "exemplarTheme": "",
+            "school": [
+                "Divination"
+            ],
+            "duration": "Instant",
+            "rarity": "rare",
+            "component": "Reminder",
+            "inspiration": "David C",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "multi, TRUE, exemplar [main], custom, Enchantment, Turn, common",
+            "shortDesc": "Short Description with a coinFlip: <z-fc></z-fc>",
+            "fullDesc": "Full Description with a coinFlip: <z-fc></z-fc>",
+            "indexNum": 5,
+            "displayNum": "456",
+            "player": "multi",
+            "accessible": "TRUE",
+            "inclusion": [
+                "exemplar",
+                "custom"
+            ],
+            "exemplarTheme": "main",
+            "school": [
+                "Enchantment"
+            ],
+            "duration": "Turn",
+            "rarity": "common",
+            "component": "",
+            "inspiration": "",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "duel, TRUE, exemplar [tokenizer], custom, Evocation, Turn, uncommon",
+            "shortDesc": "All creatures gain +2/+0 when attacking until end of turn.",
+            "fullDesc": "All creatures gain +2/+0 when attacking until end of turn.",
+            "indexNum": 6,
+            "displayNum": "567",
+            "player": "duel",
+            "accessible": "TRUE",
+            "inclusion": [
+                "exemplar",
+                "custom"
+            ],
+            "exemplarTheme": "tokenizer",
+            "school": [
+                "Evocation"
+            ],
+            "duration": "Turn",
+            "rarity": "uncommon",
+            "component": "",
+            "inspiration": "Dave H",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "duel, FALSE, micro, custom, Divination, Illusion, Turn, rare",
+            "shortDesc": "Choose an unchosen opponent. Look at the top three cards of their library and put them back in any order. That opponent may copy this effect and choose a new unchosen player.",
+            "fullDesc": "Choose an unchosen opponent. Look at the top three cards of their library and put them back in any order. That opponent may copy this effect and choose a new unchosen player.",
+            "indexNum": 7,
+            "displayNum": "678",
+            "player": "duel",
+            "accessible": "FALSE",
+            "inclusion": [
+                "micro",
+                "custom"
+            ],
+            "exemplarTheme": "",
+            "school": [
+                "Divination",
+                "Illusion"
+            ],
+            "duration": "Turn",
+            "rarity": "rare",
+            "component": "",
+            "inspiration": "",
+            "specFunc": "TRUE"
+        },
+        {
+            "effectName": "duel, TRUE, custom, Necromancy, Round, common",
+            "shortDesc": "Short Description: Until the start of your next turn, all players may cast basic lands as if they were creatures. They do not count as lands. At the start of your next turn, all lands cast in this way revert to basic lands.",
+            "fullDesc": "Full Description: Until the start of your next turn, all players may cast basic lands as if they were creatures with the following properties: [Casting Cost <z-is>2</z-is>, Haste, 2/2] Lands cast in this way do not count toward the one-land-per-turn limit. At the start of your next turn, all lands cast in this way revert to basic lands.",
+            "indexNum": 8,
+            "displayNum": "789",
+            "player": "duel",
+            "accessible": "TRUE",
+            "inclusion": [
+                "custom"
+            ],
+            "exemplarTheme": "",
+            "school": [
+                "Necromancy"
+            ],
+            "duration": "Round",
+            "rarity": "common",
+            "component": "Reminder",
+            "inspiration": "David C",
+            "specFunc": "FALSE"
+        },
+        {
+            "effectName": "multi, FALSE, micro, lite, custom, Transmutation, Round, rare",
+            "shortDesc": "Short Description: Put a denimwalk counter on target creature.",
+            "fullDesc": "Full Description: Put a denimwalk counter on target creature.",
+            "indexNum": 9,
+            "displayNum": "890",
+            "player": "multi",
+            "accessible": "FALSE",
+            "inclusion": [
+                "micro",
+                "lite",
+                "custom"
+            ],
+            "exemplarTheme": "",
+            "school": [
+                "Transmutation"
+            ],
+            "duration": "Round",
+            "rarity": "rare",
+            "component": "",
+            "inspiration": "",
+            "specFunc": "TRUE"
+        },
+        {
+            "effectName": "duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
+            "shortDesc": "Short Description: something",
+            "fullDesc": "Full Description: Something, but more of it.",
+            "indexNum": 10,
+            "displayNum": "901",
+            "player": "duel",
+            "accessible": "TRUE",
+            "inclusion": [
+                "exemplar",
+                "custom"
+            ],
+            "exemplarTheme": "main",
+            "school": [
+                "Abjuration",
+                "Conjuration",
+                "Necromancy"
+            ],
+            "duration": "Ongoing",
+            "rarity": "common",
+            "component": "",
+            "inspiration": "",
+            "specFunc": "FALSE"
+        }
+    ]
+}

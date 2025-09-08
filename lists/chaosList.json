@@ -1,7 +1,7 @@
 {
     "effects":[
         {
-        "effectName": "Micro - Breathe",
+        "effectName": "Duel, Accessible, Micro, Custom, Abjuration, Instant, Common",
         "shortDesc": "Nothing happens.",
         "fullDesc": "Nothing happens.",
         "indexNum": 709,
@@ -23,7 +23,7 @@
         "specFunc": ""
         },
         {
-        "effectName": "Micro - Draw",
+        "effectName": "Duel, Accessible, lite, custom, divination, chronomancy, round, common",
         "shortDesc": "Draw 1 card.",
         "fullDesc": "Draw 1 card.",
         "indexNum": 704,
@@ -31,32 +31,34 @@
         "player": "duel",
         "accessible": true,
         "inclusion": [
-        "micro",
+        "lite",
         "custom"
         ],
         "exemplarTheme": "",
         "school": [
-        "divination"
+        "divination",
+        "chronomancy"
         ],
-        "duration": "instant",
+        "duration": "round",
         "rarity": "common",
         "component": [],
         "inspiration": "",
         "specFunc": ""
         },
         {
-        "effectName": "Micro - Gain",
+        "effectName": "multi, accessible, lite, exemplar [tokenizer], custom, necromancy, instant, common",
         "shortDesc": "Gain 1 life.",
         "fullDesc": "Gain 1 life.",
         "indexNum": 705,
         "displayNum": "705",
-        "player": "duel",
+        "player": "multi",
         "accessible": true,
         "inclusion": [
-        "micro",
+        "lite",
+        "exemplar",
         "custom"
         ],
-        "exemplarTheme": "",
+        "exemplarTheme": "tokenizer",
         "school": [
         "necromancy"
         ],
@@ -67,29 +69,29 @@
         "specFunc": ""
         },
         {
-        "effectName": "Micro - Poke",
+        "effectName": "multi, physical, legacy, custom, evocation, ongoing, rare",
         "shortDesc": "Deal 1 damage to any target.",
         "fullDesc": "Deal 1 damage to any target.",
         "indexNum": 706,
         "displayNum": "706",
-        "player": "duel",
-        "accessible": true,
+        "player": "multi",
+        "accessible": false,
         "inclusion": [
-        "micro",
+        "legacy",
         "custom"
         ],
         "exemplarTheme": "",
         "school": [
         "evocation"
         ],
-        "duration": "instant",
-        "rarity": "common",
+        "duration": "ongoing",
+        "rarity": "rare",
         "component": [],
         "inspiration": "",
         "specFunc": ""
         },
         {
-        "effectName": "Micro - Buff",
+        "effectName": "duel, physical, micro, exemplar [main], custom, transmutation, illusion, instant, uncommon",
         "shortDesc": "Put a +1/+1 counter on target creature.",
         "fullDesc": "Put a +1/+1 counter on target creature.",
         "indexNum": 707,
@@ -98,20 +100,22 @@
         "accessible": true,
         "inclusion": [
         "micro",
+        "exemplar",
         "custom"
         ],
-        "exemplarTheme": "",
+        "exemplarTheme": "main",
         "school": [
-        "transmutation"
+        "transmutation",
+        "illusion"
         ],
         "duration": "instant",
-        "rarity": "common",
+        "rarity": "uncommon",
         "component": [],
         "inspiration": "",
         "specFunc": ""
         },
         {
-        "effectName": "Micro - Steal",
+        "effectName": "duel, accessible, legacy, custom, divination, illusion, round, common",
         "shortDesc": "Take 1 card at random from target opponent's hand and put it in your hand.",
         "fullDesc": "Take 1 card at random from target opponent's hand and put it in your hand.",
         "indexNum": 708,
@@ -159,7 +163,7 @@
         "specFunc": ""
         },
         {
-        "effectName": "Overrun",
+        "effectName": "Duel, Physical, exemplar [main], custom, transmutation, turn, uncommon",
         "shortDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
         "fullDesc": "Creatures you control gain +3/+3 and trample until end of turn.",
         "indexNum": 30,
