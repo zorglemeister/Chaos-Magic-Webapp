@@ -487,7 +487,24 @@ class SettingsComponent extends HTMLElement {
         //     minigame: null, // any
         //     minigameDelay: null // any
         // }
-        
+        // capture config
+        let customPayload = {
+                    players: configPlayerCount.value, // any
+                    list: configListSelect.value, // any
+                    physical: configPhysical.checked, // any
+                    theme: configTheme.value, // string
+                    school: configSchoolSelect.value, // any[]
+                    duration: configDurationSelect.value, // any[]
+                    rarity: configRaritySelect.value, // any[]
+                    repetition: configRepetition.checked, // any
+                    rarityMatters: configRarityMatters.checked, // any
+                    vengeance: configVengeance.checked, // any
+                    minigame: configMinigame.checked, // any
+                    minigameDelay: configMinigameDelay.value // any
+                }
+        console.log(customPayload);
+        // set settingsPayload
+        shared.setSettingsPayload(customPayload);
         // Send the "settings updated" event
         const settingsUpdated = new Event('settingsUpdate');
         window.dispatchEvent(settingsUpdated);

@@ -254,7 +254,7 @@ class GameComponent extends HTMLElement {
         // load preset into settingsPayload
         let defaultPayload = {
             players: 4, // any
-            list: 'lite', // any
+            list: 'custom', // any **** CHANGE THIS AFTER POC
             physical: true, // any
             theme: null, // string
             school: null, // any[]
@@ -266,15 +266,15 @@ class GameComponent extends HTMLElement {
             minigame: false, // any
             minigameDelay: null // any
         }
+        console.log('Default Payload ', defaultPayload);
         // set settingsPayload
+        console.log('settings payload before default set ', shared.getSettingsPayload());
         shared.setSettingsPayload(defaultPayload);
+        console.log('settings payload after default set ', shared.getSettingsPayload());
         // call list generator
+        shared.updateGameList();
         // call randomizer update
-        // activate game controls
-        // this.show(visiblePart);
-        // this.show(controlContainer);
-        // this.show(historyDrawer);
-        // show settings
+        // activate game controls and settings
         this.show([settingsBlock,visiblePart,controlContainer,historyDrawer]);
         // hide welcomeModal
         this.hide([welcomeModal]);

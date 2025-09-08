@@ -25,7 +25,7 @@
 
 // define settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
 let settingsPayload = {
-    players: null, // any
+/*     players: null, // any
     list: null, // any
     physical: null, // any
     theme: null, // string
@@ -36,7 +36,7 @@ let settingsPayload = {
     rarityMatters: null, // any
     vengeance: null, // any
     minigame: null, // any
-    minigameDelay: null // any
+    minigameDelay: null // any */
 }
 // get settingsPayload
 export function getSettingsPayload() {
@@ -186,8 +186,24 @@ export function setGameList(newGameList) {
 }
 // update gameList
 export function updateGameList() {
+    clearGameList();
     buildFilterConditions();
-    buildGameList();
+    console.log('Filter Criteria ', filterCriteria);
+    console.log('Source List pre-filter ', getSourceList());
+    console.log('Game List pre-filter ', getGameList());
+    setGameList(buildGameList());
+    console.log('Game List after filter', getGameList());
+}
+// clear gameList
+function clearGameList() {
+    if (!gameList) {
+        for (let key in gameList) { // for each key in gameList...
+            if (gameList.hasOwnProperty(key)) { // if gameList has a property with that name (it should!)
+                delete gameList[key]; // delete that property
+            }
+        }
+    }
+    console.log(`Game List Cleared.`);
 }
 
 // settingsPayload = {
@@ -209,15 +225,17 @@ let filterCriteria = {};
 
 function buildFilterConditions() {
     if (settingsPayload.players === 2) { // Set players (duel/multi)
-        filterCriteria.player = 'duel';
+        filterCriteria.player = 'duel'; 
     } else {
-        filterCriteria.player = 'multi';
+        filterCriteria.player = null; // null = everything
     }
+    console.log(`player filter = ${filterCriteria.player}`);
     if (settingsPayload.physical === true) { // Set accessible (boolean) (this is a little confusing, because the checkbox is "checked if including effects that involve physical activity")
-        filterCriteria.accessible = null; // if true, includes everything
+        filterCriteria.accessible = null; // if true, includes everything (filter logic says "null = everything")
     } else {
         filterCriteria.accessible = true; // otherwise, only include accessible effects
     }
+    console.log(`physical filter = ${filterCriteria.accessible}`);
     // List selector controls a BUNCH
     // broke it out into list-specific pieces
     switch (settingsPayload.list) {
@@ -239,14 +257,19 @@ function buildFilterConditions() {
         case "custom":
             filterCustom();
     }
+    console.log(`inclusion filter = ${filterCriteria.inclusion}`);
+    console.log(`exemplarTheme filter = ${filterCriteria.exemplarTheme}`);
+    console.log(`school filter = ${filterCriteria.school}`);
+    console.log(`duration filter = ${filterCriteria.duration}`);
+    console.log(`rarity filter = ${filterCriteria.rarity}`);
 }
 function filterMicro() {
     // Micro only cares about inclusion
     filterCriteria.inclusion = settingsPayload.list;
-    filterCriteria.exemplarTheme = "";
-    filterCriteria.school = [""];
-    filterCriteria.duration = [""];
-    filterCriteria.rarity = [""];
+    filterCriteria.exemplarTheme = null;
+    filterCriteria.school = null;
+    filterCriteria.duration = null;
+    filterCriteria.rarity = null;
 }
 function filterLite() {
     // Lite  only cares about inclusion, same as Micro
@@ -256,13 +279,13 @@ function filterExemplar() {
     // Exemplar cares about inclusion and theme (if all, include everything)
     filterCriteria.inclusion = settingsPayload.list;
     if (settingsPayload.theme === "all") {
-        filterCriteria.exemplarTheme = ["tokenizer", "complexity", "soundalike", "prodigal", "beat", "university", "toxin", "badthings"];
+        filterCriteria.exemplarTheme = null; // filter logic says "null = everything"
     } else {
         filterCriteria.exemplarTheme = settingsPayload.theme;
     }
-    filterCriteria.school = [""];
-    filterCriteria.duration = [""];
-    filterCriteria.rarity = [""];
+    filterCriteria.school = null;
+    filterCriteria.duration = null;
+    filterCriteria.rarity = null;
 }
 function filterLegacy() {
     // Legacy only cares about inclusion, same as Micro
@@ -270,39 +293,52 @@ function filterLegacy() {
 }
 function filterFull() {
     // Full REALLY doesn't care
-    filterCriteria.inclusion = "";
-    filterCriteria.exemplarTheme = "";
-    filterCriteria.school = [""];
-    filterCriteria.duration = [""];
-    filterCriteria.rarity = [""];
+    filterCriteria.inclusion = null;
+    filterCriteria.exemplarTheme = null;
+    filterCriteria.school = null;
+    filterCriteria.duration = null;
+    filterCriteria.rarity = null;
 }
 function filterCustom() {
     // Custom cares about inclusion, school, duration, rarity
     filterCriteria.inclusion = settingsPayload.list;
-    filterCriteria.exemplarTheme = "";
+    filterCriteria.exemplarTheme = null;
     filterCriteria.school = settingsPayload.school;
     filterCriteria.duration = settingsPayload.duration;
     filterCriteria.rarity = settingsPayload.rarity;
 }
 function buildGameList() {
     // first version of this was really messy, lets see if we can sort out a cleaner conditional
-    return sourceList.filter(obj => {
-        return ( // This is an inline function, so it's returning something. that parens opens the conditional
+    // const tempSourceList = getSourceList();
+    // console.log(tempSourceList);
+    let effectFilterCycleCount = 0; // debug thing
+    return sourceList.effects.filter(effect => {
+        // effects is the array within the sourceList entity, so call .filter() on it directly
+        console.log('player match', (!filterCriteria.player || effect.player.includes(filterCriteria.player)));
+        console.log('accessible match', (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)));
+        console.log('inclusion match', (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)));
+        console.log('theme match', (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)));
+        console.log('school match', (!filterCriteria.school || effect.school.includes(filterCriteria.school)));
+        console.log('duration match', (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)));
+        console.log('rarity match', (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity)));
+        effectFilterCycleCount = effectFilterCycleCount + 1;
+        console.log('Effect Filter Cycle Count', effectFilterCycleCount);
+        return ( // This is an inline function, so it's returning a boolean. that parens opens the conditional
             // Structure: If filter is unspecified (!thing) or entry matches filter, then true. If all true, include in output
         // player match
-            (!filterCriteria.player || obj.player.includes(filterCriteria.player)) &&
+            (!filterCriteria.player || effect.player.includes(filterCriteria.player)) &&
         // accessible match
-            (!filterCriteria.accessible || obj.accessible.includes(filterCriteria.accessible)) &&
+            (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)) &&
         // inclusion match
-            (!filterCriteria.inclusion || obj.inclusion.includes(filterCriteria.inclusion)) &&
+            (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)) &&
         // theme match
-            (!filterCriteria.exemplarTheme || obj.exemplarTheme.includes(filterCriteria.exemplarTheme)) &&
+            (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)) &&
         // school match
-            (!filterCriteria.school || obj.school.includes(filterCriteria.school)) &&
+            (!filterCriteria.school || effect.school.includes(filterCriteria.school)) &&
         // duration match
-            (!filterCriteria.duration || obj.duration.includes(filterCriteria.duration)) &&
+            (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)) &&
         // rarity match
-            (!filterCriteria.rarity || obj.rarity.includes(filterCriteria.rarity))
+            (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity))
         );
     });
 }

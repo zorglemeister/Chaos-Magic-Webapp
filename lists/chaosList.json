@@ -52,7 +52,10 @@
         "displayNum": "705",
         "player": "duel",
         "accessible": true,
-        "inclusion": [],
+        "inclusion": [
+        "micro",
+        "custom"
+        ],
         "exemplarTheme": "",
         "school": [
         "necromancy"
@@ -72,12 +75,12 @@
         "player": "duel",
         "accessible": true,
         "inclusion": [
-        "evocation"
+        "micro",
+        "custom"
         ],
         "exemplarTheme": "",
         "school": [
-        "conjuration",
-        "transmutation"
+        "evocation"
         ],
         "duration": "instant",
         "rarity": "common",
