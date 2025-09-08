@@ -47,17 +47,6 @@ export function setSettingsPayload(newSettings) {
     settingsPayload = newSettings;
 }
 
-// define gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
-let gameList = {};
-// get gameList
-export function getGameList() {
-    return gameList;
-}
-// set gameList
-export function setGameList(newGameList) {
-    gameList = newGameList;
-}
-
 // define newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
 let newEffect = {};
 // get newEffect
@@ -123,6 +112,8 @@ async function loadJSON(path) {
     return await response.json();
 }
 
+// SOURCE LIST
+
 // define sourceList
 let sourceList = {};
 // get sourceList
@@ -143,6 +134,10 @@ export async function updateSourceList(sourcePath) {
 
     Object.assign(sourceList, newSourceList); // target sourceList and assign the new object definition to it
 }
+
+// VENGEANCE LIST
+// (This may be replaced by a function that creates it based on tags from the source list, so I just have to update one file)
+// for now, it's a separate JSON
 
 // define vengList
 let vengList = {};
@@ -175,6 +170,147 @@ export function updateWeightedVeng() {
         } // This should create an array where each effectName shows up a number of times equal to the weight value
     }
 }
+
+// GAME LIST
+// (This is gonna get complicated, because it needs to be responsive to the settings payload)
+
+// define gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
+let gameList = {};
+// get gameList
+export function getGameList() {
+    return gameList;
+}
+// set gameList -- used when weighted to pop entries out
+export function setGameList(newGameList) {
+    gameList = newGameList;
+}
+// update gameList
+export function updateGameList() {
+    buildFilterConditions();
+    buildGameList();
+}
+
+// settingsPayload = {
+//    players:
+//    list:
+//    physical:
+//    theme:
+//    school:
+//    duration:
+//    rarity:
+//    repetition: <-- Not used in filter
+//    rarityMatters: <-- Not used in filter
+//    vengeance: <-- Not used in filter
+//    minigame: <-- Not used in filter
+//    minigameDelay: <-- Not used in filter
+// }
+
+let filterCriteria = {};
+
+function buildFilterConditions() {
+    if (settingsPayload.players === 2) { // Set players (duel/multi)
+        filterCriteria.player = 'duel';
+    } else {
+        filterCriteria.player = 'multi';
+    }
+    if (settingsPayload.physical === true) { // Set accessible (boolean) (this is a little confusing, because the checkbox is "checked if including effects that involve physical activity")
+        filterCriteria.accessible = null; // if true, includes everything
+    } else {
+        filterCriteria.accessible = true; // otherwise, only include accessible effects
+    }
+    // List selector controls a BUNCH
+    // broke it out into list-specific pieces
+    switch (settingsPayload.list) {
+        case "micro":
+            filterMicro();
+        break;
+        case "lite":
+            filterLite();
+        break;
+        case "exemplar":
+            filterExemplar();
+        break;
+        case "legacy":
+            filterLegacy();
+        break;
+        case "full":
+            filterFull();
+        break;
+        case "custom":
+            filterCustom();
+    }
+}
+function filterMicro() {
+    // Micro only cares about inclusion
+    filterCriteria.inclusion = settingsPayload.list;
+    filterCriteria.exemplarTheme = "";
+    filterCriteria.school = [""];
+    filterCriteria.duration = [""];
+    filterCriteria.rarity = [""];
+}
+function filterLite() {
+    // Lite  only cares about inclusion, same as Micro
+    filterMicro();
+}
+function filterExemplar() {
+    // Exemplar cares about inclusion and theme (if all, include everything)
+    filterCriteria.inclusion = settingsPayload.list;
+    if (settingsPayload.theme === "all") {
+        filterCriteria.exemplarTheme = ["tokenizer", "complexity", "soundalike", "prodigal", "beat", "university", "toxin", "badthings"];
+    } else {
+        filterCriteria.exemplarTheme = settingsPayload.theme;
+    }
+    filterCriteria.school = [""];
+    filterCriteria.duration = [""];
+    filterCriteria.rarity = [""];
+}
+function filterLegacy() {
+    // Legacy only cares about inclusion, same as Micro
+    filterMicro();
+}
+function filterFull() {
+    // Full REALLY doesn't care
+    filterCriteria.inclusion = "";
+    filterCriteria.exemplarTheme = "";
+    filterCriteria.school = [""];
+    filterCriteria.duration = [""];
+    filterCriteria.rarity = [""];
+}
+function filterCustom() {
+    // Custom cares about inclusion, school, duration, rarity
+    filterCriteria.inclusion = settingsPayload.list;
+    filterCriteria.exemplarTheme = "";
+    filterCriteria.school = settingsPayload.school;
+    filterCriteria.duration = settingsPayload.duration;
+    filterCriteria.rarity = settingsPayload.rarity;
+}
+function buildGameList() {
+    // first version of this was really messy, lets see if we can sort out a cleaner conditional
+    return sourceList.filter(obj => {
+        return ( // This is an inline function, so it's returning something. that parens opens the conditional
+            // Structure: If filter is unspecified (!thing) or entry matches filter, then true. If all true, include in output
+        // player match
+            (!filterCriteria.player || obj.player.includes(filterCriteria.player)) &&
+        // accessible match
+            (!filterCriteria.accessible || obj.accessible.includes(filterCriteria.accessible)) &&
+        // inclusion match
+            (!filterCriteria.inclusion || obj.inclusion.includes(filterCriteria.inclusion)) &&
+        // theme match
+            (!filterCriteria.exemplarTheme || obj.exemplarTheme.includes(filterCriteria.exemplarTheme)) &&
+        // school match
+            (!filterCriteria.school || obj.school.includes(filterCriteria.school)) &&
+        // duration match
+            (!filterCriteria.duration || obj.duration.includes(filterCriteria.duration)) &&
+        // rarity match
+            (!filterCriteria.rarity || obj.rarity.includes(filterCriteria.rarity))
+        );
+    });
+}
+
+
+
+
+
 
 // ***
 // HERE BE SUPPORTING FUNCTIONS

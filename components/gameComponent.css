@@ -231,6 +231,7 @@ z-game .drawerToggle {
     right: 10px;
     transition: bottom 1s ease-in-out;
     z-index: 401; /* above the drawer */
+    /* bottom: 10px; /* set it just above the bottom */
 }
 
 z-game .drawerContents {
@@ -238,7 +239,7 @@ z-game .drawerContents {
     left: 50%;
     transform: translateX(-50%);
     bottom: -400px; /* off-screen to the bottom, may need to adjust */
-    height: 400px; /* drawerHeight (also, how far up it has to move */
+    height: calc(400px - var(--history-button-height)); /* drawerHeight (also, how far up it has to move */
     width: 98%;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -248,7 +249,8 @@ z-game .drawerContents {
 }
 
 z-game .drawerContents.openDrawer {
-    bottom: 0; /* should cause it to slide in */
+    /* bottom: calc(10 + var(--history-button-height)); /* should cause it to slide in to just above the button*/
+    bottom: 0;
 }
 
 z-game .drawerClosed::before {
@@ -266,5 +268,6 @@ z-game .drawerClosed {
 }
 
 z-game .drawerOpen {
-        bottom: calc(390px - var(--settings-button-height));
+        bottom: calc(410px - var(--history-button-height));
+        /* I think i want the history button to stay at the bottom */
 }

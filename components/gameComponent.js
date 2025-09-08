@@ -217,50 +217,67 @@ class GameComponent extends HTMLElement {
     // INITIAL STATE -----------------------
     initiateChaos() {
         // hide game controls and history
-        this.hide(visiblePart);
-        this.hide(controlContainer);
-        this.hide(historyDrawer);
+        // this.hide(visiblePart);
+        // this.hide(controlContainer);
+        // this.hide(historyDrawer);
         // hide minigame and vengeance modals
-        this.hide(minigameModal);
-        this.hide(vengeanceModal);
+        // this.hide(minigameModal);
+        // this.hide(vengeanceModal);
         // hide settings
-        this.hide(settingsBlock);
+        // this.hide(settingsBlock);
+        this.hide([visiblePart,controlContainer,historyDrawer,minigameModal,vengeanceModal,settingsBlock]);
         // display welcomeModal
-        this.show(welcomeModal);
+        this.show([welcomeModal]);
     }
     customizeClick() {
         // hide welcomeModal
-        this.hide(welcomeModal);
+        this.hide([welcomeModal]);
         // show settings
-        this.show(settingsBlock);
+        this.show([settingsBlock]);
         // trigger "settingsButton" click
         const clickSettings = new Event('click');
         document.getElementsByClassName('gameSettingsButton')[0].dispatchEvent(clickSettings);
     }
     settingsUpdatedHandler() {
         // hide welcomeModal (no effect if past initial state)
-        this.hide(welcomeModal);
+        this.hide([welcomeModal]);
         
         // activate game controls (no effect is past initial state)
-        this.show(visiblePart);
-        this.show(controlContainer);
-        this.show(historyDrawer);
+        this.show([visiblePart,controlContainer,historyDrawer]);
+        // this.show(controlContainer);
+        // this.show(historyDrawer);
         
         // reset Gamestate Counters
         this.initializeGame();
     }
     defaultsClick() {
         // load preset into settingsPayload
+        let defaultPayload = {
+            players: 4, // any
+            list: 'lite', // any
+            physical: true, // any
+            theme: null, // string
+            school: null, // any[]
+            duration: null, // any[]
+            rarity: null, // any[]
+            repetition: true, // any
+            rarityMatters: false, // any
+            vengeance: true, // any
+            minigame: false, // any
+            minigameDelay: null // any
+        }
+        // set settingsPayload
+        shared.setSettingsPayload(defaultPayload);
         // call list generator
         // call randomizer update
         // activate game controls
-        this.show(visiblePart);
-        this.show(controlContainer);
-        this.show(historyDrawer);
+        // this.show(visiblePart);
+        // this.show(controlContainer);
+        // this.show(historyDrawer);
         // show settings
-        this.show(settingsBlock);
+        this.show([settingsBlock,visiblePart,controlContainer,historyDrawer]);
         // hide welcomeModal
-        this.hide(welcomeModal);
+        this.hide([welcomeModal]);
     }
     initializeGame() {
         // call list generator
@@ -288,8 +305,9 @@ class GameComponent extends HTMLElement {
     
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
+
         // ** CURRENTLY A PLACEHOLDER FOR TESTING
-        activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${shared.getRollCounter()}! Do the inline symbols work? <z-is>WUBRG</z-is> and for an effect: <z-is>1</z-is>, <z-is>T</z-is>: do a thing! MORE! <z-is>TXICS0123EEEE</z-is> Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb>, <z-rb>color</z-rb>, <z-rb>mana type</z-rb>, <z-rb>color or colorless</z-rb>, <z-rb>basic land</z-rb>, <z-rb>basic and wastes</z-rb>, <z-rb>land type</z-rb>, <z-rb>any basic land</z-rb>, <z-rb>landwalk</z-rb>, <z-rb>permanent</z-rb>, <z-rb>walk</z-rb> inline.</div>`;
+        // activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${shared.getRollCounter()}! Do the inline symbols work? <z-is>WUBRG</z-is> and for an effect: <z-is>1</z-is>, <z-is>T</z-is>: do a thing! MORE! <z-is>TXICS0123EEEE</z-is> Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb>, <z-rb>color</z-rb>, <z-rb>mana type</z-rb>, <z-rb>color or colorless</z-rb>, <z-rb>basic land</z-rb>, <z-rb>basic and wastes</z-rb>, <z-rb>land type</z-rb>, <z-rb>any basic land</z-rb>, <z-rb>landwalk</z-rb>, <z-rb>permanent</z-rb>, <z-rb>walk</z-rb> inline.</div>`;
         // took out "as well as flipping a coin.<z-fc></z-fc>" until I'm ready to dive in to troubleshooting that...
         // increment minigameTimer
         shared.setMinigameCounter(shared.getMinigameCounter() + 1);
@@ -303,7 +321,7 @@ class GameComponent extends HTMLElement {
         // update the vengeanceModal contents
         // display the vengeanceModal
         vengeanceContent.innerHTML = this.vengRand();
-        this.show(vengeanceModal);
+        this.show([vengeanceModal]);
     }
     vengRand() {
 
@@ -336,7 +354,7 @@ class GameComponent extends HTMLElement {
             this.moveVengeanceToHistory();
         }
         // hide the vengeanceModal
-        this.hide(vengeanceModal);
+        this.hide([vengeanceModal]);
         // move the effect to the History list
         // this.moveVengeanceToHistory();
     }
@@ -348,11 +366,11 @@ class GameComponent extends HTMLElement {
         // poke the minigameRandomizer
         // update the minigameModal contents
         // display the minigameModal
-        this.show(minigameModal);
+        this.show([minigameModal]);
     }
     closeMinigameClick() {
         // hide the minigameModal
-        this.hide(minigameModal);
+        this.hide([minigameModal]);
         // reset the minigameTimer
     }
     nextTurn() {
@@ -360,14 +378,18 @@ class GameComponent extends HTMLElement {
         // check active effects
     }
     // Utility! -----------------------
-    hide(elementName) {
-        if (!elementName.classList.contains('hiddenPart')) {
-            elementName.classList.add('hiddenPart');
+    hide(elementArray) {
+        for (const element of elementArray) {
+            if (!element.classList.contains('hiddenPart')) {
+                element.classList.add('hiddenPart');
+            }
         }
     }
-    show(elementName) {
-        if (elementName.classList.contains('hiddenPart')) {
-            elementName.classList.remove('hiddenPart');
+    show(elementArray) {
+        for (const element of elementArray) {
+            if (element.classList.contains('hiddenPart')) {
+                element.classList.remove('hiddenPart');
+            }
         }
     }
 }
