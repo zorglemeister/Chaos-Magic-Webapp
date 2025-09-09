@@ -24,20 +24,7 @@
 // HERE BE THINGS THAT ARE SET/GET
 
 // define settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
-let settingsPayload = {
-/*     players: null, // any
-    list: null, // any
-    physical: null, // any
-    theme: null, // string
-    school: null, // any[]
-    duration: null, // any[]
-    rarity: null, // any[]
-    repetition: null, // any
-    rarityMatters: null, // any
-    vengeance: null, // any
-    minigame: null, // any
-    minigameDelay: null // any */
-}
+let settingsPayload = {}
 // get settingsPayload
 export function getSettingsPayload() {
     return settingsPayload;
@@ -170,6 +157,10 @@ export function updateWeightedVeng() {
         } // This should create an array where each effectName shows up a number of times equal to the weight value
     }
 }
+// clear weightedVeng
+export function clearWeightedVeng() {
+    weightedVeng = [];
+}
 
 // GAME LIST
 // (This is gonna get complicated, because it needs to be responsive to the settings payload)
@@ -205,10 +196,107 @@ function clearGameList() {
     }
     console.log(`Game List Cleared.`);
 }
-// return random element from gameList
-function getRandFromGameList() {}
-// return random element from gameList (destructive with slice)
-function getSlicedRandFromGameList() {}
+
+// *** Weighted list (for RarityMatters = TRUE)
+// define weightedList
+let weightedList =[];
+// get weightedList
+export function getWeightedList() {
+    return weightedList;
+}
+// set weightedList
+function setWeightedList(newWeightedList) {
+    weightedList = newWeightedList;
+}
+// update weightedList
+export function updateWeightedList() {
+    for (const effect of gameList.effects) { // for each effect...
+        let instances = null;
+        switch (effect.rarity) { // weight it based on 'rarity' by number of times it shows in the array
+            case 'common':
+                instances = 3;
+                break;
+            case 'uncommon':
+                instances = 2;
+                break;
+            case 'rare':
+                instances = 1;
+        }
+        for (let i = 0; i < instances; i++) { // for each instance...
+            weightedList.push(effect.indexNum); // add the effect's indexNum to the array
+        }
+    }
+}
+// clear weightedList
+export function clearWeightedList() {
+    weightedList = [];
+}
+
+// randomizer settings
+let randomizerConfig = [];
+// get randomizerConfig
+export function getRandomizerConfig() {
+    return randomizerConfig;
+}
+// update randomizerConfig
+export function updateRandomizerConfig() {
+    randomizerConfig.repetition = settingsPayload.repetition;
+    randomizerConfig.rarityMatters = settingsPayload.rarityMatters;
+}
+// clear randomizerConfig
+export function clearRandomizerConfig() {
+    randomizerConfig = [];
+}
+
+// AW SNAP, it's the RANDOMIZER
+export function getRandomEffect() {
+    // interpret the randomizer config and do some logic to get to the function
+    if (randomizerConfig.repetition === true) {
+        if (randomizerConfig.rarityMatters === true) {
+            setNewEffect(getWeightedRandFromGameList()); // rep true, weight true
+        } else {
+            setNewEffect(getRandFromGameList()); // rep true, weight false
+        }
+    } else {
+        if (randomizerConfig.rarityMatters === true) {
+            setNewEffect(getWeightedSlicedRandFromGameList()); // rep false, weight true
+        } else {
+            setNewEffect(getSlicedRandFromGameList()); // rep false, weight false
+        }
+    }
+}
+// return random element from gameList (For Repetition = TRUE, Weighted = FALSE)
+function getRandFromGameList() {
+    let roll = Math.floor(Math.random() * gameList.length); // random on the list
+    return gameList.effect[roll]; // pass it back
+}
+// return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
+function getSlicedRandFromGameList() {
+    let roll = Math.floor(Math.random() * gameList.length); // random on the list
+    return gameList.effect.splice[roll, 1]; // splice it out and return the removed element
+}
+// return weighted random element from gameList (For Repetition = TRUE, Weighted = TRUE)
+function getWeightedRandFromGameList() {
+    let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
+    let weightedIndex = weightedList[roll]; // set the indexNum from the list
+    let targetIndex = gameList.effects.findIndex(effectIndex => effectIndex === weightedIndex); // then find the effect in the game list...
+    return gameList.effect[targetIndex]; // pass it back
+}
+// return weighted random element from gameList (destructive with slice for Repetition = FALSE, Weighted = TRUE)
+function getWeightedSlicedRandFromGameList() {
+    let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
+    let weightedIndex = weightedList[roll]; // set the indexNum from the list
+    // remove the instances of that index from the weightedList
+    let tempWeightedList = []; // create a temp weighted list
+    for (let i = 0; i < weightedList.length; i++) { // for each entry in the weighted list... 
+        if (weightedList[i] !== weightedIndex) { // if it doesn't match the index value...
+            tempWeightedList.push(weightedList[i]); // add it to the temp weighted list
+        }
+    }
+    setWeightedList(tempWeightedList); // and then set the weighted list to the new array
+    let targetIndex = gameList.effects.findIndex(effectIndex => effectIndex === weightedIndex);// then find the effect in the game list...
+    return gameList.effect.splice[targetIndex, 1]; // splice it out and return the removed element
+}
 
 
 // settingsPayload = {
