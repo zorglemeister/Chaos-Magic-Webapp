@@ -278,10 +278,12 @@ class GameComponent extends HTMLElement {
         this.show([settingsBlock,visiblePart,controlContainer,historyDrawer]);
         // hide welcomeModal
         this.hide([welcomeModal]);
+        this.initializeGame();
     }
     initializeGame() {
         // call list generator
-        shared.updateWeightedVeng(); // make the weighted vengeance array  *** Move this after POC
+        shared.updateWeightedVeng(); // make the weighted vengeance array
+        shared.updateRandomizerConfig();
         // wipe active effect
         activeContainer.innerHTML = '';
         // wipe history
@@ -299,10 +301,21 @@ class GameComponent extends HTMLElement {
         // poke the randomizer to update generatedEffect
         // this.randomizer
         // move the current active effect to history
-        if (activeContainer.firstChild) {
+        if (activeContainer.firstElementChild) {
             this.moveActiveToHistory();
         }
-    
+
+        // LET TRY IT!
+
+        if (shared.getNewEffect()) { // if there's a current new effect... 
+            shared.setPreviousEffect(shared.getNewEffect()) // set it to the previous effect
+        }
+        shared.getRandomEffect(); // trip the randomizer...
+        let localEffect = shared.getNewEffect(); // then get the newEffect...
+        // put the newEffect into a TOTALLY PLACEHOLDER THING
+        activeContainer.innerHTML = `
+        <div class="testEffect"><b>${localEffect.displayNum} ${localEffect.effectName}</b> <i>${localEffect.shortDesc}</i><br>${localEffect.fullDesc}`;
+
         // this.moveActiveToHistory();
         // create a new effect in activeContainer
 
@@ -313,8 +326,8 @@ class GameComponent extends HTMLElement {
         shared.setMinigameCounter(shared.getMinigameCounter() + 1);
     }
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
-        const moveEffect = activeContainer.firstChild; // get the first (and only) div in the active container
-        historyContainer.insertBefore(moveEffect, historyContainer.firstChild); // reparent the effect to the top of the history container
+        const moveEffect = activeContainer.firstElementChild; // get the first (and only) div in the active container
+        historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
     vengeanceClick() {
         // poke the vengeanceRandomizer
@@ -324,33 +337,14 @@ class GameComponent extends HTMLElement {
         this.show([vengeanceModal]);
     }
     vengRand() {
-
-    // swapping these out for the weightedVeng generated in sharedAssets
-    // **const weightedVengeance = [
-    //    'retribution', // 1
-    //    'poke', 'poke', // 2-3
-    //    'reinforce', 'reinforce', // 4-5
-    //    'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', 'fizzle', // hopefully I've got ten of these for 6-15
-    //    'inspire', 'inspire', // 16-17
-    //    'life', 'life', // 18-19
-    //    'phoenix' // 20
-    //    ];
-    // ** let roll = Math.floor(Math.random() * weightedVengeance.length); // roll using length in case i need to change the weighting
-    // **let tag = weightedVengeance[roll]; // get the indexed tag
-
-    // using weightedVeng
-    shared.updateWeightedVeng(); // call the vengweight setter
-    const localWeightedVeng = shared.getWeightedVeng(); // call the vengweight getter
-    let roll = Math.floor(Math.random() * localWeightedVeng.length);
-    let tag = localWeightedVeng[roll];
-    const localVengList = shared.getVengList(); // call the venglist getter
-    let pull = localVengList.effects.find((effect) => effect.effectName === tag); //get the matching entry from vengList
-    // ha ha, take that comparison operator! FU MSFT
+    // the new, new version, with sharedAssets scripting
+    shared.getRandomVengEffect();
+    let localVengEffect = shared.getNewVengEffect();
     return `
-    <div class="vengEffect"><div class="vengRoll">${roll}</div><div class="vengContent"><div class="vengTitle">${pull.effectName}</div><div class="vengBody">${pull.desc}</div></div></div>`; // send back the innerHTML
+    <div class="vengEffect"><div class="vengRoll">${localVengEffect.roll}</div><div class="vengContent"><div class="vengTitle">${localVengEffect.effectName}</div><div class="vengBody">${localVengEffect.desc}</div></div></div>`; // send back the innerHTML
     }
     closeVengeanceClick() {
-        if (vengeanceContent.firstChild) {
+        if (vengeanceContent.firstElementChild) {
             this.moveVengeanceToHistory();
         }
         // hide the vengeanceModal
