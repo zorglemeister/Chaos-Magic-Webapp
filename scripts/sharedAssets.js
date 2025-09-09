@@ -280,19 +280,21 @@ export function clearRandomizerConfig() {
 // AW SNAP, it's the RANDOMIZER
 export function getRandomEffect() {
     // interpret the randomizer config and do some logic to get to the function
+    let tempEffect = [];
     if (randomizerConfig.repetition === true) {
         if (randomizerConfig.rarityMatters === true) {
-            setNewEffect(getWeightedRandFromGameList()); // rep true, weight true
+            tempEffect = getWeightedRandFromGameList(); // rep true, weight true
         } else {
-            setNewEffect(getRandFromGameList()); // rep true, weight false
+            tempEffect = getRandFromGameList(); // rep true, weight false
         }
     } else {
         if (randomizerConfig.rarityMatters === true) {
-            setNewEffect(getWeightedSlicedRandFromGameList()); // rep false, weight true
+            tempEffect = getWeightedSlicedRandFromGameList(); // rep false, weight true
         } else {
-            setNewEffect(getSlicedRandFromGameList()); // rep false, weight false
+            tempEffect = getSlicedRandFromGameList(); // rep false, weight false
         }
     }
+    return tempEffect;
 }
 // return random element from gameList (For Repetition = TRUE, Weighted = FALSE)
 function getRandFromGameList() {

@@ -74,7 +74,8 @@ class EffectComponent extends HTMLElement {
     connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only? UPDATE - reparenting does NOT trip connectedCallback() !!
         if (!this._isRendered) { // if it hasn't already been rendered...
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
-        let effectId = this.textContent;
+        // DO I?
+        let effectId = this.textContent; // Don't worry about this, just pull shared.getNewEffect() for the effect data
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
         effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
@@ -90,7 +91,7 @@ class EffectComponent extends HTMLElement {
     }
     render(effectId) {
         // get the generatedEffect
-
+        let localEffect = shared.getNewEffect();
         // put the pieces of the generated effect into the template contents
         
         // Jo Raises Their Hand... "I HAS QUESTION!"
