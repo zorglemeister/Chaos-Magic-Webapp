@@ -75,7 +75,7 @@ class EffectComponent extends HTMLElement {
         if (!this._isRendered) { // if it hasn't already been rendered...
         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
         // DO I?
-        let effectId = this.textContent; // Don't worry about this, just pull shared.getNewEffect() for the effect data
+        // let effectId = this.textContent; // Don't worry about this, just pull shared.getNewEffect() for the effect data
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
         effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`); // does this WORK? will be cool if it does.
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
@@ -89,11 +89,17 @@ class EffectComponent extends HTMLElement {
         this._isRendered = true; // and set the flag
         }
     }
-    render(effectId) {
+    render() {
         // get the generatedEffect
         let localEffect = shared.getNewEffect();
         // put the pieces of the generated effect into the template contents
         
+        //
+        // THIS IS THE PART I'M WORKING ON
+        //
+        //
+        //
+
         // Jo Raises Their Hand... "I HAS QUESTION!"
         // Will this handle the output of a specialEffectComponent smoothly?
         // because we're putting the effect content into the DOM during connectedCallback...
