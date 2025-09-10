@@ -153,7 +153,7 @@
             "rarity": "rare",
             "component": "",
             "inspiration": "",
-            "specFunc": "TRUE"
+            "specFunc": "FALSE"
         },
         {
             "effectName": "duel, TRUE, custom, Necromancy, Round, common",
@@ -197,7 +197,7 @@
             "rarity": "rare",
             "component": "",
             "inspiration": "",
-            "specFunc": "TRUE"
+            "specFunc": "FALSE"
         },
         {
             "effectName": "duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
@@ -222,6 +222,30 @@
             "component": "",
             "inspiration": "",
             "specFunc": "FALSE"
+        },
+        {
+            "effectName": "specialFunctionTest",
+            "shortDesc": "Short Description: something",
+            "fullDesc": "Full Description: Something, but more of it.",
+            "indexNum": 11,
+            "displayNum": "901",
+            "player": "duel",
+            "accessible": "TRUE",
+            "inclusion": [
+                "exemplar",
+                "custom"
+            ],
+            "exemplarTheme": "toxin",
+            "school": [
+                "Abjuration",
+                "Conjuration",
+                "Necromancy"
+            ],
+            "duration": "Ongoing",
+            "rarity": "common",
+            "component": "",
+            "inspiration": "",
+            "specFunc": "TRUE"
         }
     ]
 }

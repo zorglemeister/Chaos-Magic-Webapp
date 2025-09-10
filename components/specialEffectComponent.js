@@ -1,14 +1,9 @@
 // This'll handle any of the weird and complicated effects
 // like the "roll more times" or the intricately-worded-yet-dynamic ones
-// It'll be set up much like the "word" handling of the rollButton
-// where I pass the name/id of the effect in the contents of the component tag
-// and then parse that through a switch/case to the method for that effect
 // returning the content for the effectComponent that it was included in
-// This'll replace the descBlock of the effectComponent template, so output needs to be in this stucture:
-// <div class="descBlock">
+// This'll populate the descBlock of the effectComponent template, so output needs to be in this stucture:
 //     <div class="shortDesc"></div>
 //     <div class="fullDesc hiddenPart"></div>
-// </div>
 
 import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique() and dieRoll(count, sides)
 
@@ -27,67 +22,31 @@ class SpecialEffect extends HTMLElement {
         const sourceText = this.textContent.trim(); // Get the text
         this.innerHTML = handleEffect(sourceText); // make it happen!
     }
-        handleEffect(index) { // can i just use the content of the tag to directly call a method of the same name?
+    /* handleEffect(index) { // can i just use the content of the tag to directly call a method of the same name?
+        // i don't want to just pull a function based on the sourcetext, but i need a way to call a somewhat arbitrary method...
+        // can I define "functions" as an object with key-value pairs for the index and the function name?
+        let functionList = {
+            11: 'this.effect11', // TEST EFFECT
+            104: 'this.effect104', // Nuclear Launch Detected
+            136: 'this.effect136', // Zerg Rush
+            37: 'this.effect37' // Ocean of Life
+            // indexNum: 'this.effect[indexNum]', // Effect Name
+        }
         let returnBody = null;
-        // let option = null; // if i need another block scope, i can set it up here
-        // some of these will involve tripping the randomizer, how do i target that method from gameComponent?
-        switch (word) {
-            case '':
-                // 
-
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-                break;
-            case '':
-                // 
-                
-                returnBody = 'something';
-        } 
+        if (functionList[index]) {
+            returnBody = functionList[index]();
+        } else {
+            returnBody = "What are you doing? (Special Function not found/defined)"
+        }
         return returnBody; // should return as something that works in innerHTML
+    } */
+    handleEffect(index) { // LETS TRY IT A DIFFERENT WAY
+        const methodName = `effect${index}`; // build the methodName
+        if (typeof this[methodName] === 'function') { // if the methodName is actually a function...
+            return this[methodName](); // run it
+        } else { // otherwise...
+            return 'Custom function not defined'; // let me know it didn't work
+        }
     }
 
     // Beyond this is the specific effect functions
@@ -96,22 +55,51 @@ class SpecialEffect extends HTMLElement {
     // if rollButton can be used (for example, Zerg Rush has each player roll 2d6), use it
     // the output format should be identical to the effectComponent structure
 
+    // TEST EFFECT (remove before going live)
+    effect11() {
+        return `<div class="shortDesc">SPECIAL EFFECT DID THIS</div>
+            <div class="fullDesc hiddenPart">OHAI, Full desc from a special effect</div>
+            `;
+    }
+
     // Zerg Rush (136)
     effect136() {
-        let effectShortIntro = '<div style="effectText">Each player creates some Zerglings.</div>'; // First part of shortDesc
-        let effectFullIntro = '<div style="effectText">Each player creates 2d6 1/1 colorless Zergling creature tokens with haste.</div>'; // First part of fullDesc
-        let effectFuncContent = '<div style="136ZergContainer">'; // Builds a container with a dice block for each player
-        for (let i = 0; i < playerCount; i++) { // How do i reference the gameConfig variable?
-            effectFuncContent = effectFuncContent + `<div style="136ZergPlayerBox">
-                <div style="136ZergPlayerTitle">Player ${i + 1}</div>
+        let effectShortIntro = 'Each player creates some Zerglings.'; // First part of shortDesc
+        let effectFullIntro = 'Each player creates 2d6 1/1 colorless Zergling creature tokens with haste.'; // First part of fullDesc
+        let effectFuncContent = '<div class="136ZergContainer">'; // Builds a container with a dice block for each player
+        for (let i = 0; i < shared.playerCount; i++) {
+            effectFuncContent = effectFuncContent + `<div class="136ZergPlayerBox">
+                <div class="136ZergPlayerTitle">Player ${i + 1}</div>
                 <z-rb>2d6</z-rb>
                 </div>`;
             }
         effectFuncContent = effectFuncContent + '</div>'; // wraps the container
-        return `<div class="descBlock">
+        return `
             <div class="shortDesc">${effectShortIntro}${effectFuncContent}</div>
             <div class="fullDesc hiddenPart">${effectFullIntro}${effectFuncContent}</div>
-            </div>`; // returns the descBlock construct with the same functional content in both the short and full
+            `; // returns the descBlock construct with the same functional content in both the short and full
+    }
+
+    // Ocean of Life (37)
+    effect37() {
+        let effectShortIntro = 'Everyone gains some life.'; // First part of shortDesc
+        let effectFullIntro = 'Gain 2d10 life. All other players gain 1d10 life.'; // First part of fullDesc
+        let effectFuncContent = '<div class="37OceanContainer">'; // Builds a container with a dice block for each player
+        effectFuncContent = effectFuncContent + `<div class="37OceanPlayerBox">
+                <div class="37OceanPlayerTitle">You</div>
+                <z-rb>2d20</z-rb>
+                </div>`
+        for (let i = 0; i < (shared.playerCount - 1); i++) { 
+            effectFuncContent = effectFuncContent + `<div class="37OceanPlayerBox">
+                <div class="37OceanPlayerTitle">Player ${i + 1}</div>
+                <z-rb>1d10</z-rb>
+                </div>`;
+            }
+        effectFuncContent = effectFuncContent + '</div>'; // wraps the container
+        return `
+            <div class="shortDesc">${effectShortIntro}${effectFuncContent}</div>
+            <div class="fullDesc hiddenPart">${effectFullIntro}${effectFuncContent}</div>
+            `; // returns the descBlock construct with the same functional content in both the short and full
     }
 
     // Nuclear Launch Detected (104)
@@ -127,14 +115,14 @@ class SpecialEffect extends HTMLElement {
         // create fullButton ID
         let fullButtonId = `fbutt-${sharedId}`;
         // set up the shortDesc
-        let shortDesc = `<div id="${shortId}" style="effectText"><button id="${shortButtonId}>&#127922; Destroy a random color.</button></div>`;
+        let shortDesc = `<div id="${shortId}"<button class="specRoll" id="${shortButtonId}>&#127922; Destroy a random color.</button></div>`;
         // set up the fullDesc
-        let fullDesc = `<div id="${fullId}" style="effectText"><button id="${fullButtonId}>&#127922; Destroy a random color.</button></div>`;
+        let fullDesc = `<div id="${fullId}"<button class="specRoll" id="${fullButtonId}>&#127922; Destroy a random color.</button></div>`;
         // create the content body
-        let effectContent = `<div class="descBlock">
+        let effectContent = `
             <div class="shortDesc">${shortDesc}</div>
             <div class="fullDesc hiddenPart">${fullDesc}</div>
-            </div>`;
+            `;
         // set up click handlers
         
         return message;

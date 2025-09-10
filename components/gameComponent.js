@@ -312,6 +312,7 @@ class GameComponent extends HTMLElement {
         }
         shared.setNewEffect(shared.getRandomEffect()); // trip the randomizer...
         // ONCE THE EFFECT COMPONENT IS BUILT, THIS'LL PUT THE TRIGGER TAG INTO THE ACTIVE CONTAINER:
+        // OKAY, Going to TRY IT! (committing current state first)
         // activeContainer.innerHTML = '<z-eff></z-eff>';
         let localEffect = shared.getNewEffect(); // then get the newEffect...
         // put the newEffect into a TOTALLY PLACEHOLDER THING

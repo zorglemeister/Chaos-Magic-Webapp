@@ -42,10 +42,12 @@ effectTemplate.innerHTML = `
 
 // can the randomizer add <z-eff>[CanonicalId]</z-eff> to the activeContainer and then this use that to go pull the effect from the list?
 // that might work pretty well, the randomizer can maintain its own array of active effects and pop(norepeats) from that list as needed?
+// *** update: don't need to do this, the new effect is written into shared.newEffect, can pull and interpret
 
 
 // generate a unique ID for the effectContainer div
 // this will facilitate reparenting it between active and history
+// *** update: don't need to do this, reparenting is handled with container.firstElementChild
 
 // Effect shortdesc should have a "⮟ ⮟" at the bottom that expands to the full description
 // clicking that hides the short, displays the full, and changes to a "⮝ ⮝"
@@ -92,13 +94,34 @@ class EffectComponent extends HTMLElement {
     render() {
         // get the generatedEffect
         let localEffect = shared.getNewEffect();
-        // put the pieces of the generated effect into the template contents
         
+        // special effects just replace the descBlock, so the shell can all be handled the same
+        this.getElementsByClass('effectName')[0].innerHTML = `format + ${localEffect.effectName}`;
+        this.getElementsByClass('displayNum')[0].innerHTML = `format + ${localEffect.displayNum}`;
+        // LOGIC for descBlock based on localEffect.specFunc
+        if (localEffect.specFunc) { // if there's a special function...
+            // call the special effect handler by putting the special effect tag into descBlock (it'll be updated with the short and full desc divs)
+            this.getElementsByClass('descBlock')[0].innerHTML = `<special-effect>${localEffect.indexNum}</special-effect>`;
+        } else { // if not...
+            // put the short and full desc of the effect into the template contents
+            this.getElementsByClass('shortDesc')[0].innerHTML = `format + ${localEffect.shortDesc}`;
+            this.getElementsByClass('fullDesc')[0].innerHTML = `format + ${localEffect.fullDesc}`;
+        }
+        if (localEffect.component) { // if there's a component...
+            this.getElementsByClass('effectComponents')[0].innerHTML = `format + ${localEffect.component}`;
+        } else { // if not...
+            this.getElementsByClass('effectComponents')[0].remove;
+        }
+         if (localEffect.inspiration) { // if there's an inspiration...
+            this.getElementsByClass('inspiration')[0].innerHTML = `format + ${localEffect.inspiration}`;
+        } else { // if not...
+            this.getElementsByClass('inspiration')[0].remove;
+        }
         //
         // THIS IS THE PART I'M WORKING ON
         //
         //
-        //
+        // test the duration and add an Active Effect if it is anything other than "instant"
 
         // Jo Raises Their Hand... "I HAS QUESTION!"
         // Will this handle the output of a specialEffectComponent smoothly?
@@ -110,6 +133,9 @@ class EffectComponent extends HTMLElement {
         for (let rollTag of rollTags) { // loop through them and add an event handler on update
             rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML)); // when one is updated, find its pair and match the contents
         }
+        // I think I need to move this to a custom event, because I'll need it to update in "Active Effects" too, which isn't just a reparent, it's a separate instance of the same effect
+        // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
+
         this.getElementsByClassName('descSwitch')[0].addEventListener('click', this.toggleDescContent.bind(this)); // desc expand/shrink button
     }
     toggleDescContent() {
