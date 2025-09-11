@@ -7,7 +7,7 @@
             "indexNum": 1,
             "displayNum": "012",
             "player": "duel",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "exemplar",
                 "custom"
@@ -20,7 +20,7 @@
             "rarity": "common",
             "component": "",
             "inspiration": "Dave H",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "multi, TRUE, lite, custom, Chronomancy, Instant, common",
@@ -29,7 +29,7 @@
             "indexNum": 2,
             "displayNum": "123",
             "player": "multi",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "lite",
                 "custom"
@@ -42,7 +42,7 @@
             "rarity": "common",
             "component": "Reminder",
             "inspiration": "CJ H",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "duel, FALSE, lite, custom, Conjuration, Instant, uncommon",
@@ -51,7 +51,7 @@
             "indexNum": 3,
             "displayNum": "234",
             "player": "duel",
-            "accessible": "FALSE",
+            "accessible": false,
             "inclusion": [
                 "lite",
                 "custom"
@@ -64,7 +64,7 @@
             "rarity": "uncommon",
             "component": "",
             "inspiration": "Aelwynn H",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "duel, TRUE, legacy, custom, Divination, Instant, rare",
@@ -73,7 +73,7 @@
             "indexNum": 4,
             "displayNum": "345",
             "player": "duel",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "legacy",
                 "custom"
@@ -86,7 +86,7 @@
             "rarity": "rare",
             "component": "Reminder",
             "inspiration": "David C",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "multi, TRUE, exemplar [main], custom, Enchantment, Turn, common",
@@ -95,7 +95,7 @@
             "indexNum": 5,
             "displayNum": "456",
             "player": "multi",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "exemplar",
                 "custom"
@@ -108,7 +108,7 @@
             "rarity": "common",
             "component": "",
             "inspiration": "",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "duel, TRUE, exemplar [tokenizer], custom, Evocation, Turn, uncommon",
@@ -117,7 +117,7 @@
             "indexNum": 6,
             "displayNum": "567",
             "player": "duel",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "exemplar",
                 "custom"
@@ -130,7 +130,7 @@
             "rarity": "uncommon",
             "component": "",
             "inspiration": "Dave H",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "duel, FALSE, micro, custom, Divination, Illusion, Turn, rare",
@@ -139,7 +139,7 @@
             "indexNum": 7,
             "displayNum": "678",
             "player": "duel",
-            "accessible": "FALSE",
+            "accessible": false,
             "inclusion": [
                 "micro",
                 "custom"
@@ -153,7 +153,7 @@
             "rarity": "rare",
             "component": "",
             "inspiration": "",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "duel, TRUE, custom, Necromancy, Round, common",
@@ -162,7 +162,7 @@
             "indexNum": 8,
             "displayNum": "789",
             "player": "duel",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "custom"
             ],
@@ -174,7 +174,7 @@
             "rarity": "common",
             "component": "Reminder",
             "inspiration": "David C",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "multi, FALSE, micro, lite, custom, Transmutation, Round, rare",
@@ -183,7 +183,7 @@
             "indexNum": 9,
             "displayNum": "890",
             "player": "multi",
-            "accessible": "FALSE",
+            "accessible": false,
             "inclusion": [
                 "micro",
                 "lite",
@@ -197,7 +197,7 @@
             "rarity": "rare",
             "component": "",
             "inspiration": "",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
@@ -206,7 +206,7 @@
             "indexNum": 10,
             "displayNum": "901",
             "player": "duel",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "exemplar",
                 "custom"
@@ -221,7 +221,7 @@
             "rarity": "common",
             "component": "",
             "inspiration": "",
-            "specFunc": "FALSE"
+            "specFunc": false
         },
         {
             "effectName": "specialFunctionTest",
@@ -230,7 +230,7 @@
             "indexNum": 11,
             "displayNum": "901",
             "player": "duel",
-            "accessible": "TRUE",
+            "accessible": true,
             "inclusion": [
                 "exemplar",
                 "custom"
@@ -245,7 +245,7 @@
             "rarity": "common",
             "component": "",
             "inspiration": "",
-            "specFunc": "TRUE"
+            "specFunc": true
         }
     ]
 }
