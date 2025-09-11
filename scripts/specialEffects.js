@@ -1,104 +1,88 @@
-// THIS FILE HOLDS THE EFFECT SCRIPTS
+// Rewriting the component as a module here.
+// This'll contain the functions for the dozen-or-so really special effects that can't be handled by regular ccomponents
+// like the "roll more times" or the intricately-worded-yet-dynamic ones
+// returning the content for the effectComponent that it was included in
+// This'll populate the descBlock of the effectComponent template, so output needs to be in this stucture:
+//     <div class="shortDesc"></div>
+//     <div class="fullDesc hiddenPart"></div>
 
-//
-//
-// THIS IS ALL THE EFFECT-LEVEL SPECIAL FUNCTIONS
-//
-// They should all return a block that matches this format:
-// <div class="shortDesc"></div>
-// <div class="fullDesc hiddenPart"></div>
+import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique() and dieRoll(count, sides)
 
-// die rolls should be tagged like <z-rb>2d6</z-rb>
-// symbols should be tagged like <z-is>WUBRG</z-is>
 
-// ###########################
-// Special Effect Functions
-// ###########################
-
-// REUSE BITS
-
-// die roller (count, sides) - Returns a single number
-function dieRoll(count, sides) {
-    let total = 0;
-    for (let i = 0; i < count; i++){
-        let roll = Math.ceil(Math.random() * sides);
-        total = total + roll;
-    }
-    return total;
+// TEST EFFECT (remove before going live)
+export function effect11() {
+    return `<div class="shortDesc">SPECIAL EFFECT DID THIS</div>
+        <div class="fullDesc hiddenPart">OHAI, Full desc from a special effect</div>
+        `;
 }
 
-// random direction - Returns "left" or "right"
-function randDirection() {
-    let genDir = "right";
-    if (dieRoll(1,2) === 1) {
-        genDir = "left";
-    } 
-    return genDir;
+// Zerg Rush (136)
+export function effect136() {
+    let effectShortIntro = 'Each player creates some Zerglings.'; // First part of shortDesc
+    let effectFullIntro = 'Each player creates 2d6 1/1 colorless Zergling creature tokens with haste.'; // First part of fullDesc
+    let effectFuncContent = '<div class="136ZergContainer">'; // Builds a container with a dice block for each player
+    for (let i = 0; i < shared.playerCount; i++) {
+        effectFuncContent = effectFuncContent + `<div class="136ZergPlayerBox">
+            <div class="136ZergPlayerTitle">Player ${i + 1}</div>
+            <z-rb>2d6</z-rb>
+            </div>`;
+        }
+    effectFuncContent = effectFuncContent + '</div>'; // wraps the container
+    return `
+        <div class="shortDesc">${effectShortIntro}${effectFuncContent}</div>
+        <div class="fullDesc hiddenPart">${effectFullIntro}${effectFuncContent}</div>
+        `; // returns the descBlock construct with the same functional content in both the short and full
 }
 
-//Effect specFunc
+// Ocean of Life (37)
+export function effect37() {
+    let effectShortIntro = 'Everyone gains some life.'; // First part of shortDesc
+    let effectFullIntro = 'Gain 2d10 life. All other players gain 1d10 life.'; // First part of fullDesc
+    let effectFuncContent = '<div class="37OceanContainer">'; // Builds a container with a dice block for each player
+    effectFuncContent = effectFuncContent + `<div class="37OceanPlayerBox">
+            <div class="37OceanPlayerTitle">You</div>
+            <z-rb>2d20</z-rb>
+            </div>`
+    for (let i = 0; i < (shared.playerCount - 1); i++) { 
+        effectFuncContent = effectFuncContent + `<div class="37OceanPlayerBox">
+            <div class="37OceanPlayerTitle">Player ${i + 1}</div>
+            <z-rb>1d10</z-rb>
+            </div>`;
+        }
+    effectFuncContent = effectFuncContent + '</div>'; // wraps the container
+    return `
+        <div class="shortDesc">${effectShortIntro}${effectFuncContent}</div>
+        <div class="fullDesc hiddenPart">${effectFullIntro}${effectFuncContent}</div>
+        `; // returns the descBlock construct with the same functional content in both the short and full
+}
 
-// Stream of Life (35)
-function effectStreamOfLife() {
-    return "Gain ${toString(dieRoll(1,10))} life.";
-}
-// River of Life (36)
-function effectRiverOfLife() {
-    return "Gain ${toString(dieRoll(1,20))} life.";
-}
-// Ocean of Life (36)
-function effectOceanOfLife() {
-    return "Gain ${toString(dieRoll(2,20))} life. Each opponent gains ${toString(dieRoll(1,10))} life.";
-}
-// Musical Chairs (38)
-function effectMusicalChairs() {
-    return "Players (and any player-attached auras, counters, life totals, etc.) rotate to the ${randDirection()}. All cards in other zones remain where they started.";
-}
-// Musical Hands (39)
-function effectMusicalHands() {
-    return "Each player's hand is passed to the player to the ${randDirection()}.";
-}
-// Musical Libraries (40)
-function effectMusicalLibraries() {
-    return "Each player's library is passed to the player to the ${randDirection()}.";
-}
-// Musical Life (41)
-function effectMusicalLife() {
-    return "Each player's life total is transferred to the player to the ${randDirection()}.";
-}
-// Musical Creatures (42)
-function effectMusicalCreatures() {
-    return "All creatures each player controls are passed to the player to the ${randDirection()}. They remain tapped or untapped.";
-}
-// Musical Lands (43)
-function effectMusicalLands() {
-    return "All lands each player controls are passed to the player to the ${randDirection()}. They remain tapped or untapped.";
-}
-// Hurkyl's Mixer (315)
-function effectHurkylMixer() {
-    return "Put all artifacts target player controls into the player to their ${randDirection()}'s hand.";
-}
-// An almost fanatical devotion to the Pope! (47)
-function effectPopeDevotion() {
-    return "Create ${toString(dieRoll(1,6))} Spirits.";
-}
-// Nice red uniforms! (48)
-function effectRedUniforms() {
-    return "Create ${toString(dieRoll(1,3))} Dragons.";
-}
-// Redshirt Brigade (55)
-function effectRedshirts() {
-    return "Create ${toString(dieRoll(2,4) + 1)} Starfleet Ensigns.";
-}
-// Someone Didn't Balance This One (58)
-function effectNoBalance() {
-    return "Gain 20 life. Each opponent loses 5 life. Each opponent sacrifices a creature, artifact, and land. Create ${toString(dieRoll(1,3))} Goliaths. You become the monarch.";
-}
-// random colour + choice
 // Nuclear Launch Detected (104)
-function effectColorNuke() {
-    let message = "Something Went Wrong - Jo";
-    switch (dieRoll(1,6)) {
+export function effect104() {
+    // create linking ID
+    let sharedId = shared.randomUnique();
+    // create shortDesc ID
+    let shortId = `sdesc-${sharedId}`;
+    // create fullDesc ID
+    let fullId = `fdesc-${sharedId}`;
+    // create shortButton ID
+    let shortButtonId = `sbutt-${sharedId}`;
+    // create fullButton ID
+    let fullButtonId = `fbutt-${sharedId}`;
+    // set up the shortDesc
+    let shortDesc = `<div id="${shortId}"<button class="specRoll" id="${shortButtonId}>&#127922; Destroy a random color.</button></div>`;
+    // set up the fullDesc
+    let fullDesc = `<div id="${fullId}"<button class="specRoll" id="${fullButtonId}>&#127922; Destroy a random color.</button></div>`;
+    // create the content body
+    let effectContent = `
+        <div class="shortDesc">${shortDesc}</div>
+        <div class="fullDesc hiddenPart">${fullDesc}</div>
+        `;
+    // set up click handlers
+    
+    return message;
+}
+export function effect104click() {
+    switch (shared.dieRoll(1,6)) {
         case "1":
             message = "Destroy all white permanents.";
         break;
@@ -117,316 +101,7 @@ function effectColorNuke() {
         case "6":
             message = "Choose a color. Destroy all permanents of chosen color.";
     }
-    return message;
 }
-// Zerg Rush (136) ***********************************************************************************
-function effectZergRush() {
-    return "Create ${toString(dieRoll(2,6))} Zerglings."; // NEED A BUTTON THAT RANDOMIZES, so each player rolls.
-}
-// Thopter Brigade (153)
-function effectThopters() {
-    return "Create ${toString(dieRoll(1,8))} Thopters.";
-}
-// Scryb Brigade (154)
-function effectScryb() {
-    return "Create ${toString(dieRoll(1,4))} Sprites.";
-}
-// Whelp Brigade (155)
-function effectWhelps() {
-    return "Create ${toString(dieRoll(1,3))} Whelps.";
-}
-// How Many Of These Are There?! (156) ***********************************************************************************
-function effectHowMany() {
-    return "Create ${toString(dieRoll(2,6))} Zerglings."; // Rolls twice, displays those results.
-}
-// By The Gods Below, Make It Stop, Please! (172) ***********************************************************************************
-function effectMakeItStop() {
-    return "Create ${toString(dieRoll(2,6))} Zerglings."; // Rolls thrice, displays those results.
-}
-// Oh No, Not Again... (173) ***********************************************************************************
-function effectNotAgain() {
-    return "Create ${toString(dieRoll(2,6))} Zerglings."; // Repeats the previous roll.
-}
-// Ryan Loves Dice (185)
-function effectRyanDice() {
-    let plusY = dieRoll(1,20).toString();
-    return "Choose up to ${toString(dieRoll(1,8))} target creatures. Put ${toString(dieRoll(1,6))} +1/+1 counters on each. Choose up to ${toString(dieRoll(1,4))} other target creatures. Those gain +" + plusY + "/+" + plusY + " until end of turn. All players discard ${toString(dieRoll(1,6))} cards, then draw ${toString(dieRoll(1,8))} cards. Flip a coin. If you win the flip, all players gain ${toString(dieRoll(1,10))} life. If you lose the flip, all players lose ${toString(dieRoll(2,4))} life.";
-}
-// random colour + colourless
-// Bouncy house (187)
-function effectBouncyHouse() {
-    let message = "Something Went Wrong - Jo";
-    switch (dieRoll(1,6)) {
-        case "1":
-            message = "Return all white permanents to their owner's hand.";
-        break;
-        case "2":
-            message = "Return all blue permanents to their owner's hand.";
-        break;
-        case "3":
-            message = "Return all black permanents to their owner's hand.";
-        break;
-        case "4":
-            message = "Return all red permanents to their owner's hand.";
-        break;
-        case "5":
-            message = "Return all green permanents to their owner's hand.";
-        break;
-        case "6":
-            message = "Choose a color. Return all permanents of chosen color to their owner's hand.";
-    }
-    return message;
-}
-// Chaos Choice (200) ***********************************************************************************
-function effectChaosChoice() {
-    return "Create ${toString(dieRoll(2,6))} Zerglings."; // Somehow need to browse the list and select an effect.
-}
-// Raid the Library (210)
-function effectRaidLibrary() {
-    return "Until the start of your next turn, all players have no maximum hand size. Each player draws ${toString(dieRoll(2,6))} cards.";
-}
-
-// random mana
-// Effects: Chaos Sleight (321), Terrestrial Upheaval (494)
-function randMana() {
-    let genMana = "Something Went Wrong - Jo";
-    switch (dieRoll(1,6)) {
-        case "1":
-            genMana = "white";
-        break;
-        case "2":
-            genMana = "blue";
-        break;
-        case "3":
-            genMana = "black";
-        break;
-        case "4":
-            genMana = "red";
-        break;
-        case "5":
-            genMana = "green";
-        break;
-        case "6":
-            genMana = "generic";
-    }
-    return genMana;
-}
-
-// random basic land type
-function randBasicLand() {
-    let genLand = "Something Went Wrong - Jo";
-    switch (dieRoll(1,6)) {
-        case "1":
-            genLand = "plains";
-        break;
-        case "2":
-            genLand = "island";
-        break;
-        case "3":
-            genLand = "swamp";
-        break;
-        case "4":
-            genLand = "mountain";
-        break;
-        case "5":
-            genLand = "forest";
-        break;
-        case "6":
-            genLand = "wastes";
-    }
-    return genLand;
-}
-
-// random land type basic + nonbasic - wastes
-// Effect: Chaos Hack (322)
-function randLandHack() {
-    let genLand = "Something Went Wrong - Jo";
-    switch (dieRoll(1,6)) {
-        case "1":
-            genLand = "plains";
-        break;
-        case "2":
-            genLand = "island";
-        break;
-        case "3":
-            genLand = "swamp";
-        break;
-        case "4":
-            genLand = "mountain";
-        break;
-        case "5":
-            genLand = "forest";
-        break;
-        case "6":
-            genLand = "nonbasic";
-    }
-    return genLand;
-}
-
-// random land type basic + non-basic
-// Effect: Dicewalk (636)
-function randLandWalk() {
-    let genWalk = "Something Went Wrong - Jo";
-    switch (dieRoll(1,7)) {
-        case "1":
-            genWalk = "plainswalk";
-        break;
-        case "2":
-            genWalk = "islandwalk";
-        break;
-        case "3":
-            genWalk = "swampwalk";
-        break;
-        case "4":
-            genWalk = "mountainwalk";
-        break;
-        case "5":
-            genWalk = "forestwalk";
-        break;
-        case "6":
-            genWalk = "wasteswalk";
-        break;
-        case "7":
-            genWalk = "nonbasic landwalk";
-    }
-    return genWalk;
-}
-
-// random walk
-// Effect: Boots, Made for Walking (928)
-function randWalk() {
-    let genWalk = "Something Went Wrong - Jo";
-    switch (dieRoll(1,7)) {
-        case "1":
-            genWalk = "plainswalk";
-        break;
-        case "2":
-            genWalk = "islandwalk";
-        break;
-        case "3":
-            genWalk = "swampwalk";
-        break;
-        case "4":
-            genWalk = "mountainwalk";
-        break;
-        case "5":
-            genWalk = "forestwalk";
-        break;
-        case "6":
-            genWalk = "wasteswalk";
-        break;
-        case "7":
-            genWalk = "nonbasic landwalk";
-        break;
-        case "8":
-            genWalk = "denimwalk";
-        break;
-        case "9":
-            genWalk = "snackwalk";
-        break;
-        case "10":
-            genWalk = "facewalk";
-        break;
-        case "11":
-            genWalk = "no cards in handwalk";
-        break;
-        case "12":
-            genWalk = "snow landwalk";
-        break;
-        case "13":
-            genWalk = "legendary landwalk";
-        break;
-        case "14":
-            genWalk = "artifact landwalk";
-        break;
-        case "15":
-            genWalk = "sagawalk";
-        break;
-        case "16":
-            genWalk = "desertwalk";
-        break;
-        case "17":
-            genWalk = "commanderwalk";
-        break;
-        case "18":
-            genWalk = "eldraziwalk";
-        break;
-        case "19":
-            genWalk = "proxywalk";
-        break;
-        case "20":
-            genWalk = "energywalk";
-        break;
-        case "21":
-            genWalk = "+1/+1 walk";
-        break;
-        case "22":
-            genWalk = "full art landwalk";
-    }
-    return genWalk;
-}
-
-// random land type basic + all : "a/an/any landtype"
-// Effect: Flare (635)
-function effectFlare635() {
-    let genLand = "Something Went Wrong - Jo";
-    switch (dieRoll(1,7)) {
-        case "1":
-            genLand = "a plains";
-        break;
-        case "2":
-            genLand = "an island";
-        break;
-        case "3":
-            genLand = "a swamp";
-        break;
-        case "4":
-            genLand = "a mountain";
-        break;
-        case "5":
-            genLand = "a forest";
-        break;
-        case "6":
-            genLand = "a waste";
-        break;
-        case "7":
-            genLand = "any land";
-    }
-    return genLand;
-}
-
-// random permanent type
-// Effect: Tariff Sheriff (911)
-function effectTariff911() {
-    let genLand = "Something Went Wrong - Jo";
-    switch (dieRoll(1,7)) {
-        case "1":
-            genLand = "plains";
-        break;
-        case "2":
-            genLand = "island";
-        break;
-        case "3":
-            genLand = "swamp";
-        break;
-        case "4":
-            genLand = "mountain";
-        break;
-        case "5":
-            genLand = "forest";
-        break;
-        case "6":
-            genLand = "wastes";
-        break;
-        case "7":
-            genLand = "non-basic";
-    }
-    return genLand;
-}
-
-
-
-
 
 
 

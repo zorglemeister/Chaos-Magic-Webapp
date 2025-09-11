@@ -107,26 +107,26 @@ class EffectComponent extends HTMLElement {
         let localEffect = shared.getNewEffect();
         
         // special effects just replace the descBlock, so the shell can all be handled the same
-        this.getElementsByClass('effectName')[0].innerHTML = `format + ${localEffect.effectName}`;
-        this.getElementsByClass('displayNum')[0].innerHTML = `format + ${localEffect.displayNum}`;
+        this.getElementsByClassName('effectName')[0].innerHTML = `format + ${localEffect.effectName}`;
+        this.getElementsByClassName('displayNum')[0].innerHTML = `format + ${localEffect.displayNum}`;
         // LOGIC for descBlock based on localEffect.specFunc
         if (localEffect.specFunc) { // if there's a special function...
             // call the special effect handler by putting the special effect tag into descBlock (it'll be updated with the short and full desc divs)
-            this.getElementsByClass('descBlock')[0].innerHTML = `<special-effect>${localEffect.indexNum}</special-effect>`;
+            this.getElementsByClassName('descBlock')[0].innerHTML = this.specialEffect(localEffect.indexNum);
         } else { // if not...
             // put the short and full desc of the effect into the template contents
-            this.getElementsByClass('shortDesc')[0].innerHTML = `format + ${localEffect.shortDesc}`;
-            this.getElementsByClass('fullDesc')[0].innerHTML = `format + ${localEffect.fullDesc}`;
+            this.getElementsByClassName('shortDesc')[0].innerHTML = `format + ${localEffect.shortDesc}`;
+            this.getElementsByClassName('fullDesc')[0].innerHTML = `format + ${localEffect.fullDesc}`;
         }
         if (localEffect.component) { // if there's a component...
-            this.getElementsByClass('effectComponents')[0].innerHTML = `format + ${localEffect.component}`;
+            this.getElementsByClassName('effectComponents')[0].innerHTML = `format + ${localEffect.component}`;
         } else { // if not...
-            this.getElementsByClass('effectComponents')[0].remove;
+            this.getElementsByClassName('effectComponents')[0].remove;
         }
          if (localEffect.inspiration) { // if there's an inspiration...
-            this.getElementsByClass('inspiration')[0].innerHTML = `format + ${localEffect.inspiration}`;
+            this.getElementsByClassName('inspiration')[0].innerHTML = `format + ${localEffect.inspiration}`;
         } else { // if not...
-            this.getElementsByClass('inspiration')[0].remove;
+            this.getElementsByClassName('inspiration')[0].remove;
         }
         //
         // THIS IS THE PART I'M WORKING ON
@@ -188,6 +188,14 @@ class EffectComponent extends HTMLElement {
         }
 
         // Potential complication: Will this update trigger the EventListener again? If so, should I add a "rollFixed" class to check for and prevent an update loop?
+    }
+    specialEffect(index) {
+        const methodName = `effect${index}`; // build the methodName
+        if (typeof special[methodName] === 'function') { // if the methodName is actually a function...
+            return special[methodName](); // run it
+        } else { // otherwise...
+            return 'Custom function not defined'; // let me know it didn't work
+        }
     }
 }
 
