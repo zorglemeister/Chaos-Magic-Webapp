@@ -75,23 +75,34 @@ class EffectComponent extends HTMLElement {
     }
     connectedCallback() { // what happens when this is reparented? do I need to use something on the first render only? UPDATE - reparenting does NOT trip connectedCallback() !!
         if (!this._isRendered) { // if it hasn't already been rendered...
-        // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
+
+            // ******
+            // MOVING ALL THIS TO render()
+            // ******
+/*         // I need a uniqueId for each instance of this component, because DOM manipulation (reparenting)
         // DO I?
         // let effectId = this.textContent; // Don't worry about this, just pull shared.getNewEffect() for the effect data
         let effectContent = effectTemplate.content.cloneNode(true); // copy the template into this instance (const? or let? I'm going to be modifying the contents, right? so let.)
-        effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`); // does this WORK? will be cool if it does.
+        //effectContent.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`); // does this WORK? will be cool if it does.  ** UPDATE: DOESN'T WORK. It's not in the DOM yet...
         // could also use this to tag id/label pairs with a .setAttribute('for', uniqueId);
         // might be worth pulling this into a higher-scope method
 
         // If specFunc is true
 
-        this.append(effectContent); // sticks the updated copy in the DOM
-
+        this.append(effectContent); // sticks the template in the DOM
+        // sets the ID for the copy in the DOM
+        this.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`);
+ */
         this.render(); // render it...
         this._isRendered = true; // and set the flag
         }
     }
     render() {
+        this.append(effectTemplate.content.cloneNode(true)); // Stick it in the DOM
+        
+        // sets the ID for the copy in the DOM
+        this.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`);
+
         // get the generatedEffect
         let localEffect = shared.getNewEffect();
         

@@ -439,13 +439,13 @@ function buildGameList() {
     let effectFilterCycleCount = 0; // debug thing
     return sourceList.effects.filter(effect => {
         // effects is the array within the sourceList entity, so call .filter() on it directly
-        console.log('player match', (!filterCriteria.player || effect.player.includes(filterCriteria.player)));
-        console.log('accessible match', (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)));
-        console.log('inclusion match', (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)));
-        console.log('theme match', (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)));
-        console.log('school match', (!filterCriteria.school || effect.school.includes(filterCriteria.school)));
-        console.log('duration match', (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)));
-        console.log('rarity match', (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity)));
+        console.log('player', (!filterCriteria.player || effect.player.includes(filterCriteria.player)),
+        '| accessible', (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)),
+        '| inclusion', (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)),
+        '| theme', (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)),
+        '| school', (!filterCriteria.school || effect.school.includes(filterCriteria.school)),
+        '| duration', (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)),
+        '| rarity', (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity)));
         effectFilterCycleCount = effectFilterCycleCount + 1;
         console.log('Effect Filter Cycle Count', effectFilterCycleCount);
         return ( // This is an inline function, so it's returning a boolean. that parens opens the conditional

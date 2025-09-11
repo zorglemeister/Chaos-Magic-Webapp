@@ -19,7 +19,7 @@ class SpecialEffect extends HTMLElement {
         }
     }
     render() {
-        const sourceText = this.textContent.trim(); // Get the text
+        const sourceText = this.textContent.trim(); // Get the text content
         this.innerHTML = handleEffect(sourceText); // make it happen!
     }
     /* handleEffect(index) { // can i just use the content of the tag to directly call a method of the same name?
