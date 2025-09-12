@@ -13,6 +13,15 @@ class FlipCoin extends HTMLElement {
     constructor() {
         super(); // apparently this is important?
         this._isRendered = false; // flag for only rendering once
+
+        // binding the flipCoin update handler to this instance
+        this.handleFlipEvent = this.handleFlipEvent.bind(this);
+        // and set up the event listener
+        document.addEventListener('flipCoinFlipped', this.handleFlipEvent);
+        // binding the clearCoin update handler to this instance
+        this.handleClearEvent = this.handleClearEvent.bind(this);
+        // and set up the event listener
+        document.addEventListener('flipCoinCleared', this.handleClearEvent);
     }
     connectedCallback() {
         if (!this._isRendered) { // if it hasn't already been rendered...
@@ -26,6 +35,15 @@ class FlipCoin extends HTMLElement {
     }
 
     flipIt() {
+        // first, we're going to remove the event handler from the paired flipCoin element
+        const flipEventMessage = new CustomEvent('flipCoinFlipped', { // set up an event... 
+            detail: {
+                buttonId: this.getAttribute('id'), // containing this Id
+             }
+        });
+        document.dispatchEvent(flipEventMessage); // and send it into the universe.
+        
+        // then we're going to have some animation fun...
         const coinContainer = this.getElementsByClassName("coinContainer")[0]; // get the container div
         const coin = this.getElementsByClassName("coin")[0]; // get the coin div
         const button = this.getElementsByClassName("flipButton")[0]; // get the button
@@ -51,11 +69,43 @@ class FlipCoin extends HTMLElement {
                 button.addEventListener('click', () => {
                     coinContainer.remove();
                     button.remove();
-                    this.innerHTML = `<b>${coin.textContent === 'Ⓗ' ? 'Ⓗ Heads' : 'Ⓣ Tails'}</b>`
+                    let coinResult = `<b>${coin.textContent === 'Ⓗ' ? 'Ⓗ Heads' : 'Ⓣ Tails'}</b>`;
+                    this.innerHTML = coinResult;
+                    const flipClearMessage = new CustomEvent('flipCoinCleared', { // set up an event... 
+                        detail: {
+                            buttonId: this.getAttribute('id'), // containing this Id...
+                            flipResult: coinResult // and the result...
+                        }
+                    });
+                    document.dispatchEvent(flipClearMessage); // and send it into the universe.
                 }, { once: true }); // can only be triggered once
                 }, 500)
             }
         }, 1000); // this sets the 1000ms interval
+    }
+    handleFlipEvent(payload) { // handle the "SOMEONE CLICKED A ROLL!" event
+        const targetId = payload.detail.buttonId; // pull the details out of it...
+
+        if (this.getAttribute('id').slice(1) === targetId.slice(1)) { // and if the sliced id matches this one...
+            const button = this.getElementsByClassName("flipButton")[0]; // get the button
+            button.disabled = true; // disable the button during the flip
+            this.destroyFlipListener(); // and torch the event listener (keep things tidy in memory)
+        }
+    }
+    handleClearEvent(payload) { // handle the "SOMEONE CLICKED A ROLL!" event
+        const targetId = payload.detail.buttonId; // pull the details out of it...
+        const content = payload.detail.flipResult;
+
+        if (this.getAttribute('id').slice(1) === targetId.slice(1)) { // and if the sliced id matches this one...
+            this.innerHTML = content; // update the contents
+            this.destroyClearListener(); // and torch the event listener (keep things tidy in memory)
+        }
+    }
+    destroyFlipListener() {
+        document.removeEventListener('flipCoinFlipped', this.handleFlipEvent);
+    }
+    destroyClearListener() {
+        document.removeEventListener('flipCoinCleared', this.handleClearEvent);
     }
 }
 

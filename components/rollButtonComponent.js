@@ -4,6 +4,13 @@ class RollButton extends HTMLElement {
     constructor() {
         super(); // apparently this is important?
         this._isRendered = false; // flag for only rendering once
+
+        // binding the button update handler to this instance
+        this.handleUpdateEvent = this.handleUpdateEvent.bind(this);
+        // and set up the event listener (why do i keep spelling it "listender"?!)
+        document.addEventListener('rollButtonClicked', this.handleUpdateEvent);
+        // we do this up here to avoid creating multiple event listeners
+        // best practice for memory management, not necessarily vital for this project, but good to know
     }
     connectedCallback() {
         if (!this._isRendered) { // if it hasn't already been rendered...
@@ -17,8 +24,35 @@ class RollButton extends HTMLElement {
 
         this.querySelector('button').addEventListener('click', () => { // what to do on a click?
             const result = this.handleClick(sourceText); // get a result by passing the text to the click handler...
-            this.innerHTML = `&#127922; <b>${result}</b>`; // then replace the contents with the result!
+            // this.innerHTML = `&#127922; <b>${result}</b>`; // then replace the contents with the result!
+            const clickEventMessage = new CustomEvent('rollButtonClicked', { // set up an event... 
+                detail: {
+                    buttonId: this.getAttribute('id'), // containing the rollButton Id...
+                    rollResult: result // and the result...
+                }
+            });
+            document.dispatchEvent(clickEventMessage); // and send it into the universe.
         });
+/*         this.addEventListener('rollButtonClicked', function(context) { // listen to the universe for this event...  
+            const targetId = context.detail.buttonId; // pull the details out of it...
+            const content = context.detail.rollResult;
+
+            if (this.getAttribute('id').slice(1) === targetId.slice(1)) { // and if the sliced id matches this one...
+                this.innerHTML = `&#127922; <b>${content}</b>`; // update the text with the result
+            }
+        });  */
+    }
+    handleUpdateEvent(payload) { // handle the "SOMEONE CLICKED A ROLL!" event
+        const targetId = payload.detail.buttonId; // pull the details out of it...
+        const content = payload.detail.rollResult;
+
+        if (this.getAttribute('id').slice(1) === targetId.slice(1)) { // and if the sliced id matches this one...
+            this.innerHTML = `&#127922; <b>${content}</b>`; // update the text with the result...
+            this.destroyListener(); // and torch the event listener (keep things tidy in memory)
+        }
+    }
+    destroyListener() {
+        document.removeEventListener('rollButtonClicked', this.handleUpdateEvent);
     }
 // This needs to be expanded to handle dice, dice with +/- #, dice +/- dice, direction, colour, land
 // REGEX, MFs! (oh gods, i'm rusty)

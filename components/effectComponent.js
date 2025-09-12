@@ -128,7 +128,9 @@ class EffectComponent extends HTMLElement {
         } else { // if not...
             this.getElementsByClassName('inspiration')[0].remove;
         }
-        //
+        // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
+        this.linkRollButtons();
+        this.linkFlipCoins();
         // THIS IS THE PART I'M WORKING ON
         //
         //
@@ -140,10 +142,12 @@ class EffectComponent extends HTMLElement {
         // I think that means any included rollButtons will get flagged correctly
         // WE'LL SURE FIND OUT
 
-        let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
+        // THIS NEEDS TO BE REWORKED
+        // rollbutton needs an event to fire on click that includes the triggering button ID and the update string
+/*         let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
         for (let rollTag of rollTags) { // loop through them and add an event handler on update
             rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML)); // when one is updated, find its pair and match the contents
-        }
+        } */
         // I think I need to move this to a custom event, because I'll need it to update in "Active Effects" too, which isn't just a reparent, it's a separate instance of the same effect
         // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
 
@@ -167,7 +171,20 @@ class EffectComponent extends HTMLElement {
             fRollTags[i].setAttribute('id', `froll-${sharedId}`); // add froll-[SharedId] to the corresponding tag in fullDesc
         }
     }
-    updateLinkedRollTags(triggerTagId, updatedContent) {
+    linkFlipCoins() {
+        let sFlipCoins = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in shortDesc
+        let fFlipCoins = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in fullDesc
+        // assumptions:
+        // 1 - there are the same number of flipCoins in shortDesc as there are in fullDesc
+        // 2 - the flipCoins are in the same order in each
+        for (let i = 0; i < sFlipCoins.length; i++) { // loop through the contents of sFlipCoins
+            let sharedId = shared.randomUnique(); // for each entry pair, generate a uniqueId
+            sFlipCoins[i].setAttribute('id', `sflip-${sharedId}`); // add sflip-[SharedId] to the tag in shortDesc
+            fFlipCoins[i].setAttribute('id', `fflip-${sharedId}`); // add fflip-[SharedId] to the corresponding tag in fullDesc
+        }
+    }
+    // this is all obsoleted by the component-level event handler
+/*     updateLinkedRollTags(triggerTagId, updatedContent) {
         // snag the triggering element ID - remember, getAttribute() returns lowercase
         // copy the updated content (should be the outcome of the roll) as innerHTML
         // figure out if the update came from sRoll or fRoll
@@ -188,7 +205,7 @@ class EffectComponent extends HTMLElement {
         }
 
         // Potential complication: Will this update trigger the EventListener again? If so, should I add a "rollFixed" class to check for and prevent an update loop?
-    }
+    } */
     specialEffect(index) {
         const methodName = `effect${index}`; // build the methodName
         if (typeof special[methodName] === 'function') { // if the methodName is actually a function...
