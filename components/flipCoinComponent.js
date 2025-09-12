@@ -49,7 +49,11 @@ class FlipCoin extends HTMLElement {
         const button = this.getElementsByClassName("flipButton")[0]; // get the button
         let countdown = 3; // set a 3 second timer
         button.disabled = true; // disable the button during the flip
-        coin.classList.remove('hiddenPart'); // show the coin
+        // First stage:
+        // show the coin (displays "Call It!")
+        coin.classList.remove('hiddenPart');
+        // for 1.5 seconds
+        
         coin.style.animation = 'flipShape 2s linear infinite, flipColor 2s steps(1, end) infinite'; // start the animation 
         coinContainer.style.animation = 'coinVert 4s ease-in-out 1'; // hopefully vertical animation
         const interval = setInterval(() => { // starts the timer

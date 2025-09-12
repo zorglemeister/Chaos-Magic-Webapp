@@ -21,8 +21,10 @@ const effectTemplate = document.createElement('template');
 // specFunc (just for the call)
 effectTemplate.innerHTML = `
 <div class="effectContainer">
-    <div class="effectName"></div>
-    <div class="displayNum"></div>
+    <div class="effectTitle">
+        <div class="effectName"></div>
+        <div class="displayNum"></div>
+    </div>
     <div class="descDetails">
         <div class="descBlock"> <!-- this gets replaced by special effects -->
             <div class="shortDesc"></div>
@@ -30,8 +32,8 @@ effectTemplate.innerHTML = `
         </div>
         <div class="effectComponents"></div>
         <div class="inspiration"></div>
+        <button type="button" class="descSwitch descButtonClosed"></button>
     </div>
-    <button type="button" class="descSwitch descButtonClosed"></button>
 </div>
 `
 
@@ -107,24 +109,24 @@ class EffectComponent extends HTMLElement {
         let localEffect = shared.getNewEffect();
         
         // special effects just replace the descBlock, so the shell can all be handled the same
-        this.getElementsByClassName('effectName')[0].innerHTML = `format + ${localEffect.effectName}`;
-        this.getElementsByClassName('displayNum')[0].innerHTML = `format + ${localEffect.displayNum}`;
+        this.getElementsByClassName('effectName')[0].innerHTML = localEffect.effectName;
+        this.getElementsByClassName('displayNum')[0].innerHTML = localEffect.displayNum;
         // LOGIC for descBlock based on localEffect.specFunc
         if (localEffect.specFunc) { // if there's a special function...
             // call the special effect handler by putting the special effect tag into descBlock (it'll be updated with the short and full desc divs)
             this.getElementsByClassName('descBlock')[0].innerHTML = this.specialEffect(localEffect.indexNum);
         } else { // if not...
             // put the short and full desc of the effect into the template contents
-            this.getElementsByClassName('shortDesc')[0].innerHTML = `format + ${localEffect.shortDesc}`;
-            this.getElementsByClassName('fullDesc')[0].innerHTML = `format + ${localEffect.fullDesc}`;
+            this.getElementsByClassName('shortDesc')[0].innerHTML = localEffect.shortDesc;
+            this.getElementsByClassName('fullDesc')[0].innerHTML = localEffect.fullDesc;
         }
         if (localEffect.component) { // if there's a component...
-            this.getElementsByClassName('effectComponents')[0].innerHTML = `format + ${localEffect.component}`;
+            this.getElementsByClassName('effectComponents')[0].innerHTML = localEffect.component;
         } else { // if not...
             this.getElementsByClassName('effectComponents')[0].remove;
         }
          if (localEffect.inspiration) { // if there's an inspiration...
-            this.getElementsByClassName('inspiration')[0].innerHTML = `format + ${localEffect.inspiration}`;
+            this.getElementsByClassName('inspiration')[0].innerHTML = `Inspired by: ${localEffect.inspiration}`;
         } else { // if not...
             this.getElementsByClassName('inspiration')[0].remove;
         }

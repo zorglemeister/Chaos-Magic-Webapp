@@ -14,6 +14,13 @@ csv_file_path = 'lists/pythonListGen/AppTestingBlock.csv'
 
 json_file_path = 'lists/chaosTest.json'
 
+# I need a boolean interpreter
+
+def str_to_bool(fieldValue):
+    if isinstance(fieldValue, str):
+        return fieldValue.lower() in ("true")
+    return bool(fieldValue)
+
 # read the csv file
 
 data = []
@@ -42,6 +49,11 @@ with open (csv_file_path, mode='r', newline='', encoding='utf-8') as csv_file:
     # Convert 'indexNum' to numeric
 
         row['indexNum'] = int(row['indexNum']) if row ['indexNum'] else None
+
+    # Convert 'accessible' and 'specFunc' to boolean
+
+        row['accessible'] = str_to_bool(row['accessible']) if row ['accessible'] else None
+        row['specFunc'] = str_to_bool(row['specFunc']) if row ['specFunc'] else None
 
     # Stick the row into the data array
 
