@@ -18,7 +18,7 @@ json_file_path = 'lists/chaosTest.json'
 
 def str_to_bool(fieldValue):
     if isinstance(fieldValue, str):
-        return fieldValue.lower() in ("true")
+        return fieldValue.lower() in ("true") # if it's 'true', it's true, otherwise it's false!
     return bool(fieldValue)
 
 # read the csv file
