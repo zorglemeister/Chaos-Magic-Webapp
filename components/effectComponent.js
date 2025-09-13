@@ -30,8 +30,8 @@ effectTemplate.innerHTML = `
             <div class="shortDesc"></div>
             <div class="fullDesc hiddenPart"></div>
         </div>
-        <div class="effectComponents"></div>
-        <div class="inspiration"></div>
+        <div class="effectComponents hiddenPart"></div>
+        <div class="inspiration hiddenPart"></div>
         <button type="button" class="descSwitch descButtonClosed"></button>
     </div>
 </div>
@@ -118,21 +118,32 @@ class EffectComponent extends HTMLElement {
         } else { // if not...
             // put the short and full desc of the effect into the template contents
             this.getElementsByClassName('shortDesc')[0].innerHTML = localEffect.shortDesc;
-            this.getElementsByClassName('fullDesc')[0].innerHTML = localEffect.fullDesc;
-        }
+            if (localEffect.fullDesc) { // if there's a fullDesc...
+                this.getElementsByClassName('fullDesc')[0].innerHTML = localEffect.fullDesc; // display it and...
+                // link rolltags and flipcoins
+                this.linkRollButtons();
+                this.linkFlipCoins();
+            } else { // if not...
+                this.getElementsByClassName('fullDesc')[0].remove;
+            }
+        };
         if (localEffect.component) { // if there's a component...
             this.getElementsByClassName('effectComponents')[0].innerHTML = localEffect.component;
         } else { // if not...
             this.getElementsByClassName('effectComponents')[0].remove;
-        }
-         if (localEffect.inspiration) { // if there's an inspiration...
+        };
+        if (localEffect.inspiration) { // if there's an inspiration...
             this.getElementsByClassName('inspiration')[0].innerHTML = `Inspired by: ${localEffect.inspiration}`;
         } else { // if not...
             this.getElementsByClassName('inspiration')[0].remove;
-        }
+        };
+        if (!localEffect.fullDesc && !localEffect.component && !localEffect.inspiration) { // if there's no fullDesc, component, and inspiration, remove the details button
+            this.getElementsByClassName('descSwitch')[0].remove;
+        } else { // if there is any of those things, set up the details eventhandler
+            this.getElementsByClassName('descSwitch')[0].addEventListener('click', this.toggleDescContent.bind(this)); // desc expand/shrink button
+        };
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
-        this.linkRollButtons();
-        this.linkFlipCoins();
+        
         // THIS IS THE PART I'M WORKING ON
         //
         //
@@ -152,14 +163,23 @@ class EffectComponent extends HTMLElement {
         } */
         // I think I need to move this to a custom event, because I'll need it to update in "Active Effects" too, which isn't just a reparent, it's a separate instance of the same effect
         // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
-
-        this.getElementsByClassName('descSwitch')[0].addEventListener('click', this.toggleDescContent.bind(this)); // desc expand/shrink button
+        if (localEffect.duration === ('Round' || 'Ongoing')) { // if the effect needs to go in Active effect, fire an event
+        };
+        
     }
     toggleDescContent() {
         this.getElementsByClassName('descSwitch')[0].classList.toggle('descButtonClosed');
         this.getElementsByClassName('descSwitch')[0].classList.toggle('descButtonOpen');
+        if (this.getElementsByClassName('fullDesc')[0]) { // if there's a fullDesc, toggle s/f
         this.getElementsByClassName('shortDesc')[0].classList.toggle('hiddenPart');
         this.getElementsByClassName('fullDesc')[0].classList.toggle('hiddenPart');
+        }
+        if (this.getElementsByClassName('effectComponents')[0]) { // if there's an effectComponents, toggle it
+        this.getElementsByClassName('effectComponents')[0].classList.toggle('hiddenPart');
+        }
+        if (this.getElementsByClassName('inspiration')[0]) { // if there's an inspiration, toggle it
+        this.getElementsByClassName('inspiration')[0].classList.toggle('hiddenPart');
+        }
     }
     linkRollButtons() {
         let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc

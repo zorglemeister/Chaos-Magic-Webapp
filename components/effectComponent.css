@@ -40,7 +40,8 @@ z-eff .effectContainer {
     outline: 3px solid gold; /* middle gold border */
     box-shadow: 0 0 0 4px black; /* outer black border */
     border-radius: 5px; /* slightly rounded */
-    transform: perspective(1000px) rotateX(-2deg); /* change the shape to have a slightly narrower bottom edge */
+    /* This is neat, but makes the text render blurry */
+    /* transform: perspective(1000px) rotateX(-2deg); /* change the shape to have a slightly narrower bottom edge */ */
     justify-content: center;
     flex-direction: column;
 }
@@ -85,7 +86,7 @@ z-eff .descDetails {
     outline: 3px solid grey;
     box-shadow: 0 0 0 2px black;
     border-radius: 3px;
-    padding: 0 5px; */
+    padding: 0 5px;
 }
 z-eff .descSwitch {
     position: absolute;
