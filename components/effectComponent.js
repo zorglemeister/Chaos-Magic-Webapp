@@ -119,10 +119,7 @@ class EffectComponent extends HTMLElement {
             // put the short and full desc of the effect into the template contents
             this.getElementsByClassName('shortDesc')[0].innerHTML = localEffect.shortDesc;
             if (localEffect.fullDesc) { // if there's a fullDesc...
-                this.getElementsByClassName('fullDesc')[0].innerHTML = localEffect.fullDesc; // display it and...
-                // link rolltags and flipcoins
-                this.linkRollButtons();
-                this.linkFlipCoins();
+                this.getElementsByClassName('fullDesc')[0].innerHTML = localEffect.fullDesc; // display it
             } else { // if not...
                 this.getElementsByClassName('fullDesc')[0].remove;
             }
@@ -147,7 +144,10 @@ class EffectComponent extends HTMLElement {
         };
 
         if (localEffect.fullDesc || localEffect.activeDesc) { // if there's a fullDesc OR an activeDesc...
-            
+            // link rolltags and flipcoins
+            this.linkRollButtons();
+            this.linkFlipCoins();
+        };
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
         
         // THIS IS THE PART I'M WORKING ON
