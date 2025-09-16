@@ -20,10 +20,10 @@ export function effect11() {
 export function effect136() {
     let effectShortIntro = 'Each player creates some Zerglings.'; // First part of shortDesc
     let effectFullIntro = 'Each player creates 2d6 1/1 colorless Zergling creature tokens with haste.'; // First part of fullDesc
-    let effectFuncContent = '<div class="136ZergContainer">'; // Builds a container with a dice block for each player
+    let effectFuncContent = '<div class="Zerg136Container">'; // Builds a container with a dice block for each player
     for (let i = 0; i < shared.playerCount; i++) {
-        effectFuncContent = effectFuncContent + `<div class="136ZergPlayerBox">
-            <div class="136ZergPlayerTitle">Player ${i + 1}</div>
+        effectFuncContent = effectFuncContent + `<div class="Zerg136PlayerBox">
+            <div class="Zerg136PlayerTitle">Player ${i + 1}</div>
             <z-rb>2d6</z-rb>
             </div>`;
         }
@@ -38,14 +38,14 @@ export function effect136() {
 export function effect37() {
     let effectShortIntro = 'Everyone gains some life.'; // First part of shortDesc
     let effectFullIntro = 'Gain 2d10 life. All other players gain 1d10 life.'; // First part of fullDesc
-    let effectFuncContent = '<div class="37OceanContainer">'; // Builds a container with a dice block for each player
-    effectFuncContent = effectFuncContent + `<div class="37OceanPlayerBox">
-            <div class="37OceanPlayerTitle">You</div>
+    let effectFuncContent = '<div class="Ocean37Container">'; // Builds a container with a dice block for each player
+    effectFuncContent = effectFuncContent + `<div class="Ocean37PlayerBox">
+            <div class="Ocean37PlayerTitle">You</div>
             <z-rb>2d20</z-rb>
             </div>`
     for (let i = 0; i < (shared.playerCount - 1); i++) { 
-        effectFuncContent = effectFuncContent + `<div class="37OceanPlayerBox">
-            <div class="37OceanPlayerTitle">Player ${i + 1}</div>
+        effectFuncContent = effectFuncContent + `<div class="Ocean37PlayerBox">
+            <div class="Ocean37PlayerTitle">Player ${i + 1}</div>
             <z-rb>1d10</z-rb>
             </div>`;
         }
@@ -78,8 +78,11 @@ export function effect104() {
         <div class="fullDesc hiddenPart">${fullDesc}</div>
         `;
     // set up click handlers
-    
-    return message;
+    const shortButton = this.getElementById(shortButtonId);
+    const fullButton = this.getElementById(fullButtonId);
+    shortButton.addEventListener('click', this.effect104click.bind(this));
+    fullButton.addEventListener('click', this.effect104click.bind(this));
+    return effectContent;
 }
 export function effect104click() {
     switch (shared.dieRoll(1,6)) {
@@ -101,6 +104,8 @@ export function effect104click() {
         case "6":
             message = "Choose a color. Destroy all permanents of chosen color.";
     }
+    this.shortButton.innerHTML = message;
+    this.fullButton.innerHTML = message;
 }
 
 

@@ -125,7 +125,7 @@ class SpecialEffect extends HTMLElement {
             `;
         // set up click handlers
         
-        return message;
+        return effectContent;
     }
     effect104click() {
         switch (shared.dieRoll(1,6)) {

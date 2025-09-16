@@ -7,6 +7,7 @@
 @import "./components/effectComponent.css";
 @import "./components/gameComponent.css";
 @import "./components/ongoingComponent.css";
+@import "./components/specialEffects.css";
 
 /*
 z-index reference
@@ -54,6 +55,12 @@ body {
 }
 .visibleRedBorder {
     border: 3px solid red;
+}
+
+/* make all buttons small caps */
+button {
+    font-feature-settings: "smcp";
+    font-family: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
 }
 
 /* scrollbar style */

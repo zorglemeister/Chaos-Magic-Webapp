@@ -12,15 +12,20 @@ z-index reference
 401/400 - History
 */
 
+z-eff :root {
+    --details-button-width: 0px;
+    --details-button-height: 0px;
+}
+
  /* controls the button text for the descSwitch button */
 
 z-eff .descButtonClosed::before {
-    content: "⮟ ⮟";
+    content: "˅ details ˅";
     font-size: 24px;
 }
 
 z-eff .descButtonOpen::before {
-    content: "⮝ ⮝";
+    content: "˄ details ˄";
     font-size: 24px;
 }
 
@@ -41,7 +46,7 @@ z-eff .effectContainer {
     box-shadow: 0 0 0 4px black; /* outer black border */
     border-radius: 5px; /* slightly rounded */
     /* This is neat, but makes the text render blurry */
-    /* transform: perspective(1000px) rotateX(-2deg); /* change the shape to have a slightly narrower bottom edge */ */
+    /* transform: perspective(1000px) rotateX(-2deg); /* change the shape to have a slightly narrower bottom edge */
     justify-content: center;
     flex-direction: column;
 }
@@ -90,7 +95,8 @@ z-eff .descDetails {
 }
 z-eff .descSwitch {
     position: absolute;
-    bottom: 20px; /* replace with variable that is "half button height */
+    bottom: 0;
+    /* bottom: calc(var(--details-button-height)); */ /* replace with variable that is "half button height */
     left: 50%;
     transform: translateX(-50%);
 }

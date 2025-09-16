@@ -141,7 +141,13 @@ class EffectComponent extends HTMLElement {
             this.getElementsByClassName('descSwitch')[0].remove;
         } else { // if there is any of those things, set up the details eventhandler
             this.getElementsByClassName('descSwitch')[0].addEventListener('click', this.toggleDescContent.bind(this)); // desc expand/shrink button
+            // set the "details" button height and width for fancy CSS
+            document.documentElement.style.setProperty('--details-button-width', `${this.getElementsByClassName('descSwitch')[0].offsetWidth}px`);
+            document.documentElement.style.setProperty('--details-button-height', `${this.getElementsByClassName('descSwitch')[0].offsetHeight}px`);
         };
+
+        if (localEffect.fullDesc || localEffect.activeDesc) { // if there's a fullDesc OR an activeDesc...
+            
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
         
         // THIS IS THE PART I'M WORKING ON
@@ -165,6 +171,7 @@ class EffectComponent extends HTMLElement {
         // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
         if (localEffect.duration === ('Round' || 'Ongoing')) { // if the effect needs to go in Active effect, fire an event
         };
+        
         
     }
     toggleDescContent() {
