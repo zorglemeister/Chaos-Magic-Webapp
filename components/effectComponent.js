@@ -35,7 +35,7 @@ effectTemplate.innerHTML = `
         <button type="button" class="descSwitch descButtonClosed"></button>
     </div>
 </div>
-`
+`;
 
 // handling flow:
 // receive effect data from randomizer (HOW?)
@@ -123,17 +123,17 @@ class EffectComponent extends HTMLElement {
             } else { // if not...
                 this.getElementsByClassName('fullDesc')[0].remove;
             }
-        };
+        }
         if (localEffect.component) { // if there's a component...
             this.getElementsByClassName('effectComponents')[0].innerHTML = localEffect.component;
         } else { // if not...
             this.getElementsByClassName('effectComponents')[0].remove;
-        };
+        }
         if (localEffect.inspiration) { // if there's an inspiration...
             this.getElementsByClassName('inspiration')[0].innerHTML = `Inspired by: ${localEffect.inspiration}`;
         } else { // if not...
             this.getElementsByClassName('inspiration')[0].remove;
-        };
+        }
         if (!localEffect.fullDesc && !localEffect.component && !localEffect.inspiration) { // if there's no fullDesc, component, and inspiration, remove the details button
             this.getElementsByClassName('descSwitch')[0].remove;
         } else { // if there is any of those things, set up the details eventhandler
@@ -141,15 +141,20 @@ class EffectComponent extends HTMLElement {
             // set the "details" button height and width for fancy CSS
             document.documentElement.style.setProperty('--details-button-width', `${this.getElementsByClassName('descSwitch')[0].offsetWidth}px`);
             document.documentElement.style.setProperty('--details-button-height', `${this.getElementsByClassName('descSwitch')[0].offsetHeight}px`);
-        };
+        }
 
         if (localEffect.fullDesc || localEffect.activeDesc) { // if there's a fullDesc OR an activeDesc...
             // link rolltags and flipcoins
             this.linkRollButtons();
             this.linkFlipCoins();
-        };
+        }
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
         
+        // I'm going to write the activeEffect payload as a template and then pass it into a new activeEffect
+
+
+
+
         // THIS IS THE PART I'M WORKING ON
         //
         //
@@ -169,8 +174,8 @@ class EffectComponent extends HTMLElement {
         } */
         // I think I need to move this to a custom event, because I'll need it to update in "Active Effects" too, which isn't just a reparent, it's a separate instance of the same effect
         // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
-        if (localEffect.duration === ('Round' || 'Ongoing')) { // if the effect needs to go in Active effect, fire an event
-        };
+        if (localEffect.activeDesc) { // if the effect needs to go in Active effect, set it up and make a new activeEffect
+        }
         
         
     }
@@ -190,7 +195,14 @@ class EffectComponent extends HTMLElement {
     }
     linkRollButtons() {
         let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc
-        let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
+        let fRollTags = [];
+        let aRollTags = [];
+        if (localEffect.fullDesc) {
+        fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
+        }
+        if (localEffect.activeDesc) {
+            aRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
+        }
         // assumptions:
         // 1 - there are the same number of rollTags in shortDesc as there are in fullDesc
         // 2 - the rollTags are in the same order in each

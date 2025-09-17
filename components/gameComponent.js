@@ -79,7 +79,7 @@ Vengeance Content
 <div class="historyContainer drawerContents"><div class="histGameStart">Game Start</div></div>
 </div>
 </div>
-`
+`;
 
 // notes:
 
@@ -265,7 +265,7 @@ class GameComponent extends HTMLElement {
             vengeance: true, // any
             minigame: false, // any
             minigameDelay: null // any
-        }
+        };
         console.log('Default Payload ', defaultPayload);
         // set settingsPayload
         console.log('settings payload before default set ', shared.getSettingsPayload());
