@@ -2,13 +2,31 @@
 /* I foresee having style tags related to individual effect handling, */
 /* so my naming conventions have gotta be ON IT */
 
-.Zerg136Container {}
-.Zerg136PlayerBox {}
-.Zerg136PlayerTitle {}
+/* making a generic "roll for each player" structure */
 
-.Ocean37Container {}
-.Ocean37PlayerBox {}
-.Ocean37PlayerTitle {}
-
-.specRoll {/* rollbutton imitator */
+.individualRollContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
 }
+.individualRollBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: min-content;
+    max-width: max-content;
+    flex: 1 1 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+.individualRollTitle {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+/* .specRoll {/* rollbutton imitator */
+/* } */
