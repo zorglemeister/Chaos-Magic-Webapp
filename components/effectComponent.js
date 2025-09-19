@@ -8,6 +8,9 @@ import * as special from '../scripts/specialEffects.js';
 
 import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique()
 
+import { ActiveEffect } from './activeComponent.js'; // pull in the ActiveEffect class
+
+
 // define a template
 const effectTemplate = document.createElement('template');
 
@@ -145,8 +148,8 @@ class EffectComponent extends HTMLElement {
 
         if (localEffect.fullDesc || localEffect.activeDesc) { // if there's a fullDesc OR an activeDesc...
             // link rolltags and flipcoins
-            this.linkRollButtons();
-            this.linkFlipCoins();
+            this.linkRollButtons(localEffect);
+            this.linkFlipCoins(localEffect);
         }
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
         
@@ -175,6 +178,7 @@ class EffectComponent extends HTMLElement {
         // I think I need to move this to a custom event, because I'll need it to update in "Active Effects" too, which isn't just a reparent, it's a separate instance of the same effect
         // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
         if (localEffect.activeDesc) { // if the effect needs to go in Active effect, set it up and make a new activeEffect
+            
         }
         
         
@@ -193,35 +197,52 @@ class EffectComponent extends HTMLElement {
         this.getElementsByClassName('inspiration')[0].classList.toggle('hiddenPart');
         }
     }
-    linkRollButtons() {
+    linkRollButtons(localEffect) {
         let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc
         let fRollTags = [];
         let aRollTags = [];
-        if (localEffect.fullDesc) {
-        fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
+        if (localEffect.fullDesc) { // if there's a fullDesc...
+            fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
         }
-        if (localEffect.activeDesc) {
-            aRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in fullDesc
+        if (localEffect.activeDesc) { // if there's an activeDesc...
+            aRollTags = this.getElementsByClassName('activeDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in activeDesc
         }
         // assumptions:
-        // 1 - there are the same number of rollTags in shortDesc as there are in fullDesc
+        // 1 - there are the same number of rollTags in shortDesc as there are in fullDesc/activeDesc
         // 2 - the rollTags are in the same order in each
         for (let i = 0; i < sRollTags.length; i++) { // loop through the contents of sRollTags
             let sharedId = shared.randomUnique(); // for each entry pair, generate a uniqueId
             sRollTags[i].setAttribute('id', `sroll-${sharedId}`); // add sroll-[SharedId] to the tag in shortDesc
-            fRollTags[i].setAttribute('id', `froll-${sharedId}`); // add froll-[SharedId] to the corresponding tag in fullDesc
+            if (localEffect.fullDesc) { // if there's a fullDesc...
+                fRollTags[i].setAttribute('id', `froll-${sharedId}`); // add froll-[SharedId] to the corresponding tag in fullDesc
+            }
+            if (localEffect.activeDesc) { // if there's an activeDesc...
+                aRollTags[i].setAttribute('id', `aroll-${sharedId}`); // add aroll-[SharedId] to the corresponding tag in activeDesc
+            }
         }
     }
-    linkFlipCoins() {
+    linkFlipCoins(localEffect) {
         let sFlipCoins = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in shortDesc
-        let fFlipCoins = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in fullDesc
+        let fFlipCoins = [];
+        let aFlipCoins = [];
+        if (localEffect.fullDesc) { // if there's a fullDesc...
+            fFlipCoins = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in fullDesc
+        }
+        if (localEffect.activeDesc) { // if there's an activeDesc...
+            aFlipCoins = this.getElementsByClassName('activeDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in activeDesc
+        }
         // assumptions:
-        // 1 - there are the same number of flipCoins in shortDesc as there are in fullDesc
+        // 1 - there are the same number of flipCoins in shortDesc as there are in fullDesc/activeDesc
         // 2 - the flipCoins are in the same order in each
         for (let i = 0; i < sFlipCoins.length; i++) { // loop through the contents of sFlipCoins
             let sharedId = shared.randomUnique(); // for each entry pair, generate a uniqueId
             sFlipCoins[i].setAttribute('id', `sflip-${sharedId}`); // add sflip-[SharedId] to the tag in shortDesc
-            fFlipCoins[i].setAttribute('id', `fflip-${sharedId}`); // add fflip-[SharedId] to the corresponding tag in fullDesc
+            if (localEffect.fullDesc) { // if there's a fullDesc...
+                fFlipCoins[i].setAttribute('id', `fflip-${sharedId}`); // add fflip-[SharedId] to the corresponding tag in fullDesc
+            }
+            if (localEffect.activeDesc) { // if there's an activeDesc...
+                aFlipCoins[i].setAttribute('id', `aflip-${sharedId}`); // add aflip-[SharedId] to the corresponding tag in activeDesc
+            }
         }
     }
     // this is all obsoleted by the component-level event handler

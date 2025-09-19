@@ -114,8 +114,8 @@
             "effectName": "duel, TRUE, exemplar [tokenizer], custom, Evocation, Turn, uncommon",
             "shortDesc": "All creatures gain +2/+0 when attacking until end of turn.",
             "fullDesc": "All creatures gain +2/+0 when attacking until end of turn.",
-            "indexNum": 6,
-            "displayNum": "567",
+            "indexNum": 136,
+            "displayNum": "136",
             "player": "duel",
             "accessible": true,
             "inclusion": [
@@ -130,7 +130,7 @@
             "rarity": "uncommon",
             "component": "",
             "inspiration": "Dave H",
-            "specFunc": false
+            "specFunc": true
         },
         {
             "effectName": "duel, FALSE, micro, custom, Divination, Illusion, Turn, rare",

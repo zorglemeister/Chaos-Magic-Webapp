@@ -42,7 +42,7 @@ export function effect37() {
     effectFuncContent = effectFuncContent + `<div class="individualRollBox">
             <div class="individualRollTitle">You</div>
             <z-rb>2d20</z-rb>
-            </div>`
+            </div>`;
     for (let i = 0; i < (shared.playerCount - 1); i++) { 
         effectFuncContent = effectFuncContent + `<div class="individualRollBox">
             <div class="individualRollTitle">Player ${i + 1}</div>
