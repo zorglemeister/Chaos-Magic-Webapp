@@ -254,7 +254,7 @@ class GameComponent extends HTMLElement {
         // load preset into settingsPayload
         let defaultPayload = {
             players: 4, // any
-            list: 'lite', // any
+            list: 'full', // any *** CHANGED FOR TESTING
             physical: true, // any
             theme: null, // string
             school: null, // any[]
