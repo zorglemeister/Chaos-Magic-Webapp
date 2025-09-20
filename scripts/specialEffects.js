@@ -58,58 +58,6 @@ export function effect37() {
         `; // returns the descBlock construct with the same functional content in both the short and full
 }
 
-// Nuclear Launch Detected (104)
-export function effect104() {
-    // create linking ID
-    let sharedId = shared.randomUnique();
-    // create shortDesc ID
-    let shortId = `sdesc-${sharedId}`;
-    // create fullDesc ID
-    let fullId = `fdesc-${sharedId}`;
-    // create shortButton ID
-    let shortButtonId = `sbutt-${sharedId}`;
-    // create fullButton ID
-    let fullButtonId = `fbutt-${sharedId}`;
-    // set up the shortDesc
-    let shortDesc = `<div id="${shortId}"<button class="specRoll" id="${shortButtonId}>&#127922; Destroy a random color.</button></div>`;
-    // set up the fullDesc
-    let fullDesc = `<div id="${fullId}"<button class="specRoll" id="${fullButtonId}>&#127922; Destroy a random color.</button></div>`;
-    // create the content body
-    let effectContent = `
-        <div class="shortDesc">${shortDesc}</div>
-        <div class="fullDesc hiddenPart">${fullDesc}</div>
-        `;
-    // set up click handlers
-    const shortButton = this.getElementById(shortButtonId);
-    const fullButton = this.getElementById(fullButtonId);
-    shortButton.addEventListener('click', this.effect104click.bind(this));
-    fullButton.addEventListener('click', this.effect104click.bind(this));
-    return effectContent;
-}
-export function effect104click() {
-    switch (shared.dieRoll(1,6)) {
-        case "1":
-            message = "Destroy all white permanents.";
-        break;
-        case "2":
-            message = "Destroy all blue permanents.";
-        break;
-        case "3":
-            message = "Destroy all black permanents.";
-        break;
-        case "4":
-            message = "Destroy all red permanents.";
-        break;
-        case "5":
-            message = "Destroy all green permanents.";
-        break;
-        case "6":
-            message = "Choose a color. Destroy all permanents of chosen color.";
-    }
-    this.shortButton.innerHTML = message;
-    this.fullButton.innerHTML = message;
-}
-
 
 
 

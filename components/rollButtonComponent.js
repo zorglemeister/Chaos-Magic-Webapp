@@ -175,6 +175,12 @@ class RollButton extends HTMLElement {
                 // big list... (Boots, Made for Walking 928)
                 option = ['plainswalk','islandwalk','swampwalk','mountainwalk','forestwalk','wasteswalk','nonbasic landwalk','denimwalk','snackwalk','facewalk','no cards in handwalk','snow landwalk','legendary landwalk','artifact landwalk','sagawalk','desertwalk','commanderwalk','eldraziwalk','proxywalk','energywalk','+1/+1 walk','full art landwalk','tokenwalk','shinywalk','untapped landwalk'];
                 rollValue = option[shared.dieRoll(1,option.length) - 1];
+                break;
+            case 'Destroy a random color.':
+                // (Nuclear Launch Detected 104)
+                option = ['Destroy all white permanents.','Destroy all blue permanents.','Destroy all black permanents.','Destroy all red permanents.','Destroy all green permanents.','Choose a color. Destroy all permanents of chosen color.'];
+                rollValue = option[shared.dieRoll(1,option.length) - 1];
+
         } 
         return rollValue.toString();
     }

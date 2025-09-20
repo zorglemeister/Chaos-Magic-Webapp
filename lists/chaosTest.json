@@ -200,9 +200,9 @@
             "specFunc": false
         },
         {
-            "effectName": "SPECIAL - duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
-            "shortDesc": "Should be Nuclear Launch",
-            "fullDesc": "Full Description:Should be Nuclear Launch",
+            "effectName": "duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
+            "shortDesc": "<z-rb>Destroy a random color.</z-rb>",
+            "fullDesc": "",
             "indexNum": 104,
             "displayNum": "104",
             "player": "duel",
@@ -221,7 +221,7 @@
             "rarity": "common",
             "component": "",
             "inspiration": "",
-            "specFunc": true
+            "specFunc": false
         }
     ]
 }
