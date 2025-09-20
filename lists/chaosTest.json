@@ -68,8 +68,8 @@
         },
         {
             "effectName": "duel, TRUE, legacy, custom, Divination, Instant, rare",
-            "shortDesc": "Short Description: Until the start of your next turn, the casting cost of all spells is reduced by <z-is>1</z-is>.",
-            "fullDesc": "Full Description: Until the start of your next turn, the casting cost of all spells is reduced by <z-is>1</z-is>.",
+            "shortDesc": "Short Description: Until the start of your next turn, the casting cost of all spells is reduced by <z-is>1</z-is>.<z-fc></z-fc>",
+            "fullDesc": "Full Description: Until the start of your next turn, the casting cost of all spells is reduced by <z-is>1</z-is>. There's just a really large amount of text here... What if it was a coin flip and then an unordered list?<z-fc></z-fc><ul><li>If you win the flip, do one thing.</li><li>If you lose the flip, do something else.</li></ul>",
             "indexNum": 4,
             "displayNum": "345",
             "player": "duel",
@@ -197,14 +197,14 @@
             "rarity": "rare",
             "component": "",
             "inspiration": "",
-            "specFunc": true
+            "specFunc": false
         },
         {
-            "effectName": "duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
-            "shortDesc": "Short Description: something",
-            "fullDesc": "Full Description: Something, but more of it.",
-            "indexNum": 10,
-            "displayNum": "901",
+            "effectName": "SPECIAL - duel, TRUE, exemplar [main], custom, Abjuration, Conjuration, Necromancy, Ongoing, common",
+            "shortDesc": "Should be Nuclear Launch",
+            "fullDesc": "Full Description:Should be Nuclear Launch",
+            "indexNum": 104,
+            "displayNum": "104",
             "player": "duel",
             "accessible": true,
             "inclusion": [
@@ -221,7 +221,7 @@
             "rarity": "common",
             "component": "",
             "inspiration": "",
-            "specFunc": false
+            "specFunc": true
         }
     ]
 }
