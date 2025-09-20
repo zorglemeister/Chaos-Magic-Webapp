@@ -290,6 +290,7 @@ class GameComponent extends HTMLElement {
         historyContainer.innerHTML = '<div class="histGameStart">Game Start</div>';
         shared.setRollCounter(0);
         shared.setMinigameCounter(0);
+        shared.setActivePlayers(shared.getSettingsPayload().players);
     }
     // GAME CONTROLS -----------------------
     rollClick() { // assuming one click per player turn

@@ -111,9 +111,9 @@
             "specFunc": false
         },
         {
-            "effectName": "duel, TRUE, exemplar [tokenizer], custom, Evocation, Turn, uncommon",
-            "shortDesc": "All creatures gain +2/+0 when attacking until end of turn.",
-            "fullDesc": "All creatures gain +2/+0 when attacking until end of turn.",
+            "effectName": "SPECIAL - , TRUE, exemplar [tokenizer], custom, Evocation, Turn, uncommon",
+            "shortDesc": "Shouldn't see this, Zerg Rush Instead",
+            "fullDesc": "Shouldn't see this, Zerg Rush Instead",
             "indexNum": 136,
             "displayNum": "136",
             "player": "duel",
@@ -133,11 +133,11 @@
             "specFunc": true
         },
         {
-            "effectName": "duel, FALSE, micro, custom, Divination, Illusion, Turn, rare",
-            "shortDesc": "Choose an unchosen opponent. Look at the top three cards of their library and put them back in any order. That opponent may copy this effect and choose a new unchosen player.",
-            "fullDesc": "Choose an unchosen opponent. Look at the top three cards of their library and put them back in any order. That opponent may copy this effect and choose a new unchosen player.",
-            "indexNum": 7,
-            "displayNum": "678",
+            "effectName": "SPECIAL - duel, FALSE, micro, custom, Divination, Illusion, Turn, rare",
+            "shortDesc": "Should be Ocean of Life",
+            "fullDesc": "Should be Ocean of Life",
+            "indexNum": 37,
+            "displayNum": "037",
             "player": "duel",
             "accessible": false,
             "inclusion": [

@@ -21,9 +21,9 @@ export class ActiveEffect extends HTMLElement {
         this.template.innerHTML = htmlContent.trim();
     }
     handleTurnEvent() {
-        if (this.duration != 'Ongoing') {// if the effect is ongoing, do nothing (skips all the below logic)
-            if (this.duration > 0) {// if the duration is greater than 0...
-                this.duration = this.duration - 1;// reduce the duration by one
+        if (this.duration != 'Ongoing') { // if the effect is ongoing, do nothing (skips all the below logic)
+            if (this.duration > 0) { // if the duration is greater than 0...
+                this.duration = this.duration - 1; // reduce the duration by one
                 if (this.duration = 0) { // if the duration is 0, clean up the effect
                     if (this.getElementsByClassName('onEnd')[0]) { // if there's an "onEnd" div, pop that modal (ooh, going to need a modal)
                         let effectEndModal = document.createElement('template');
