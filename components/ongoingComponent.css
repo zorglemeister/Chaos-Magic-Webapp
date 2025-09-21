@@ -24,10 +24,10 @@ z-oe .drawerOEControl {
 }
 z-oe .drawerOEContents {
     position: fixed;
-    top: calc(50% + (var(--ongoing-button-height)));
+    top: calc(48% + (var(--ongoing-button-height)));
     transform: translateY(-50%);
-    right: -400px; /* off-screen to the right, may need to adjust */
-    width: 400px; /* will set the width for the ongoingEffectList div, too */
+    right: -72vw; /* off-screen to the right, may need to adjust */
+    width: 70vw; /* will set the width for the ongoingEffectList div, too */
     height: calc(100% - (var(--ongoing-button-height) + 25px));
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -39,12 +39,12 @@ z-oe .drawerOEContents.openOEDrawer {
     right: 0;
 }
 z-oe .drawerOEClosed::before {
-    content: "Active Effects ˂"; /*  */
+    content: "⏰ Active ˂"; /*  */
     font-size: 24px;
 }
 
 z-oe .drawerOEOpen::before {
-    content: "Active Effects ˃"; /*  */
+    content: "⏰ Active ˃"; /*  */
     font-size: 24px;
 }
 
@@ -53,5 +53,35 @@ z-oe .drawerOEClosed {
 }
 
 z-oe .drawerOEOpen {
-    right: calc(390px - var(--ongoing-button-width));
+    /* right: calc(390px - var(--ongoing-button-width)); */
+    right: 10px;
+}
+
+/* MOBILE STYLE - an experiment */
+@media only screen and (max-width: 800px) {
+z-oe .drawerOEClosed::before {
+    content: "˂⏰"; /*  */
+    font-size: 24px;
+    z-index: 601;
+}
+
+z-oe .drawerOEOpen::before {
+    content: "⏰˃"; /*  */
+    font-size: 24px;
+    z-index: 602;
+}
+z-oe .drawerOEContents {
+    position: fixed;
+    top: calc(50% + (var(--ongoing-button-height)));
+    transform: translateY(-50%);
+    right: -102vw; /* off-screen to the right, may need to adjust */
+    width: 100vw; /* will set the width for the ongoingEffectList div, too */
+    height: calc(100% - (var(--ongoing-button-height) + 25px));
+    background-color: lightgray;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 600; /* below the button, above other stuff */
+    overflow-x: auto;
+}
+
 }

@@ -159,8 +159,8 @@ z-settings .drawerContents {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    left: -400px; /* off-screen to the left, may need to adjust */
-    width: 400px; /* will set the width for the gameSettings div, too */
+    left: -62vw; /* off-screen to the left, may need to adjust */
+    width: 60vw; /* will set the width for the gameSettings div, too */
     height: calc(100vh - (var(--settings-button-height) + var(--update-button-height) + 25px));
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -174,12 +174,12 @@ z-settings .drawerContents.openDrawer {
 }
 
 z-settings .drawerClosed::before {
-    content: "Settings ˃"; /*  */
+    content: "⚙ Settings ˃"; /*  */
     font-size: 24px;
 }
 
 z-settings .drawerOpen::before {
-    content: "Settings ˂"; /*  */
+    content: "⚙ Settings ˂"; /*  */
     font-size: 24px;
 }
 
@@ -188,13 +188,49 @@ z-settings .drawerClosed {
 }
 
 z-settings .drawerOpen {
-    left: calc(390px - var(--settings-button-width));
+    left: 10px;
 }
 z-settings .drawerUpdateClosed {
-    left: -400px;
+    left: -60vw;
    /* left: -10px; */
     /*    left: -var(--update-button-width); */
 }
 z-settings .drawerUpdateOpen {
-    left: calc(400px - var(--update-button-width));
+    left: calc(60vw - var(--update-button-width));
+}
+
+/* MOBILE STYLE - an experiment */
+@media only screen and (max-width: 800px) {
+z-settings .drawerClosed::before {
+    content: "⚙˃"; /*  */
+    font-size: 24px;
+    z-index: 601;
+}
+
+z-settings .drawerOpen::before {
+    content: "˂⚙"; /*  */
+    font-size: 24px;
+    z-index: 602;
+}
+z-settings .drawerContents {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -102vw; /* off-screen to the left, may need to adjust */
+    width: 100vw; /* will set the width for the gameSettings div, too */
+    height: calc(100vh - (var(--settings-button-height) + var(--update-button-height) + 25px));
+    background-color: lightgray;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 600; /* below the button, above other stuff */
+    overflow-x: auto;
+}
+z-settings .drawerUpdateClosed {
+    left: -100vw;
+   /* left: -10px; */
+    /*    left: -var(--update-button-width); */
+}
+z-settings .drawerUpdateOpen {
+    left: calc(98vw - var(--update-button-width));
+}
 }
