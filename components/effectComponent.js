@@ -127,26 +127,26 @@ class EffectComponent extends HTMLElement {
             if (localEffect.fullDesc) { // if there's a fullDesc...
                 this.getElementsByClassName('fullDesc')[0].innerHTML = localEffect.fullDesc; // display it
             } else { // if not...
-                this.getElementsByClassName('fullDesc')[0].remove;
+                this.getElementsByClassName('fullDesc')[0].remove();
             }
             if (localEffect.activeDesc) { // if there's an activeDesc...  THIS IS TO BE REWORKED!
                 this.getElementsByClassName('activeDesc')[0].innerHTML = localEffect.activeDesc; // display it
             } else { // if not...
-                this.getElementsByClassName('activeDesc')[0].remove;
+                this.getElementsByClassName('activeDesc')[0].remove();
             }
         }
         if (localEffect.component) { // if there's a component...
             this.getElementsByClassName('effectComponents')[0].innerHTML = localEffect.component;
         } else { // if not...
-            this.getElementsByClassName('effectComponents')[0].remove;
+            this.getElementsByClassName('effectComponents')[0].remove();
         }
         if (localEffect.inspiration) { // if there's an inspiration...
             this.getElementsByClassName('inspiration')[0].innerHTML = `Inspired by: ${localEffect.inspiration}`;
         } else { // if not...
-            this.getElementsByClassName('inspiration')[0].remove;
+            this.getElementsByClassName('inspiration')[0].remove();
         }
         if (!localEffect.fullDesc && !localEffect.component && !localEffect.inspiration) { // if there's no fullDesc, component, and inspiration, remove the details button
-            this.getElementsByClassName('descSwitch')[0].remove;
+            this.getElementsByClassName('descSwitch')[0].remove();
         } else { // if there is any of those things, set up the details eventhandler
             this.getElementsByClassName('descSwitch')[0].addEventListener('click', this.toggleDescContent.bind(this)); // desc expand/shrink button
             // set the "details" button height and width for fancy CSS
