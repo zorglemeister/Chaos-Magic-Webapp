@@ -85,7 +85,7 @@ z-eff .descDetails {
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
-    margin: 10px;
+    margin: 10px 0;
     border: 1px solid black;
     outline: 3px solid grey;
     box-shadow: 0 0 0 2px black;
