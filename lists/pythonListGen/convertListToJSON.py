@@ -10,9 +10,9 @@ import os
 print(f"Current working directoy:", os.getcwd())
 
 # define input and output
-csv_file_path = 'lists/pythonListGen/AppTestingBlock.csv'
+csv_file_path = 'lists/fullSource.csv'
 
-json_file_path = 'lists/chaosTest.json'
+json_file_path = 'lists/chaosList.json'
 
 # I need a boolean interpreter
 

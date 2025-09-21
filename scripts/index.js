@@ -8,7 +8,7 @@ const app = () => {
 
     registerSettingsComponent(); 
     registerGameComponent();
-    shared.updateSourceList('lists/chaosTest.json'); // changed to chaosTest for... well, testing
+    shared.updateSourceList('lists/chaosList.json');
     shared.updateVengList('lists/chaosVengeance.json');
     
 }
