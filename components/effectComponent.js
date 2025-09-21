@@ -1,14 +1,7 @@
-
-// import child components
-import { registerRollButtonComponent } from './rollButtonComponent.js';
-import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
-
 // import specialEffects.js <- holds all the effect-specific scripts
 import * as special from '../scripts/specialEffects.js';
 
 import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique()
-
-import { ActiveEffect } from './activeComponent.js'; // pull in the ActiveEffect class
 
 
 // define a template
@@ -99,21 +92,23 @@ class EffectComponent extends HTMLElement {
             </div>
             `;
     }
+
     connectedCallback() {
         if (!this._isRendered) { // if it hasn't already been rendered...
-        this.render(); // render it...
-        this._isRendered = true; // and set the flag
+            this.render(); // render it...
+            this._isRendered = true; // and set the flag
         }
     }
+
     render() {
         this.append(this.effectTemplate.content.cloneNode(true)); // Stick it in the DOM
-        
+
         // sets the ID for the copy in the DOM
         this.getElementsByClassName('effectContainer')[0].setAttribute('id', `effect-${shared.randomUnique()}`);
 
         // get the generatedEffect
         let localEffect = shared.getNewEffect();
-        
+
         // special effects just replace the descBlock, so the shell can all be handled the same
         this.getElementsByClassName('effectName')[0].innerHTML = localEffect.effectName;
         this.getElementsByClassName('displayNum')[0].innerHTML = localEffect.displayNum;
@@ -158,10 +153,8 @@ class EffectComponent extends HTMLElement {
         this.linkRollButtons(localEffect);
         this.linkFlipCoins(localEffect);
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
-        
+
         // I'm going to write the activeEffect payload as a template and then pass it into a new activeEffect
-
-
 
 
         // THIS IS THE PART I'M WORKING ON
@@ -177,32 +170,34 @@ class EffectComponent extends HTMLElement {
 
         // THIS NEEDS TO BE REWORKED
         // rollbutton needs an event to fire on click that includes the triggering button ID and the update string
-/*         let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
-        for (let rollTag of rollTags) { // loop through them and add an event handler on update
-            rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML)); // when one is updated, find its pair and match the contents
-        } */
+        /*         let rollTags = this.getElementsByTagName('z-rb'); // find all the rollTags
+                for (let rollTag of rollTags) { // loop through them and add an event handler on update
+                    rollTag.addEventListener('update', this.updateLinkedRollTags.bind(this, rollTag.getAttribute('id'), rollTag.innerHTML)); // when one is updated, find its pair and match the contents
+                } */
         // I think I need to move this to a custom event, because I'll need it to update in "Active Effects" too, which isn't just a reparent, it's a separate instance of the same effect
         // the version of the effect that shows up there should just be the part that persists (can I break it down by persistence timeframe?)
         if (localEffect.activeDesc) { // if the effect needs to go in Active effect, set it up and make a new activeEffect
 
         }
-        
-        
+
+
     }
+
     toggleDescContent() {
         this.getElementsByClassName('descSwitch')[0].classList.toggle('descButtonClosed');
         this.getElementsByClassName('descSwitch')[0].classList.toggle('descButtonOpen');
         if (this.getElementsByClassName('fullDesc')[0]) { // if there's a fullDesc, toggle s/f
-        this.getElementsByClassName('shortDesc')[0].classList.toggle('hiddenPart');
-        this.getElementsByClassName('fullDesc')[0].classList.toggle('hiddenPart');
+            this.getElementsByClassName('shortDesc')[0].classList.toggle('hiddenPart');
+            this.getElementsByClassName('fullDesc')[0].classList.toggle('hiddenPart');
         }
         if (this.getElementsByClassName('effectComponents')[0]) { // if there's an effectComponents, toggle it
-        this.getElementsByClassName('effectComponents')[0].classList.toggle('hiddenPart');
+            this.getElementsByClassName('effectComponents')[0].classList.toggle('hiddenPart');
         }
         if (this.getElementsByClassName('inspiration')[0]) { // if there's an inspiration, toggle it
-        this.getElementsByClassName('inspiration')[0].classList.toggle('hiddenPart');
+            this.getElementsByClassName('inspiration')[0].classList.toggle('hiddenPart');
         }
     }
+
     linkRollButtons(localEffect) {
         let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb'); // collects z-rb tags in shortDesc
         let fRollTags = [];
@@ -227,6 +222,7 @@ class EffectComponent extends HTMLElement {
             }
         }
     }
+
     linkFlipCoins(localEffect) {
         let sFlipCoins = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-fc'); // collects z-fc tags in shortDesc
         let fFlipCoins = [];
@@ -251,29 +247,30 @@ class EffectComponent extends HTMLElement {
             }
         }
     }
-    // this is all obsoleted by the component-level event handler
-/*     updateLinkedRollTags(triggerTagId, updatedContent) {
-        // snag the triggering element ID - remember, getAttribute() returns lowercase
-        // copy the updated content (should be the outcome of the roll) as innerHTML
-        // figure out if the update came from sRoll or fRoll
-        if (triggerTagId.substring(0, 1) === "s") { // if sRoll is triggered
-            let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb');// find the matching fRoll
-            for (let fRollTag of fRollTags) {
-                if (fRollTag.getAttribute('id') === `f${triggerTagId.slice(1)}`) {
-                    fRollTag.innerHTML = updatedContent; // replace the fRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
-                }
-            }
-        } else { // if fRoll is triggered
-            let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb');// find the matching sRoll
-            for (let sRollTag of sRollTags) {
-                if (sRollTag.getAttribute('id') === `s${triggerTagId.slice(1)}`) {
-                    sRollTag.innerHTML = updatedContent; // replace the sRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
-                }
-            }
-        }
 
-        // Potential complication: Will this update trigger the EventListener again? If so, should I add a "rollFixed" class to check for and prevent an update loop?
-    } */
+    // this is all obsoleted by the component-level event handler
+    /*     updateLinkedRollTags(triggerTagId, updatedContent) {
+            // snag the triggering element ID - remember, getAttribute() returns lowercase
+            // copy the updated content (should be the outcome of the roll) as innerHTML
+            // figure out if the update came from sRoll or fRoll
+            if (triggerTagId.substring(0, 1) === "s") { // if sRoll is triggered
+                let fRollTags = this.getElementsByClassName('fullDesc')[0].getElementsByTagName('z-rb');// find the matching fRoll
+                for (let fRollTag of fRollTags) {
+                    if (fRollTag.getAttribute('id') === `f${triggerTagId.slice(1)}`) {
+                        fRollTag.innerHTML = updatedContent; // replace the fRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
+                    }
+                }
+            } else { // if fRoll is triggered
+                let sRollTags = this.getElementsByClassName('shortDesc')[0].getElementsByTagName('z-rb');// find the matching sRoll
+                for (let sRollTag of sRollTags) {
+                    if (sRollTag.getAttribute('id') === `s${triggerTagId.slice(1)}`) {
+                        sRollTag.innerHTML = updatedContent; // replace the sRoll.innerHTML with updated content (this wipes the button out and prevents a re-click)
+                    }
+                }
+            }
+
+            // Potential complication: Will this update trigger the EventListener again? If so, should I add a "rollFixed" class to check for and prevent an update loop?
+        } */
     specialEffect(index) {
         const methodName = `effect${index}`; // build the methodName
         if (typeof special[methodName] === 'function') { // if the methodName is actually a function...
