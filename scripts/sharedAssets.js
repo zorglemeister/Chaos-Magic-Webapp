@@ -36,7 +36,14 @@ export function setSettingsPayload(newSettings) {
 }
 
 // define newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-let newEffect = {};
+let newEffect = {
+    activeDesc: false,
+    displayNum: "",
+    indexNum: undefined,
+    inspiration: false,
+    shortDesc: "",
+    specFunc: false
+};
 
 // get newEffect
 export function getNewEffect() {
@@ -62,7 +69,9 @@ export function setPreviousEffect(newPreviousEffect) {
 }
 
 // define newVengEffect
-let newVengEffect = {};
+let newVengEffect = {
+    fullDesc: undefined
+};
 
 // get newVengEffect
 export function getNewVengEffect() {
@@ -75,7 +84,9 @@ export function setNewVengEffect(newNewVengEffect) {
 }
 
 // define newMiniEffect
-let newMiniEffect = {};
+let newMiniEffect = {
+    effectName: undefined
+};
 
 // get newMiniEffect
 export function getNewMiniEffect() {
@@ -139,7 +150,9 @@ async function loadJSON(path) {
 // SOURCE LIST
 
 // define sourceList
-let sourceList = {};
+let sourceList = {
+    effects: undefined
+};
 
 // get sourceList
 export function getSourceList() {
