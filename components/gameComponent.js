@@ -21,7 +21,7 @@ gameTemplate.innerHTML = `
 <div class="welcomeTitle">
 Welcome to Chaos Magic
 </div>
-<div class="welcomeDecription">
+<div class="welcomeDescription">
 Meaningful intro text here. Really, choose a quick start or configure your game.
 </div>
 <div class="welcomeColumns">

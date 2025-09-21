@@ -33,28 +33,9 @@ body {
     height: 100%;
     overflow: hidden;
 }
-.scrollable {
-    overflow-y: auto;
-}
-.noScroll {
-    overflow-y: hidden;
-}
 
 .hiddenPart {
     display: none;
-}
-
-.visibleBorder {
-    border: 3px solid gold;
-}
-.visibleGreenBorder {
-    border: 3px solid green;
-}
-.visibleBlueBorder {
-    border: 3px solid blue;
-}
-.visibleRedBorder {
-    border: 3px solid red;
 }
 
 /* make all buttons small caps */
