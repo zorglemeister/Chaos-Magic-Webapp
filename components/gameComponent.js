@@ -22,7 +22,7 @@ gameTemplate.innerHTML = `
 Welcome to Chaos Magic
 </div>
 <div class="welcomeDescription">
-Meaningful intro text here. Really, choose a quick start or configure your game.
+Chaos Magic is an add-on to nearly any format of Magic: The Gathering.<br />Roll random effects at the start of each turn and watch your game spiral into madness.<br />Quick Start is fantastic for quick Commander play, if you're playing with a different number of folks and still want an "intro", customize the player count and leave the rest default!
 </div>
 <div class="welcomeColumns">
 <div class="welcomeDetail">
@@ -44,6 +44,13 @@ Meaningful intro text here. Really, choose a quick start or configure your game.
 <li>Tweak randomizer</li>
 </ul>
 </div>
+</div>
+<div class="welcomeDescription">
+<details>
+<summary>Alpha Notes</summary>This is VERY alpha, and hand-coded by someone (me) who is teaching themself JavaScript.<br />
+If you have feedback or ideas, email me at jo@zorgle.art.<br />Known Issues (not exhaustive)<ul><li>Basically anything related to CSS</li><li>Not all of the complicated effects have been scripted yet, so you may see occasional "Custom function not defined"</li><li>Active Effects don't work (yet)</li>
+</details>
+<!-- <button type="button" class="welcomeButton whatIsButton">What is Chaos Magic?</button> -->
 </div>
 </div>
 <div class="visiblePart">
