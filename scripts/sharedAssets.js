@@ -387,7 +387,7 @@ function getRandFromGameList() {
 // return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
 function getSlicedRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
-    return gameList.effects.splice[roll, 1]; // splice it out and return the removed element
+    return gameList.effects.splice(roll, 1); // splice it out and return the removed element
 }
 // return weighted random element from gameList (For Repetition = TRUE, Weighted = TRUE)
 function getWeightedRandFromGameList() {
@@ -409,7 +409,7 @@ function getWeightedSlicedRandFromGameList() {
     }
     setWeightedList(tempWeightedList); // and then set the weighted list to the new array
     let targetIndex = gameList.effects.findIndex(effectIndex => effectIndex === weightedIndex);// then find the effect in the game list...
-    return gameList.effects.splice[targetIndex, 1]; // splice it out and return the removed element
+    return gameList.effects.splice(targetIndex, 1); // splice it out and return the removed element
 }
 
 
