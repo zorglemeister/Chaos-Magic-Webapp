@@ -165,7 +165,6 @@ function clearVengList() {
             }
         }
     }
-    console.log(`Veng List Cleared.`);
 }
 // update vengList
 export function updateVengList() {
@@ -248,7 +247,6 @@ function clearMiniList() {
             }
         }
     }
-    console.log(`Minigame List Cleared.`);
 }
 // update miniList
 export function updateMiniList() {
@@ -264,7 +262,6 @@ function buildMiniList() {
 }
 // MINIGAME RANDOMIZER
 export function getRandomMiniEffect() {
-    console.log(`minilist: `, getMiniList());
     let roll = Math.floor(Math.random() * miniList.length); // random on the list
     let tempEffect = miniList[roll];
     tempEffect.roll = roll; // add the rolled value as a parameter
@@ -299,7 +296,6 @@ function clearGameList() {
             }
         }
     }
-    console.log(`Game List Cleared.`);
 }
 
 // *** Weighted list (for RarityMatters = TRUE)
@@ -381,7 +377,6 @@ export function getRandomEffect() {
 // return random element from gameList (For Repetition = TRUE, Weighted = FALSE)
 function getRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
-    console.log('what did we roll?', roll, 'and how long is the list?', gameList.length);
     return gameList[roll]; // pass it back
 }
 // return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
@@ -439,13 +434,11 @@ function buildFilterConditions() {
     } else {
         filterCriteria.player = null; // null = everything
     }
-    console.log(`player filter = ${filterCriteria.player}`);
     if (settingsPayload.physical === true) { // Set accessible (boolean) (this is a little confusing, because the checkbox is "checked if including effects that involve physical activity")
         filterCriteria.accessible = null; // if true, includes everything (filter logic says "null = everything")
     } else {
         filterCriteria.accessible = true; // otherwise, only include accessible effects
     }
-    console.log(`physical filter = ${filterCriteria.accessible}`);
     // List selector controls a BUNCH
     // broke it out into list-specific pieces
     switch (settingsPayload.list) {
@@ -467,11 +460,6 @@ function buildFilterConditions() {
         case "custom":
             filterCustom();
     }
-    console.log(`inclusion filter = ${filterCriteria.inclusion}`);
-    console.log(`exemplarTheme filter = ${filterCriteria.exemplarTheme}`);
-    console.log(`school filter = ${filterCriteria.school}`);
-    console.log(`duration filter = ${filterCriteria.duration}`);
-    console.log(`rarity filter = ${filterCriteria.rarity}`);
 }
 function filterMicro() {
     // Micro only cares about inclusion
@@ -520,7 +508,6 @@ function filterCustom() {
 function buildGameList() {
     // first version of this was really messy, lets see if we can sort out a cleaner conditional
     // const tempSourceList = getSourceList();
-    // console.log(tempSourceList);
     return sourceList.effects.filter(effect => {
         // effects is the array within the sourceList entity, so call .filter() on it directly
         return ( // This is an inline function, so it's returning a boolean. that parens opens the conditional
