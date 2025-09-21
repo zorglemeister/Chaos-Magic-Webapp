@@ -19,16 +19,17 @@
 // }
 
 
-
 // ***
 // HERE BE THINGS THAT ARE SET/GET
 
 // define settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
 let settingsPayload = {}
+
 // get settingsPayload
 export function getSettingsPayload() {
     return settingsPayload;
 }
+
 // set settingsPayload
 export function setSettingsPayload(newSettings) {
     settingsPayload = newSettings;
@@ -36,10 +37,12 @@ export function setSettingsPayload(newSettings) {
 
 // define newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
 let newEffect = {};
+
 // get newEffect
 export function getNewEffect() {
     return newEffect;
 }
+
 // set newEffect
 export function setNewEffect(newNewEffect) {
     newEffect = newNewEffect;
@@ -47,10 +50,12 @@ export function setNewEffect(newNewEffect) {
 
 // define previousEffect <- updated by new roll (game), used by ongoing
 let previousEffect = null;
+
 // get previousEffect
 export function getPreviousEffect() {
     return previousEffect;
 }
+
 // set previousEffect
 export function setPreviousEffect(newPreviousEffect) {
     previousEffect = newPreviousEffect;
@@ -58,10 +63,12 @@ export function setPreviousEffect(newPreviousEffect) {
 
 // define newVengEffect
 let newVengEffect = {};
+
 // get newVengEffect
 export function getNewVengEffect() {
     return newVengEffect;
 }
+
 // set newvengEffect
 export function setNewVengEffect(newNewVengEffect) {
     newVengEffect = newNewVengEffect;
@@ -69,10 +76,12 @@ export function setNewVengEffect(newNewVengEffect) {
 
 // define newMiniEffect
 let newMiniEffect = {};
+
 // get newMiniEffect
 export function getNewMiniEffect() {
     return newMiniEffect;
 }
+
 // set newMiniEffect
 export function setNewMiniEffect(newNewMiniEffect) {
     newMiniEffect = newNewMiniEffect;
@@ -80,10 +89,12 @@ export function setNewMiniEffect(newNewMiniEffect) {
 
 // define rollCounter
 let rollCounter = null;
+
 // get rollCounter
 export function getRollCounter() {
     return rollCounter;
 }
+
 // set rollCounter
 export function setRollCounter(newRollCounter) {
     rollCounter = newRollCounter;
@@ -91,10 +102,12 @@ export function setRollCounter(newRollCounter) {
 
 // define minigameCounter
 let minigameCounter = null;
+
 // get minigameCounter
 export function getMinigameCounter() {
     return minigameCounter;
 }
+
 // set minigameCounter
 export function setMinigameCounter(newMinigameCounter) {
     minigameCounter = newMinigameCounter;
@@ -102,10 +115,12 @@ export function setMinigameCounter(newMinigameCounter) {
 
 // define activePlayers
 let activePlayers = null;
+
 // get activePlayers
 export function getActivePlayers() {
     return activePlayers;
 }
+
 // set activePlayers
 export function setActivePlayers(newActivePlayers) {
     activePlayers = newActivePlayers;
@@ -125,10 +140,12 @@ async function loadJSON(path) {
 
 // define sourceList
 let sourceList = {};
+
 // get sourceList
 export function getSourceList() {
     return sourceList;
 }
+
 // update sourceList
 export async function updateSourceList(sourcePath) {
     const newSourceList = await loadJSON(sourcePath); // get the file and put it into a new object
@@ -148,15 +165,18 @@ export async function updateSourceList(sourcePath) {
 
 // define vengList
 let vengList = {};
+
 // get vengList
 export function getVengList() {
     return vengList;
 }
+
 // set vengList
 function setVengList(newVengList) {
     vengList = newVengList;
 }
-    // clear vengList
+
+// clear vengList
 function clearVengList() {
     if (!vengList) {
         for (let key in vengList) { // for each key in vengList...
@@ -166,11 +186,13 @@ function clearVengList() {
         }
     }
 }
+
 // update vengList
 export function updateVengList() {
     clearVengList();
     setVengList(buildVengList());
 }
+
 // build the vengeance list (by filtering sourceList)
 function buildVengList() {
     return sourceList.effects.filter(effect => {
@@ -181,10 +203,12 @@ function buildVengList() {
 
 // define weightedVeng
 let weightedVeng = [];
+
 // get weightedVeng
 export function getWeightedVeng() {
     return weightedVeng;
 }
+
 // set weightedVeng
 function setWeightedVeng(newWeightedVeng) {
     weightedVeng = newWeightedVeng;
@@ -211,6 +235,7 @@ export function updateWeightedVeng() {
     }
     setWeightedVeng(tempWeightedVeng);
 }
+
 // clear weightedVeng
 export function clearWeightedVeng() {
     weightedVeng = [];
@@ -230,15 +255,18 @@ export function getRandomVengEffect() {
 
 // define miniList
 let miniList = {};
+
 // get miniList
 export function getMiniList() {
     return miniList;
 }
+
 // set miniList
 function setMiniList(newMiniList) {
     miniList = newMiniList;
 }
-    // clear miniList
+
+// clear miniList
 function clearMiniList() {
     if (!miniList) {
         for (let key in miniList) { // for each key in miniList...
@@ -248,11 +276,13 @@ function clearMiniList() {
         }
     }
 }
+
 // update miniList
 export function updateMiniList() {
     clearMiniList();
     setMiniList(buildMiniList());
 }
+
 // build the minigame list (by filtering sourceList)
 function buildMiniList() {
     return sourceList.effects.filter(effect => {
@@ -260,6 +290,7 @@ function buildMiniList() {
             (effect.inclusion.includes('minigame')));
     });
 }
+
 // MINIGAME RANDOMIZER
 export function getRandomMiniEffect() {
     const miniListLength = Object.keys(miniList).length;
@@ -277,20 +308,24 @@ export function getRandomMiniEffect() {
 
 // define gameList <- updated by list generator (settings), holds the subset of effects for the game, used by randomizer (game)
 let gameList = {};
+
 // get gameList
 export function getGameList() {
     return gameList;
 }
+
 // set gameList
 export function setGameList(newGameList) {
     gameList = newGameList;
 }
+
 // update gameList
 export function updateGameList() {
     clearGameList();
     buildFilterConditions();
     setGameList(buildGameList());
 }
+
 // clear gameList
 function clearGameList() {
     if (!gameList) {
@@ -305,14 +340,17 @@ function clearGameList() {
 // *** Weighted list (for RarityMatters = TRUE)
 // define weightedList
 let weightedList = [];
+
 // get weightedList
 export function getWeightedList() {
     return weightedList;
 }
+
 // set weightedList
 function setWeightedList(newWeightedList) {
     weightedList = newWeightedList;
 }
+
 // update weightedList
 export function updateWeightedList() {
     let tempWeightedList = [];
@@ -334,6 +372,7 @@ export function updateWeightedList() {
     }
     setWeightedList(tempWeightedList);
 }
+
 // clear weightedList
 export function clearWeightedList() {
     weightedList = [];
@@ -341,10 +380,12 @@ export function clearWeightedList() {
 
 // randomizer settings
 let randomizerConfig = [];
+
 // get randomizerConfig
 export function getRandomizerConfig() {
     return randomizerConfig;
 }
+
 // update randomizerConfig
 export function updateRandomizerConfig() {
     randomizerConfig.repetition = settingsPayload.repetition;
@@ -354,6 +395,7 @@ export function updateRandomizerConfig() {
         updateWeightedList();
     }
 }
+
 // clear randomizerConfig
 export function clearRandomizerConfig() {
     randomizerConfig = [];
@@ -362,7 +404,7 @@ export function clearRandomizerConfig() {
 // AW SNAP, it's the RANDOMIZER
 export function getRandomEffect() {
     // interpret the randomizer config and do some logic to get to the function
-    let tempEffect = [];
+    let tempEffect;
     if (randomizerConfig.repetition === true) {
         if (randomizerConfig.rarityMatters === true) {
             tempEffect = getWeightedRandFromGameList(); // rep true, weight true
@@ -378,16 +420,19 @@ export function getRandomEffect() {
     }
     return tempEffect;
 }
+
 // return random element from gameList (For Repetition = TRUE, Weighted = FALSE)
 function getRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
     return gameList[roll]; // pass it back
 }
+
 // return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
 function getSlicedRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
     return gameList.effects.splice(roll, 1); // splice it out and return the removed element
 }
+
 // return weighted random element from gameList (For Repetition = TRUE, Weighted = TRUE)
 function getWeightedRandFromGameList() {
     let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
@@ -395,6 +440,7 @@ function getWeightedRandFromGameList() {
     let targetIndex = gameList.effects.findIndex(effectIndex => effectIndex === weightedIndex); // then find the effect in the game list...
     return gameList.effects[targetIndex]; // pass it back
 }
+
 // return weighted random element from gameList (destructive with slice for Repetition = FALSE, Weighted = TRUE)
 function getWeightedSlicedRandFromGameList() {
     let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
@@ -428,13 +474,11 @@ function getWeightedSlicedRandFromGameList() {
 // }
 
 
-
-
 let filterCriteria = {};
 
 function buildFilterConditions() {
     if (settingsPayload.players === 2) { // Set players (duel/multi)
-        filterCriteria.player = 'duel'; 
+        filterCriteria.player = 'duel';
     } else {
         filterCriteria.player = null; // null = everything
     }
@@ -448,23 +492,24 @@ function buildFilterConditions() {
     switch (settingsPayload.list) {
         case "micro":
             filterMicro();
-        break;
+            break;
         case "lite":
             filterLite();
-        break;
+            break;
         case "exemplar":
             filterExemplar();
-        break;
+            break;
         case "legacy":
             filterLegacy();
-        break;
+            break;
         case "full":
             filterFull();
-        break;
+            break;
         case "custom":
             filterCustom();
     }
 }
+
 function filterMicro() {
     // Micro only cares about inclusion
     filterCriteria.inclusion = settingsPayload.list;
@@ -473,10 +518,12 @@ function filterMicro() {
     filterCriteria.duration = null;
     filterCriteria.rarity = null;
 }
+
 function filterLite() {
     // Lite  only cares about inclusion, same as Micro
     filterMicro();
 }
+
 function filterExemplar() {
     // Exemplar cares about inclusion and theme (if all, include everything)
     filterCriteria.inclusion = settingsPayload.list;
@@ -489,10 +536,12 @@ function filterExemplar() {
     filterCriteria.duration = null;
     filterCriteria.rarity = null;
 }
+
 function filterLegacy() {
     // Legacy only cares about inclusion, same as Micro
     filterMicro();
 }
+
 function filterFull() {
     // Full REALLY doesn't care
     filterCriteria.inclusion = null;
@@ -501,6 +550,7 @@ function filterFull() {
     filterCriteria.duration = null;
     filterCriteria.rarity = null;
 }
+
 function filterCustom() {
     // Custom cares about inclusion, school, duration, rarity
     filterCriteria.inclusion = settingsPayload.list;
@@ -509,6 +559,7 @@ function filterCustom() {
     filterCriteria.duration = settingsPayload.duration;
     filterCriteria.rarity = settingsPayload.rarity;
 }
+
 function buildGameList() {
     // first version of this was really messy, lets see if we can sort out a cleaner conditional
     // const tempSourceList = getSourceList();
@@ -516,27 +567,23 @@ function buildGameList() {
         // effects is the array within the sourceList entity, so call .filter() on it directly
         return ( // This is an inline function, so it's returning a boolean. that parens opens the conditional
             // Structure: If filter is unspecified (!thing) or entry matches filter, then true. If all true, include in output
-        // player match
+            // player match
             (!filterCriteria.player || effect.player.includes(filterCriteria.player)) &&
-        // accessible match
+            // accessible match
             (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)) &&
-        // inclusion match
+            // inclusion match
             (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)) &&
-        // theme match
+            // theme match
             (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)) &&
-        // school match
+            // school match
             (!filterCriteria.school || effect.school.includes(filterCriteria.school)) &&
-        // duration match
+            // duration match
             (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)) &&
-        // rarity match
+            // rarity match
             (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity))
         );
     });
 }
-
-
-
-
 
 
 // ***
@@ -548,14 +595,14 @@ export function dieRoll(count, sides) {
     for (let i = 0; i < count; i++) {
         let roll = Math.ceil(Math.random() * sides);
         total = total + roll;
-        }
-    return total;
     }
+    return total;
+}
 
 // Random Unique Id generator
 export function randomUnique() {
-        return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`; 
-        // should be sufficiently unique because timestamp inclusion, even if the randomizer creates the same output twice
-        // sliced because the Math.random().toString(36) will always start with a "0.", so that's like, two characters less random, amirite?
-        // this is where I hum The Eels "My Beloved Monster" (you're welcome, Jewel!)
-    }
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+    // should be sufficiently unique because timestamp inclusion, even if the randomizer creates the same output twice
+    // sliced because the Math.random().toString(36) will always start with a "0.", so that's like, two characters less random, amirite?
+    // this is where I hum The Eels "My Beloved Monster" (you're welcome, Jewel!)
+}
