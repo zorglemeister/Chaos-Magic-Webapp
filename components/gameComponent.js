@@ -403,9 +403,11 @@ class GameComponent extends HTMLElement {
     }
     // Utility! -----------------------
     hide(elementArray) {
-        for (const element of elementArray) {
-            if (!element.classList.contains('hiddenPart')) {
-                element.classList.add('hiddenPart');
+        if (Array.isArray(elementArray)) {
+            for (const element of elementArray) {
+                if (!element.classList.contains('hiddenPart')) {
+                    element.classList.add('hiddenPart');
+                }
             }
         }
     }
