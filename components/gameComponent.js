@@ -284,16 +284,16 @@ class GameComponent extends HTMLElement {
         if (shared.getSettingsPayload().vengeance) {
             shared.updateVengList(); // make the vengeance list
             shared.updateWeightedVeng(); // make the weighted vengeance array
-            this.show(vengeanceControl);
+            vengeanceButton.disabled = false;
         } else {
-            this.hide(vengeanceControl);
+            vengeanceButton.disabled = true;
         }
         // handle minigame setting
         if (shared.getSettingsPayload().minigame) {
             shared.updateMiniList(); // make the minigame list
-            this.show(minigameControl);
+            minigameButton.disabled = false;
         } else {
-            this.hide(minigameControl);
+            minigameButton.disabled = true;
         }
         // wipe active effect
         activeContainer.innerHTML = '';
