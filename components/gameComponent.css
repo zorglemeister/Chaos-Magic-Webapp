@@ -197,7 +197,7 @@ z-game .vengeanceCloseButton {
 z-game .controlContainer {
     position: fixed;
     display: flex;
-    bottom: 0;
+    bottom: calc(10px + var(--history-button-height));
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
@@ -220,7 +220,18 @@ z-game .controlButton {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
-
+z-game .rollButton::before {
+    content: "🎲 Roll"; /*  */
+    font-size: 24px;
+}
+z-game .minigameButton::before {
+    content: "🎮 Minigame"; /* maybe ♟ */
+    font-size: 24px;
+}
+z-game .vengeanceButton::before {
+    content: "💀 Vengeance"; /* maybe 🗡 */
+    font-size: 24px;
+}
 
 /* styles for the drawer effect */
 
@@ -240,8 +251,8 @@ z-game .drawerContents {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -400px; /* off-screen to the bottom, may need to adjust */
-    height: calc(400px - var(--history-button-height)); /* drawerHeight (also, how far up it has to move */
+    bottom: -62vh; /* off-screen to the bottom, may need to adjust */
+    height: 60vh; /* drawerHeight (also, how far up it has to move */
     width: 98%;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -256,12 +267,12 @@ z-game .drawerContents.openDrawer {
 }
 
 z-game .drawerClosed::before {
-    content: "History ˄"; /*  */
+    content: "⌛ History ˄"; /*  */
     font-size: 24px;
 }
 
 z-game .drawerOpen::before {
-    content: "History ˅"; /*  */
+    content: "⏳ History ˅"; /*  */
     font-size: 24px;
 }
 
@@ -270,6 +281,49 @@ z-game .drawerClosed {
 }
 
 z-game .drawerOpen {
-        bottom: calc(410px - var(--history-button-height));
+        bottom: 10px;
         /* I think i want the history button to stay at the bottom */
+}
+
+/* MOBILE STYLE - an experiment */
+@media only screen and (max-width: 800px) {
+z-game .drawerClosed::before {
+    content: "˄⌛"; /*  */
+    font-size: 24px;
+    z-index: 601;
+}
+
+z-game .drawerOpen::before {
+    content: "˅⏳"; /*  */
+    font-size: 24px;
+    z-index: 602;
+}
+
+z-game .rollButton::before {
+    content: "🎲"; /*  */
+    font-size: 24px;
+}
+z-game .minigameButton::before {
+    content: "🎮"; /* maybe ♟ */
+    font-size: 24px;
+}
+z-game .vengeanceButton::before {
+    content: "💀"; /* maybe 🗡 */
+    font-size: 24px;
+}
+
+z-game .drawerContents {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -92vh; /* off-screen to the bottom, may need to adjust */
+    height: 90vh; /* drawerHeight (also, how far up it has to move */
+    width: 100vw;
+    background-color: lightgray;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: bottom 1s ease-in-out; /* smooth motion, may need to adjust timing */
+    z-index: 400; /* below the button, above other stuff */
+    overflow-x: auto;
+}
+
 }

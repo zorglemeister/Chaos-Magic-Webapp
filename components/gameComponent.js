@@ -64,12 +64,12 @@ Vengeance Content
 <div class="controlContainer">
 <div class="buttonWrapper">
 <!-- div class="rollControl" -->
-<button type="button" class="controlButton rollButton">Roll</button>
+<button type="button" class="controlButton rollButton"></button>
 <!-- /div -->
 <!-- div class="minigameControl" -->
-<button type="button" class="controlButton minigameButton">Minigame</button><!-- /div -->
+<button type="button" class="controlButton minigameButton"></button><!-- /div -->
 <!-- div class="vengeanceControl" -->
-<button type="button" class="controlButton vengeanceButton">Vengeance</button><!-- /div -->
+<button type="button" class="controlButton vengeanceButton"></button><!-- /div -->
 <!-- div class="historyControlPlaceholder" --><!-- /div -->
 </div>
 </div>
