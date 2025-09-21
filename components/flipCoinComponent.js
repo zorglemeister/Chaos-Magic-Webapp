@@ -58,7 +58,7 @@ class FlipCoin extends HTMLElement {
         coinContainer.style.animation = 'coinVert 4s ease-in-out 1'; // hopefully vertical animation
         const interval = setInterval(() => { // starts the timer
             if (countdown > 0) { // as long as there's time left...
-                coin.textContent = countdown; // set the text to the countdown number
+                coin.textContent = countdown.toString(); // set the text to the countdown number
                 countdown--; // decrement the countdown
             } else {
                 clearInterval(interval); // stop the timer
