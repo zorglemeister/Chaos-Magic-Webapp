@@ -265,7 +265,8 @@ export function getRandomMiniEffect() {
     const miniListLength = Object.keys(miniList).length;
     if (miniListLength > 0) {
         const roll = Math.floor(Math.random() * miniListLength); // random on the list
-        let tempEffect = Object.keys(miniList)[roll];
+        let tempEffect = miniList[Object.keys(miniList)[roll]];
+
         tempEffect.roll = roll; // add the rolled value as a parameter
         setNewMiniEffect(tempEffect); // set the newVengEffect
     }
