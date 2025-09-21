@@ -262,10 +262,13 @@ function buildMiniList() {
 }
 // MINIGAME RANDOMIZER
 export function getRandomMiniEffect() {
-    let roll = Math.floor(Math.random() * miniList.length); // random on the list
-    let tempEffect = miniList[roll];
-    tempEffect.roll = roll; // add the rolled value as a parameter
-    setNewMiniEffect(tempEffect); // set the newVengEffect
+    const miniListLength = Object.keys(miniList).length;
+    if (miniListLength > 0) {
+        const roll = Math.floor(Math.random() * miniListLength); // random on the list
+        let tempEffect = Object.keys(miniList)[roll];
+        tempEffect.roll = roll; // add the rolled value as a parameter
+        setNewMiniEffect(tempEffect); // set the newVengEffect
+    }
 }
 
 // GAME LIST
