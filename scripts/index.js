@@ -9,7 +9,7 @@ const app = () => {
     registerSettingsComponent(); 
     registerGameComponent();
     shared.updateSourceList('lists/chaosList.json');
-    shared.updateVengList('lists/chaosVengeance.json');
+/*     shared.updateVengList('lists/chaosVengeance.json'); */
     
 }
 

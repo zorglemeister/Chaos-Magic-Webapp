@@ -67,6 +67,17 @@ export function setNewVengEffect(newNewVengEffect) {
     newVengEffect = newNewVengEffect;
 }
 
+// define newMiniEffect
+let newMiniEffect = {};
+// get newMiniEffect
+export function getNewMiniEffect() {
+    return newMiniEffect;
+}
+// set newMiniEffect
+export function setNewMiniEffect(newNewMiniEffect) {
+    newMiniEffect = newNewMiniEffect;
+}
+
 // define rollCounter
 let rollCounter = null;
 // get rollCounter
@@ -134,8 +145,6 @@ export async function updateSourceList(sourcePath) {
 }
 
 // VENGEANCE LIST
-// (This may be replaced by a function that creates it based on tags from the source list, so I just have to update one file)
-// for now, it's a separate JSON
 
 // define vengList
 let vengList = {};
@@ -143,15 +152,32 @@ let vengList = {};
 export function getVengList() {
     return vengList;
 }
-// update vengList
-export async function updateVengList(vengPath) {
-    const newVengList = await loadJSON(vengPath); // get the file and put it into a new object
-    for (let key in vengList) { // for each key in vengList...
-        if (vengList.hasOwnProperty(key)) { // if vengList has a property with that name (it should!)
-            delete vengList[key]; // delete that property
+// set vengList
+function setVengList(newVengList) {
+    vengList = newVengList;
+}
+    // clear vengList
+function clearVengList() {
+    if (!vengList) {
+        for (let key in vengList) { // for each key in vengList...
+            if (vengList.hasOwnProperty(key)) { // if vengList has a property with that name (it should!)
+                delete vengList[key]; // delete that property
+            }
         }
     }
-    Object.assign(vengList, newVengList); // target vengList and assign the new object definition to it
+    console.log(`Veng List Cleared.`);
+}
+// update vengList
+export function updateVengList() {
+    clearVengList();
+    setVengList(buildVengList());
+}
+// build the vengeance list (by filtering sourceList)
+function buildVengList() {
+    return sourceList.effects.filter(effect => {
+        return (
+            (effect.inclusion.includes('vengeance')));
+    });
 }
 
 // define weightedVeng
@@ -160,15 +186,31 @@ let weightedVeng = [];
 export function getWeightedVeng() {
     return weightedVeng;
 }
+// set weightedVeng
+function setWeightedVeng(newWeightedVeng) {
+    weightedVeng = newWeightedVeng;
+}
+
 // update weightedVeng (specifically, populates it with entries = key * weight)
 export function updateWeightedVeng() {
-    console.log(`weightedVeng length pre-update ${getWeightedVeng().length}`);
-    for (const effect of vengList.effects) { // for each effect...
-        for (let i = 0; i < effect.weight; i++) { // for the "weight"...
-            weightedVeng.push(effect.effectName); // add the effectName to the array
-        } // This should create an array where each effectName shows up a number of times equal to the weight value
+    let tempWeightedVeng = [];
+    for (const effect of vengList) { // for each effect...
+        let instances = null;
+        switch (effect.rarity) { // weight it based on 'rarity' by number of times it shows in the array
+            case 'common':
+                instances = 10;
+                break;
+            case 'uncommon':
+                instances = 2;
+                break;
+            case 'rare':
+                instances = 1;
+        }
+        for (let i = 0; i < instances; i++) { // for each instance...
+            tempWeightedVeng.push(effect.indexNum); // add the effect's indexNum to the array
+        }
     }
-    console.log(`weightedVeng length post-update ${getWeightedVeng().length}`);
+    setWeightedVeng(tempWeightedVeng);
 }
 // clear weightedVeng
 export function clearWeightedVeng() {
@@ -178,11 +220,55 @@ export function clearWeightedVeng() {
 // VENGEANCE RANDOMIZER
 export function getRandomVengEffect() {
     let roll = Math.floor(Math.random() * weightedVeng.length); // random on the weighted list
-    let weightedTag = weightedVeng[roll]; // set the tag from the list
-    let targetIndex = vengList.effects.findIndex(effectIndex => effectIndex.effectName === weightedTag); // then find the effect in the veng list...
-    let tempEffect = vengList.effects[targetIndex];
+    let weightedIndex = weightedVeng[roll]; // set the indexNum from the list
+    let targetIndex = vengList.findIndex(effectIndex => effectIndex.indexNum === weightedIndex); // then find the effect in the veng list...
+    let tempEffect = vengList[targetIndex];
     tempEffect.roll = roll; // add the rolled value as a parameter
     setNewVengEffect(tempEffect); // set the newVengEffect
+}
+
+// MINIGAME LIST
+
+// define miniList
+let miniList = {};
+// get miniList
+export function getMiniList() {
+    return miniList;
+}
+// set miniList
+function setMiniList(newMiniList) {
+    miniList = newMiniList;
+}
+    // clear miniList
+function clearMiniList() {
+    if (!miniList) {
+        for (let key in miniList) { // for each key in miniList...
+            if (miniList.hasOwnProperty(key)) { // if miniList has a property with that name (it should!)
+                delete miniList[key]; // delete that property
+            }
+        }
+    }
+    console.log(`Minigame List Cleared.`);
+}
+// update miniList
+export function updateMiniList() {
+    clearMiniList();
+    setMiniList(buildMiniList());
+}
+// build the minigame list (by filtering sourceList)
+function buildMiniList() {
+    return sourceList.effects.filter(effect => {
+        return (
+            (effect.inclusion.includes('minigame')));
+    });
+}
+// MINIGAME RANDOMIZER
+export function getRandomMiniEffect() {
+    console.log(`minilist: `, getMiniList());
+    let roll = Math.floor(Math.random() * miniList.length); // random on the list
+    let tempEffect = miniList[roll];
+    tempEffect.roll = roll; // add the rolled value as a parameter
+    setNewMiniEffect(tempEffect); // set the newVengEffect
 }
 
 // GAME LIST
@@ -202,11 +288,7 @@ export function setGameList(newGameList) {
 export function updateGameList() {
     clearGameList();
     buildFilterConditions();
-    console.log('Filter Criteria ', filterCriteria);
-    console.log('Source List pre-filter ', getSourceList());
-    console.log('Game List pre-filter ', getGameList());
     setGameList(buildGameList());
-    console.log('Game List after filter', getGameList());
 }
 // clear gameList
 function clearGameList() {
@@ -222,7 +304,7 @@ function clearGameList() {
 
 // *** Weighted list (for RarityMatters = TRUE)
 // define weightedList
-let weightedList =[];
+let weightedList = [];
 // get weightedList
 export function getWeightedList() {
     return weightedList;
@@ -346,6 +428,9 @@ function getWeightedSlicedRandFromGameList() {
 //    minigameDelay: <-- Not used in filter
 // }
 
+
+
+
 let filterCriteria = {};
 
 function buildFilterConditions() {
@@ -436,18 +521,8 @@ function buildGameList() {
     // first version of this was really messy, lets see if we can sort out a cleaner conditional
     // const tempSourceList = getSourceList();
     // console.log(tempSourceList);
-    let effectFilterCycleCount = 0; // debug thing
     return sourceList.effects.filter(effect => {
         // effects is the array within the sourceList entity, so call .filter() on it directly
-        console.log('player', (!filterCriteria.player || effect.player.includes(filterCriteria.player)),
-        '| accessible', (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)),
-        '| inclusion', (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)),
-        '| theme', (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)),
-        '| school', (!filterCriteria.school || effect.school.includes(filterCriteria.school)),
-        '| duration', (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)),
-        '| rarity', (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity)));
-        effectFilterCycleCount = effectFilterCycleCount + 1;
-        console.log('Effect Filter Cycle Count', effectFilterCycleCount);
         return ( // This is an inline function, so it's returning a boolean. that parens opens the conditional
             // Structure: If filter is unspecified (!thing) or entry matches filter, then true. If all true, include in output
         // player match
