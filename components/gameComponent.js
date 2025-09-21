@@ -266,11 +266,7 @@ class GameComponent extends HTMLElement {
             minigame: false, // any
             minigameDelay: null // any
         };
-        console.log('Default Payload ', defaultPayload);
-        // set settingsPayload
-        console.log('settings payload before default set ', shared.getSettingsPayload());
         shared.setSettingsPayload(defaultPayload);
-        console.log('settings payload after default set ', shared.getSettingsPayload());
         // call list generator
         shared.updateGameList();
         // call randomizer update

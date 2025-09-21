@@ -162,13 +162,11 @@ export function getWeightedVeng() {
 }
 // update weightedVeng (specifically, populates it with entries = key * weight)
 export function updateWeightedVeng() {
-    console.log(`weightedVeng length pre-update ${getWeightedVeng().length}`);
     for (const effect of vengList.effects) { // for each effect...
         for (let i = 0; i < effect.weight; i++) { // for the "weight"...
             weightedVeng.push(effect.effectName); // add the effectName to the array
         } // This should create an array where each effectName shows up a number of times equal to the weight value
     }
-    console.log(`weightedVeng length post-update ${getWeightedVeng().length}`);
 }
 // clear weightedVeng
 export function clearWeightedVeng() {
@@ -202,11 +200,7 @@ export function setGameList(newGameList) {
 export function updateGameList() {
     clearGameList();
     buildFilterConditions();
-    console.log('Filter Criteria ', filterCriteria);
-    console.log('Source List pre-filter ', getSourceList());
-    console.log('Game List pre-filter ', getGameList());
     setGameList(buildGameList());
-    console.log('Game List after filter', getGameList());
 }
 // clear gameList
 function clearGameList() {
@@ -217,7 +211,6 @@ function clearGameList() {
             }
         }
     }
-    console.log(`Game List Cleared.`);
 }
 
 // *** Weighted list (for RarityMatters = TRUE)
@@ -299,7 +292,6 @@ export function getRandomEffect() {
 // return random element from gameList (For Repetition = TRUE, Weighted = FALSE)
 function getRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
-    console.log('what did we roll?', roll, 'and how long is the list?', gameList.length);
     return gameList[roll]; // pass it back
 }
 // return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
@@ -354,13 +346,11 @@ function buildFilterConditions() {
     } else {
         filterCriteria.player = null; // null = everything
     }
-    console.log(`player filter = ${filterCriteria.player}`);
     if (settingsPayload.physical === true) { // Set accessible (boolean) (this is a little confusing, because the checkbox is "checked if including effects that involve physical activity")
         filterCriteria.accessible = null; // if true, includes everything (filter logic says "null = everything")
     } else {
         filterCriteria.accessible = true; // otherwise, only include accessible effects
     }
-    console.log(`physical filter = ${filterCriteria.accessible}`);
     // List selector controls a BUNCH
     // broke it out into list-specific pieces
     switch (settingsPayload.list) {
@@ -382,11 +372,6 @@ function buildFilterConditions() {
         case "custom":
             filterCustom();
     }
-    console.log(`inclusion filter = ${filterCriteria.inclusion}`);
-    console.log(`exemplarTheme filter = ${filterCriteria.exemplarTheme}`);
-    console.log(`school filter = ${filterCriteria.school}`);
-    console.log(`duration filter = ${filterCriteria.duration}`);
-    console.log(`rarity filter = ${filterCriteria.rarity}`);
 }
 function filterMicro() {
     // Micro only cares about inclusion
@@ -435,19 +420,10 @@ function filterCustom() {
 function buildGameList() {
     // first version of this was really messy, lets see if we can sort out a cleaner conditional
     // const tempSourceList = getSourceList();
-    // console.log(tempSourceList);
     let effectFilterCycleCount = 0; // debug thing
     return sourceList.effects.filter(effect => {
         // effects is the array within the sourceList entity, so call .filter() on it directly
-        console.log('player', (!filterCriteria.player || effect.player.includes(filterCriteria.player)),
-        '| accessible', (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)),
-        '| inclusion', (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)),
-        '| theme', (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)),
-        '| school', (!filterCriteria.school || effect.school.includes(filterCriteria.school)),
-        '| duration', (!filterCriteria.duration || effect.duration.includes(filterCriteria.duration)),
-        '| rarity', (!filterCriteria.rarity || effect.rarity.includes(filterCriteria.rarity)));
         effectFilterCycleCount = effectFilterCycleCount + 1;
-        console.log('Effect Filter Cycle Count', effectFilterCycleCount);
         return ( // This is an inline function, so it's returning a boolean. that parens opens the conditional
             // Structure: If filter is unspecified (!thing) or entry matches filter, then true. If all true, include in output
         // player match

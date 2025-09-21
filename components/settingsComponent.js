@@ -430,7 +430,6 @@ class SettingsComponent extends HTMLElement {
         }
     }
     // saveSettings() { // displays and handles the save modal
-        // console.log("This is where I'd save my settings");
         // add click handlers
         
         // show the Save Modal
@@ -468,7 +467,6 @@ class SettingsComponent extends HTMLElement {
                     minigame: configMinigame.checked, // any
                     minigameDelay: configMinigameDelay.value // any
                 }
-        console.log(customPayload);
         // set settingsPayload
         shared.setSettingsPayload(customPayload);
         // update the gameList
