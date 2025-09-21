@@ -410,9 +410,11 @@ class GameComponent extends HTMLElement {
         }
     }
     show(elementArray) {
-        for (const element of elementArray) {
-            if (element.classList.contains('hiddenPart')) {
-                element.classList.remove('hiddenPart');
+        if (Array.isArray(elementArray)){
+            for (const element of elementArray) {
+                if (element.classList.contains('hiddenPart')) {
+                    element.classList.remove('hiddenPart');
+                }
             }
         }
     }
