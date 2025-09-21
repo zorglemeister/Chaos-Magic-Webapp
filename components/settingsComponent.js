@@ -40,10 +40,10 @@ settingsTemplate.innerHTML = `
                     <div class="settingContent">
                     <select id="listSelect" class="listSelect selectList" type="select-one" size="6" style="overflow: hidden">
                         <option value="micro">Micro</option>
-                        <option value="lite">Lite</option>
+                        <option value="lite" selected>Lite</option>
                         <option value="exemplar">Exemplar</option>
                         <option value="legacy">Legacy</option>
-                        <option value="full" selected>Full</option>
+                        <option value="full">Full</option>
                         <option value="custom">Custom</option>
                     </select>
                     </div>
