@@ -29,6 +29,22 @@ z-game .gameField {
     background-color: lightblue;
 }
 
+/* Creating an overlay to mask minigame and vengeance modals */
+z-game .interactionOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 700;
+    display: none;
+}
+z-game .interactionOverlay.active {
+    display: block;
+    pointer-events: auto;
+}
+
 /* first-load modal */
 z-game .welcomeModal {
     position: fixed;
@@ -118,6 +134,7 @@ z-game .minigameModal {
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 701;
 }
 z-game .minigameContent {
     font-size: 16px;
@@ -146,6 +163,7 @@ z-game .vengeanceModal {
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 701;
 }
 z-game .vengeanceContent {
     font-size: 16px;

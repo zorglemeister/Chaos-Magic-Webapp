@@ -56,18 +56,19 @@ If you have feedback or ideas, email me at jo@zorgle.art.<br />Known Issues (not
 <div class="visiblePart">
 <z-oe></z-oe>
 <div class="activeContainer">active cont</div>
-<div class="minigameModal">
+<div class="interactionOverlay"></div>
+<dialog class="minigameModal">
 <div class="minigameContent">
 Minigame Content
 </div>
 <button type="button" class="minigameCloseButton">Done</button></div>
-</div>
-<div class="vengeanceModal">
+</dialog>
+<dialog class="vengeanceModal">
 <div class="vengeanceContent">
 Vengeance Content
 </div>
 <button type="button" class="vengeanceCloseButton">Done</button></div>
-</div>
+</dialog>
 <div class="controlContainer">
 <div class="buttonWrapper">
 <!-- div class="rollControl" -->
@@ -120,6 +121,7 @@ let gameField = null;
         let customizeButton = null;
     let visiblePart = null;
         let activeContainer = null;
+        let interactionOverlay = null;
         let minigameModal = null;
             let minigameContent = null;
             let minigameCloseButton = null;
@@ -173,6 +175,7 @@ class GameComponent extends HTMLElement {
                 customizeButton = this.getElementsByClassName("customizeButton")[0];
             visiblePart = this.getElementsByClassName("visiblePart")[0];
                 activeContainer = this.getElementsByClassName("activeContainer")[0];
+                interactionOverlay = this.getElementsByClassName("interactionOverlay")[0];
                 minigameModal = this.getElementsByClassName("minigameModal")[0];
                     minigameContent = this.getElementsByClassName("minigameContent")[0];
                     minigameCloseButton = this.getElementsByClassName("minigameCloseButton")[0];
@@ -232,7 +235,7 @@ class GameComponent extends HTMLElement {
         // this.hide(vengeanceModal);
         // hide settings
         // this.hide(settingsBlock);
-        this.hide([visiblePart,controlContainer,historyDrawer,minigameModal,vengeanceModal,settingsBlock]);
+        this.hide([visiblePart,controlContainer,historyDrawer,settingsBlock]); //minigameModal,vengeanceModal,
         // display welcomeModal
         this.show([welcomeModal]);
     }
@@ -352,11 +355,12 @@ class GameComponent extends HTMLElement {
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
     vengeanceClick() {
-        // poke the vengeanceRandomizer
-        // update the vengeanceModal contents
+        /* // turn on the overlay
+        interactionOverlay.classList.add('active'); */
         // display the vengeanceModal
         vengeanceContent.innerHTML = this.vengRand();
-        this.show([vengeanceModal]);
+        /* this.show([vengeanceModal]); */
+        vengeanceModal.showModal();
     }
     vengRand() {
     // the new, new version, with sharedAssets scripting
@@ -369,21 +373,23 @@ class GameComponent extends HTMLElement {
         if (vengeanceContent.firstElementChild) {
             this.moveVengeanceToHistory();
         }
-        // hide the vengeanceModal
+        /* // hide the vengeanceModal
         this.hide([vengeanceModal]);
-        // move the effect to the History list
-        // this.moveVengeanceToHistory();
+        // turn off the overlay
+        interactionOverlay.classList.remove('active'); */
+        vengeanceModal.close();
     }
     moveVengeanceToHistory() { // here's moving the vengeance effect to the top of the history section:
         const moveEffect = vengeanceContent.firstElementChild; // get the first (and only) div in the vengeance container
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
     minigameClick() {
-        // poke the minigameRandomizer
-        // update the minigameModal contents
+        /* // turn on the overlay
+        interactionOverlay.classList.add('active'); */
         // display the minigameModal
         minigameContent.innerHTML = this.miniRand();
-        this.show([minigameModal]);
+        /* this.show([minigameModal]); */
+        minigameModal.showModal();
     }
     miniRand() {
     // the new, new version, with sharedAssets scripting
@@ -396,8 +402,11 @@ class GameComponent extends HTMLElement {
         if (minigameContent.firstElementChild) {
             this.moveMinigameToHistory();
         }
-        // hide the minigameModal
+        /* // hide the minigameModal
         this.hide([minigameModal]);
+        // turn off the overlay
+        interactionOverlay.classList.remove('active'); */
+        minigameModal.close();
         // reset the minigameTimer
     }
     moveMinigameToHistory() { // here's moving the minigame effect to the top of the history section:
