@@ -90,6 +90,7 @@ class EffectComponent extends HTMLElement {
                     <div class="descBlock"> <!-- this gets replaced by special effects -->
                         <div class="shortDesc"></div>
                         <div class="fullDesc hiddenPart"></div>
+                        <div class="activeDesc hiddenPart"></div> <!-- Added for testing, REMOVE ME LATER! -->
                     </div>
                     <div class="effectComponents hiddenPart"></div>
                     <div class="inspiration hiddenPart"></div>
@@ -128,6 +129,11 @@ class EffectComponent extends HTMLElement {
             } else { // if not...
                 this.getElementsByClassName('fullDesc')[0].remove;
             }
+            if (localEffect.activeDesc) { // if there's an activeDesc...  THIS IS TO BE REWORKED!
+                this.getElementsByClassName('activeDesc')[0].innerHTML = localEffect.activeDesc; // display it
+            } else { // if not...
+                this.getElementsByClassName('activeDesc')[0].remove;
+            }
         }
         if (localEffect.component) { // if there's a component...
             this.getElementsByClassName('effectComponents')[0].innerHTML = localEffect.component;
@@ -148,11 +154,9 @@ class EffectComponent extends HTMLElement {
             document.documentElement.style.setProperty('--details-button-height', `${this.getElementsByClassName('descSwitch')[0].offsetHeight}px`);
         }
 
-        if (localEffect.fullDesc || localEffect.activeDesc) { // if there's a fullDesc OR an activeDesc...
-            // link rolltags and flipcoins
-            this.linkRollButtons(localEffect);
-            this.linkFlipCoins(localEffect);
-        }
+        // add IDs to rolltags and flipcoins
+        this.linkRollButtons(localEffect);
+        this.linkFlipCoins(localEffect);
         // I HAD FORGOTTEN TO ACTUALLY ID TAG THE ROLLBUTTONS (gosh, I wonder why they don't work right?)
         
         // I'm going to write the activeEffect payload as a template and then pass it into a new activeEffect
