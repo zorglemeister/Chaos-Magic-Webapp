@@ -28,7 +28,7 @@ settingsTemplate.innerHTML = `
             <div class="settingBasics settingGroup">
                 <div class="playerCountSetting settingContainer">
                     <div class="settingTitle">Player Count</div>
-                    <label class="settingText" for="playerCount">How many players?</label>
+                    <label class="settingText" for="playerCountSlider">How many players?</label>
                     <div class="settingContent">
                     <p><input id="playerCountSlider" class="playerCountSlider slider" type="range" min="2" max="10" value="4"></p><span class="playerCountText"></span>
                     </div>
