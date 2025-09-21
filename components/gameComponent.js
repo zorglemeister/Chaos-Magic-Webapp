@@ -254,7 +254,7 @@ class GameComponent extends HTMLElement {
         // load preset into settingsPayload
         let defaultPayload = {
             players: 4, // any
-            list: 'full', // any *** CHANGED FOR TESTING
+            list: 'lite', // any
             physical: true, // any
             theme: null, // string
             school: null, // any[]
@@ -270,16 +270,31 @@ class GameComponent extends HTMLElement {
         // call list generator
         shared.updateGameList();
         // call randomizer update
-        // activate game controls and settings
-        this.show([settingsBlock,visiblePart,controlContainer,historyDrawer]);
-        // hide welcomeModal
-        this.hide([welcomeModal]);
         this.initializeGame();
     }
     initializeGame() {
+        // hide the Welcome Modal
+        this.hide([welcomeModal]);
+        // show the game UI
+        this.show([settingsBlock,visiblePart,controlContainer,historyDrawer]);
         // call list generator
-        shared.updateWeightedVeng(); // make the weighted vengeance array
+        shared.updateGameList();
         shared.updateRandomizerConfig();
+        // handle vengeance setting
+        if (shared.getSettingsPayload().vengeance) {
+            shared.updateVengList(); // make the vengeance list
+            shared.updateWeightedVeng(); // make the weighted vengeance array
+            this.show[vengeanceControl];
+        } else {
+            this.hide[vengeanceControl];
+        }
+        // handle minigame setting
+        if (shared.getSettingsPayload().minigame) {
+            shared.updateMiniList(); // make the minigame list
+            this.show[minigameControl];
+        } else {
+            this.hide[minigameControl];
+        }
         // wipe active effect
         activeContainer.innerHTML = '';
         // wipe history
@@ -341,7 +356,7 @@ class GameComponent extends HTMLElement {
     shared.getRandomVengEffect();
     let localVengEffect = shared.getNewVengEffect();
     return `
-    <div class="vengEffect"><div class="vengRoll">${localVengEffect.roll}</div><div class="vengContent"><div class="vengTitle">${localVengEffect.effectName}</div><div class="vengBody">${localVengEffect.desc}</div></div></div>`; // send back the innerHTML
+    <div class="vengEffect"><div class="vengRoll">${localVengEffect.roll}</div><div class="vengContent"><div class="vengTitle">${localVengEffect.effectName}</div><div class="vengBody">${localVengEffect.fullDesc}</div></div></div>`; // send back the innerHTML
     }
     closeVengeanceClick() {
         if (vengeanceContent.firstElementChild) {
@@ -360,12 +375,27 @@ class GameComponent extends HTMLElement {
         // poke the minigameRandomizer
         // update the minigameModal contents
         // display the minigameModal
+        minigameContent.innerHTML = this.miniRand();
         this.show([minigameModal]);
     }
+    miniRand() {
+    // the new, new version, with sharedAssets scripting
+    shared.getRandomMiniEffect();
+    let localMiniEffect = shared.getNewMiniEffect();
+    return `
+    <div class="miniEffect"><div class="miniRoll">${localMiniEffect.roll}</div><div class="miniContent"><div class="miniTitle">${localMiniEffect.effectName}</div><div class="miniBody">${localMiniEffect.fullDesc}</div></div></div>`; // send back the innerHTML
+    }
     closeMinigameClick() {
+        if (minigameContent.firstElementChild) {
+            this.moveMinigameToHistory();
+        }
         // hide the minigameModal
         this.hide([minigameModal]);
         // reset the minigameTimer
+    }
+    moveMinigameToHistory() { // here's moving the minigame effect to the top of the history section:
+        const moveEffect = minigameContent.firstElementChild; // get the first (and only) div in the minigame container
+        historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
     nextTurn() {
         // minigame timer
