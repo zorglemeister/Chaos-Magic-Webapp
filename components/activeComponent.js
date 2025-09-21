@@ -1,5 +1,3 @@
-
-
 export class ActiveEffect extends HTMLElement {
     constructor(htmlContent, duration) {
         super();
@@ -7,7 +5,7 @@ export class ActiveEffect extends HTMLElement {
         this.template = document.createElement('template');
         // set the html payload
         if (htmlContent) {
-        this.setHTMLContent(htmlContent);
+            this.setHTMLContent(htmlContent);
         }
         // set the duration
         if (duration) {
@@ -18,9 +16,11 @@ export class ActiveEffect extends HTMLElement {
         // and set up the event listener (why do i keep spelling it "listender"?!)
         document.addEventListener('nextTurn', this.handleTurnEvent);
     }
+
     setHTMLContent(htmlContent) {
         this.template.innerHTML = htmlContent.trim();
     }
+
     handleTurnEvent() {
         if (this.duration !== 'Ongoing') { // if the effect is ongoing, do nothing (skips all the below logic)
             if (this.duration > 0) { // if the duration is greater than 0...
@@ -35,8 +35,9 @@ export class ActiveEffect extends HTMLElement {
                         </div>
                         `
                         this.append(effectEndModal.content); // Stick it in the DOM
+                        this.hasButton = true;
                         // add "done" click handler
-                        this.getElementsByClassName('effectEndButton')[0].addEventListener('click', this.clearEffect(true));
+                        this.getElementsByClassName('effectEndButton')[0].addEventListener('click', this.clearEffect);
                     } else {
                         this.clearEffect();
                     }
@@ -44,14 +45,15 @@ export class ActiveEffect extends HTMLElement {
             }
         }
     }
-    clearEffect(hasButton) {
-        if (hasButton) { // if there's a button, clear the event handler
+
+    clearEffect(event) {
+        if (event.currentTarget.hasButton) { // if there's a button, clear the event handler
             this.destroyListener();
         }
         // remove this from the DOM (maybe? not sure how this works...)
         this.remove();
-
     }
+
     destroyListener() {
         document.removeEventListener('nextTurn', this.handleTurnEvent);
     }
