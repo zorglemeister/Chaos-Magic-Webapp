@@ -144,6 +144,10 @@ z-game .minigameModal {
     z-index: 701;
 }
 
+z-game .minigameModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 z-game .minigameContent {
     font-size: 16px;
     text-align: center;
@@ -225,6 +229,10 @@ z-game .vengeanceCloseButton {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+}
+
+z-game .vengeanceModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* game buttons section */
