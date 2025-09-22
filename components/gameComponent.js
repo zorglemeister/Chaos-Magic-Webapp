@@ -1,11 +1,11 @@
 // This holds the main gamestate and all the little pieces of it.
 // pretty sure I need to import the bits...
 
-import { registerEffectComponent } from './effectComponent.js';
-import { registerFlipCoinComponent } from './flipCoinComponent.js';
-import { registerOngoingComponent } from './ongoingComponent.js';
-import { registerInlineSymbolComponent } from './inlineSymbolComponent.js';
-import { registerRollButtonComponent } from './rollButtonComponent.js';
+import {registerEffectComponent} from './effectComponent.js';
+import {registerFlipCoinComponent} from './flipCoinComponent.js';
+import {registerOngoingComponent} from './ongoingComponent.js';
+import {registerInlineSymbolComponent} from './inlineSymbolComponent.js';
+import {registerRollButtonComponent} from './rollButtonComponent.js';
 // pull in the shared assets
 import * as shared from '../scripts/sharedAssets.js';
 
@@ -116,51 +116,53 @@ Vengeance Content
 
 // Defining elements (not as complex as Settings!)
 let gameField = null;
-    let welcomeModal = null;
-        let defaultButton = null;
-        let customizeButton = null;
-    let visiblePart = null;
-        let activeContainer = null;
-        let interactionOverlay = null;
+let welcomeModal = null;
+let defaultButton = null;
+let customizeButton = null;
+let visiblePart = null;
+let activeContainer = null;
+let interactionOverlay = null;
         let minigameModal = null;
-            let minigameContent = null;
-            let minigameCloseButton = null;
-        let vengeanceModal = null;
-            let vengeanceContent = null;
-            let vengeanceCloseButton = null;
-        let controlContainer = null;
-            let rollControl = null;
-                let rollButton = null;
-            let minigameControl = null;
-                let minigameButton = null;
-            let vengeanceControl = null;
-                let vengeanceButton = null;
-            let historyControlPlaceholder = null;
-    let historyDrawer = null;
-        let historyButton = null;
-        let historyContainer = null;
+let minigameContent = null;
+let minigameCloseButton = null;
+let vengeanceModal = null;
+let vengeanceContent = null;
+let vengeanceCloseButton = null;
+let controlContainer = null;
+let rollControl = null;
+let rollButton = null;
+let minigameControl = null;
+let minigameButton = null;
+let vengeanceControl = null;
+let vengeanceButton = null;
+let historyControlPlaceholder = null;
+let historyDrawer = null;
+let historyButton = null;
+let historyContainer = null;
 
 // The Drawer Pieces
-    let drawerButton = null;
-    let drawerContents = null;
+let drawerButton = null;
+let drawerContents = null;
 // Settings, in case I need it?
-    let settingsBlock = null;
+let settingsBlock = null;
 
 // Gamestate counters
-    let rollCounter = 0;
-    let minigameCounter = 0;
+let rollCounter = 0;
+let minigameCounter = 0;
 
 class GameComponent extends HTMLElement {
     constructor() {
         super();
         this._isRendered = false; // flag for only rendering once
     }
+
     connectedCallback() {
         if (!this._isRendered) { // if it hasn't already been rendered...
             this.render(); // render it...
             this._isRendered = true; // and set the flag
         }
     }
+
     render() {
         registerEffectComponent(); // get the effectComponent in here
         registerFlipCoinComponent(); // get the coinFlip in here
@@ -170,29 +172,28 @@ class GameComponent extends HTMLElement {
         this.append(gameTemplate.content.cloneNode(true)); // clone the template and stick it in the DOM
         // after it's in the DOM, initialize the element references
         gameField = this.getElementsByClassName("gameField")[0];
-            welcomeModal = this.getElementsByClassName("welcomeModal")[0];
-                defaultButton = this.getElementsByClassName("defaultButton")[0];
-                customizeButton = this.getElementsByClassName("customizeButton")[0];
-            visiblePart = this.getElementsByClassName("visiblePart")[0];
-                activeContainer = this.getElementsByClassName("activeContainer")[0];
-                interactionOverlay = this.getElementsByClassName("interactionOverlay")[0];
-                minigameModal = this.getElementsByClassName("minigameModal")[0];
-                    minigameContent = this.getElementsByClassName("minigameContent")[0];
-                    minigameCloseButton = this.getElementsByClassName("minigameCloseButton")[0];
-                vengeanceModal = this.getElementsByClassName("vengeanceModal")[0];
-                    vengeanceContent = this.getElementsByClassName("vengeanceContent")[0];
-                    vengeanceCloseButton = this.getElementsByClassName("vengeanceCloseButton")[0];
-                controlContainer = this.getElementsByClassName("controlContainer")[0];
-                    rollControl = this.getElementsByClassName("rollControl")[0];
-                        rollButton = this.getElementsByClassName("rollButton")[0];
-                    minigameControl = this.getElementsByClassName("minigameControl")[0];
-                        minigameButton = this.getElementsByClassName("minigameButton")[0];
-                    vengeanceControl = this.getElementsByClassName("vengeanceControl")[0];
-                        vengeanceButton = this.getElementsByClassName("vengeanceButton")[0];
-                    historyControlPlaceholder = this.getElementsByClassName("historyControlPlaceholder")[0];
-            historyDrawer = this.getElementsByClassName("historyDrawer")[0];
-                historyButton = this.getElementsByClassName("historyButton")[0];
-                historyContainer = this.getElementsByClassName("historyContainer")[0];
+        welcomeModal = this.getElementsByClassName("welcomeModal")[0];
+        defaultButton = this.getElementsByClassName("defaultButton")[0];
+        customizeButton = this.getElementsByClassName("customizeButton")[0];
+        visiblePart = this.getElementsByClassName("visiblePart")[0];
+        activeContainer = this.getElementsByClassName("activeContainer")[0];
+        interactionOverlay = this.getElementsByClassName("interactionOverlay")[0];minigameModal = this.getElementsByClassName("minigameModal")[0];
+        minigameContent = this.getElementsByClassName("minigameContent")[0];
+        minigameCloseButton = this.getElementsByClassName("minigameCloseButton")[0];
+        vengeanceModal = this.getElementsByClassName("vengeanceModal")[0];
+        vengeanceContent = this.getElementsByClassName("vengeanceContent")[0];
+        vengeanceCloseButton = this.getElementsByClassName("vengeanceCloseButton")[0];
+        controlContainer = this.getElementsByClassName("controlContainer")[0];
+        rollControl = this.getElementsByClassName("rollControl")[0];
+        rollButton = this.getElementsByClassName("rollButton")[0];
+        minigameControl = this.getElementsByClassName("minigameControl")[0];
+        minigameButton = this.getElementsByClassName("minigameButton")[0];
+        vengeanceControl = this.getElementsByClassName("vengeanceControl")[0];
+        vengeanceButton = this.getElementsByClassName("vengeanceButton")[0];
+        historyControlPlaceholder = this.getElementsByClassName("historyControlPlaceholder")[0];
+        historyDrawer = this.getElementsByClassName("historyDrawer")[0];
+        historyButton = this.getElementsByClassName("historyButton")[0];
+        historyContainer = this.getElementsByClassName("historyContainer")[0];
         // The Drawer Pieces
         drawerButton = this.getElementsByClassName("drawerToggle")[0];
         drawerContents = this.getElementsByClassName("drawerContents")[0];
@@ -210,13 +211,13 @@ class GameComponent extends HTMLElement {
         // settings reference, because fancy
         settingsBlock = document.getElementsByClassName('settingsBlock')[0];
         // time for event handlers!
-        defaultButton.addEventListener('click',this.defaultsClick.bind(this));
-        customizeButton.addEventListener('click',this.customizeClick.bind(this));
-        minigameCloseButton.addEventListener('click',this.closeMinigameClick.bind(this));
-        vengeanceCloseButton.addEventListener('click',this.closeVengeanceClick.bind(this));
-        rollButton.addEventListener('click',this.rollClick.bind(this));
-        minigameButton.addEventListener('click',this.minigameClick.bind(this));
-        vengeanceButton.addEventListener('click',this.vengeanceClick.bind(this));
+        defaultButton.addEventListener('click', this.defaultsClick.bind(this));
+        customizeButton.addEventListener('click', this.customizeClick.bind(this));
+        minigameCloseButton.addEventListener('click', this.closeMinigameClick.bind(this));
+        vengeanceCloseButton.addEventListener('click', this.closeVengeanceClick.bind(this));
+        rollButton.addEventListener('click', this.rollClick.bind(this));
+        minigameButton.addEventListener('click', this.minigameClick.bind(this));
+        vengeanceButton.addEventListener('click', this.vengeanceClick.bind(this));
         // settings update listener
         window.addEventListener('settingsUpdate', this.settingsUpdatedHandler.bind(this));
 
@@ -235,10 +236,11 @@ class GameComponent extends HTMLElement {
         // this.hide(vengeanceModal);
         // hide settings
         // this.hide(settingsBlock);
-        this.hide([visiblePart,controlContainer,historyDrawer,settingsBlock]); //minigameModal,vengeanceModal,
+        this.hide([visiblePart, controlContainer, historyDrawer, settingsBlock]); //minigameModal, vengeanceModal,
         // display welcomeModal
         this.show([welcomeModal]);
     }
+
     customizeClick() {
         // hide welcomeModal
         this.hide([welcomeModal]);
@@ -248,18 +250,20 @@ class GameComponent extends HTMLElement {
         const clickSettings = new Event('click');
         document.getElementsByClassName('gameSettingsButton')[0].dispatchEvent(clickSettings);
     }
+
     settingsUpdatedHandler() {
         // hide welcomeModal (no effect if past initial state)
         this.hide([welcomeModal]);
-        
+
         // activate game controls (no effect is past initial state)
-        this.show([visiblePart,controlContainer,historyDrawer]);
+        this.show([visiblePart, controlContainer, historyDrawer]);
         // this.show(controlContainer);
         // this.show(historyDrawer);
-        
+
         // reset Gamestate Counters
         this.initializeGame();
     }
+
     defaultsClick() {
         // load preset into settingsPayload
         let defaultPayload = {
@@ -282,11 +286,12 @@ class GameComponent extends HTMLElement {
         // call randomizer update
         this.initializeGame();
     }
+
     initializeGame() {
         // hide the Welcome Modal
         this.hide([welcomeModal]);
         // show the game UI
-        this.show([settingsBlock,visiblePart,controlContainer,historyDrawer]);
+        this.show([settingsBlock, visiblePart, controlContainer, historyDrawer]);
         // call list generator
         shared.updateGameList();
         shared.updateRandomizerConfig();
@@ -313,6 +318,7 @@ class GameComponent extends HTMLElement {
         shared.setMinigameCounter(0);
         shared.setActivePlayers(shared.getSettingsPayload().players);
     }
+
     // GAME CONTROLS -----------------------
     rollClick() { // assuming one click per player turn
         // send the "newRoll" event
@@ -350,10 +356,12 @@ class GameComponent extends HTMLElement {
         // increment minigameTimer
         shared.setMinigameCounter(shared.getMinigameCounter() + 1);
     }
+
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
         const moveEffect = activeContainer.firstElementChild; // get the first (and only) div in the active container
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
+
     vengeanceClick() {
         /* // turn on the overlay
         interactionOverlay.classList.add('active'); */
@@ -362,13 +370,15 @@ class GameComponent extends HTMLElement {
         /* this.show([vengeanceModal]); */
         vengeanceModal.showModal();
     }
+
     vengRand() {
-    // the new, new version, with sharedAssets scripting
-    shared.getRandomVengEffect();
-    let localVengEffect = shared.getNewVengEffect();
-    return `
+        // the new, new version, with sharedAssets scripting
+        shared.getRandomVengEffect();
+        let localVengEffect = shared.getNewVengEffect();
+        return `
     <div class="vengEffect"><div class="vengRoll">${localVengEffect.roll}</div><div class="vengContent"><div class="vengTitle">${localVengEffect.effectName}</div><div class="vengBody">${localVengEffect.fullDesc}</div></div></div>`; // send back the innerHTML
     }
+
     closeVengeanceClick() {
         if (vengeanceContent.firstElementChild) {
             this.moveVengeanceToHistory();
@@ -379,10 +389,12 @@ class GameComponent extends HTMLElement {
         interactionOverlay.classList.remove('active'); */
         vengeanceModal.close();
     }
+
     moveVengeanceToHistory() { // here's moving the vengeance effect to the top of the history section:
         const moveEffect = vengeanceContent.firstElementChild; // get the first (and only) div in the vengeance container
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
+
     minigameClick() {
         /* // turn on the overlay
         interactionOverlay.classList.add('active'); */
@@ -391,13 +403,15 @@ class GameComponent extends HTMLElement {
         /* this.show([minigameModal]); */
         minigameModal.showModal();
     }
+
     miniRand() {
-    // the new, new version, with sharedAssets scripting
-    shared.getRandomMiniEffect();
-    let localMiniEffect = shared.getNewMiniEffect();
-    return `
+        // the new, new version, with sharedAssets scripting
+        shared.getRandomMiniEffect();
+        let localMiniEffect = shared.getNewMiniEffect();
+        return `
     <div class="miniEffect"><div class="miniRoll">${localMiniEffect.roll}</div><div class="miniContent"><div class="miniTitle">${localMiniEffect.effectName}</div><div class="miniBody">${localMiniEffect.fullDesc}</div></div></div>`; // send back the innerHTML
     }
+
     closeMinigameClick() {
         if (minigameContent.firstElementChild) {
             this.moveMinigameToHistory();
@@ -409,14 +423,17 @@ class GameComponent extends HTMLElement {
         minigameModal.close();
         // reset the minigameTimer
     }
+
     moveMinigameToHistory() { // here's moving the minigame effect to the top of the history section:
         const moveEffect = minigameContent.firstElementChild; // get the first (and only) div in the minigame container
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
+
     nextTurn() {
         // minigame timer
         // check active effects
     }
+
     // Utility! -----------------------
     hide(elementArray) {
         if (Array.isArray(elementArray)) {
@@ -427,8 +444,9 @@ class GameComponent extends HTMLElement {
             }
         }
     }
+
     show(elementArray) {
-        if (Array.isArray(elementArray)){
+        if (Array.isArray(elementArray)) {
             for (const element of elementArray) {
                 if (element.classList.contains('hiddenPart')) {
                     element.classList.remove('hiddenPart');
@@ -437,11 +455,6 @@ class GameComponent extends HTMLElement {
         }
     }
 }
-
-
-
-
-
 
 
 // aaaaand the exported register:

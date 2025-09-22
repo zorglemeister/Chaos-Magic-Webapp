@@ -54,47 +54,54 @@ z-game .welcomeModal {
     width: 75%;
     height: 75%;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
     flex-direction: column;
     justify-content: space-between;
 }
+
 z-game .welcomeTitle {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
     margin: 20px;
 }
+
 z-game .welcomeDescription {
     font-size: 16px;
     text-align: center;
     margin: 20px auto;
 }
+
 z-game .welcomeColumns {
     display: flex;
     justify-content: space-between;
     flex-grow: 1;
 }
+
 z-game .welcomeDetail {
     width: 48%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 z-game .welcomeButton {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
 }
+
 z-game ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     width: 100%;
 }
+
 z-game li {
     margin-bottom: 10px;
     text-align: center;
@@ -103,7 +110,7 @@ z-game li {
 /* active container stuff */
 z-game .activeContainer {
     position: fixed;
-   /*  align-content: center; */
+    /*  align-content: center; */
     align-items: center;
     top: 50%;
     left: 50%;
@@ -111,7 +118,7 @@ z-game .activeContainer {
     width: 95%;
     height: 95%;
     background-color: tan;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
@@ -128,7 +135,7 @@ z-game .minigameModal {
     width: 75%;
     height: 75%;
     background-color: lightblue;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
@@ -136,11 +143,13 @@ z-game .minigameModal {
     justify-content: space-between;
     z-index: 701;
 }
+
 z-game .minigameContent {
     font-size: 16px;
     text-align: center;
     margin: 20px auto;
 }
+
 z-game .minigameCloseButton {
     margin: 10px;
     padding: 10px 20px;
@@ -157,7 +166,7 @@ z-game .vengeanceModal {
     width: 75%;
     height: 75%;
     background-color: lightcoral;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
@@ -165,19 +174,22 @@ z-game .vengeanceModal {
     justify-content: space-between;
     z-index: 701;
 }
+
 z-game .vengeanceContent {
     font-size: 16px;
     text-align: center;
     margin: 20px auto;
 }
+
 z-game .vengEffect {
     display: flex;
     width: 96%;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     background-color: coral;
     border-radius: 8px;
     padding: 10px;
 }
+
 z-game .vengRoll {
     font-size: 36px;
     text-align: center;
@@ -187,6 +199,7 @@ z-game .vengRoll {
     align-items: center;
     justify-content: center;
 }
+
 z-game .vengContent {
     display: flex;
     flex-direction: column;
@@ -194,16 +207,19 @@ z-game .vengContent {
     margin: 2px auto;
     width: 75%;
 }
+
 z-game .vengTitle {
     font-size: 24px;
     text-align: center;
     margin: 2px 0;
 }
+
 z-game .vengBody {
     font-size: 16px;
     text-align: center;
     margin: 2px 0;
 }
+
 z-game .vengeanceCloseButton {
     margin: 10px;
     padding: 10px 20px;
@@ -224,28 +240,34 @@ z-game .controlContainer {
     align-items: center;
 
 }
+
 z-game .controlContainer.hiddenPart {
     display: none;
 }
+
 z-game .buttonWrapper {
     display: flex;
     gap: 20px;
 }
+
 z-game .controlButton {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
+
 z-game .rollButton::before {
     content: "🎲 Roll"; /*  */
     font-size: 24px;
 }
+
 z-game .minigameButton::before {
     content: "🎮 Minigame"; /* maybe ♟ */
     font-size: 24px;
 }
+
 z-game .vengeanceButton::before {
     content: "💀 Vengeance"; /* maybe 🗡 */
     font-size: 24px;
@@ -271,6 +293,7 @@ z-game .drawerContents {
     transform: translateX(-50%);
     bottom: -62vh; /* off-screen to the bottom, may need to adjust */
     height: 60vh; /* drawerHeight (also, how far up it has to move */
+    padding: 0 10px;
     width: 98%;
     background-color: lightgray;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
@@ -295,53 +318,55 @@ z-game .drawerOpen::before {
 }
 
 z-game .drawerClosed {
-        bottom: 10px;
+    bottom: 10px;
 }
 
 z-game .drawerOpen {
-        bottom: 10px;
-        /* I think i want the history button to stay at the bottom */
+    bottom: 10px;
+    /* I think i want the history button to stay at the bottom */
 }
 
 /* MOBILE STYLE - an experiment */
 @media only screen and (max-width: 800px) {
-z-game .drawerClosed::before {
-    content: "˄⌛"; /*  */
-    font-size: 24px;
-    z-index: 601;
-}
+    z-game .drawerClosed::before {
+        content: "˄⌛"; /*  */
+        font-size: 24px;
+        z-index: 601;
+    }
 
-z-game .drawerOpen::before {
-    content: "˅⏳"; /*  */
-    font-size: 24px;
-    z-index: 602;
-}
+    z-game .drawerOpen::before {
+        content: "˅⏳"; /*  */
+        font-size: 24px;
+        z-index: 602;
+    }
 
-z-game .rollButton::before {
-    content: "🎲"; /*  */
-    font-size: 24px;
-}
-z-game .minigameButton::before {
-    content: "🎮"; /* maybe ♟ */
-    font-size: 24px;
-}
-z-game .vengeanceButton::before {
-    content: "💀"; /* maybe 🗡 */
-    font-size: 24px;
-}
+    z-game .rollButton::before {
+        content: "🎲"; /*  */
+        font-size: 24px;
+    }
 
-z-game .drawerContents {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -92vh; /* off-screen to the bottom, may need to adjust */
-    height: 90vh; /* drawerHeight (also, how far up it has to move */
-    width: 100vw;
-    background-color: lightgray;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transition: bottom 1s ease-in-out; /* smooth motion, may need to adjust timing */
-    z-index: 400; /* below the button, above other stuff */
-    overflow-x: auto;
-}
+    z-game .minigameButton::before {
+        content: "🎮"; /* maybe ♟ */
+        font-size: 24px;
+    }
+
+    z-game .vengeanceButton::before {
+        content: "💀"; /* maybe 🗡 */
+        font-size: 24px;
+    }
+
+    z-game .drawerContents {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -92vh; /* off-screen to the bottom, may need to adjust */
+        height: 90vh; /* drawerHeight (also, how far up it has to move */
+        width: 100vw;
+        background-color: lightgray;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        transition: bottom 1s ease-in-out; /* smooth motion, may need to adjust timing */
+        z-index: 400; /* below the button, above other stuff */
+        overflow-x: auto;
+    }
 
 }
