@@ -314,6 +314,8 @@ class GameComponent extends HTMLElement {
         activeContainer.innerHTML = '';
         // wipe history
         historyContainer.innerHTML = '<div class="histGameStart">Game Start</div>';
+        console.log(`list:`, shared.getSettingsPayload().list)
+        console.log(`rarityMatters:`, shared.getSettingsPayload().rarityMatters)
         shared.setRollCounter(0);
         shared.setMinigameCounter(0);
         shared.setActivePlayers(shared.getSettingsPayload().players);

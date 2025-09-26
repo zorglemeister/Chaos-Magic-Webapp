@@ -462,7 +462,7 @@ class SettingsComponent extends HTMLElement {
                     duration: configDurationSelect.value, // any[]
                     rarity: configRaritySelect.value, // any[]
                     repetition: configRepetition.checked, // any
-                    rarityMatters: configRarityMatters.checked, // any
+                    rarityMatters: () => {if (configListSelect.value === 'micro') { return true;} else {return configRarityMatters.checked}}, // any
                     vengeance: configVengeance.checked, // any
                     minigame: configMinigame.checked, // any
                     minigameDelay: configMinigameDelay.value // any

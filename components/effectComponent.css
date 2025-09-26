@@ -34,7 +34,7 @@ z-eff .hiddenPart {
 }
 
 /* how fancy can i get with the effect box? */
-z-eff .effectContainer {
+.activeContainer z-eff .effectContainer {
     /* position: relative; */
     display: flex;
     width: 90%;
@@ -100,6 +100,7 @@ z-eff .descDetails {
     box-shadow: 0 0 0 2px black;
     border-radius: 3px;
     padding: 0 5px;
+    font-size: 36pt;
 }
 
 .historyContainer z-eff .descDetails {
