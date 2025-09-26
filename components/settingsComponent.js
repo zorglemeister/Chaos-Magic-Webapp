@@ -462,11 +462,12 @@ class SettingsComponent extends HTMLElement {
                     duration: configDurationSelect.value, // any[]
                     rarity: configRaritySelect.value, // any[]
                     repetition: configRepetition.checked, // any
-                    rarityMatters: () => {if (configListSelect.value === 'micro') { return true;} else {return configRarityMatters.checked}}, // any
+                    rarityMatters: configListSelect.value === 'micro' ? true : configRarityMatters.checked, // any
                     vengeance: configVengeance.checked, // any
                     minigame: configMinigame.checked, // any
                     minigameDelay: configMinigameDelay.value // any
                 }
+        console.log(`customPayload: `, customPayload);
         // set settingsPayload
         shared.setSettingsPayload(customPayload);
         // update the gameList
