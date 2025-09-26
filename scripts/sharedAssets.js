@@ -367,7 +367,7 @@ function setWeightedList(newWeightedList) {
 // update weightedList
 export function updateWeightedList() {
     let tempWeightedList = [];
-    for (const effect of gameList.effects) { // for each effect...
+    for (const effect of gameList) { // for each effect...
         let instances = null;
         switch (effect.rarity) { // weight it based on 'rarity' by number of times it shows in the array
             case 'common':
@@ -443,15 +443,16 @@ function getRandFromGameList() {
 // return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
 function getSlicedRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
-    return gameList.effects.splice(roll, 1); // splice it out and return the removed element
+    console.log(`gamelist length: `, gameList.length)
+    return gameList.splice(roll, 1); // splice it out and return the removed element
 }
 
 // return weighted random element from gameList (For Repetition = TRUE, Weighted = TRUE)
 function getWeightedRandFromGameList() {
     let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
     let weightedIndex = weightedList[roll]; // set the indexNum from the list
-    let targetIndex = gameList.effects.findIndex(effectIndex => effectIndex === weightedIndex); // then find the effect in the game list...
-    return gameList.effects[targetIndex]; // pass it back
+    let targetIndex = gameList.findIndex(effectIndex => effectIndex.indexNum === weightedIndex); // then find the effect in the game list...
+    return gameList[targetIndex]; // pass it back
 }
 
 // return weighted random element from gameList (destructive with slice for Repetition = FALSE, Weighted = TRUE)
@@ -466,8 +467,8 @@ function getWeightedSlicedRandFromGameList() {
         }
     }
     setWeightedList(tempWeightedList); // and then set the weighted list to the new array
-    let targetIndex = gameList.effects.findIndex(effectIndex => effectIndex === weightedIndex);// then find the effect in the game list...
-    return gameList.effects.splice(targetIndex, 1); // splice it out and return the removed element
+    let targetIndex = gameList.findIndex(effectIndex => effectIndex.indexNum === weightedIndex);// then find the effect in the game list...
+    return gameList.splice(targetIndex, 1); // splice it out and return the removed element
 }
 
 
