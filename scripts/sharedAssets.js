@@ -366,7 +366,9 @@ function setWeightedList(newWeightedList) {
 
 // update weightedList
 export function updateWeightedList() {
+    console.log(`Updating the Weighted List`);
     let tempWeightedList = [];
+    console.log(`gamelist.length: `, gameList.length);
     for (const effect of gameList) { // for each effect...
         let instances = null;
         switch (effect.rarity) { // weight it based on 'rarity' by number of times it shows in the array
@@ -383,6 +385,7 @@ export function updateWeightedList() {
             tempWeightedList.push(effect.indexNum); // add the effect's indexNum to the array
         }
     }
+    console.log(`tempWeightedList: `, tempWeightedList);
     setWeightedList(tempWeightedList);
 }
 
@@ -444,12 +447,16 @@ function getRandFromGameList() {
 function getSlicedRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
     console.log(`gamelist length: `, gameList.length)
-    return gameList.splice(roll, 1); // splice it out and return the removed element
+    let splicedEffect = gameList.splice(roll, 1);
+    console.log(`splicedEffect: `, splicedEffect);
+    return splicedEffect[0]; // splice it out and return the removed element
 }
 
 // return weighted random element from gameList (For Repetition = TRUE, Weighted = TRUE)
 function getWeightedRandFromGameList() {
     let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
+    console.log(`roll`, roll);
+    console.log(`weightedList.length`, weightedList.length);
     let weightedIndex = weightedList[roll]; // set the indexNum from the list
     let targetIndex = gameList.findIndex(effectIndex => effectIndex.indexNum === weightedIndex); // then find the effect in the game list...
     return gameList[targetIndex]; // pass it back
@@ -458,6 +465,8 @@ function getWeightedRandFromGameList() {
 // return weighted random element from gameList (destructive with slice for Repetition = FALSE, Weighted = TRUE)
 function getWeightedSlicedRandFromGameList() {
     let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
+    console.log(`roll`, roll);
+    console.log(`weightedList.length`, weightedList.length);
     let weightedIndex = weightedList[roll]; // set the indexNum from the list
     // remove the instances of that index from the weightedList
     let tempWeightedList = []; // create a temp weighted list
@@ -467,8 +476,13 @@ function getWeightedSlicedRandFromGameList() {
         }
     }
     setWeightedList(tempWeightedList); // and then set the weighted list to the new array
+    console.log(`weightedIndex`, weightedIndex);
     let targetIndex = gameList.findIndex(effectIndex => effectIndex.indexNum === weightedIndex);// then find the effect in the game list...
-    return gameList.splice(targetIndex, 1); // splice it out and return the removed element
+    console.log(`targetIndex`, targetIndex);
+    let splicedEffect = gameList.splice(targetIndex, 1);
+    console.log(`splicedEffect: `, splicedEffect);
+    console.log(`splicedEffect[0]: `, splicedEffect[0]);
+    return splicedEffect[0]; // splice it out and return the removed element
 }
 
 
@@ -491,87 +505,37 @@ function getWeightedSlicedRandFromGameList() {
 let filterCriteria = {};
 
 function buildFilterConditions() {
-    if (settingsPayload.players === 2) { // Set players (duel/multi)
-        filterCriteria.player = 'duel';
-    } else {
-        filterCriteria.player = null; // null = everything
-    }
-    if (settingsPayload.physical === true) { // Set accessible (boolean) (this is a little confusing, because the checkbox is "checked if including effects that involve physical activity")
-        filterCriteria.accessible = null; // if true, includes everything (filter logic says "null = everything")
-    } else {
-        filterCriteria.accessible = true; // otherwise, only include accessible effects
-    }
-    // List selector controls a BUNCH
-    // broke it out into list-specific pieces
+    // Set players (duel/multi)
+    filterCriteria.player = settingsPayload.players === 2 ? 'duel' : null; 
+    // Set accessible (boolean) (this is a little confusing, because the checkbox is "checked if including effects that involve physical activity")
+    // if true, includes everything (filter logic says "null = everything")
+    // otherwise, only include accessible effects
+    filterCriteria.accessible = settingsPayload.physical === true ? null : true;
+    // only exemplar cares about theme, and it's not going to be used in the buildGameList method
+    filterCriteria.exemplarTheme = settingsPayload.theme === 'exemplar' ? settingsPayload.theme : null;
+    // other filter parameters based on the list selection
     switch (settingsPayload.list) {
-        case "micro":
-            filterMicro();
-            break;
-        case "lite":
-            filterLite();
-            break;
-        case "exemplar":
-            filterExemplar();
-            break;
-        case "legacy":
-            filterLegacy();
-            break;
         case "full":
-            filterFull();
+            // Full REALLY doesn't care
+            filterCriteria.inclusion = null;
+            filterCriteria.school = null;
+            filterCriteria.duration = null;
+            filterCriteria.rarity = null;
             break;
         case "custom":
-            filterCustom();
+            // Custom cares about inclusion, school, duration, rarity
+            filterCriteria.inclusion = settingsPayload.list;
+            filterCriteria.school = settingsPayload.school;
+            filterCriteria.duration = settingsPayload.duration;
+            filterCriteria.rarity = settingsPayload.rarity;
+            break;
+        default:
+            // Micro, Lite, Exemplar, and Legacy only care about inclusion
+            filterCriteria.inclusion = settingsPayload.list;
+            filterCriteria.school = null;
+            filterCriteria.duration = null;
+            filterCriteria.rarity = null;
     }
-}
-
-function filterMicro() {
-    // Micro only cares about inclusion
-    filterCriteria.inclusion = settingsPayload.list;
-    filterCriteria.exemplarTheme = null;
-    filterCriteria.school = null;
-    filterCriteria.duration = null;
-    filterCriteria.rarity = null;
-}
-
-function filterLite() {
-    // Lite  only cares about inclusion, same as Micro
-    filterMicro();
-}
-
-function filterExemplar() {
-    // Exemplar cares about inclusion and theme (if all, include everything)
-    filterCriteria.inclusion = settingsPayload.list;
-    if (settingsPayload.theme === "all") {
-        filterCriteria.exemplarTheme = null; // filter logic says "null = everything"
-    } else {
-        filterCriteria.exemplarTheme = settingsPayload.theme;
-    }
-    filterCriteria.school = null;
-    filterCriteria.duration = null;
-    filterCriteria.rarity = null;
-}
-
-function filterLegacy() {
-    // Legacy only cares about inclusion, same as Micro
-    filterMicro();
-}
-
-function filterFull() {
-    // Full REALLY doesn't care
-    filterCriteria.inclusion = null;
-    filterCriteria.exemplarTheme = null;
-    filterCriteria.school = null;
-    filterCriteria.duration = null;
-    filterCriteria.rarity = null;
-}
-
-function filterCustom() {
-    // Custom cares about inclusion, school, duration, rarity
-    filterCriteria.inclusion = settingsPayload.list;
-    filterCriteria.exemplarTheme = null;
-    filterCriteria.school = settingsPayload.school;
-    filterCriteria.duration = settingsPayload.duration;
-    filterCriteria.rarity = settingsPayload.rarity;
 }
 
 function buildGameList() {

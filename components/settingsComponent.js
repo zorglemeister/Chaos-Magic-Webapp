@@ -457,7 +457,7 @@ class SettingsComponent extends HTMLElement {
                     players: configPlayerCount.value, // any
                     list: configListSelect.value, // any
                     physical: configPhysical.checked, // any
-                    theme: configTheme.value, // string
+                    theme: configListSelect.value === 'exemplar' ? configTheme.value : null, // string
                     school: configSchoolSelect.value, // any[]
                     duration: configDurationSelect.value, // any[]
                     rarity: configRaritySelect.value, // any[]
