@@ -22,121 +22,86 @@
 // ***
 // HERE BE THINGS THAT ARE SET/GET
 
-// define settingsPayload <- updated by settings, then used by randomizer (game) and list generator (settings)
-let settingsPayload = {}
-
-// get settingsPayload
+// SETTINGSPAYLOAD STRUCTURE <- updated by settings, then used by randomizer (game) and list generator (settings)
+let settingsPayload = {};
 export function getSettingsPayload() {
     return settingsPayload;
 }
-
-// set settingsPayload
 export function setSettingsPayload(newSettings) {
     settingsPayload = newSettings;
 }
 
-// define newEffect <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
-let newEffect = {
-    activeDesc: false,
-    displayNum: "",
-    indexNum: undefined,
-    inspiration: false,
-    shortDesc: "",
-    specFunc: false
-};
-
-// get newEffect
+// PREVIOUSEFFECT STRUCTURE <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
+let newEffect = {};
 export function getNewEffect() {
     return newEffect;
 }
-
-// set newEffect
 export function setNewEffect(newNewEffect) {
     newEffect = newNewEffect;
 }
 
-// define previousEffect <- updated by new roll (game), used by ongoing
+// PREVIOUSEFFECT STRUCTURE
 let previousEffect = null;
-
-// get previousEffect
 export function getPreviousEffect() {
     return previousEffect;
 }
-
-// set previousEffect
 export function setPreviousEffect(newPreviousEffect) {
     previousEffect = newPreviousEffect;
 }
 
-// define newVengEffect
-let newVengEffect = {
-    fullDesc: undefined
-};
-
-// get newVengEffect
+// NEW VENGEANCE EFFECT STRUCTURE
+let newVengEffect = {};
 export function getNewVengEffect() {
     return newVengEffect;
 }
-
-// set newvengEffect
 export function setNewVengEffect(newNewVengEffect) {
     newVengEffect = newNewVengEffect;
 }
 
-// define newMiniEffect
-let newMiniEffect = {
-    effectName: undefined
-};
-
-// get newMiniEffect
+// NEW MINI EFFECT STRUCTURE
+let newMiniEffect = {};
 export function getNewMiniEffect() {
     return newMiniEffect;
 }
-
-// set newMiniEffect
 export function setNewMiniEffect(newNewMiniEffect) {
     newMiniEffect = newNewMiniEffect;
 }
 
-// define rollCounter
-let rollCounter = null;
+// NEW THEME EFFECT STRUCTURE
+let newThemeEffect = {};
+export function getNewThemeEffect() {
+    return newThemeEffect;
+}
+export function setNewThemeEffect(newNewThemeEffect) {
+    newThemeEffect = newNewThemeEffect;
+}
 
-// get rollCounter
+// ROLLCOUNTER STRUCTURE
+let rollCounter = null;
 export function getRollCounter() {
     return rollCounter;
 }
-
-// set rollCounter
 export function setRollCounter(newRollCounter) {
     rollCounter = newRollCounter;
 }
 
-// define minigameCounter
+// MINIGAMECOUNTER STRUCTURE
 let minigameCounter = null;
-
-// get minigameCounter
 export function getMinigameCounter() {
     return minigameCounter;
 }
-
-// set minigameCounter
 export function setMinigameCounter(newMinigameCounter) {
     minigameCounter = newMinigameCounter;
 }
 
-// define activePlayers
+// ACTIVEPLAYERS STRUCTURE
 let activePlayers = null;
-
-// get activePlayers
 export function getActivePlayers() {
     return activePlayers;
 }
-
-// set activePlayers
 export function setActivePlayers(newActivePlayers) {
     activePlayers = newActivePlayers;
 }
-
 
 // ***
 // HERE BE THINGS THAT ARE FANCY
@@ -312,8 +277,92 @@ export function getRandomMiniEffect() {
         let tempEffect = miniList[Object.keys(miniList)[roll]];
 
         tempEffect.roll = roll; // add the rolled value as a parameter
-        setNewMiniEffect(tempEffect); // set the newVengEffect
+        setNewMiniEffect(tempEffect); // set the newMiniEffect
     }
+}
+
+// THEME LIST
+
+// define themeList
+let themeList = {};
+
+// get themeList
+export function getThemeList() {
+    return themeList;
+}
+
+// set themeList
+function setThemeList(newThemeList) {
+    themeList = newThemeList;
+}
+
+// clear themeList
+function clearThemeList() {
+    if (!themeList) {
+        for (let key in themeList) { // for each key in themeList...
+            if (themeList.hasOwnProperty(key)) { // if themeList has a property with that name (it should!)
+                delete themeList[key]; // delete that property
+            }
+        }
+    }
+}
+
+// update themeList
+export function updateThemeList() {
+    clearThemeList();
+    setThemeList(buildThemeList());
+}
+
+// build the theme list (by filtering sourceList)
+function buildThemeList() {
+    return sourceList.effects.filter(effect => {
+        return (
+            (effect.exemplarTheme.includes(filterCriteria.theme)));
+    });
+}
+
+// THEME RANDOMIZER
+export function getRandomThemeEffect() {
+    let tempEffect = {};
+    const themeListLength = Object.keys(themeList).length;
+    if (randomizerConfig.repetition === true) {
+            tempEffect = getRandFromThemeList(themeListLength); // rep true
+        } else {
+            tempEffect = getSplicedRandFromThemeList(themeListLength); // rep false
+        }
+
+    
+    if (themeListLength > 0) {
+        const roll = Math.floor(Math.random() * themeListLength); // random on the list
+        let tempEffect = themeList[Object.keys(themeList)[roll]];
+
+        tempEffect.roll = roll; // add the rolled value as a parameter
+    }
+    setNewThemeEffect(tempEffect); // set the newThemeEffect
+}
+
+// return random element from themeList, Repetition = TRUE
+function getRandFromThemeList(themeListLength) {
+    if (themeListLength > 0) {
+        const roll = Math.floor(Math.random() * themeListLength); // random on the list
+        let tempEffect = themeList[Object.keys(themeList)[roll]];
+
+        tempEffect.roll = roll; // add the rolled value as a parameter
+    }
+    return tempEffect; // pass it back
+}
+
+// return random element from themeList, destructive with splice for Repetition = FALSE
+function getSplicedRandFromThemeList(themeListLength) {
+    if (themeListLength > 0) {
+        const roll = Math.floor(Math.random() * themeListLength); // random on the list
+        let tempEffect = themeList.splice(Object.keys(themeList)[roll], 1); // i THINK this'll splice it out?
+
+        tempEffect.roll = roll; // add the rolled value as a parameter
+    }
+    /* let roll = Math.floor(Math.random() * gameList.length); // random on the list
+    let splicedEffect = gameList.splice(roll, 1); */
+    return tempEffect[0]; // splice it out and return the removed element
 }
 
 // GAME LIST
@@ -429,9 +478,9 @@ export function getRandomEffect() {
         }
     } else {
         if (randomizerConfig.rarityMatters === true) {
-            tempEffect = getWeightedSlicedRandFromGameList(); // rep false, weight true
+            tempEffect = getWeightedSplicedRandFromGameList(); // rep false, weight true
         } else {
-            tempEffect = getSlicedRandFromGameList(); // rep false, weight false
+            tempEffect = getSplicedRandFromGameList(); // rep false, weight false
         }
     }
     return tempEffect;
@@ -443,8 +492,8 @@ function getRandFromGameList() {
     return gameList[roll]; // pass it back
 }
 
-// return random element from gameList (destructive with slice for Repetition = FALSE, Weighted = FALSE)
-function getSlicedRandFromGameList() {
+// return random element from gameList (destructive with splice for Repetition = FALSE, Weighted = FALSE)
+function getSplicedRandFromGameList() {
     let roll = Math.floor(Math.random() * gameList.length); // random on the list
     console.log(`gamelist length: `, gameList.length)
     let splicedEffect = gameList.splice(roll, 1);
@@ -462,8 +511,8 @@ function getWeightedRandFromGameList() {
     return gameList[targetIndex]; // pass it back
 }
 
-// return weighted random element from gameList (destructive with slice for Repetition = FALSE, Weighted = TRUE)
-function getWeightedSlicedRandFromGameList() {
+// return weighted random element from gameList (destructive with splice for Repetition = FALSE, Weighted = TRUE)
+function getWeightedSplicedRandFromGameList() {
     let roll = Math.floor(Math.random() * weightedList.length); // random on the weighted list
     console.log(`roll`, roll);
     console.log(`weightedList.length`, weightedList.length);
@@ -512,7 +561,7 @@ function buildFilterConditions() {
     // otherwise, only include accessible effects
     filterCriteria.accessible = settingsPayload.physical === true ? null : true;
     // only exemplar cares about theme, and it's not going to be used in the buildGameList method
-    filterCriteria.exemplarTheme = settingsPayload.theme === 'exemplar' ? settingsPayload.theme : null;
+    filterCriteria.theme = settingsPayload.list === 'exemplar' ? settingsPayload.theme : null;
     // other filter parameters based on the list selection
     switch (settingsPayload.list) {
         case "full":
@@ -551,8 +600,8 @@ function buildGameList() {
             (!filterCriteria.accessible || effect.accessible.includes(filterCriteria.accessible)) &&
             // inclusion match
             (!filterCriteria.inclusion || effect.inclusion.includes(filterCriteria.inclusion)) &&
-            // theme match
-            (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)) &&
+            // theme match *** Pulled this, was reducing Exemplar to JUST the theme table
+            /* (!filterCriteria.exemplarTheme || effect.exemplarTheme.includes(filterCriteria.exemplarTheme)) && */
             // school match
             (!filterCriteria.school || effect.school.includes(filterCriteria.school)) &&
             // duration match

@@ -33,6 +33,8 @@ export function effect136() {
         <div class="shortDesc">${effectShortIntro}${effectFuncContent}</div>
         <div class="fullDesc hiddenPart">${effectFullIntro}${effectFuncContent}</div>
         `; // returns the descBlock construct with the same functional content in both the short and full
+    // prepping for passing effect object attributes
+    
 }
 
 // Ocean of Life (37)
