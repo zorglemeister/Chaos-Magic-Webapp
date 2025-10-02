@@ -66,6 +66,55 @@ import * as shared from '../scripts/sharedAssets.js'; // includes randomUnique()
 // I only want one instance of the randomizer, so it'll be loaded in index.js and then can be called from special effect. I won't need the FULL effect body (right?), so maybe I write a new interpreter there? or should I compartmentalize the effect composer as well?
 // what happens if "roll twice" happens to generate "roll thrice"?
 
+
+// REWORKING FLOW (October '25 Edition)
+/* Okay, so the effect component needs a few attributes that can be used in other places:
+1. The Effect
+The primary effect details. Displays in the gameComponent.currentContainer.
+Contains name, num, shortDesc, fullDesc, components, inspiration
+Has interactions with the "expand details" button
+May contain rollButton, flipCoin, and inlineSymbol components
+2. The Active (Optional)
+The effect details tuned for the "activeEffects" pane.
+Contains name, activeDesc, duration, controllingPlayer
+Has interactions with the "clear effect" button and turn tracker
+May contain rollButton, flipCoin, and inlineSymbol components
+
+How do we make these?
+effect data is stored in shared.newEffect
+it is structured like this:
+{
+    "effectName": "string", <-- every effect will have an effectName
+    "shortDesc": "string", <-- every effect will have a shortDesc
+    "fullDesc": "string", <-- many effects will have a fullDesc
+    "activeDesc": "string", <-- some effect will have an activeDesc
+    "indexNum": numeric,
+    "displayNum": "string",
+    "player": "string",
+    "accessible": boolean,
+    "inclusion": [
+        "array",
+        "of",
+        "strings"
+    ],
+    "exemplarTheme": "string",
+    "school": [
+        "array",
+        "of",
+        "strings"
+    ],
+    "duration": "string",
+    "rarity": "string",
+    "component": "string",
+    "inspiration": "string",
+    "specFunc": boolean,
+}
+This component needs to shared.getNewEffect() into a local-scope entity and parse it to build the external attributes
+
+I think the easiest way to do this will be to declare the bits in constructor and build them piece by piece
+
+May need two render statements: one for currentEffect container, one for activeEffect
+*/
 class EffectComponent extends HTMLElement {
     constructor() {
         super();
@@ -101,6 +150,13 @@ class EffectComponent extends HTMLElement {
     }
 
     render() {
+        /* Working up the handling logic for current v active
+        const containerClass = this.parentElement.classList;
+        if (containerClass.includes('current))
+        
+        
+        
+        */
         this.append(this.effectTemplate.content.cloneNode(true)); // Stick it in the DOM
 
         // sets the ID for the copy in the DOM
@@ -281,6 +337,4 @@ class EffectComponent extends HTMLElement {
     }
 }
 
-export const registerEffectComponent = () => {
-    customElements.define('z-eff', EffectComponent);
-}
+export { EffectComponent };

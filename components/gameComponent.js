@@ -1,7 +1,7 @@
 // This holds the main gamestate and all the little pieces of it.
 // pretty sure I need to import the bits...
 
-import {registerEffectComponent} from './effectComponent.js';
+import { EffectComponent } from './effectComponent.js';
 import {registerFlipCoinComponent} from './flipCoinComponent.js';
 import {registerOngoingComponent} from './ongoingComponent.js';
 import {registerInlineSymbolComponent} from './inlineSymbolComponent.js';
@@ -55,7 +55,7 @@ If you have feedback or ideas, email me at jo@zorgle.art.<br />Known Issues (not
 </div>
 <div class="visiblePart">
 <z-oe></z-oe>
-<div class="activeContainer">active cont</div>
+<div class="currentContainer">current cont</div>
 <div class="interactionOverlay"></div>
 <dialog class="minigameModal">
 <div class="minigameContent">
@@ -92,7 +92,7 @@ Vengeance Content
 // notes:
 
 // Initial state:
-// active = empty
+// current = empty
 // history = empty
 // roll = visible
 // vengeance = setting
@@ -100,8 +100,8 @@ Vengeance Content
 
 // Main flow:
 // Roll is clicked
-// if activeEffect exists, move to history (visual note: slide historyDrawer up just enough to see the old effect add to it, then close it again)
-// generate newEffect, add to active
+// if currentEffect exists, move to history (visual note: slide historyDrawer up just enough to see the old effect add to it, then close it again)
+// generate newEffect, add to current
 // increment turn counter
 
 // vengeance flow:
@@ -120,9 +120,9 @@ let welcomeModal = null;
 let defaultButton = null;
 let customizeButton = null;
 let visiblePart = null;
-let activeContainer = null;
+let currentContainer = null;
 let interactionOverlay = null;
-        let minigameModal = null;
+let minigameModal = null;
 let minigameContent = null;
 let minigameCloseButton = null;
 let vengeanceModal = null;
@@ -164,7 +164,6 @@ class GameComponent extends HTMLElement {
     }
 
     render() {
-        registerEffectComponent(); // get the effectComponent in here
         registerFlipCoinComponent(); // get the coinFlip in here
         registerOngoingComponent(); // get the ongoing Effect drawer in here
         registerInlineSymbolComponent(); // get the inline Symbols in here
@@ -176,7 +175,7 @@ class GameComponent extends HTMLElement {
         defaultButton = this.getElementsByClassName("defaultButton")[0];
         customizeButton = this.getElementsByClassName("customizeButton")[0];
         visiblePart = this.getElementsByClassName("visiblePart")[0];
-        activeContainer = this.getElementsByClassName("activeContainer")[0];
+        currentContainer = this.getElementsByClassName("currentContainer")[0];
         interactionOverlay = this.getElementsByClassName("interactionOverlay")[0];minigameModal = this.getElementsByClassName("minigameModal")[0];
         minigameContent = this.getElementsByClassName("minigameContent")[0];
         minigameCloseButton = this.getElementsByClassName("minigameCloseButton")[0];
@@ -311,7 +310,7 @@ class GameComponent extends HTMLElement {
             minigameButton.disabled = true;
         }
         // wipe active effect
-        activeContainer.innerHTML = '';
+        currentContainer.innerHTML = '';
         // wipe history
         historyContainer.innerHTML = '<div class="histGameStart">Game Start</div>';
         console.log(`list:`, shared.getSettingsPayload().list)
@@ -328,10 +327,9 @@ class GameComponent extends HTMLElement {
         window.dispatchEvent(newRoll);
         // increment rollCounter
         shared.setRollCounter(shared.getRollCounter() + 1);
-        // poke the randomizer to update generatedEffect
-        // this.randomizer
+
         // move the current active effect to history
-        if (activeContainer.firstElementChild) {
+        if (currentContainer.firstElementChild) {
             this.moveActiveToHistory();
         }
 
@@ -341,26 +339,18 @@ class GameComponent extends HTMLElement {
             shared.setPreviousEffect(shared.getNewEffect()) // set it to the previous effect
         }
         shared.setNewEffect(shared.getRandomEffect()); // trip the randomizer...
-        // ONCE THE EFFECT COMPONENT IS BUILT, THIS'LL PUT THE TRIGGER TAG INTO THE ACTIVE CONTAINER:
-        // OKAY, Going to TRY IT! (committing current state first)
-        activeContainer.innerHTML = '<z-eff></z-eff>';
-        /* let localEffect = shared.getNewEffect(); // then get the newEffect...
-        // put the newEffect into a TOTALLY PLACEHOLDER THING
-        activeContainer.innerHTML = `
-        <div class="testEffect"><b>${localEffect.displayNum} ${localEffect.effectName}</b> <i>${localEffect.shortDesc}</i><br>${localEffect.fullDesc}`;
- */
-        // this.moveActiveToHistory();
-        // create a new effect in activeContainer
 
-        // ** CURRENTLY A PLACEHOLDER FOR TESTING
-        // activeContainer.innerHTML = `<div class="testEffect">Oh gosh, looks like roll number ${shared.getRollCounter()}! Do the inline symbols work? <z-is>WUBRG</z-is> and for an effect: <z-is>1</z-is>, <z-is>T</z-is>: do a thing! MORE! <z-is>TXICS0123EEEE</z-is> Let's try rolling <z-rb>2d6</z-rb>, <z-rb>1d10+20</z-rb>, <z-rb>1d4+2d6</z-rb>, <z-rb>direction</z-rb>, <z-rb>color</z-rb>, <z-rb>mana type</z-rb>, <z-rb>color or colorless</z-rb>, <z-rb>basic land</z-rb>, <z-rb>basic and wastes</z-rb>, <z-rb>land type</z-rb>, <z-rb>any basic land</z-rb>, <z-rb>landwalk</z-rb>, <z-rb>permanent</z-rb>, <z-rb>walk</z-rb> inline.</div>`;
-        // took out "as well as flipping a coin.<z-fc></z-fc>" until I'm ready to dive in to troubleshooting that...
-        // increment minigameTimer
+        // create the new effectComponent, assign to a variable
+        const effectInsert = new EffectComponent();
+        // pass it to a new effectComponent
+
+        currentContainer.innerHTML = '<z-eff></z-eff>';
+
         shared.setMinigameCounter(shared.getMinigameCounter() + 1);
     }
 
     moveActiveToHistory() { // here's moving the active effect to the top of the history section:
-        const moveEffect = activeContainer.firstElementChild; // get the first (and only) div in the active container
+        const moveEffect = currentContainer.firstElementChild; // get the first (and only) div in the active container
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
 
