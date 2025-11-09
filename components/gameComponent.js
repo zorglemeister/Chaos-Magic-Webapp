@@ -1,7 +1,8 @@
 // This holds the main gamestate and all the little pieces of it.
 // pretty sure I need to import the bits...
 
-import { EffectComponent } from './effectComponent.js';
+/* import { EffectComponent } from './effectComponent.js'; */
+import {registerEffectComponent} from './effectComponent.js';
 import {registerFlipCoinComponent} from './flipCoinComponent.js';
 import {registerOngoingComponent} from './ongoingComponent.js';
 import {registerInlineSymbolComponent} from './inlineSymbolComponent.js';
@@ -164,6 +165,7 @@ class GameComponent extends HTMLElement {
     }
 
     render() {
+        registerEffectComponent(); // get the effectComponent in here
         registerFlipCoinComponent(); // get the coinFlip in here
         registerOngoingComponent(); // get the ongoing Effect drawer in here
         registerInlineSymbolComponent(); // get the inline Symbols in here
@@ -330,7 +332,7 @@ class GameComponent extends HTMLElement {
 
         // move the current active effect to history
         if (currentContainer.firstElementChild) {
-            this.moveActiveToHistory();
+            this.moveCurrentToHistory();
         }
 
         // LET TRY IT!
@@ -340,17 +342,17 @@ class GameComponent extends HTMLElement {
         }
         shared.setNewEffect(shared.getRandomEffect()); // trip the randomizer...
 
-        // create the new effectComponent, assign to a variable
+/*         // create the new effectComponent, assign to a variable
         const effectInsert = new EffectComponent();
-        // pass it to a new effectComponent
+        // pass it to a new effectComponent */
 
         currentContainer.innerHTML = '<z-eff></z-eff>';
 
         shared.setMinigameCounter(shared.getMinigameCounter() + 1);
     }
 
-    moveActiveToHistory() { // here's moving the active effect to the top of the history section:
-        const moveEffect = currentContainer.firstElementChild; // get the first (and only) div in the active container
+    moveCurrentToHistory() { // here's moving the current effect to the top of the history section:
+        const moveEffect = currentContainer.firstElementChild; // get the first (and only) div in the current container
         historyContainer.insertBefore(moveEffect, historyContainer.firstElementChild); // reparent the effect to the top of the history container
     }
 

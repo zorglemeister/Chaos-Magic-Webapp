@@ -114,6 +114,69 @@ This component needs to shared.getNewEffect() into a local-scope entity and pars
 I think the easiest way to do this will be to declare the bits in constructor and build them piece by piece
 
 May need two render statements: one for currentEffect container, one for activeEffect
+
+An effect has up to four potential text strings:
+shortDesc: Every effect has a shortDesc. This appears in the currentEffect component.
+fullDesc: Many effects have a fullDesc. This is mostly the same as the shortDesc, but has additional detail or explanation. This appears in the currentEffect component when the "moreDetails" button is clicked.
+activeDesc: Some effects have an activeDesc. This appears in the ongoingEffect component.
+cleanupDesc: Some effects with an activeDesc also have a cleanupDesc. This contains information for when the effect expires. This appears in the expiringEffect dialog.
+These strings may contain inline components, like "rollButton", that a user can interact with to generate a value. The same rollButton may appear in more than one of the strings. Interacting with a rollButton should update all the other instances of that rollButton simultaneously.
+For example:
+let effect = {
+"shortDesc": "Roll <r-b>1d6</r-b>.",
+"fullDesc": "",
+"activeDesc": "",
+"cleanupDesc": ""
+}
+This should only render a single rollButton, with 1d6 as the contents.
+
+An example of multiple rollButtons:
+let effect = {
+"shortDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>.",
+"fullDesc": "",
+"activeDesc": "",
+"cleanupDesc": ""
+}
+This should render two separate rollButtons, with 1d6 and 2d4 as the contents. Interacting with 1d6 should trigger that update, but should not update 2d4.
+
+An example of the same rollButton across multiple strings:
+let effect = {
+"shortDesc": "Roll <r-b>1d6</r-b>.",
+"fullDesc": "Roll <r-b>1d6</r-b>.",
+"activeDesc": "",
+"cleanupDesc": ""
+}
+The rollButton should be rendered in both strings. Whether it is interacted with in the shortDesc or fullDesc context, the update should apply to both instances.
+
+A more complicated example is multiple rollButtons across multiple strings:
+let effect = {
+"shortDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>..",
+"fullDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>..",
+"activeDesc": "Ongoing <r-b>1d6</r-b> and <r-b>2d4</r-b>.",
+"cleanupDesc": ""
+}
+Both rollButtons should render in each string. Interacting with 1d6 in any string context will update the 1d6 rollButton in the other strings, but should not interact with the 2d4 rollButton.
+
+Even more complex is rollButtons that may not be in the same order:
+let effect = {
+"shortDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>..",
+"fullDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>..",
+"activeDesc": "Ongoing <r-b>2d4</r-b> and <r-b>1d6</r-b>.",
+"cleanupDesc": ""
+}
+A method of tagging or otherwise linking rollButtons in the string so the correct instance can be used is needed.
+
+Finally, some rollButtons may not have multiple instances:
+let effect = {
+"shortDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>..",
+"fullDesc": "Roll <r-b>1d6</r-b> and <r-b>2d4</r-b>..",
+"activeDesc": "Ongoing <r-b>2d4</r-b> and <r-b>1d6</r-b>.",
+"cleanupDesc": "Unrelatedly, roll <r-b>1d20</r-b>."
+}
+
+
+
+
 */
 class EffectComponent extends HTMLElement {
     constructor() {
@@ -140,6 +203,9 @@ class EffectComponent extends HTMLElement {
                 </div>
             </div>
             `;
+        // let's see if we can get the text to resize to fit the descBlock
+        this.descBlock = this.getElementsByClassName('descBlock')[0]; // define the descBlock
+        window.addEventListener('resize', () => this.fitText()); // set up a handler for window resize
     }
 
     connectedCallback() {
@@ -236,6 +302,8 @@ class EffectComponent extends HTMLElement {
 
         }
 
+        // once rendered, check the text sizing
+        this.fitText();
 
     }
 
@@ -246,6 +314,8 @@ class EffectComponent extends HTMLElement {
             this.getElementsByClassName('shortDesc')[0].classList.toggle('hiddenPart');
             this.getElementsByClassName('fullDesc')[0].classList.toggle('hiddenPart');
         }
+        // resize the text
+        this.fitText();
         if (this.getElementsByClassName('effectComponents')[0]) { // if there's an effectComponents, toggle it
             this.getElementsByClassName('effectComponents')[0].classList.toggle('hiddenPart');
         }
@@ -335,6 +405,19 @@ class EffectComponent extends HTMLElement {
             return 'Custom function not defined'; // let me know it didn't work
         }
     }
+    fitText() {
+        let fontSize = 48; // start big
+        this.descBlock.style.setProperty('--details-text-size',`${fontSize}px`); // set the style
+        // check the scroll size and reduce the font size until it fits (meaning the scroll height
+        // and width are less than or equal to the container height and width)
+        while (this.descBlock.scrollWidth > this.descBlock.clientWidth || this.descBlock.scrollHeight > this.descBlock.clientHeight) {
+            fontSize -= 1; // reduce the font size
+            this.descBlock.style.setProperty('--details-text-size',`${fontSize}px`); // set it
+        }
+    }
 }
 
-export { EffectComponent };
+/* export { EffectComponent }; */
+export const registerEffectComponent = () => {
+    customElements.define('z-eff', EffectComponent);
+}

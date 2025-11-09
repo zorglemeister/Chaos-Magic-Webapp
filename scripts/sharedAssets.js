@@ -31,7 +31,7 @@ export function setSettingsPayload(newSettings) {
     settingsPayload = newSettings;
 }
 
-// PREVIOUSEFFECT STRUCTURE <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
+// NEWEFFECT STRUCTURE <- updated by randomizer (game), used by effect, vengeance, and minigame (game)
 let newEffect = {};
 export function getNewEffect() {
     return newEffect;

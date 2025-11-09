@@ -107,8 +107,8 @@ z-game li {
     text-align: center;
 }
 
-/* active container stuff */
-z-game .activeContainer {
+/* current container stuff */
+z-game .currentContainer {
     position: fixed;
     /*  align-content: center; */
     align-items: center;
