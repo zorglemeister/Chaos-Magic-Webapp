@@ -15,7 +15,7 @@ z-index reference
 z-eff :root {
     --details-button-width: 0px;
     --details-button-height: 0px;
-    --details-text-size: 48px;
+    --effect-text-size: 48px;
 }
 
 /* controls the button text for the descSwitch button */
@@ -104,7 +104,7 @@ z-eff .displayNum {
 }
 
 .currentContainer z-eff .descDetails .descBlock {
-    font-size: var(--details-text-size);
+    font-size: var(--effect-text-size);
     white-space: nowrap;
 }
 

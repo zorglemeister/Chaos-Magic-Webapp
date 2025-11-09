@@ -407,12 +407,12 @@ class EffectComponent extends HTMLElement {
     }
     fitText() {
         let fontSize = 48; // start big
-        this.descBlock.style.setProperty('--details-text-size',`${fontSize}px`); // set the style
+        this.descBlock.style.setProperty('--effect-text-size',`${fontSize}px`); // set the style
         // check the scroll size and reduce the font size until it fits (meaning the scroll height
         // and width are less than or equal to the container height and width)
         while (this.descBlock.scrollWidth > this.descBlock.clientWidth || this.descBlock.scrollHeight > this.descBlock.clientHeight) {
             fontSize -= 1; // reduce the font size
-            this.descBlock.style.setProperty('--details-text-size',`${fontSize}px`); // set it
+            this.descBlock.style.setProperty('--effect-text-size',`${fontSize}px`); // set it
         }
     }
 }
