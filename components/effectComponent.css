@@ -94,6 +94,7 @@ z-eff .displayNum {
     height: 80%;
     box-sizing: border-box;
     /* overflow: hidden; */
+    
     position: relative;
     margin: 10px 0 0 0;
     border: 1px solid black;
@@ -105,7 +106,7 @@ z-eff .displayNum {
 
 .currentContainer z-eff .descDetails .descBlock {
     font-size: var(--effect-text-size);
-    white-space: nowrap;
+    /*white-space: nowrap;*/
 }
 
 .historyContainer z-eff .descDetails {
