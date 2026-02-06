@@ -53,7 +53,7 @@ z-game .welcomeModal {
     transform: translate(-50%, -50%);
     width: 75%;
     height: 75%;
-    overflow-y:scroll;
+    overflow-y: scroll;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
@@ -71,17 +71,15 @@ z-game .welcomeTitle {
 z-game .welcomeDescription {
     font-size: 16px;
     text-align: center;
-    margin: 20px auto;
 }
 
 z-game .welcomeColumns {
-    column-gap: 20px;
+    column-gap: 40px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 20px 25%;
+    justify-content: center;
+    margin: 20px 0;
     row-gap: 20px;
-    width: 50%;
 }
 
 z-game .welcomeDetail {
