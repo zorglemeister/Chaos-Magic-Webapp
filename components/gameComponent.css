@@ -53,13 +53,12 @@ z-game .welcomeModal {
     transform: translate(-50%, -50%);
     width: 75%;
     height: 75%;
+    overflow-y:scroll;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 z-game .welcomeTitle {
@@ -76,35 +75,47 @@ z-game .welcomeDescription {
 }
 
 z-game .welcomeColumns {
+    column-gap: 20px;
     display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 20px 25%;
+    row-gap: 20px;
+    width: 50%;
 }
 
 z-game .welcomeDetail {
-    width: 48%;
+    align-items: center;
+    border: 1px solid lightblue;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    min-width: 160px;
+    padding: 20px;
+    width: 20%;
 }
 
 z-game .welcomeButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
-}
-
-z-game ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 10px;
     width: 100%;
 }
 
-z-game li {
-    margin-bottom: 10px;
+z-game ul {
+    color: #666;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     text-align: center;
+    width: 100%;
+}
+
+z-game ul li:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 /* current container stuff */
