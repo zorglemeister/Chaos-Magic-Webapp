@@ -74,7 +74,7 @@ z-game .welcomeDescription {
 }
 
 z-game .welcomeColumns {
-    column-gap: 40px;
+    column-gap: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
